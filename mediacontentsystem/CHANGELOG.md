@@ -6,6 +6,14 @@
 
 ## [Unreleased]
 
+## [0.2.2] - 2022-04-13
+### Изменено
+- ссылки tags изменены на ссылки compare
+
+## [0.2.1] - 2022-04-13
+### Исправлено
+- последняя версия должна идти в начале файла
+
 ## [0.2.0] - 2022-04-13
 ### Добавлено
 - файлы idea
@@ -20,6 +28,8 @@
 ### Удалено
 ### Исправлено
 
-[0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/petr.klyukin-v0.2.0
-[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/petr.klyukin-v0.1.0
+[0.2.2]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.1...petr.klyukin-v0.2.2
+[0.2.1]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.0...petr.klyukin-v0.2.1
+[0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.1.0...petr.klyukin-v0.2.0
+[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.1.0...klyukin.petr-project
 
