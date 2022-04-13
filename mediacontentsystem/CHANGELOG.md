@@ -6,13 +6,13 @@
 
 ## [Unreleased]
 
-## [0.1.0] - 2022-04-13
-### Добавлено
-- файлы проекта
-
 ## [0.2.0] - 2022-04-13
 ### Добавлено
 - файлы idea
+
+## [0.1.0] - 2022-04-13
+### Добавлено
+- файлы проекта
 
 ## [0.Y.Z] - YYYY-MM-DD
 ### Добавлено
@@ -20,5 +20,6 @@
 ### Удалено
 ### Исправлено
 
-[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/petr.klyukin-v0.1.0
 [0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/petr.klyukin-v0.2.0
+[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/petr.klyukin-v0.1.0
+
