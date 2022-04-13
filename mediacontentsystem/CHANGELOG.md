@@ -6,6 +6,11 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-04-14
+### Добавлено
+- checkstyle с правилами от google на этапе сборки
+- зависимость maven-checkstyle-plugin
+
 ## [0.2.2] - 2022-04-13
 ### Изменено
 - ссылки tags изменены на ссылки compare
@@ -28,6 +33,7 @@
 ### Удалено
 ### Исправлено
 
+[0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.2...petr.klyukin-v0.3.0
 [0.2.2]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.1...petr.klyukin-v0.2.2
 [0.2.1]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.0...petr.klyukin-v0.2.1
 [0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.1.0...petr.klyukin-v0.2.0
