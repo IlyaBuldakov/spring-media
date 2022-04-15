@@ -71,7 +71,7 @@ public class Content {
     private @Getter UserBasic author;
 
     /**
-     * Формат контента
+     * Формат контента {@link Format}
      *
      * @return format Формат контента
      */

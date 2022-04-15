@@ -40,7 +40,7 @@ public class UserRole {
     private @Getter int id;
 
     /**
-     * Тип роли
+     * Тип роли {@link RoleType}
      *
      * @return roleType Тип роли
      */
