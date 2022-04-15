@@ -47,7 +47,7 @@ public class Content {
      *
      * @return contentType Тип контента
      */
-    private @Getter ContentType contentType;
+    private @Getter ContentType type;
 
     /**
      * Название контента

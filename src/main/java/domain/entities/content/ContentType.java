@@ -40,9 +40,9 @@ public class ContentType {
     private @Getter int id;
 
     /**
-     * Тип контента
+     * Наименование (тип) контента
      *
-     * @return type Тип контента
+     * @return name Наименование контента
      */
-    private @Getter Type type;
+    private @Getter Type name;
 }
