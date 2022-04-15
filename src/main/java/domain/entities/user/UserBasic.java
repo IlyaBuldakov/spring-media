@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Упрощённое представление пользователя
+ * Упрощённое (базовое) представление пользователя
  *
  * @author IlyaBuldakov
  */
