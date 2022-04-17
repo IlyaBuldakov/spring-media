@@ -11,5 +11,5 @@ public class AuthRefreshTokenDto {
     /**
      * Токен обновления
      */
-    @Getter String refreshToken;
+    @Getter private String refreshToken;
 }

@@ -11,10 +11,10 @@ public class AuthLoginResponseDto {
     /**
      * Токен доступа
      */
-    @Getter String accessToken;
+    @Getter private String accessToken;
 
     /**
      *  Токен обновления
      */
-    @Getter String refreshToken;
+    @Getter private String refreshToken;
 }

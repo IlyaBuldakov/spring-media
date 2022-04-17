@@ -11,9 +11,9 @@ public class AuthLoginRequestDto {
     /**
      *
      */
-    @Getter String email;
+    @Getter private String email;
     /**
      *
      */
-    @Getter String password;
+    @Getter private String password;
 }
