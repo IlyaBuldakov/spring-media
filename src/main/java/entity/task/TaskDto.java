@@ -1,5 +1,8 @@
 package entity.task;
 
+import entity.comment.CommentDto;
+import entity.content.ContentDto;
+import entity.content.ContentTypeDto;
 import entity.users.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

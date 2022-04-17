@@ -1,5 +1,6 @@
 package entity.task;
 
+import entity.content.ContentTypeDto;
 import entity.users.UserBasicDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
