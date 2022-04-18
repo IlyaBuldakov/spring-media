@@ -6,7 +6,7 @@
 
     <groupId>com.htc</groupId>
     <artifactId>yur-project</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <build>
         <plugins>
             <plugin>
@@ -46,5 +46,12 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+        </dependency>
+    </dependencies>
 
 </project>

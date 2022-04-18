@@ -166,3 +166,6 @@ buildNumber.properties
 
 # macOS Desktop Service Store
 .DS_Store
+
+# yur-project (my) specification
+/yur-specification.yaml
