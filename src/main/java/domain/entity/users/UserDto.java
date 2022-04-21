@@ -1,4 +1,4 @@
-package entity.users;
+package domain.entity.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class UserDto {
     /**
      * Изображение пользователя
      */
-    @Getter private String avatar;
+    @Getter private byte[] avatar;
 
     /**
      * Роль пользователя
