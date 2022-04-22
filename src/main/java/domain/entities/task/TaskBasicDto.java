@@ -5,22 +5,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * Задача - базовый класс
+ * Задача - базовый класс.
  */
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskBasicDto {
 
-    /**
-     * @return id идентификатор задачи
-     */
-    private @Getter int id;
+  /**
+   * Возвращает @return id идентификатор задачи.
+   */
+  private @Getter int id;
 
-    /**
-     * @return name Название задачи
-     */
-    private @Getter String name;
+  /**
+   * Возвращает @return name название задачи.
+   */
+  private @Getter String name;
 
 
 }

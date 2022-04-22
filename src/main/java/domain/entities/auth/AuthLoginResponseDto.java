@@ -4,20 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * ответ сервиса авторизации
+ * ответ сервиса авторизации.
  */
 @AllArgsConstructor
 public class AuthLoginResponseDto {
 
-    /**
-     * @return Токен доступа
-     */
-    private @Getter String accessToken;
+  /**
+   * Возвращает @return токен доступа.
+   */
+  private @Getter String accessToken;
 
-    /**
-     * @return Токен обновления
-     */
-    private @Getter String refreshToken;
+  /**
+   * Возвращает @return токен обновления.
+   */
+  private @Getter String refreshToken;
 
 }
 

@@ -5,35 +5,35 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public class TaskStatusDto {
-    /**
-     * Виды ролей пользователя.
-     */
-    public enum TaskStatus {
-        /**
-         * В работе.
-         */
-        INWORK,
-        /**
-         * Ожидает отзыва.
-         */
-        FEEDBACK,
-        /**
-         * Подтверждено.
-         */
-        APPROVED
-    }
+  /**
+   * Виды ролей пользователя.
+   */
+  public enum TaskStatus {
+      /**
+       * В работе.
+       */
+      INWORK,
+      /**
+       * Ожидает отзыва.
+       */
+      FEEDBACK,
+      /**
+       * Подтверждено.
+       */
+      APPROVED
+  }
 
-    /**
-     * Идентификатор роли.
-     *
-     * @return id Идентификатор статуса
-     */
-    private @Getter int id;
+  /**
+   * Идентификатор роли.
+   *
+   * @return id Идентификатор статуса
+   */
+  private @Getter int id;
 
-    /**
-     * Название роли.
-     *
-     * @return name Название статуса
-     */
-    private @Getter TaskStatus name;
+  /**
+   * Название роли.
+   *
+   * @return name Название статуса
+   */
+  private @Getter TaskStatus name;
 }

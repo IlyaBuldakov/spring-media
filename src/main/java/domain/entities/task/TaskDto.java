@@ -5,68 +5,68 @@ import domain.entities.content.ContentDto;
 import domain.entities.content.ContentTypeDto;
 import domain.entities.file.FileDto;
 import domain.entities.user.UserDto;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 
 /**
- * Задача
+ * Задача.
  */
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskDto extends TaskBasicDto {
 
-    /**
-     * @return type Тип контента
-     */
-    private @Getter ContentTypeDto type;
+  /**
+   * Возвращает @return type тип контента.
+   */
+  private @Getter ContentTypeDto type;
 
-    /**
-     * @return description Описание задачи
-     */
-    private @Getter String description;
+  /**
+   * Возвращает @return description описание задачи.
+   */
+  private @Getter String description;
 
-    /**
-     * @return FileDto[] Файлы задачи
-     */
-    private @Getter FileDto[] files;
+  /**
+   * Возвращает @return FileDto[] файлы задачи.
+   */
+  private @Getter FileDto[] files;
 
-    /**
-     * @return UserDto Автор задачи
-     */
-    private @Getter UserDto author;
+  /**
+   * Возвращает @return UserDto автора задачи.
+   */
+  private @Getter UserDto author;
 
-    /**
-     * @return UserDto Исполнитель задачи
-     */
-    private @Getter UserDto executor;
+  /**
+   * Возвращает @return UserDto исполнителя задачи.
+   */
+  private @Getter UserDto executor;
 
-    /**
-     * @return LocalDate дата создания задачи
-     */
-    private @Getter LocalDate dateCreated;
+  /**
+   * Возвращает @return LocalDate дату создания задачи.
+   */
+  private @Getter LocalDate dateCreated;
 
-    /**
-     * @return LocalDate Дата выполнения задачи
-     */
-    private @Getter LocalDate dateExpired;
+  /**
+   * Возвращает @return LocalDate дату выполнения задачи.
+   */
+  private @Getter LocalDate dateExpired;
 
-    /**
-     * @return ContentDto[] contents Приложенный контент
-     */
-    private @Getter ContentDto[] contents;
+  /**
+   * Возвращает @return ContentDto[] contents приложенный контент.
+   */
+  private @Getter ContentDto[] contents;
 
-    /**
-     * @return CommentDto[] comments Комментарии к задаче
-     */
-    private @Getter CommentDto[] comments;
+  /**
+   * Возвращает @return CommentDto[] comments комментарии к задаче.
+   */
+  private @Getter CommentDto[] comments;
 
-    /**
-     * @return TaskStatusDto status Статус задачи
-     */
-    private @Getter TaskStatusDto status;
+  /**
+   * Возвращает @return TaskStatusDto status статус задачи.
+   */
+  private @Getter TaskStatusDto status;
 
 }

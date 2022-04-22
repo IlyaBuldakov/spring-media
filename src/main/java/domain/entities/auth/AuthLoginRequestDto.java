@@ -4,19 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Запрос на авторизацию
+ * Запрос на авторизацию.
  */
 @AllArgsConstructor
 public class AuthLoginRequestDto {
 
-   /**
-    * @return email пользователя
-    */
-   private @Getter String email;
+  /**
+   * Возвращает @return email пользователя.
+   */
+  private @Getter String email;
 
-   /**
-    * @return password пользователя
-    */
-   private @Getter String password;
+  /**
+   * Возвращает @return password пользователя.
+   */
+  private @Getter String password;
 
 }

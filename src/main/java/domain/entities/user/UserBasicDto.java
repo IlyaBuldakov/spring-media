@@ -5,23 +5,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * Пользователь - основные данные
+ * Пользователь - основные данные.
  */
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserBasicDto {
-    /**
-     * Идентификатор пользователя.
-     *
-     * @return id Идентификатор пользователя.
-     */
-    private @Getter int id;
+  /**
+   * Возвращает @return id Идентификатор пользователя.
+   */
+  private @Getter int id;
 
-    /**
-     * @return name Имя пользователя.
-     */
-    private @Getter String name;
+  /**
+   * Возвращает @return name имя пользователя.
+   */
+  private @Getter String name;
 
 
 }

@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Токен обновления
+ * Токен обновления.
  */
 @AllArgsConstructor
 public class AuthRefreshTokenDto {
 
-    /**
-     * @return Токен обновления
-     */
-    private @Getter String refreshToken;
+  /**
+   * Возвращает @return токен обновления.
+   */
+  private @Getter String refreshToken;
 
 }

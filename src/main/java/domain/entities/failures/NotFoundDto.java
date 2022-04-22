@@ -4,17 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Ошибка поиска
+ * Ошибка поиска.
  */
 @AllArgsConstructor
 public class NotFoundDto implements Failure {
 
-    /**
-     * @return Код статуса
-     */
-    private @Getter int statusCode;
+  /**
+   * Возвращает @return код статуса.
+   */
+  private @Getter int statusCode;
 
-    /**
-     * @return Текст ошибки
-     */
-    private @Getter String error;
+  /**
+   * Возвращает @return текст ошибки.
+   */
+  private @Getter String error;
+
+}

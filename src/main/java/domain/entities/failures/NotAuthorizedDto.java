@@ -4,19 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Ошибка авторизации
+ * Ошибка авторизации.
  */
 @AllArgsConstructor
 public class NotAuthorizedDto implements Failure {
 
-    /**
-     * @return Код статуса
-     */
-    private @Getter int statusCode;
+  /**
+   * Возвращает @return код статуса.
+   */
+  private @Getter int statusCode;
 
-    /**
-     * @return Текст ошибки
-     */
-    private @Getter String error;
+  /**
+   * Возвращает @return текст ошибки.
+   */
+  private @Getter String error;
 
 }
