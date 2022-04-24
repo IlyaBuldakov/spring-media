@@ -10,4 +10,4 @@
 - Создана заготовка проекта.
 - Добавлен Checkstyle с правилами Google на этапе сборки.
 
-[0.1.0]: https://gitlab.study.htc-cs.com/root/java/grade/-/compare/yaroslav.tarakanov-v0.0.0...yaroslav.tarakanov-v0.1.0
+[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.0.0...yaroslav.tarakanov-v0.1.0
