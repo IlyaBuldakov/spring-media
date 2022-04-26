@@ -27,6 +27,13 @@ public class User {
     private @Getter String name;
 
     /**
+     * Пароль пользователя
+     *
+     * @return password Пароль пользователя
+     */
+    private @Getter String password;
+
+    /**
      * E-mail пользователя
      *
      * @return email E-mail пользователя
