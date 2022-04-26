@@ -6,7 +6,7 @@ ___
 
  - **org.junit.jupiter:junit-jupiter** - модульные тесты.
 
- - **org.mockito:mockito-core** - объекты-заглушки.
+ - **org.mockito:mockito-junit-jupiter** - объекты-заглушки с поддержкой JUnit.
 
  - **org.assertj:assertj-core** - человекочитаемые проверки.
 
