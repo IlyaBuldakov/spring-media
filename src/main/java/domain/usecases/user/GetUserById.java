@@ -22,7 +22,6 @@ public final class GetUserById implements UseCase<Integer, User> {
 
     @Override
     public Future<Either<Failure, User>> execute(Integer param) {
-        userRepository.get(1);
-        return null;
+        return userRepository.get(param);
     }
 }
