@@ -3,14 +3,37 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
-## [0.2.0] - 2022-04-18
+<!--
+## [0.4.0] - 2022-05-03
+### Добавлено
+- Библиотека JUnit.
+- Библиотека Mockito.
+- Библиотека AssertJ.
+-->
+## [0.3.0] - 2022-05-03
+### Добавлено
+- Библиотека Vavr.
+- Базовый тип сценария использования.
+### Исправлено
+- Роль пользователя переработана согласно спецификации.
+- Репозиторий пользователя.
+
+## [0.2.0] - 2022-04-26
 ### Добавлено
 - Библиотека Lombok.
+- Сущности: 
+  - Пользователь
+  - Роль пользователя
+  - Репозиторий пользователя
+  - Токены
+  - Ошибки
+### Исправлено
+- Указана версия для плагина компилятора maven.
 
 ## [0.1.0] - 2022-04-17
 ### Добавлено
 - Заготовка проекта.
-- Checkstyle с правилами Google.
+- Плагин Checkstyle с правилами Google.
 
 <!--
 ## [0.z.q] - yyyy-mm-dd
@@ -21,5 +44,7 @@
 
 [0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
 -->
+[0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.3.0...yuriy.krasnoperov-v0.4.0
+[0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.2.0...yuriy.krasnoperov-v0.3.0
 [0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.1.0...yuriy.krasnoperov-v0.2.0
 [0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/yuriy.krasnoperov-v0.0.0...yuriy.krasnoperov-v0.1.0
