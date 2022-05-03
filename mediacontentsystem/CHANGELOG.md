@@ -4,12 +4,26 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
-## [Unreleased]
+## [0.4.0] - 2022-05-03
+### Добавлено
+- зависимость `spring-boot-starter-web`
+- зависимость `lombok`
+- зависимость `io.vavr:vavr`
+- зависимость `org.assertj:assertj-core`
+- плагин `maven-compiler-plugin`
+- в слое `domain` сущность `user`
+- в слое `domain` сущность `failures`
+- в слое `domain` репозиторий для сущности `user`
+- в слое `domain` сценарий использования `GetUserById`
+- модульные тесты для сценария `GetUserById`
+
+### Удалено
+- зависимость `spring-boot-starter`
 
 ## [0.3.0] - 2022-04-14
 ### Добавлено
 - checkstyle с правилами от google на этапе сборки
-- зависимость maven-checkstyle-plugin
+- зависимость `maven-checkstyle-plugin`
 
 ## [0.2.2] - 2022-04-13
 ### Изменено
@@ -33,6 +47,7 @@
 ### Удалено
 ### Исправлено
 
+[0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.3.0...petr.klyukin-v0.4.0
 [0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.2...petr.klyukin-v0.3.0
 [0.2.2]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.1...petr.klyukin-v0.2.2
 [0.2.1]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.0...petr.klyukin-v0.2.1
