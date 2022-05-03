@@ -5,6 +5,7 @@ import domain.entities.user.User;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
+import lombok.AllArgsConstructor;
 
 import java.util.concurrent.Future;
 
@@ -13,7 +14,9 @@ import java.util.concurrent.Future;
  *
  * @author IlyaBuldakov
  */
-public class UpdateUser implements UseCase<User, User> {
+
+@AllArgsConstructor
+public final class UpdateUser implements UseCase<User, User> {
 
     UserRepository userRepository;
 

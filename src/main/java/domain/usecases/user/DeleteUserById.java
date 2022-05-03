@@ -4,6 +4,7 @@ import domain.entities.failures.Failure;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
+import lombok.AllArgsConstructor;
 
 import java.util.concurrent.Future;
 
@@ -12,7 +13,9 @@ import java.util.concurrent.Future;
  *
  * @author IlyaBuldakov
  */
-public class DeleteUserById implements UseCase<Integer, Void> {
+
+@AllArgsConstructor
+public final class DeleteUserById implements UseCase<Integer, Void> {
 
     UserRepository userRepository;
 

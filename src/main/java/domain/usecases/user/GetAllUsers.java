@@ -5,6 +5,7 @@ import domain.entities.user.User;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -14,7 +15,9 @@ import java.util.concurrent.Future;
  *
  * @author IlyaBuldakov
  */
-public class GetAllUsers implements UseCase<Void, List<User>> {
+
+@AllArgsConstructor
+public final class GetAllUsers implements UseCase<Void, List<User>> {
 
     UserRepository userRepository;
 
