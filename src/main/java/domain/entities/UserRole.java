@@ -11,7 +11,7 @@ public class UserRole {
   /**
    * Виды ролей пользователя.
    */
-  enum RoleType {
+  public enum RoleType {
     /**
      * Администратор.
      */
@@ -38,6 +38,6 @@ public class UserRole {
    *
    * @return name - название роли
    */
-  private @Getter String name;
+  private @Getter RoleType name;
 }
 
