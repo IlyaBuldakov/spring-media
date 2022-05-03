@@ -47,4 +47,4 @@
 [0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.3.0...yuriy.krasnoperov-v0.4.0
 [0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.2.0...yuriy.krasnoperov-v0.3.0
 [0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.1.0...yuriy.krasnoperov-v0.2.0
-[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/yuriy.krasnoperov-v0.0.0...yuriy.krasnoperov-v0.1.0
+[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.0.0...yuriy.krasnoperov-v0.1.0
