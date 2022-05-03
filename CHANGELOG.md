@@ -19,7 +19,7 @@
 ### Удалено
 ### Исправлено
 
-[0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/Yuriy.Krasnoperov-v0.X_old.Y_old...Yuriy.Krasnoperov-v0.X.Y
+[0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
 -->
-[0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/Yuriy.Krasnoperov-v0.1.0...Yuriy.Krasnoperov-v0.2.0
-[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/Yuriy.Krasnoperov-v0.1.0
+[0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.1.0...yuriy.krasnoperov-v0.2.0
+[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/tags/yuriy.krasnoperov-v0.0.0...yuriy.krasnoperov-v0.1.0
