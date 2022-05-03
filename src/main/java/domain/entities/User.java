@@ -13,40 +13,40 @@ public class User {
    *
    * @return id - новый идентификатор
    */
-  @Getter private int id;
+  private @Getter int id;
 
   /**
    * Имя пользователя.
    *
    * @return name - имя пользователя
    */
-  @Getter private String name;
+  private @Getter String name;
 
   /**
    * Пароль.
    *
    * @return password - пароль пользователя
    */
-  @Getter private String password;
+  private @Getter String password;
 
   /**
    * Электронная почта.
    *
    * @return email - электронная почта пользователя
    */
-  @Getter private String email;
+  private @Getter String email;
 
   /**
    * Аватар.
    *
    * @return avatar - аватар пользователя
    */
-  @Getter private String avatar;
+  private @Getter String avatar;
 
   /**
-   * Роль, подробнее {@link UserRole}.
+   * Роль пользователя.
    *
-   * @return role - роль пользователя
+   * @return role - роль, подробнее {@link UserRole}
    */
-  @Getter private UserRole role;
+  private @Getter UserRole role;
 }
