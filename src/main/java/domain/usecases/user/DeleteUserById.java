@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 @AllArgsConstructor
 public final class DeleteUserById implements UseCase<Integer, Void> {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Future<Either<Failure, Void>> execute(Integer param) {

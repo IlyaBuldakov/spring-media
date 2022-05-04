@@ -19,7 +19,7 @@ import java.util.concurrent.Future;
 @AllArgsConstructor
 public final class GetAllUsers implements UseCase<Void, List<User>> {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Future<Either<Failure, List<User>>> execute(Void param) {

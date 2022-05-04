@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 @AllArgsConstructor
 public final class CreateUser implements UseCase<User, User> {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Future<Either<Failure, User>> execute(User param) {
