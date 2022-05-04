@@ -2,7 +2,6 @@ package domain.usecases.user;
 
 import domain.entities.failures.NotFound;
 import domain.entities.user.User;
-import domain.entities.user.UserRole;
 import domain.entities.user.Users;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
@@ -53,14 +52,7 @@ class GetUserByIdTest {
     void userExists_shouldReturnUser() throws ExecutionException, InterruptedException {
         var userId = new Random().nextInt();
 
-        final User user = new User(
-                userId,
-                "Бузова Ольга",
-                "password",
-                "example@mail.ru",
-                new byte[]{},
-                new UserRole(1, UserRole.RoleType.ADMIN)
-        );
+        final User user = Users.createTestUser(userId);
 
         when(mockUserRepository.get(userId))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
