@@ -16,8 +16,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author IlyaBuldakov
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class GetUserByIdTest {
 
-    final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
+    final UserRepository mockUserRepository = mock(UserRepository.class);
     final GetUserById useCase = new GetUserById(mockUserRepository);
 
     @Test
