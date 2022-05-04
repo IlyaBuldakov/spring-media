@@ -3,6 +3,7 @@ package domain.usecases.user;
 import domain.entities.failures.NotFound;
 import domain.entities.user.User;
 import domain.entities.user.UserRole;
+import domain.entities.user.Users;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -43,6 +44,11 @@ class GetUserByIdTest {
         verify(mockUserRepository).get(userId);
     }
 
+
+    /**
+     * Тест-проверка на факт того, что пользователь получен именно тот,
+     * который был запрошен. Дополнительно проверяется идентификатор
+     */
     @Test
     void userExists_shouldReturnUser() throws ExecutionException, InterruptedException {
         var userId = new Random().nextInt();
@@ -63,6 +69,7 @@ class GetUserByIdTest {
                 .get()
                 .get();
 
+        assertThat(result.getId()).isEqualTo(user.getId());
         assertThat(result).isEqualTo(user);
     }
 
