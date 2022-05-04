@@ -57,7 +57,7 @@ public interface UserRepository {
      * @param query Запрос
      * @return Список пользователей
      */
-    Future<Either<Failure, List<User>>> search(String query);
+    Future<Either<Failure, Iterable<User>>> search(String query);
 
     /**
      * Получение списка пользователей, соответствующих запросу и роли
@@ -66,7 +66,7 @@ public interface UserRepository {
      * @param userRole Роль
      * @return Список пользователей
      */
-    Future<Either<Failure, List<User>>> search(String query, UserRole userRole);
+    Future<Either<Failure, Iterable<User>>> search(String query, UserRole userRole);
 
 
 }
