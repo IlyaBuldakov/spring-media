@@ -7,7 +7,7 @@ import lombok.Getter;
  *
  */
 @AllArgsConstructor
-public class NotFoundDto {
+public class NotFoundDto implements Failure{
     /**
      * код статуса ошибки
      */

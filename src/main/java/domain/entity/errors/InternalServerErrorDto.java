@@ -7,7 +7,7 @@ import lombok.Getter;
  *
  */
 @AllArgsConstructor
-public class InternalServerErrorDto {
+public class InternalServerErrorDto implements Failure{
     /**
      * код статуса ошибки
      */
