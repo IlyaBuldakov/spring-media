@@ -1,19 +1,41 @@
 package domain.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * Роль пользователя.
  */
-public enum UserRole {
+@AllArgsConstructor
+public class UserRole {
   /**
-   * Администратор.
+   * Виды ролей пользователя.
    */
-  ADMIN,
+  enum RoleType {
+    /**
+     * Администратор.
+     */
+    ADMIN,
+    /**
+     * Менеджер.
+     */
+    MANAGER,
+    /**
+     * Контент-мейкер.
+     */
+    CONTENT_MAKER
+  }
+
   /**
-   * Менеджер.
+   * Идентификатор роли.
+   *
+   * @return id Идентификатор роли.
    */
-  MANAGER,
+  private @Getter int id;
   /**
-   * Контент-мейкер.
+   * Название роли.
+   *
+   * @return name Название роли.
    */
-  CONTENT_MAKER
+  private @Getter String  name;
 }
