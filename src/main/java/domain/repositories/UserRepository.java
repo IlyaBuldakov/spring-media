@@ -1,8 +1,8 @@
 package domain.repositories;
 
-import domain.entities.User;
-import domain.entities.UserRole;
 import domain.entities.failures.Failure;
+import domain.entities.user.User;
+import domain.entities.user.UserRole;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.Future;
