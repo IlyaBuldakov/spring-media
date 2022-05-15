@@ -14,22 +14,21 @@ public class User {
    *
    * @return id Идентификатор пользователя.
    */
-  @Getter
-  private int id;
+  private @Getter int id;
 
   /**
    *  Электронная почта пользователя.
    *
    * @return id Электронная почта пользователя.
    */
-  private String email;
+  private @Getter String email;
 
   /**
    *  Пароль пользователя.
    *
    * @return id Пароль пользователя.
    */
-  private String password;
+  private @Getter String password;
 
   /**
    *  Имя пользователя.
