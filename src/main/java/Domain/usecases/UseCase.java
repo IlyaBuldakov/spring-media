@@ -11,5 +11,12 @@ import java.util.concurrent.Future;
  * @param <ResultT> - результат работы сценария
  */
 public interface UseCase<ParamT, ResultT> {
+
+  /**
+   * Сценарий использования.
+   *
+   * @param param - параметр сценария использования
+   * @return - результат работы сценария использования
+   */
   Future<Either<Failure, ResultT>> execute(ParamT param);
 }

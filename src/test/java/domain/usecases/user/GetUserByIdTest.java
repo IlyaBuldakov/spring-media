@@ -37,7 +37,7 @@ class GetUserByIdTest {
   void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
     //arrange
     var testUserId = new Random().nextInt();
-    final User user = new User(
+    var user = new User(
             testUserId,
             "mail@mail.ru",
             "hardPassword",
