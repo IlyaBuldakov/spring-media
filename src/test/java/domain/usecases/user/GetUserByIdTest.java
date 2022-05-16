@@ -35,7 +35,7 @@ class GetUserByIdTest {
 
   @Test
   void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
-    //arrange
+    // Arrange
     var testUserId = new Random().nextInt();
     var user = new User(
             testUserId,
@@ -48,11 +48,11 @@ class GetUserByIdTest {
     Mockito
             .when(mockUserRepository.get(testUserId))
             .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
-    //act
+    // Act
     var result = useCase.execute(testUserId)
             .get()
             .get();
-    //assert
+    // Assert
     assertThat(result).isEqualTo(user);
   }
 

@@ -6,7 +6,6 @@ import domain.entities.user.UserRole;
 import io.vavr.control.Either;
 import java.util.concurrent.Future;
 
-
 /**
  * Репозиторий пользователя.
  */
@@ -54,6 +53,7 @@ public interface UserRepository {
 
   /**
    * Получение списка пользователей, чье имя соответствует строке запроса {@code query}.
+   * Проверяется не полное соответствие строки запроса и имени пользователя, а ищется подстрока.
    *
    * @param query - строка запроса
    *
@@ -62,8 +62,9 @@ public interface UserRepository {
   Future<Either<Failure, Iterable<User>>> search(String query);
 
   /**
-   * Получение списка пользователей, чье имя и роль соответствует
-   * строке запроса {@code query} и роли {@code role}.
+   * Получение списка пользователей, чье имя и роль соответствует строке
+   * запроса {@code query} и роли {@code role}. Проверяется не полное соответствие строки
+   * запроса и имени пользователя, а ищется подстрока.
    *
    * @param query - строка запроса
    * @param role - роль пользователя, подробнее {@link UserRole}
