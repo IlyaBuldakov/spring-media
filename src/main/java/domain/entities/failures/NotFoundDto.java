@@ -1,6 +1,9 @@
 package domain.entities.failures;
 
-public class NotFoundDto {
-    private int statusCode;
-    private String error;
+/**
+ * Сущность не найдена.
+ */
+public class NotFoundDto implements Failure {
+  private int statusCode;
+  private String error;
 }

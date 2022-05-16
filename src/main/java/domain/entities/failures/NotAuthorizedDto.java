@@ -1,7 +1,9 @@
 package domain.entities.failures;
 
-public class NotAuthorizedDto {
-    private int statusCode;
-    private String error;
-
+/**
+ * Не авторизован.
+ */
+public class NotAuthorizedDto implements Failure {
+  private int statusCode;
+  private String error;
 }

@@ -1,7 +1,10 @@
 package domain.entities.failures;
 
-public class InternalServerErrorDto {
-    private int statusCode;
-    private String error;
+/**
+ * Внутренняя ошибка сервера.
+ */
+public class InternalServerErrorDto implements Failure {
+  private int statusCode;
+  private String error;
 
 }

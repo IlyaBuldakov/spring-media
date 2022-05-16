@@ -1,6 +1,9 @@
 package domain.entities.failures;
 
-public class FieldInvalidDto {
-    private String field;
-    private String message;
+/**
+ * Ощибка поля.
+ */
+public class FieldInvalidDto implements Failure {
+  private String field;
+  private String message;
 }
