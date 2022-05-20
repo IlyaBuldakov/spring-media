@@ -1,4 +1,4 @@
-package domain.entities;
+package domain.entities.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,5 +37,5 @@ public class UserRole {
    *
    * @return name Название роли.
    */
-  private @Getter String  name;
+  private @Getter RoleType name;
 }

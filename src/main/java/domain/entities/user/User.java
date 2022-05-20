@@ -1,8 +1,7 @@
-package domain.entities;
+package domain.entities.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Пользователь.
