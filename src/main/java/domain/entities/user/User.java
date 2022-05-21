@@ -36,9 +36,9 @@ public class User {
    */
   private @Getter byte[] avatar;
   /**
-   * Роль пользователя, см. {@link RoleDto}.
+   * Роль пользователя, см. {@link Role}.
    *
    * @return Роль пользователя.
    */
-  private @Getter RoleDto role;
+  private @Getter Role role;
 }

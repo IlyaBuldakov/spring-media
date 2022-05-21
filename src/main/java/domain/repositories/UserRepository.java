@@ -1,10 +1,9 @@
 package domain.repositories;
 
 import domain.entities.failures.Failure;
-import domain.entities.user.RoleDto;
+import domain.entities.user.Role;
 import domain.entities.user.User;
 import io.vavr.control.Either;
-
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -66,5 +65,5 @@ public interface UserRepository {
    * @param role  Роль пользователя.
    * @return Список пользователей.
    */
-  Future<Either<Failure, List<User>>> search(String query, RoleDto role);
+  Future<Either<Failure, List<User>>> search(String query, Role role);
 }
