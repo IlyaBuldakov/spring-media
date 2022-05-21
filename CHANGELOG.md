@@ -4,8 +4,7 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
-
-## [v0.2.0] - 2022-05-15
+## [v0.2.0] - 2022-05-21
 ### Добавлено
 - Добавлен репозиторий пользователей.
 - Базовый тип сценария использования (Use Case).
@@ -29,10 +28,6 @@
  - Сущности задач.
  - Добавлен Checkstyle с правилами [Google Java Code Style](https://google.github.io/styleguide/javaguide.html).
 
-## [0.Y.Z] - YYYY-MM-DD
-### Добавлено
-### Изменено
-### Удалено
-### Исправлено
-
-[v0.1.0]: https://gitlab.study.htc-cs.com/root/java/grade/-/tags/0.1.0
+[v0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.0.0...aleksandr.aziatcev-v0.1.0
+[v0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.1.0...aleksandr.aziatcev-v0.2.0
+[v0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.2.0...aleksandr.aziatcev-v0.3.0
