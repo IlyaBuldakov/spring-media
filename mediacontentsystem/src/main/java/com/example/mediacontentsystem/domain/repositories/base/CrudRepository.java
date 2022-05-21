@@ -31,7 +31,7 @@ public interface CrudRepository<EntityT> {
    *
    * @return Получает список всех сущностей.
    */
-  Future<Either<Failure, List<EntityT>>> getAll();
+  Future<Either<Failure, Iterable<EntityT>>> getAll();
 
   /**
    * Обновляет сущность.

@@ -18,7 +18,7 @@ public interface UserRepository extends CrudRepository<User> {
    * @param name имя пользователя.
    * @return Список пользователей по имени.
    */
-  Future<Either<Failure, List<User>>> filter(String name);
+  Future<Either<Failure, Iterable<User>>> filter(String name);
 
   /**
    * Список пользователей по имени и роли.
@@ -27,5 +27,5 @@ public interface UserRepository extends CrudRepository<User> {
    * @param role роль пользователя.
    * @return Список пользователей по имени и роли.
    */
-  Future<Either<Failure, List<User>>> filter(String name, Role role);
+  Future<Either<Failure, Iterable<User>>> filter(String name, Role role);
 }
