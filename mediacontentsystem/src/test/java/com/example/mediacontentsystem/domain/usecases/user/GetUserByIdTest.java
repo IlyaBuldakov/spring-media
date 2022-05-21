@@ -7,7 +7,7 @@ import com.example.mediacontentsystem.domain.entities.user.Role;
 import com.example.mediacontentsystem.domain.entities.user.RoleType;
 import com.example.mediacontentsystem.domain.entities.user.User;
 import com.example.mediacontentsystem.domain.repositories.UserRepository;
-import com.example.mediacontentsystem.domain.usecases.UseCase;
+import com.example.mediacontentsystem.domain.usecases.UseCaseUsingParams;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -42,38 +42,45 @@ class GetUserByIdTest {
 
   @Test
   void shouldInheritUseCase() {
-    assertThat(useCase).isInstanceOf(UseCase.class);
+    // Assert
+    assertThat(useCase).isInstanceOf(UseCaseUsingParams.class);
   }
 
   @Test
   void shouldCallMethodGetFromTheRepository() {
+    // Act
     useCase.execute(userId);
+
+    // Assert
     Mockito.verify(mockUserRepository).get(userId);
   }
 
   @Test
   void shouldGetUserFromTheRepository() throws ExecutionException, InterruptedException {
+    // Arrange
     Mockito
         .when(mockUserRepository.get(userId))
         .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
+    // Act
     var result = useCase.execute(userId).get().get();
 
+    // Assert
     assertThat(result).isEqualTo(user);
   }
 
   @Test
   void notExistsUser_shouldReturnNotFound() throws ExecutionException, InterruptedException {
+    // Arrange
     var failure = new NotFound();
-
     Mockito
         .when(mockUserRepository.get(userId))
         .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
 
+    // Act
     var result = useCase.execute(userId).get().getLeft();
 
+    // Assert
     assertThat(result).isEqualTo(failure);
   }
-
-
 }
