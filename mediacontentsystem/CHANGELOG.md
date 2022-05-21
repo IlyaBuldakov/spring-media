@@ -4,6 +4,18 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [0.5.0] - 2022-05-21
+### Добавлено
+- интерфейс сценария использования принимающий параметры
+- в слое `domain` сценарий использования `GetAllUsers` получение всех пользователей
+- модульные тесты для сценария `GetAllUsers`
+
+### Изменено
+- интерфейс `UseCase`
+- сценарий использования `GetUserById`
+- репозиторий для сущности `user`
+- модульные тесты для сценария `GetUserById`
+
 ## [0.4.0] - 2022-05-03
 ### Добавлено
 - зависимость `spring-boot-starter-web`
@@ -47,6 +59,7 @@
 ### Удалено
 ### Исправлено
 
+[0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.4.0...petr.klyukin-v0.5.0
 [0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.3.0...petr.klyukin-v0.4.0
 [0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.2...petr.klyukin-v0.3.0
 [0.2.2]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.1...petr.klyukin-v0.2.2
