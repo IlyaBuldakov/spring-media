@@ -6,13 +6,23 @@
 
 ## [0.2.0] - 2022-05-15
 
+### Добавлено
+- В `README.md` описаны зависимости проекта.
+- Базовый тип сценария использования (Use Case).
+- Репозиторий пользователей.
+- Сценарий получения пользователя по идентификатору и тесты для него.
+
 ### Исправлено
 - Роль пользователя переработана в соответствии со спецификацией.
+- Написана документация Javadoc.
 
 ## [0.1.0] - 2022-04-07
 
 ### Добавлено
 - Создана заготовка проекта.
-- Добавлен Checkstyle с правилами Google на этапе сборки.
+- Добавлен Checkstyle с правилами [Google Java Code Style](https://google.github.io/styleguide/javaguide.html) на этапе сборки проекта с помощью Maven.
+- Сущности, относящиеся к пользователям.
+- Сущности ошибок (Failure).
 
 [0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.0.0...yaroslav.tarakanov-v0.1.0
+[0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.1.0...yaroslav.tarakanov-v0.2.0
