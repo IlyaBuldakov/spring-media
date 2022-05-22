@@ -3,8 +3,6 @@ package domain.entity.task;
 import domain.entity.Comment;
 import domain.entity.Content;
 import domain.entity.User;
-import domain.entity.task.ContentType;
-import domain.entity.task.Status;
 import lombok.Getter;
 
 import java.nio.file.Path;
