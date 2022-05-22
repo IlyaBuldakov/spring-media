@@ -1,5 +1,6 @@
-package domain.entity.task;
+package application.dto.task;
 
+import domain.entity.task.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

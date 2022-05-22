@@ -4,6 +4,17 @@ ___
 
 Формат списка изменений - [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/). Проект следует [семантическому версионированию](https://semver.org/lang/ru/)
 
+## [v0.2.0] - 2022-05-21
+
+### Добавлено 
+
+- Созданы все сущности.
+- Создан пакет application.dto.task
+### Изменено
+- сущность Task перенесена в пакет domain.entity.task
+- enum класс Type переименован в ContentType
+- сущности DTO из пакета domain.entity.task перенесены в пакет application.dto.task
+
 ## [v0.1.0] - 2022-04-16
 
 ### Добавлено

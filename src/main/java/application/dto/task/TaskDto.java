@@ -1,4 +1,4 @@
-package domain.entity.task;
+package application.dto.task;
 
 import domain.entity.comment.CommentDto;
 import domain.entity.content.ContentDto;

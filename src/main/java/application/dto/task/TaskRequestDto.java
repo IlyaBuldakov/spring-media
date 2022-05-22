@@ -1,5 +1,6 @@
-package domain.entity.task;
+package application.dto.task;
 
+import domain.entity.task.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,7 +19,7 @@ public class TaskRequestDto {
     /**
      * Тип контента
      */
-    @Getter private Type type;
+    @Getter private ContentType contentType;
 
     /**
      * Описание задачи

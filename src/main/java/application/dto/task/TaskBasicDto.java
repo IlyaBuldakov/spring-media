@@ -1,4 +1,4 @@
-package domain.entity.task;
+package application.dto.task;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package domain.entity;
+package domain.entity.task;
 
 import domain.entity.Comment;
 import domain.entity.Content;

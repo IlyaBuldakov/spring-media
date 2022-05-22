@@ -1,4 +1,4 @@
-package domain.entity.task;
+package application.dto.task;
 
 import domain.entity.content.ContentTypeDto;
 import domain.entity.users.UserBasicDto;
