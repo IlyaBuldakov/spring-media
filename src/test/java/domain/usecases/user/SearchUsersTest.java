@@ -8,7 +8,6 @@ import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
@@ -48,14 +47,7 @@ class SearchUsersTest {
     // Arrange
     var query = new SearchUsers.Query("user_test", null);
     var expected = List.of(
-            new User(
-                    new Random().nextInt(),
-                    "mail@mail.ru",
-                    "hardPassword",
-                    "First Second Name",
-                    "1234567890==",
-                    new UserRole(1, UserRole.RoleType.ADMIN)
-            )
+            User.createTestUser()
     );
     Mockito
             .when(mockUserRepository.search(query.query()))
@@ -74,14 +66,7 @@ class SearchUsersTest {
           throws ExecutionException, InterruptedException {
     var query = new SearchUsers.Query("query_test", new UserRole(1, UserRole.RoleType.ADMIN));
     var expected = List.of(
-            new User(
-                    new Random().nextInt(),
-                    "mail@mail.ru",
-                    "hardPassword",
-                    "First Second Name",
-                    "1234567890==",
-                    new UserRole(1, UserRole.RoleType.ADMIN)
-            )
+            User.createTestUser()
     );
     Mockito
             .when(mockUserRepository.search(query.query(), query.role()))

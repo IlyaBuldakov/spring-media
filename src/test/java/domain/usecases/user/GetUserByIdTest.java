@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import domain.entities.failures.NotFound;
 import domain.entities.user.User;
-import domain.entities.user.UserRole;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -37,14 +36,7 @@ class GetUserByIdTest {
   void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
     // Arrange
     var testUserId = new Random().nextInt();
-    var user = new User(
-            testUserId,
-            "mail@mail.ru",
-            "hardPassword",
-            "First Second Name",
-            "1234567890==",
-            new UserRole(1, UserRole.RoleType.ADMIN)
-    );
+    var user = User.createTestUser(testUserId);
     Mockito
             .when(mockUserRepository.get(testUserId))
             .thenReturn(CompletableFuture.completedFuture(Either.right(user)));

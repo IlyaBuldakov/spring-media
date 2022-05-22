@@ -3,12 +3,10 @@ package domain.usecases.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import domain.entities.user.User;
-import domain.entities.user.UserRole;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
@@ -35,14 +33,7 @@ class GetAllUsersTest {
   @Test
   void usersExist_ShouldReturnAllUsers() throws ExecutionException, InterruptedException {
     var users = List.of(
-            new User(
-                    new Random().nextInt(),
-                    "mail@mail.ru",
-                    "hardPassword",
-                    "First Second Name",
-                    "1234567890==",
-                    new UserRole(1, UserRole.RoleType.ADMIN)
-            )
+            User.createTestUser()
     );
     Mockito
             .when(mockUserRepository.getAll())
