@@ -16,7 +16,7 @@ public final class GetUserById implements UseCase<Integer, User> {
   private final UserRepository repository;
 
   @Override
-  public Future<Either<Failure, User>> execute(Integer param) {
-    return repository.get(param);
+  public Future<Either<Failure, User>> execute(Integer id) {
+    return repository.get(id);
   }
 }
