@@ -1,4 +1,6 @@
 # Зависимости проекта
+Фреймворк:
+1. `org.springframework.boot:spring-boot-starter-web` - cтартер для создания веб-приложений.
 
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` - модульное тестирование.
@@ -10,6 +12,7 @@
 2. `org.apache.maven.plugins:maven-checkstyle-plugin` - проверка кода на соответствие [Google Java Code Style](https://google.github.io/styleguide/javaguide.html).
 3. `org.apache.maven.plugins:maven-surefire-plugin` - запуск модульных тестов и генерация отчетов тестов.
 4. `org.apache.maven.plugins:maven-failsafe-plugin` - запуск интеграционных тестов.
+5. `org.springframework.boot:spring-boot-maven-plugin` - поддержка Spring Boot в Maven.
 
 Разное:
 1. `org.projectlombok:lombok` - сокращение кода и расширение функциональности языка Java.
@@ -22,3 +25,7 @@
 ## Установка проекта
 
 ## Запуск проекта
+
+<!--
+проверять доступность порта 8080
+-->
