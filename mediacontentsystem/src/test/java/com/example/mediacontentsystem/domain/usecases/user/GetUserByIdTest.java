@@ -29,9 +29,9 @@ class GetUserByIdTest {
 
     user = new User(
         userId,
+        "Иванов Иван",
         "test@mail.ru",
         "123456",
-        "Иванов Иван",
         new byte[] {},
         new Role(1, RoleType.ADMIN)
     );

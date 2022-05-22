@@ -28,25 +28,25 @@ class GetAllUsersTest {
     users = List.of(
         new User(
             1,
+            "Иванов Иван",
             "test@mail.ru",
             "123456",
-            "Иванов Иван",
             new byte[] {},
             new Role(1, RoleType.ADMIN)
         ),
         new User(
             2,
+            "Иванов Иван",
             "test@mail.ru",
             "123456",
-            "Иванов Иван",
             new byte[] {},
             new Role(1, RoleType.MANAGER)
         ),
         new User(
             3,
+            "Иванов Иван",
             "test@mail.ru",
             "123456",
-            "Иванов Иван",
             new byte[] {},
             new Role(1, RoleType.CONTENT_MAKER)
         )
