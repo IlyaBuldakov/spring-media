@@ -4,6 +4,14 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [0.6.0] - 2022-05-22
+### Добавлено
+- в слое `domain` сценарий использования `UpdateUser` обновление пользователя
+- модульные тесты для сценария `UpdateUser`
+
+### Исправлено
+- порядок параметров при создании сущности `User`
+
 ## [0.5.0] - 2022-05-21
 ### Добавлено
 - интерфейс сценария использования принимающий параметры
@@ -59,6 +67,7 @@
 ### Удалено
 ### Исправлено
 
+[0.6.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.5.0...petr.klyukin-v0.6.0
 [0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.4.0...petr.klyukin-v0.5.0
 [0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.3.0...petr.klyukin-v0.4.0
 [0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/petr.klyukin-v0.2.2...petr.klyukin-v0.3.0
