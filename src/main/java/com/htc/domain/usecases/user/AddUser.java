@@ -7,10 +7,12 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.concurrent.Future;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Сценарий добавления пользователя.
  */
+@Component
 @AllArgsConstructor
 public final class AddUser implements UseCase<User, User> {
   private final UserRepository repository;
