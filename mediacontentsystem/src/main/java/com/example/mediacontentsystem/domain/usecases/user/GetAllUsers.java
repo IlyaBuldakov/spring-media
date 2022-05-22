@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
  * Получает всех пользователей.
  */
 @AllArgsConstructor
-public class GetAllUsers implements UseCase<Iterable<User>> {
+public final class GetAllUsers implements UseCase<Iterable<User>> {
   private final UserRepository repository;
 
   @Override
