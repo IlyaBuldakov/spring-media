@@ -3,6 +3,9 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [0.5.0] - 2022-05-22
+### Добавлено
+- Сценарий удаления пользователя по идентификатору и тесты для него.
 
 ## [0.4.0] - 2022-05-16
 ### Добавлено
@@ -48,6 +51,7 @@
 
 [0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
 -->
+[0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.4.0...yuriy.krasnoperov-v0.5.0
 [0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.3.0...yuriy.krasnoperov-v0.4.0
 [0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.2.0...yuriy.krasnoperov-v0.3.0
 [0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.1.0...yuriy.krasnoperov-v0.2.0
