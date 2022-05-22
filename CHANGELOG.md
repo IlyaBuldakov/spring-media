@@ -4,7 +4,12 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.0] - 2022-05-15
+## [v0.3.0] - 2022-05-22
+
+### Изменено
+- Доработан сценарий получения пользователя по идентификатору и тесты для него.
+
+## [v0.2.0] - 2022-05-15
 
 ### Добавлено
 - В `README.md` описаны зависимости проекта.
@@ -16,7 +21,7 @@
 - Роль пользователя переработана в соответствии со спецификацией.
 - Написана документация Javadoc.
 
-## [0.1.0] - 2022-04-07
+## [v0.1.0] - 2022-04-07
 
 ### Добавлено
 - Создана заготовка проекта.
@@ -26,3 +31,4 @@
 
 [0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.0.0...yaroslav.tarakanov-v0.1.0
 [0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.1.0...yaroslav.tarakanov-v0.2.0
+[0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.2.0...yaroslav.tarakanov-v0.3.0
