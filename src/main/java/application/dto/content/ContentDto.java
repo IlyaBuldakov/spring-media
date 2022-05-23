@@ -1,5 +1,6 @@
-package domain.entity.content;
+package application.dto.content;
 
+import domain.entity.content.ContentFormat;
 import domain.entity.users.UserBasicDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

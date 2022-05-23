@@ -1,6 +1,6 @@
-package domain.entity.content;
+package application.dto.content;
 
-import domain.entity.task.Type;
+import domain.entity.task.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,5 +17,5 @@ public class ContentTypeDto {
     /**
      *
      */
-    @Getter private Type name;
+    @Getter private ContentType name;
 }

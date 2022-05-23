@@ -1,4 +1,4 @@
-package domain.entity.content;
+package application.dto.content;
 
 import domain.entity.file.FileDto;
 import lombok.AllArgsConstructor;
