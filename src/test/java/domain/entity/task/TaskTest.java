@@ -1,7 +1,7 @@
 package domain.entity.task;
 
 import domain.entity.Comment;
-import domain.entity.Content;
+import domain.entity.content.Content;
 import domain.entity.User;
 import org.junit.jupiter.api.Test;
 
