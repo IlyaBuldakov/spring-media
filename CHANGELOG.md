@@ -4,6 +4,16 @@ ___
 
 Формат списка изменений - [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/). Проект следует [семантическому версионированию](https://semver.org/lang/ru/)
 
+## [v0.3.0] - 2022-05-23  
+
+### Добавлено
+- Конструктор @AllArgsConstructor в класс Task
+- в класс Content добавлены поля
+- создан тест для класса Content
+### Изменено
+- Класс Content перенесен в пакет domain.entity.content
+- Классы DTO связанные с контентом перенесены в пакет application.dto.content
+
 ## [v0.2.0] - 2022-05-21
 
 ### Добавлено
