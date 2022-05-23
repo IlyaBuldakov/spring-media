@@ -29,8 +29,10 @@ class GetUserByIdTest {
 
   @Test
    void shouldGetUserFromTheRepository() {
-    // Act
+    // Arrange
     var userId = new Random().nextInt();
+
+    // Act
     useCase.execute(userId);
 
     // Assert
@@ -41,7 +43,7 @@ class GetUserByIdTest {
   void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
     // Arrange
     var userId = new Random().nextInt();
-    final User user = new User(
+    var user = new User(
             userId,
             "user@example.com",
             "Passw0rd!",
