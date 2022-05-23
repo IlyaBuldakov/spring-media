@@ -1,6 +1,9 @@
 package domain.usecases.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import domain.entities.failures.NotFound;
 import domain.entities.user.User;
@@ -13,12 +16,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class GetUserByIdTest {
-  final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
+  final UserRepository mockUserRepository = mock(UserRepository.class);
   final GetUserById useCase = new GetUserById(mockUserRepository);
 
   @Test
@@ -36,7 +38,7 @@ class GetUserByIdTest {
     useCase.execute(userId);
 
     // Assert
-    Mockito.verify(mockUserRepository).get(userId);
+    verify(mockUserRepository).get(userId);
   }
 
   @Test
@@ -52,7 +54,7 @@ class GetUserByIdTest {
             new UserRole(1, UserRole.RoleType.ADMIN)
     );
 
-    Mockito.when(mockUserRepository.get(userId))
+    when(mockUserRepository.get(userId))
         .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
     // Act
@@ -70,13 +72,12 @@ class GetUserByIdTest {
     var userId = new Random().nextInt();
     var failure = new NotFound();
 
-    Mockito
-            .when(mockUserRepository.get(userId))
-            .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
+    when(mockUserRepository.get(userId))
+        .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
     // Act
     var result = useCase.execute(userId)
-            .get()
-            .getLeft();
+        .get()
+        .getLeft();
 
     // Assert
     assertThat(result).isEqualTo(failure);

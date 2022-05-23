@@ -1,6 +1,9 @@
 package domain.usecases.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import domain.entities.user.User;
 import domain.entities.user.UserRole;
@@ -13,13 +16,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
 @ExtendWith(MockitoExtension.class)
 class GetAllUsersTest {
-  final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
+  final UserRepository mockUserRepository = mock(UserRepository.class);
   final GetAllUsers useCase = new GetAllUsers(mockUserRepository);
 
   @Test
@@ -29,12 +31,12 @@ class GetAllUsersTest {
   }
 
   @Test
-  void shouldGetUserFromTheRepository() {
+  void shouldGetAllUsersFromTheRepository() {
     // Act
     useCase.execute(null);
 
     // Assert
-    Mockito.verify(mockUserRepository).getAll();
+    verify(mockUserRepository).getAll();
   }
 
   @Test
@@ -51,13 +53,13 @@ class GetAllUsersTest {
       )
     );
 
-    Mockito.when(mockUserRepository.getAll())
-            .thenReturn(CompletableFuture.completedFuture(Either.right(users)));
+    when(mockUserRepository.getAll())
+        .thenReturn(CompletableFuture.completedFuture(Either.right(users)));
 
     // Act
     var result = useCase.execute(null)
-            .get()
-            .get();
+        .get()
+        .get();
 
     // Assert
     assertThat(result).isEqualTo(users);
@@ -68,13 +70,13 @@ class GetAllUsersTest {
     // Arrange
     var  users = List.<User>of();
 
-    Mockito.when(mockUserRepository.getAll())
-            .thenReturn(CompletableFuture.completedFuture(Either.right(users)));
+    when(mockUserRepository.getAll())
+        .thenReturn(CompletableFuture.completedFuture(Either.right(users)));
 
     // Act
     var result = useCase.execute(null)
-            .get()
-            .get();
+        .get()
+        .get();
 
     // Assert
     assertThat(result).isEqualTo(users);
