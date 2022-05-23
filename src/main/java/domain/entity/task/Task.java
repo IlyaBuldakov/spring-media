@@ -3,6 +3,7 @@ package domain.entity.task;
 import domain.entity.Comment;
 import domain.entity.Content;
 import domain.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.nio.file.Path;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 /**
  * Задача
  */
+@AllArgsConstructor
 public class Task {
     /**
      *
