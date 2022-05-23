@@ -7,11 +7,9 @@ import static org.mockito.Mockito.when;
 
 import domain.entities.failures.NotFound;
 import domain.entities.user.User;
-import domain.entities.user.UserRole;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
@@ -32,14 +30,7 @@ class UpdateUserTest {
   @Test
   void shouldUpdateUserByTheRepository() {
     // Arrange
-    var user = new User(
-        new Random().nextInt(),
-        "user@example.com",
-        "Passw0rd!",
-        "Иванов Иван",
-        new byte[] {},
-        new UserRole(1, UserRole.RoleType.ADMIN)
-    );
+    var user = User.createTestUser();
 
     // Act
     useCase.execute(user);
@@ -51,14 +42,7 @@ class UpdateUserTest {
   @Test
   void usersExist_ShouldUpdateUser() throws ExecutionException, InterruptedException {
     // Arrange
-    var user = new User(
-        new Random().nextInt(),
-        "user@example.com",
-        "Passw0rd!",
-        "Иванов Иван",
-        new byte[] {},
-        new UserRole(1, UserRole.RoleType.ADMIN)
-    );
+    var user = User.createTestUser();
 
     when(mockUserRepository.update(user))
         .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
@@ -75,14 +59,7 @@ class UpdateUserTest {
   @Test
   void usersNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
-    var user = new User(
-        new Random().nextInt(),
-        "user@example.com",
-        "Passw0rd!",
-        "Иванов Иван",
-        new byte[] {},
-        new UserRole(1, UserRole.RoleType.ADMIN)
-    );
+    var user = User.createTestUser();
     var failure = new NotFound();
 
     when(mockUserRepository.update(user))

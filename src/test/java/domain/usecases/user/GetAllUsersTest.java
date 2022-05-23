@@ -6,18 +6,15 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import domain.entities.user.User;
-import domain.entities.user.UserRole;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.collection.List;
 import io.vavr.control.Either;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 
 @ExtendWith(MockitoExtension.class)
 class GetAllUsersTest {
@@ -42,16 +39,7 @@ class GetAllUsersTest {
   @Test
   void usersExist_ShouldReturnAllUsers() throws ExecutionException, InterruptedException {
     // Arrange
-    var  users = List.of(
-      new User(
-          new Random().nextInt(),
-          "user@example.com",
-          "Passw0rd!",
-          "Иванов Иван",
-          new byte[] {},
-          new UserRole(1, UserRole.RoleType.ADMIN)
-      )
-    );
+    var  users = List.of(User.createTestUser());
 
     when(mockUserRepository.getAll())
         .thenReturn(CompletableFuture.completedFuture(Either.right(users)));

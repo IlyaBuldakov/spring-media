@@ -12,7 +12,6 @@ import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.collection.List;
 import io.vavr.control.Either;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
@@ -47,8 +46,8 @@ class SearchUsersTest {
   void queryContainsRole_ShouldCallSearchMethodWithRoleArgumentOnly() {
     // Arrange
     var query = new SearchUsers.Query(
-            "test",
-            new UserRole(1, UserRole.RoleType.ADMIN)
+        "test",
+        new UserRole(1, UserRole.RoleType.ADMIN)
     );
 
     // Act
@@ -64,19 +63,10 @@ class SearchUsersTest {
       throws ExecutionException, InterruptedException {
     // Arrange
     var query = new SearchUsers.Query("test", null);
-    var expected = List.of(
-            new User(
-                    new Random().nextInt(),
-                    "user@example.com",
-                    "Passw0rd!",
-                    "Иванов Иван",
-                    new byte[] {},
-                    new UserRole(1, UserRole.RoleType.ADMIN)
-            )
-    );
+    var expected = List.of(User.createTestUser());
 
     when(mockUserRepository.search(query.query()))
-            .thenReturn(CompletableFuture.completedFuture(Either.right(expected)));
+        .thenReturn(CompletableFuture.completedFuture(Either.right(expected)));
 
     // Act
     var result = useCase.execute(query)
@@ -94,16 +84,7 @@ class SearchUsersTest {
     var query = new SearchUsers.Query(
         "test",
         new UserRole(1, UserRole.RoleType.ADMIN));
-    var expected = List.of(
-      new User(
-          new Random().nextInt(),
-          "user@example.com",
-          "Passw0rd!",
-          "Иванов Иван",
-          new byte[] {},
-          new UserRole(1, UserRole.RoleType.ADMIN)
-      )
-    );
+    var expected = List.of(User.createTestUser());
 
     when(mockUserRepository.search(query.query(), query.role()))
         .thenReturn(CompletableFuture.completedFuture(Either.right(expected)));

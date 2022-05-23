@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import domain.entities.failures.NotFound;
 import domain.entities.user.User;
-import domain.entities.user.UserRole;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -45,14 +44,7 @@ class GetUserByIdTest {
   void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
     // Arrange
     var userId = new Random().nextInt();
-    var user = new User(
-        userId,
-        "user@example.com",
-        "Passw0rd!",
-        "Иванов Иван",
-        new byte[] {},
-        new UserRole(1, UserRole.RoleType.ADMIN)
-    );
+    var user = User.createTestUser(userId);
 
     when(mockUserRepository.get(userId))
         .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
