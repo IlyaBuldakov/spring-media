@@ -6,8 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import domain.entities.failures.NotFound;
-import domain.entities.user.User;
-import domain.entities.user.UserRole;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -19,9 +17,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GetUserByIdTest {
+class DeleteUserByIdTest {
   final UserRepository mockUserRepository = mock(UserRepository.class);
-  final GetUserById useCase = new GetUserById(mockUserRepository);
+  final DeleteUserById useCase = new DeleteUserById(mockUserRepository);
 
   @Test
   void shouldInheritUseCase() {
@@ -30,7 +28,7 @@ class GetUserByIdTest {
   }
 
   @Test
-   void shouldGetUserFromTheRepository() {
+  void shouldDeleteUserByTheRepository() {
     // Arrange
     var userId = new Random().nextInt();
 
@@ -38,24 +36,16 @@ class GetUserByIdTest {
     useCase.execute(userId);
 
     // Assert
-    verify(mockUserRepository).get(userId);
+    verify(mockUserRepository).delete(userId);
   }
 
   @Test
-  void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
+  void userExists_ShouldDeleteUserAndReturnVoid() throws ExecutionException, InterruptedException {
     // Arrange
     var userId = new Random().nextInt();
-    var user = new User(
-        userId,
-        "user@example.com",
-        "Passw0rd!",
-        "Иванов Иван",
-        new byte[] {},
-        new UserRole(1, UserRole.RoleType.ADMIN)
-    );
 
-    when(mockUserRepository.get(userId))
-        .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
+    when(mockUserRepository.delete(userId))
+        .thenReturn(CompletableFuture.completedFuture(Either.right(null)));
 
     // Act
     var result = useCase.execute(userId)
@@ -63,7 +53,7 @@ class GetUserByIdTest {
         .get();
 
     // Assert
-    assertThat(result).isEqualTo(user);
+    assertThat(result).isNull();
   }
 
   @Test
@@ -72,7 +62,7 @@ class GetUserByIdTest {
     var userId = new Random().nextInt();
     var failure = new NotFound();
 
-    when(mockUserRepository.get(userId))
+    when(mockUserRepository.delete(userId))
         .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
     // Act
     var result = useCase.execute(userId)
