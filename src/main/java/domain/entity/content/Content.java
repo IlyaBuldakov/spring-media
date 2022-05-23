@@ -1,7 +1,6 @@
 package domain.entity.content;
 
 import domain.entity.User;
-import domain.entity.content.ContentFormat;
 import domain.entity.task.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
