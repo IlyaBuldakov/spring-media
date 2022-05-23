@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import domain.entities.failures.NotFound;
+import domain.entities.failures.AlreadyExists;
 import domain.entities.user.User;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
@@ -17,9 +17,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class UpdateUserTest {
+class CreateUserTest {
   final UserRepository mockUserRepository = mock(UserRepository.class);
-  final UpdateUser useCase = new UpdateUser(mockUserRepository);
+  final CreateUser useCase = new CreateUser(mockUserRepository);
 
   @Test
   void shouldInheritUseCase() {
@@ -28,7 +28,7 @@ class UpdateUserTest {
   }
 
   @Test
-  void shouldUpdateUserByTheRepository() {
+  void shouldCreateUserByTheRepository() {
     // Arrange
     var user = User.createTestUser();
 
@@ -36,15 +36,16 @@ class UpdateUserTest {
     useCase.execute(user);
 
     // Assert
-    verify(mockUserRepository).update(user);
+    verify(mockUserRepository).create(user);
   }
 
   @Test
-  void usersExist_ShouldUpdateUserAndReturnUser() throws ExecutionException, InterruptedException {
+  void usersNotExist_ShouldCreateUserAndReturnUser()
+      throws ExecutionException, InterruptedException {
     // Arrange
     var user = User.createTestUser();
 
-    when(mockUserRepository.update(user))
+    when(mockUserRepository.create(user))
         .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
     // Act
@@ -57,12 +58,13 @@ class UpdateUserTest {
   }
 
   @Test
-  void usersNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
+  void usersExist_ShouldReturnAlreadyExists()
+      throws ExecutionException, InterruptedException {
     // Arrange
     var user = User.createTestUser();
-    var failure = new NotFound();
+    var failure = new AlreadyExists();
 
-    when(mockUserRepository.update(user))
+    when(mockUserRepository.create(user))
         .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
 
     // Act
@@ -74,3 +76,4 @@ class UpdateUserTest {
     assertThat(result).isEqualTo(failure);
   }
 }
+
