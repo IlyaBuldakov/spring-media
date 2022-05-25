@@ -3,7 +3,6 @@ package com.htc.domain.usecases.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.htc.domain.entities.failures.AlreadyExists;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -27,7 +26,7 @@ class AddUserTest {
   @Test
   void shouldCreateUserByTheRepository() {
     // Arrange
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
     // Act
     useCase.execute(user);
     // Assert
@@ -37,7 +36,7 @@ class AddUserTest {
   @Test
   void userDoesNotExist_ShouldCreateUserAndReturnUser()
           throws ExecutionException, InterruptedException {
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
     Mockito
             .when(mockUserRepository.add(user))
             .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
@@ -49,7 +48,7 @@ class AddUserTest {
 
   @Test
   void usersExist_ShouldReturnAlreadyExists() throws ExecutionException, InterruptedException {
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
     var failure = new AlreadyExists();
     Mockito
             .when(mockUserRepository.add(user))

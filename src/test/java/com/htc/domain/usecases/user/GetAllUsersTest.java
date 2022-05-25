@@ -33,7 +33,7 @@ class GetAllUsersTest {
   @Test
   void usersExist_ShouldReturnAllUsers() throws ExecutionException, InterruptedException {
     var users = List.of(
-            User.createTestUser()
+            UserService.createTestUser()
     );
     Mockito
             .when(mockUserRepository.getAll())

@@ -3,7 +3,6 @@ package com.htc.domain.usecases.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -27,7 +26,7 @@ class UpdateUserTest {
   @Test
   void shouldUpdateUserByTheRepository() {
     // Arrange
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
     // Act
     useCase.execute(user);
     // Assert
@@ -36,7 +35,7 @@ class UpdateUserTest {
 
   @Test
   void usersExist_ShouldUpdateUser() throws ExecutionException, InterruptedException {
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
     Mockito
             .when(mockUserRepository.update(user))
             .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
@@ -48,7 +47,7 @@ class UpdateUserTest {
 
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
     var failure = new NotFound();
     Mockito
             .when(mockUserRepository.update(user))

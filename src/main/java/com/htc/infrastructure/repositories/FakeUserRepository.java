@@ -17,9 +17,30 @@ import org.springframework.stereotype.Component;
 public class FakeUserRepository implements UserRepository {
 
   private static List<User> users = List.of(
-          User.createTestUser(32),
-          User.createTestUser(45),
-          User.createTestUser(87)
+          new User(
+                  32,
+                  "mail@mail.ru",
+                  "hardPassword",
+                  "First Second Name",
+                  "1234567890==",
+                  new UserRole(1, UserRole.RoleType.ADMIN)
+          ),
+          new User(
+                  45,
+                  "mail@mail.ru",
+                  "hardPassword",
+                  "First Second Name",
+                  "1234567890==",
+                  new UserRole(1, UserRole.RoleType.ADMIN)
+          ),
+          new User(
+                  87,
+                  "mail@mail.ru",
+                  "hardPassword",
+                  "First Second Name",
+                  "1234567890==",
+                  new UserRole(1, UserRole.RoleType.ADMIN)
+          )
   );
 
   @Override

@@ -2,7 +2,6 @@ package com.htc.domain.usecases.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.user.UserRole;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
@@ -47,7 +46,7 @@ class SearchUsersTest {
     // Arrange
     var query = new SearchUsers.Query("user_test", null);
     var expected = List.of(
-            User.createTestUser()
+            UserService.createTestUser()
     );
     Mockito
             .when(mockUserRepository.search(query.query()))
@@ -66,7 +65,7 @@ class SearchUsersTest {
           throws ExecutionException, InterruptedException {
     var query = new SearchUsers.Query("query_test", new UserRole(1, UserRole.RoleType.ADMIN));
     var expected = List.of(
-            User.createTestUser()
+            UserService.createTestUser()
     );
     Mockito
             .when(mockUserRepository.search(query.query(), query.role()))

@@ -3,7 +3,6 @@ package com.htc.domain.usecases.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -36,7 +35,7 @@ class GetUserByIdTest {
   void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
     // Arrange
     var testUserId = new Random().nextInt();
-    var user = User.createTestUser(testUserId);
+    var user = UserService.createTestUser(testUserId);
     Mockito
             .when(mockUserRepository.get(testUserId))
             .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
