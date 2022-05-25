@@ -37,7 +37,7 @@ public class User {
   private @Getter String email;
 
   /**
-   * Аватар.
+   * Аватар в base64.
    *
    * @return avatar - аватар пользователя
    */

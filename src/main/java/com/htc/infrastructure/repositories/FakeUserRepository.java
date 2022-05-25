@@ -1,11 +1,13 @@
 package com.htc.infrastructure.repositories;
 
+import com.github.javafaker.Faker;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.user.UserRole;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.springframework.stereotype.Component;
@@ -15,31 +17,32 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class FakeUserRepository implements UserRepository {
-
+  private static final Faker faker = Faker.instance(new Locale("ru"));
+  private static final UserRole.RoleType defaultRole = UserRole.RoleType.ADMIN;
   private static List<User> users = List.of(
           new User(
                   32,
-                  "mail@mail.ru",
-                  "hardPassword",
-                  "First Second Name",
-                  "1234567890==",
-                  new UserRole(1, UserRole.RoleType.ADMIN)
+                  faker.name().fullName(),
+                  faker.internet().password(8, 12),
+                  faker.internet().emailAddress(),
+                  faker.lorem().characters(40) + "==",
+                  new UserRole(1, defaultRole)
           ),
           new User(
                   45,
-                  "mail@mail.ru",
-                  "hardPassword",
-                  "First Second Name",
-                  "1234567890==",
-                  new UserRole(1, UserRole.RoleType.ADMIN)
+                  faker.name().fullName(),
+                  faker.internet().password(8, 12),
+                  faker.internet().emailAddress(),
+                  faker.lorem().characters(40) + "==",
+                  new UserRole(1, defaultRole)
           ),
           new User(
                   87,
-                  "mail@mail.ru",
-                  "hardPassword",
-                  "First Second Name",
-                  "1234567890==",
-                  new UserRole(1, UserRole.RoleType.ADMIN)
+                  faker.name().fullName(),
+                  faker.internet().password(8, 12),
+                  faker.internet().emailAddress(),
+                  faker.lorem().characters(40) + "==",
+                  new UserRole(1, defaultRole)
           )
   );
 
