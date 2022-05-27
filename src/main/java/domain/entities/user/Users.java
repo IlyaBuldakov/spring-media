@@ -17,7 +17,7 @@ public class Users {
      * @return User Тестовый пользователь
      */
     public static User createTestUser() {
-        return createTestUser(new Random().nextInt());
+        return createTestUser(new Random().nextInt(255));
     }
 
     /**
