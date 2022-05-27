@@ -8,7 +8,6 @@ import domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Random;
@@ -17,8 +16,8 @@ import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author IlyaBuldakov
@@ -69,7 +68,7 @@ class GetUserByIdTest {
     @Test
     void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
         var userId = new Random().nextInt();
-        var failure = new NotFound();
+        var failure = new NotFound("");
 
         when(mockUserRepository.get(userId))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

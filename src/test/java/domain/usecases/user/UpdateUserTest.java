@@ -62,7 +62,7 @@ class UpdateUserTest {
         final User user = Users.createTestUser();
 
         when(mockUserRepository.update(user))
-                .thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound())));
+                .thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
 
         var result = useCase.execute(user)
                 .get()

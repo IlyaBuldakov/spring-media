@@ -61,7 +61,7 @@ class CreateUserTest {
         final User user = Users.createTestUser();
 
         when(mockUserRepository.create(user))
-                .thenReturn(CompletableFuture.completedFuture(Either.left(new AlreadyExists())));
+                .thenReturn(CompletableFuture.completedFuture(Either.left(new AlreadyExists(""))));
 
         var result = useCase.execute(user)
                 .get()
