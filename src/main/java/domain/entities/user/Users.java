@@ -1,6 +1,7 @@
 package domain.entities.user;
 
 import domain.entities.user.Role.RoleType;
+import org.apache.commons.codec.binary.Base64;
 
 import java.util.Random;
 
@@ -43,10 +44,10 @@ public class Users {
         return User.create(
                 id,
                 "Тестовый Пользователь",
-                "password",
+                "password1A",
                 "example@mail.ru",
-                new byte[]{},
-                userRole
-        );
+                Base64.decodeBase64("SGVsbG9Xb3JsZA=="),
+                role
+        ).get();
     }
 }
