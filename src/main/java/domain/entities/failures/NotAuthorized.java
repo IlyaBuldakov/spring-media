@@ -5,5 +5,8 @@ package domain.entities.failures;
  *
  * @author IlyaBuldakov
  */
-public class NotAuthorized implements Failure {
+public class NotAuthorized extends Failure {
+    public NotAuthorized(String message) {
+        super(message);
+    }
 }

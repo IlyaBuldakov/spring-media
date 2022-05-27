@@ -5,5 +5,8 @@ package domain.entities.failures;
  *
  * @author IlyaBuldakov
  */
-public class AlreadyExists implements Failure {
+public class AlreadyExists extends Failure {
+    public AlreadyExists(String message) {
+        super(message);
+    }
 }

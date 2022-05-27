@@ -5,5 +5,8 @@ package domain.entities.failures;
  *
  * @author IlyaBuldakov
  */
-public class NotFound implements Failure {
+public class NotFound extends Failure {
+    public NotFound(String message) {
+        super(message);
+    }
 }

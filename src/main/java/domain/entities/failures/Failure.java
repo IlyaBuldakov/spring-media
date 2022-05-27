@@ -5,5 +5,11 @@ package domain.entities.failures;
  *
  * @author IlyaBuldakov
  */
-public interface Failure {
+public abstract class Failure {
+
+    String message;
+
+    public Failure(String message) {
+        this.message = message;
+    }
 }
