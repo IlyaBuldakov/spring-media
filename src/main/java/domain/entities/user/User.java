@@ -87,6 +87,24 @@ public class User {
                                         String email,
                                         byte[] avatar,
                                                Role role) {
+        if (id < 0) {
+            return Either.left(new InvalidValue("Некорректный идентификатор"));
+        }
+        if (name.length() == 0) {
+            return Either.left(new InvalidValue("Некорректное имя пользователя"));
+        }
+        if (!password.matches("\\w{8,20}")
+                || !password.matches(".*\\d+.*")
+                || password.equals(password.toLowerCase(Locale.ROOT))
+                || password.equals(password.toUpperCase(Locale.ROOT))) {
+            return Either.left(new InvalidValue("Пароль не соответствует требованиям"));
+        }
+        if (!EmailValidator.getInstance().isValid(email)) {
+            return Either.left(new InvalidValue("Некорректный почтовый адрес"));
+        }
+        if (!Base64.isBase64(avatar)) {
+            return Either.left(new InvalidValue("Некорректный аватар"));
+        }
         User user = new User();
         user.id = id;
         user.name = name;
