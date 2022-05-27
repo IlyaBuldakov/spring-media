@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 
 @AllArgsConstructor
-public class UserRole {
+public class Role {
 
     /**
      * Тип роли

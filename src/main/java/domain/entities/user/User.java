@@ -1,7 +1,13 @@
 package domain.entities.user;
 
-import lombok.AllArgsConstructor;
+import domain.entities.failures.Failure;
+import domain.entities.failures.InvalidValue;
+import io.vavr.control.Either;
 import lombok.Getter;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.validator.routines.EmailValidator;
+
+import java.util.Locale;
 
 /**
  * Класс, описывающий пользователя
@@ -9,8 +15,9 @@ import lombok.Getter;
  * @author IlyaBuldakov
  */
 
-@AllArgsConstructor
 public class User {
+
+    private User() {}
 
     /**
      * Идентификатор пользователя
@@ -28,6 +35,15 @@ public class User {
 
     /**
      * Пароль пользователя
+     * <p>
+     * Требования к паролю:
+     * 1. Длина пароля от 8 до 20 символов (включительно),
+     * 2. Пароль должен содержать символы латинского алфавита обоих рег-ров,
+     * 3. Пароль должен содержать хотя бы одну цифру,
+     * 4. Пароль может содержать знак подчёркивания.
+     * <p>
+     * Корректный пароль: aaAbbBccC007
+     * Некорректный пароль: aaa
      *
      * @return password Пароль пользователя
      */
@@ -48,9 +64,36 @@ public class User {
     private @Getter byte[] avatar;
 
     /**
-     * Роль пользователя {@link UserRole.RoleType}
+     * Роль пользователя {@link Role.RoleType}
      *
      * @return role Роль пользователя
      */
-    private @Getter UserRole role;
+    private @Getter Role role;
+
+    /**
+     * Фабричный метод пользователя
+     *
+     * @param id       Идентификатор
+     * @param name     Имя пользователя
+     * @param password Пароль
+     * @param email    Почта
+     * @param avatar   Аватар
+     * @return Пользователь
+     */
+
+    public static Either<Failure, User> create(int id,
+                                        String name,
+                                        String password,
+                                        String email,
+                                        byte[] avatar,
+                                               Role role) {
+        User user = new User();
+        user.id = id;
+        user.name = name;
+        user.email = email;
+        user.password = password;
+        user.avatar = avatar;
+        user.role = role;
+        return Either.right(user);
+    }
 }

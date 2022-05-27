@@ -2,7 +2,7 @@ package domain.usecases.user;
 
 import domain.entities.failures.Failure;
 import domain.entities.user.User;
-import domain.entities.user.UserRole;
+import domain.entities.user.Role;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -24,7 +24,7 @@ public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<Us
      * @param query Строка поиска
      * @param role Роль пользователя
      */
-    public record Query(String query, UserRole role) {}
+    public record Query(String query, Role role) {}
 
     private final UserRepository repository;
 

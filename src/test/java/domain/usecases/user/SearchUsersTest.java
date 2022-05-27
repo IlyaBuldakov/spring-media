@@ -1,6 +1,6 @@
 package domain.usecases.user;
 
-import domain.entities.user.UserRole;
+import domain.entities.user.Role;
 import domain.entities.user.Users;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
@@ -15,9 +15,9 @@ import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author IlyaBuldakov
@@ -48,7 +48,7 @@ class SearchUsersTest {
     void queryContainsRole_ShouldCallSearchMethodWithRoleArgumentOnly() {
         var query = new SearchUsers.Query(
                 "test",
-                new UserRole(1, UserRole.RoleType.ADMIN));
+                new Role(1, Role.RoleType.ADMIN));
 
         useCase.execute(query);
 
@@ -79,7 +79,7 @@ class SearchUsersTest {
             throws ExecutionException, InterruptedException {
         var query = new SearchUsers.Query(
                 "test",
-                new UserRole(1, UserRole.RoleType.ADMIN));
+                new Role(1, Role.RoleType.ADMIN));
         var expected = List.of(
                 Users.createTestUser()
         );

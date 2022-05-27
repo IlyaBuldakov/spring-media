@@ -2,7 +2,7 @@ package domain.repositories;
 
 import domain.entities.failures.Failure;
 import domain.entities.user.User;
-import domain.entities.user.UserRole;
+import domain.entities.user.Role;
 import io.vavr.control.Either;
 
 import java.util.List;
@@ -63,10 +63,10 @@ public interface UserRepository {
      * Получение списка пользователей, соответствующих запросу и роли
      *
      * @param query    Запрос
-     * @param userRole Роль
+     * @param role Роль
      * @return Список пользователей
      */
-    Future<Either<Failure, Iterable<User>>> search(String query, UserRole userRole);
+    Future<Either<Failure, Iterable<User>>> search(String query, Role role);
 
 
 }

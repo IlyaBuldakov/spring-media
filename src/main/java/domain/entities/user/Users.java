@@ -1,6 +1,6 @@
 package domain.entities.user;
 
-import domain.entities.user.UserRole.RoleType;
+import domain.entities.user.Role.RoleType;
 
 import java.util.Random;
 
@@ -27,7 +27,7 @@ public class Users {
      * @return User Тестовый пользователь
      */
     public static User createTestUser(int id) {
-        return createTestUser(id, new UserRole(1, UserRole.RoleType.ADMIN));
+        return createTestUser(id, new Role(1, Role.RoleType.ADMIN));
     }
 
 
@@ -36,11 +36,11 @@ public class Users {
      * идентификатором и ролью
      *
      * @param id       Идентификатор
-     * @param userRole Роль пользователя {@link RoleType}
-     * @return User Тестовый пользователь
+     * @param role     Роль пользователя {@link RoleType}
+     * @return User    Тестовый пользователь
      */
-    public static User createTestUser(int id, UserRole userRole) {
-        return new User(
+    public static User createTestUser(int id, Role role) {
+        return User.create(
                 id,
                 "Тестовый Пользователь",
                 "password",
