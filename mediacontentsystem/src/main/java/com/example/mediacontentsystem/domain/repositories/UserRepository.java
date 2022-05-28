@@ -5,7 +5,6 @@ import com.example.mediacontentsystem.domain.entities.user.Role;
 import com.example.mediacontentsystem.domain.entities.user.User;
 import com.example.mediacontentsystem.domain.repositories.base.CrudRepository;
 import io.vavr.control.Either;
-import java.util.List;
 import java.util.concurrent.Future;
 
 /**

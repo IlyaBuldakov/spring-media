@@ -9,13 +9,12 @@ import com.example.mediacontentsystem.domain.entities.user.User;
 import com.example.mediacontentsystem.domain.repositories.UserRepository;
 import com.example.mediacontentsystem.domain.usecases.UseCaseUsingParams;
 import io.vavr.control.Either;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @SpringBootTest
 class UpdateUserTest {
