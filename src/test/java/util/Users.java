@@ -1,6 +1,8 @@
 package util;
 
+import domain.entities.user.Role;
 import domain.entities.user.Role.RoleType;
+import domain.entities.user.User;
 import org.apache.commons.codec.binary.Base64;
 
 import java.util.Random;
@@ -49,5 +51,15 @@ public class Users {
                 Base64.decodeBase64("SGVsbG9Xb3JsZA=="),
                 role
         ).get();
+    }
+
+    /**
+     * Получение случайной роли
+     * @return Role Роль пользователя
+     */
+    public static Role getRandomTestRole() {
+        var values = RoleType.values();
+        Random random = new Random();
+        return new Role(1, values[random.nextInt(values.length)]);
     }
 }
