@@ -2,7 +2,7 @@ package domain.usecases.user;
 
 import domain.entities.failures.AlreadyExists;
 import domain.entities.user.User;
-import domain.entities.user.Users;
+import util.Users;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
 import io.vavr.control.Either;

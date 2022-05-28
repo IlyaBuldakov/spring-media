@@ -1,4 +1,4 @@
-package domain.entities.user;
+package util;
 
 import domain.entities.user.Role.RoleType;
 import org.apache.commons.codec.binary.Base64;
