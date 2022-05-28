@@ -70,6 +70,12 @@ public class User {
      */
     private @Getter Role role;
 
+    private static final String INVALID_ID = "Некорректный идентификатор";
+    private static final String INVALID_NAME = "Некорректное имя пользователя";
+    private static final String INVALID_PASSWORD = "Пароль не соответствует требованиям";
+    private static final String INVALID_EMAIL = "Некорректный почтовый адрес";
+    private static final String INVALID_AVATAR = "Некорректный аватар";
+
     /**
      * Фабричный метод пользователя
      *
@@ -82,28 +88,28 @@ public class User {
      */
 
     public static Either<Failure, User> create(int id,
-                                        String name,
-                                        String password,
-                                        String email,
-                                        byte[] avatar,
+                                               String name,
+                                               String password,
+                                               String email,
+                                               byte[] avatar,
                                                Role role) {
         if (id < 0) {
-            return Either.left(new InvalidValue("Некорректный идентификатор"));
+            return Either.left(new InvalidValue(INVALID_ID));
         }
         if (name.length() == 0) {
-            return Either.left(new InvalidValue("Некорректное имя пользователя"));
+            return Either.left(new InvalidValue(INVALID_NAME));
         }
         if (!password.matches("\\w{8,20}")
                 || !password.matches(".*\\d+.*")
                 || password.equals(password.toLowerCase(Locale.ROOT))
                 || password.equals(password.toUpperCase(Locale.ROOT))) {
-            return Either.left(new InvalidValue("Пароль не соответствует требованиям"));
+            return Either.left(new InvalidValue(INVALID_PASSWORD));
         }
         if (!EmailValidator.getInstance().isValid(email)) {
-            return Either.left(new InvalidValue("Некорректный почтовый адрес"));
+            return Either.left(new InvalidValue(INVALID_EMAIL));
         }
         if (!Base64.isBase64(avatar)) {
-            return Either.left(new InvalidValue("Некорректный аватар"));
+            return Either.left(new InvalidValue(INVALID_AVATAR));
         }
         User user = new User();
         user.id = id;
