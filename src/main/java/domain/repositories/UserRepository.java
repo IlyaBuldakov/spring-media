@@ -4,9 +4,7 @@ import domain.entities.failures.Failure;
 import domain.entities.user.Role;
 import domain.entities.user.User;
 import io.vavr.control.Either;
-import java.util.List;
 import java.util.concurrent.Future;
-
 
 /**
  * Репозиторий пользователей.
@@ -46,7 +44,7 @@ public interface UserRepository {
    *
    * @return Список пользователей.
    */
-  Future<Either<Failure, List<User>>> getAll();
+  Future<Either<Failure, Iterable<User>>> getAll();
 
   /**
    * Получает список пользователей, чьё имя соответствует
@@ -55,7 +53,7 @@ public interface UserRepository {
    * @param query Строка запроса.
    * @return Список пользователей.
    */
-  Future<Either<Failure, List<User>>> search(String query);
+  Future<Either<Failure, Iterable<User>>> search(String query);
 
   /**
    * Получает список пользователей, чьё имя и роль соответствуют
@@ -65,5 +63,5 @@ public interface UserRepository {
    * @param role  Роль пользователя.
    * @return Список пользователей.
    */
-  Future<Either<Failure, List<User>>> search(String query, Role role);
+  Future<Either<Failure, Iterable<User>>> search(String query, Role role);
 }
