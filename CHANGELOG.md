@@ -4,9 +4,22 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [v0.4.0] - 2022-05-28
+### Добавлено
+- Сценарий создания задачи.
+- Сценарий получения задачи.
+- Сценарий удаления задачи.
+- Сценарий обновления задачи.
+- Сценарий поиска задачи.
+### Исправлено
+- Обновлена сущность задачи.
+- Обновлена сущность коментария.
+- Обновлена сущность задачи.
+
 ## [v0.3.0] - 2022-05-21
 ### Добавлено
 - Базовый тип сценария использования (Use Case).
+- Сценарий создания пользователя.
 - Сценарий получения пользователя.
 - Сценарий удаления пользователя.
 - Сценарий обновления пользователя.
@@ -14,7 +27,6 @@
 ### Исправлено
 - В классе `User` добавлены вспомогательные методы для создания тестовых пользователей.
 - Исправлены сущности ошибок.
-
 
 ## [v0.2.0] - 2022-05-21
 ### Добавлено
@@ -42,3 +54,4 @@
 [v0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.0.0...aleksandr.aziatcev-v0.1.0
 [v0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.1.0...aleksandr.aziatcev-v0.2.0
 [v0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.2.0...aleksandr.aziatcev-v0.3.0
+[v0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.3.0...aleksandr.aziatcev-v0.4.0
