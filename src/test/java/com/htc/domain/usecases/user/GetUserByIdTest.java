@@ -27,7 +27,7 @@ class GetUserByIdTest {
 
   @Test
   void shouldGetUserFromTheRepository() {
-    var testUserId = new Random().nextInt();
+    var testUserId = new Random().nextInt(32);
     useCase.execute(testUserId);
     Mockito.verify(mockUserRepository).get(testUserId);
   }
@@ -35,7 +35,7 @@ class GetUserByIdTest {
   @Test
   void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
     // Arrange
-    var testUserId = new Random().nextInt();
+    var testUserId = new Random().nextInt(32);
     var user = UserService.createTestUser(testUserId);
     Mockito
             .when(mockUserRepository.get(testUserId))
@@ -50,7 +50,7 @@ class GetUserByIdTest {
 
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
-    var badTestUserId = new Random().nextInt();
+    var badTestUserId = new Random().nextInt(32);
     var failure = new NotFound("");
     Mockito
             .when(mockUserRepository.get(badTestUserId))

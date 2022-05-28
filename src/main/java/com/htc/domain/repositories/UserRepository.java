@@ -38,7 +38,7 @@ public interface UserRepository {
   /**
    * Обновление пользователя.
    *
-   * @param user - пользователь, подробнее {@link User}
+   * @param user - пользователь
    *
    * @return user - пользователь, подробнее {@link User}
    */

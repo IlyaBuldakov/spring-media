@@ -4,6 +4,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValueParam;
 import io.vavr.control.Either;
 import lombok.Getter;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -11,9 +12,21 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class User {
 
-  private static final String INVALID_EMAIL = "Некорректная электронная почта.";
+  private static final String INVALID_ID = "Некорректный идентификатор.";
+
+  private static final String INVALID_NAME = "Некорректное имя.";
 
   private static final String INVALID_PASSWORD = "Некорректный пароль.";
+
+  private static final String INVALID_EMAIL = "Некорректная электронная почта.";
+
+  private static final String INVALID_IMAGE = "Некорректное изображение.";
+
+  /**
+   * <pre>Требования к имени.
+   * Длина 3-20 символов (включительно).</pre>
+   */
+  private static final String NAME_REGEX = "^.*.{3,20}$";
 
   /**
    * <pre>Требования к паролю.
@@ -28,6 +41,7 @@ public class User {
   /**
    * Идентификатор.
    *
+   * @see User#validateId(int)
    * @return id - новый идентификатор
    */
   private @Getter int id;
@@ -35,6 +49,7 @@ public class User {
   /**
    * Полное имя пользователя.
    *
+   * @see User#validateName(String)
    * @return name - полное имя пользователя
    */
   private @Getter String name;
@@ -42,6 +57,7 @@ public class User {
   /**
    * Пароль.
    *
+   * @see User#validatePassword(String)
    * @return password - пароль пользователя
    */
   private @Getter String password;
@@ -49,6 +65,7 @@ public class User {
   /**
    * Электронная почта.
    *
+   * @see User#validateEmail(String)
    * @return email - электронная почта пользователя
    */
   private @Getter String email;
@@ -56,6 +73,7 @@ public class User {
   /**
    * Аватар в base64.
    *
+   * @see User#validateImage(String)
    * @return avatar - аватар пользователя
    */
   private @Getter String avatar;
@@ -63,9 +81,16 @@ public class User {
   /**
    * Роль пользователя.
    *
-   * @return role - роль, подробнее {@link Role}
+   * @see Role
+   * @return role - роль
    */
   private @Getter Role role;
+
+  /**
+   * Закрытый конструктор.
+   * Функция: создание класса {@link User} только с помощью фабричного метода.
+   */
+  private User() {}
 
   /**
    * Создание пользователя с проверкой данных на корректность.
@@ -74,16 +99,25 @@ public class User {
    * @param name - полное имя
    * @param password - пароль
    * @param email - электронная почта
-   * @param avatar - аватар
+   * @param avatar - изображение
    * @param role - роль
    */
   public static Either<Failure, User> add(
           int id, String name, String password, String email, String avatar, Role role) {
-    if (!validateEmail(email)) {
-      return Either.left(new InvalidValueParam(INVALID_EMAIL));
+    if (!validateId(id)) {
+      return Either.left(new InvalidValueParam(INVALID_ID));
+    }
+    if (!validateName(name)) {
+      return Either.left(new InvalidValueParam(INVALID_NAME));
     }
     if (!validatePassword(password)) {
       return Either.left(new InvalidValueParam(INVALID_PASSWORD));
+    }
+    if (!validateEmail(email)) {
+      return Either.left(new InvalidValueParam(INVALID_EMAIL));
+    }
+    if (!validateImage(avatar)) {
+      return Either.left(new InvalidValueParam(INVALID_IMAGE));
     }
     var user = new User();
     user.id = id;
@@ -96,22 +130,52 @@ public class User {
   }
 
   /**
-   * Валидация электронной почты.
+   * Валидация идентификатора.
    *
-   * @param email - входящий параметр электронной почты
-   * @return email - валидный параметр электронной почты
+   * @param id - входящий параметр идентификатора
+   * @return result - флаг корректности идентификатора
    */
-  private static boolean validateEmail(String email) {
-    return EmailValidator.getInstance().isValid(email);
+  private static boolean validateId(int id) {
+    return id > 0;
+  }
+
+  /**
+   * Валидация имени.
+   *
+   * @param name - входящий параметр имени
+   * @return result - флаг корректности имени
+   */
+  private static boolean validateName(String name) {
+    return name.matches(NAME_REGEX);
   }
 
   /**
    * Валидация пароля.
    *
    * @param password - входящий параметр пароля
-   * @return password - валидный параметр пароля
+   * @return result - флаг корректности пароля
    */
   private static boolean validatePassword(String password) {
     return password.matches(PASSWORD_REGEX);
+  }
+
+  /**
+   * Валидация электронной почты.
+   *
+   * @param email - входящий параметр электронной почты
+   * @return result - флаг корректности электронной почты
+   */
+  private static boolean validateEmail(String email) {
+    return EmailValidator.getInstance().isValid(email);
+  }
+
+  /**
+   * Валидация кодировки изображения.
+   *
+   * @param imageBase64 - входящий параметр изображения в виде base64
+   * @return result - флаг корректности кодировки изображения
+   */
+  private static boolean validateImage(String imageBase64) {
+    return Base64.isBase64(imageBase64) && (imageBase64.length() > 0);
   }
 }
