@@ -36,7 +36,7 @@ class GetUserByIdTest {
 
     @Test
     void shouldGetUserFromRepository() {
-        var userId = new Random().nextInt();
+        var userId = new Random().nextInt(255);
 
         useCase.execute(userId);
 
@@ -50,7 +50,7 @@ class GetUserByIdTest {
      */
     @Test
     void userExists_shouldReturnUser() throws ExecutionException, InterruptedException {
-        var userId = new Random().nextInt();
+        var userId = new Random().nextInt(255);
 
         final User user = Users.createTestUser(userId);
 
@@ -67,7 +67,7 @@ class GetUserByIdTest {
 
     @Test
     void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
-        var userId = new Random().nextInt();
+        var userId = new Random().nextInt(255);
         var failure = new NotFound("");
 
         when(mockUserRepository.get(userId))

@@ -34,7 +34,7 @@ class DeleteUserByIdTest {
 
     @Test
     void shouldDeleteUserFromRepository() {
-        var userId = new Random().nextInt();
+        var userId = new Random().nextInt(255);
 
         useCase.execute(userId);
 
@@ -43,7 +43,7 @@ class DeleteUserByIdTest {
 
     @Test
     void userExists_shouldReturnVoid() throws ExecutionException, InterruptedException {
-        var userId = new Random().nextInt();
+        var userId = new Random().nextInt(255);
 
         when(mockUserRepository.delete(userId))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(null)));
@@ -57,7 +57,7 @@ class DeleteUserByIdTest {
 
     @Test
     void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
-        var userId = new Random().nextInt();
+        var userId = new Random().nextInt(255);
 
         when(mockUserRepository.delete(userId))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
