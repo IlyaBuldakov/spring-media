@@ -6,6 +6,7 @@ import domain.entities.content.ContentType;
 import domain.entities.files.File;
 import domain.entities.user.User;
 import java.time.LocalDateTime;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -87,4 +88,31 @@ public class Task {
    */
   private @Getter TaskStatus status;
 
+  /**
+   * Создаёт тестовую задачу с указанным идентификатором.
+   *
+   * @param id Идентификатор задачи.
+   * @return Задача.
+   */
+  public static Task createTestTask(int id) {
+    return new Task(
+            id,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+    );
+  }
+
+  public static Task createTestTask() {
+    var id = new Random().nextInt(Integer.MAX_VALUE);
+    return createTestTask(id);
+  }
 }
