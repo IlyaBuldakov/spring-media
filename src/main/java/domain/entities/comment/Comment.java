@@ -1,6 +1,6 @@
 package domain.entities.comment;
 
-import domain.entities.user.UserBasic;
+import domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -34,7 +34,7 @@ public class Comment {
      *
      * @return user Автор комментария
      */
-    private @Getter UserBasic user;
+    private @Getter User user;
 
     /**
      * Сообщение (содержимое) комментария

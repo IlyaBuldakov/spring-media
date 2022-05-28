@@ -1,6 +1,6 @@
 package domain.entities.content;
 
-import domain.entities.user.UserBasic;
+import domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -68,7 +68,7 @@ public class Content {
      *
      * @return author Автор контента
      */
-    private @Getter UserBasic author;
+    private @Getter User author;
 
     /**
      * Формат контента {@link Format}
