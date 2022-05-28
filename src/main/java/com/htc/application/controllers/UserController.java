@@ -36,6 +36,7 @@ public class UserController {
    */
   @PostMapping
   public void add() {
+    throw new UnsupportedOperationException("Метод не реализован");
   }
 
   /**
@@ -74,6 +75,7 @@ public class UserController {
    */
   @PutMapping(path = "/{id}")
   public void update(@PathVariable int id) {
+    throw new UnsupportedOperationException("Метод не реализован");
   }
 
   /**
@@ -83,5 +85,6 @@ public class UserController {
    */
   @DeleteMapping(path = "/{id}")
   public void delete(@PathVariable int id) {
+    throw new UnsupportedOperationException("Метод не реализован");
   }
 }

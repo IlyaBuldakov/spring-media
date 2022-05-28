@@ -2,8 +2,8 @@ package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
-import com.htc.domain.entities.user.UserRole;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
 import java.util.List;
@@ -18,32 +18,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class FakeUserRepository implements UserRepository {
   private static final Faker faker = Faker.instance(new Locale("ru"));
-  private static final UserRole.RoleType defaultRole = UserRole.RoleType.ADMIN;
-  private static List<User> users = List.of(
-          new User(
+  private static final List<User> users = List.of(
+          User.add(
                   32,
                   faker.name().fullName(),
-                  faker.internet().password(8, 12),
+                  "gTeggstiag1",
                   faker.internet().emailAddress(),
                   faker.lorem().characters(40) + "==",
-                  new UserRole(1, defaultRole)
-          ),
-          new User(
+                  Role.ADMIN
+          ).get(),
+          User.add(
                   45,
                   faker.name().fullName(),
-                  faker.internet().password(8, 12),
+                  "gTeggstiag2",
                   faker.internet().emailAddress(),
                   faker.lorem().characters(40) + "==",
-                  new UserRole(1, defaultRole)
-          ),
-          new User(
+                  Role.MANAGER
+          ).get(),
+          User.add(
                   87,
                   faker.name().fullName(),
-                  faker.internet().password(8, 12),
+                  "gTeggstiag3",
                   faker.internet().emailAddress(),
                   faker.lorem().characters(40) + "==",
-                  new UserRole(1, defaultRole)
-          )
+                  Role.CONTENT_MAKER
+          ).get()
   );
 
   @Override
@@ -77,7 +76,7 @@ public class FakeUserRepository implements UserRepository {
   }
 
   @Override
-  public Future<Either<Failure, Iterable<User>>> search(String query, UserRole role) {
+  public Future<Either<Failure, Iterable<User>>> search(String query, Role role) {
     return null;
   }
 }

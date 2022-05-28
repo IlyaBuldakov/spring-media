@@ -1,8 +1,8 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
-import com.htc.domain.entities.user.UserRole;
 import io.vavr.control.Either;
 import java.util.concurrent.Future;
 
@@ -67,9 +67,9 @@ public interface UserRepository {
    * запроса и имени пользователя, а ищется подстрока.
    *
    * @param query - строка запроса
-   * @param role - роль пользователя, подробнее {@link UserRole}
+   * @param role - роль пользователя, подробнее {@link Role}
    *
    * @return list - список пользователей, подробнее {@link User}
    */
-  Future<Either<Failure, Iterable<User>>> search(String query, UserRole role);
+  Future<Either<Failure, Iterable<User>>> search(String query, Role role);
 }

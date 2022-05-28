@@ -2,9 +2,10 @@ package com.htc.domain.usecases.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.htc.domain.entities.user.UserRole;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utilily.UserService;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -34,7 +35,7 @@ class SearchUsersTest {
 
   @Test
   void queryContainsRole_ShouldCallSearchMethodWithRoleArgumentOnly() {
-    var query = new SearchUsers.Query("query_test", new UserRole(1, UserRole.RoleType.ADMIN));
+    var query = new SearchUsers.Query("query_test", Role.ADMIN);
     useCase.execute(query);
     Mockito.verify(mockUserRepository, Mockito.times(1)).search(query.query(), query.role());
     Mockito.verify(mockUserRepository, Mockito.times(0)).search(query.query());
@@ -63,7 +64,7 @@ class SearchUsersTest {
   @Test
   void queryContainsRole_ShouldGetUsersFromTheRepositoryAccordingToQuery()
           throws ExecutionException, InterruptedException {
-    var query = new SearchUsers.Query("query_test", new UserRole(1, UserRole.RoleType.ADMIN));
+    var query = new SearchUsers.Query("query_test", Role.ADMIN);
     var expected = List.of(
             UserService.createTestUser()
     );
