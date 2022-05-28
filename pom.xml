@@ -14,9 +14,16 @@
 
         <junit.version>5.8.2</junit.version>
         <mockito.version>4.5.1</mockito.version>
+        <spring.version>2.6.7</spring.version>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
         <!-- JUnit tests -->
         <dependency>

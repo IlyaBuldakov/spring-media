@@ -1,6 +1,10 @@
 # Зависимости проекта
 ___
 
+### Spring:
+
+- **org.springframework.boot:spring-boot-starter-web** - стартер для создания RESTful API
+
 ### Тестирование:
 
  - **org.junit.jupiter:junit-jupiter** - модульные тесты.
