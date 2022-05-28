@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import domain.entities.failures.NotFoundDto;
+import domain.entities.failures.NotFound;
 import domain.entities.user.User;
 import domain.repositories.UserRepository;
 import domain.usecases.UseCase;
@@ -62,7 +62,7 @@ class GetUserByIdTest {
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var userId = new Random().nextInt();
-    var failure = new NotFoundDto();
+    var failure = new NotFound();
 
     when(mockUserRepository.get(userId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
