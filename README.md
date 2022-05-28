@@ -19,6 +19,7 @@
 2. `io.vavr:vavr` - примитивы функционального программирования.
 3. `com.github.javafaker:javafaker` - генерация данных.
 4. `commons-validator:commons-validator` - проверка значений.
+4. `commons-codec:commons-codec` - кодирование и декодирование данных.
 
 # Инструкции
 
