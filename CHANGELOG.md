@@ -3,6 +3,11 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+
+## [0.6.0] - 2022-05-29
+### Удалено
+- Пакет токенов авторизации.
+
 ## [0.5.0] - 2022-05-28
 ### Добавлено
 - Сценарий удаления пользователя по идентификатору и тесты для него.
@@ -68,6 +73,8 @@
 
 [0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
 -->
+
+[0.6.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.5.0...yuriy.krasnoperov-v0.6.0
 [0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.4.0...yuriy.krasnoperov-v0.5.0
 [0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.3.0...yuriy.krasnoperov-v0.4.0
 [0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.2.0...yuriy.krasnoperov-v0.3.0
