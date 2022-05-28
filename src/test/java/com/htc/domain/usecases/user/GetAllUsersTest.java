@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utilily.UserService;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

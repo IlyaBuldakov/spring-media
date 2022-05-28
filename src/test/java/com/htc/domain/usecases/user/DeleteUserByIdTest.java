@@ -49,7 +49,7 @@ class DeleteUserByIdTest {
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     var badTestUserId = new Random().nextInt();
-    var failure = new NotFound();
+    var failure = new NotFound("");
     Mockito
             .when(mockUserRepository.delete(badTestUserId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

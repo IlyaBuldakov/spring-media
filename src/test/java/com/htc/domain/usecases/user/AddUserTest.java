@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utilily.UserService;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -49,7 +50,7 @@ class AddUserTest {
   @Test
   void usersExist_ShouldReturnAlreadyExists() throws ExecutionException, InterruptedException {
     var user = UserService.createTestUser();
-    var failure = new AlreadyExists();
+    var failure = new AlreadyExists("");
     Mockito
             .when(mockUserRepository.add(user))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

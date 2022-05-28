@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utilily.UserService;
 import io.vavr.control.Either;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -50,7 +51,7 @@ class GetUserByIdTest {
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     var badTestUserId = new Random().nextInt();
-    var failure = new NotFound();
+    var failure = new NotFound("");
     Mockito
             .when(mockUserRepository.get(badTestUserId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

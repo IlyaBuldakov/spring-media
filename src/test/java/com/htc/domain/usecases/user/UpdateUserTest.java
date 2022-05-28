@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utilily.UserService;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -48,7 +49,7 @@ class UpdateUserTest {
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     var user = UserService.createTestUser();
-    var failure = new NotFound();
+    var failure = new NotFound("");
     Mockito
             .when(mockUserRepository.update(user))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
