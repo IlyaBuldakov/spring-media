@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.htc.domain.entities.failures.AlreadyExists;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -30,7 +29,7 @@ class CreateUserTest {
   @Test
   void shouldCreateUserByTheRepository() {
     // Arrange
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
 
     // Act
     useCase.execute(user);
@@ -43,7 +42,7 @@ class CreateUserTest {
   void usersNotExist_ShouldCreateUserAndReturnUser()
       throws ExecutionException, InterruptedException {
     // Arrange
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
 
     when(mockUserRepository.create(user))
         .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
@@ -61,7 +60,7 @@ class CreateUserTest {
   void usersExist_ShouldReturnAlreadyExists()
       throws ExecutionException, InterruptedException {
     // Arrange
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
     var failure = new AlreadyExists();
 
     when(mockUserRepository.create(user))

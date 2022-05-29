@@ -39,7 +39,7 @@ class GetAllUsersTest {
   @Test
   void usersExist_ShouldReturnAllUsers() throws ExecutionException, InterruptedException {
     // Arrange
-    var  users = List.of(User.createTestUser());
+    var  users = List.of(UserService.createTestUser());
 
     when(mockUserRepository.getAll())
         .thenReturn(CompletableFuture.completedFuture(Either.right(users)));

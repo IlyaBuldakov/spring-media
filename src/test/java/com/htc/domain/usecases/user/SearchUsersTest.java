@@ -6,7 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.user.UserRole;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
@@ -63,7 +62,7 @@ class SearchUsersTest {
       throws ExecutionException, InterruptedException {
     // Arrange
     var query = new SearchUsers.Query("test", null);
-    var expected = List.of(User.createTestUser());
+    var expected = List.of(UserService.createTestUser());
 
     when(mockUserRepository.search(query.query()))
         .thenReturn(CompletableFuture.completedFuture(Either.right(expected)));
@@ -84,7 +83,7 @@ class SearchUsersTest {
     var query = new SearchUsers.Query(
         "test",
         new UserRole(1, UserRole.RoleType.ADMIN));
-    var expected = List.of(User.createTestUser());
+    var expected = List.of(UserService.createTestUser());
 
     when(mockUserRepository.search(query.query(), query.role()))
         .thenReturn(CompletableFuture.completedFuture(Either.right(expected)));
