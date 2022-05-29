@@ -7,10 +7,12 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.concurrent.Future;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения пользователя по его идентификатору.
  */
+@Component
 @AllArgsConstructor
 public final class GetUserById implements UseCase<Integer, User> {
   private final UserRepository repository;

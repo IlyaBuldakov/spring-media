@@ -35,21 +35,21 @@ public class User {
    *
    * @return id Имя пользователя.
    */
-  private String name;
+  private @Getter String name;
 
   /**
    *  Изображение пользователя.
    *
    * @return id Изображение пользователя.
    */
-  private byte[] avatar;
+  private @Getter byte[] avatar;
 
   /**
    *  Роль пользователя, см. {@Link UserRole}
    *
    * @return id Роль пользователя.
    */
-  private UserRole role;
+  private @Getter UserRole role;
 
   /**
    * Создаёт тестового пользователя с указанными идентификатором и ролью.
