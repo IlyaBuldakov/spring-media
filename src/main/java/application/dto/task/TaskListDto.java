@@ -1,6 +1,6 @@
 package application.dto.task;
 
-import domain.entity.content.ContentTypeDto;
+import application.dto.content.ContentTypeDto;
 import domain.entity.users.UserBasicDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

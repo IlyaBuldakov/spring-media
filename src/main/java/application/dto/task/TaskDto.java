@@ -1,8 +1,8 @@
 package application.dto.task;
 
 import domain.entity.comment.CommentDto;
-import domain.entity.content.ContentDto;
-import domain.entity.content.ContentTypeDto;
+import application.dto.content.ContentDto;
+import application.dto.content.ContentTypeDto;
 import domain.entity.users.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package domain.entity.notification;
 
-import domain.entity.task.TaskBasicDto;
+import application.dto.task.TaskBasicDto;
 import domain.entity.users.UserBasicDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
