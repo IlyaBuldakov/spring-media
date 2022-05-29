@@ -7,6 +7,7 @@ Spring:
 1. `org.junit.jupiter:junit-jupiter` – модульные тесты.
 2. `org.mockito:mockito-core` – объекты-заглушки для внешних зависимостей.
 3. `org.assertj:assertj-core` – человекочитаемые проверки.
+4. `com.github.javafaker:javafaker` – генерация тестовых данных.
 
 Разное:
 1. `org.projectlombok:lombok` – полезные аннотации.

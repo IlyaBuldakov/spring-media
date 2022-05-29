@@ -1,11 +1,13 @@
 package com.htc.infrastructure.repositories;
 
+import com.github.javafaker.Faker;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.user.UserRole;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.springframework.stereotype.Component;
@@ -15,29 +17,30 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class FakeUserRepository implements UserRepository {
+  private static final Faker faker = Faker.instance(new Locale("ru"));
   private static final List<User> users = List.of(
       new User(
           1,
-          "user@example.com",
-          "Passw0rd!",
-          "Иванов Иван",
-          new byte[]{},
+          faker.internet().emailAddress(),
+          faker.internet().password(8, 12),
+          faker.name().fullName(),
+          new byte[] {},
           new UserRole(1, UserRole.RoleType.ADMIN)
       ),
       new User(
           2,
-          "user@example.com",
-          "Passw0rd!",
-          "Иванов Иван",
-          new byte[]{},
+          faker.internet().emailAddress(),
+          faker.internet().password(8, 12),
+          faker.name().fullName(),
+          new byte[] {},
           new UserRole(1, UserRole.RoleType.MANAGER)
       ),
       new User(
           3,
-          "user@example.com",
-          "Passw0rd!",
-          "Иванов Иван",
-          new byte[]{},
+          faker.internet().emailAddress(),
+          faker.internet().password(8, 12),
+          faker.name().fullName(),
+          new byte[] {},
           new UserRole(1, UserRole.RoleType.CONTENT_MAKER)
       )
   );
