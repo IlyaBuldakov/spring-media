@@ -1,7 +1,7 @@
 package com.example.mediacontentsystem.domain.repositories;
 
 import com.example.mediacontentsystem.domain.entities.failures.Failure;
-import com.example.mediacontentsystem.domain.entities.user.Role;
+import com.example.mediacontentsystem.domain.entities.user.RoleType;
 import com.example.mediacontentsystem.domain.entities.user.User;
 import com.example.mediacontentsystem.domain.repositories.base.CrudRepository;
 import io.vavr.control.Either;
@@ -26,5 +26,5 @@ public interface UserRepository extends CrudRepository<User> {
    * @param role роль пользователя.
    * @return Список пользователей по имени и роли.
    */
-  Future<Either<Failure, Iterable<User>>> filter(String name, Role role);
+  Future<Either<Failure, Iterable<User>>> filter(String name, RoleType role);
 }
