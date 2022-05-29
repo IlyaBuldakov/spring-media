@@ -23,10 +23,10 @@ public abstract class UserService {
   public static User createTestUser(int id, UserRole.RoleType role) {
     return new User(
         id,
+        faker.name().fullName(),
         faker.internet().emailAddress(),
         faker.internet().password(8, 12),
-        faker.name().fullName(),
-        new byte[] {},
+        faker.lorem().characters(40),
         new UserRole(1, role)
     );
   }

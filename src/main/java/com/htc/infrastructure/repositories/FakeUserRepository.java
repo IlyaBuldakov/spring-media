@@ -21,26 +21,26 @@ public class FakeUserRepository implements UserRepository {
   private static final List<User> users = List.of(
       new User(
           1,
+          faker.name().fullName(),
           faker.internet().emailAddress(),
           faker.internet().password(8, 12),
-          faker.name().fullName(),
-          new byte[] {},
+          faker.lorem().characters(40),
           new UserRole(1, UserRole.RoleType.ADMIN)
       ),
       new User(
           2,
+          faker.name().fullName(),
           faker.internet().emailAddress(),
           faker.internet().password(8, 12),
-          faker.name().fullName(),
-          new byte[] {},
+          faker.lorem().characters(40),
           new UserRole(1, UserRole.RoleType.MANAGER)
       ),
       new User(
           3,
+          faker.name().fullName(),
           faker.internet().emailAddress(),
           faker.internet().password(8, 12),
-          faker.name().fullName(),
-          new byte[] {},
+          faker.lorem().characters(40),
           new UserRole(1, UserRole.RoleType.CONTENT_MAKER)
       )
   );

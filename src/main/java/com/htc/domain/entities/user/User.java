@@ -16,6 +16,13 @@ public class User {
   private @Getter int id;
 
   /**
+   *  Имя пользователя.
+   *
+   * @return id Имя пользователя.
+   */
+  private @Getter String name;
+
+  /**
    *  Электронная почта пользователя.
    *
    * @return id Электронная почта пользователя.
@@ -30,18 +37,11 @@ public class User {
   private @Getter String password;
 
   /**
-   *  Имя пользователя.
-   *
-   * @return id Имя пользователя.
-   */
-  private @Getter String name;
-
-  /**
    *  Изображение пользователя.
    *
-   * @return id Изображение пользователя.
+   * @return id Изображение пользователя в кодировке Base64.
    */
-  private @Getter byte[] avatar;
+  private @Getter String avatar;
 
   /**
    *  Роль пользователя, см. {@Link UserRole}
