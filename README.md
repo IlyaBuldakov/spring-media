@@ -7,7 +7,8 @@
 
 
 ### Разное:
-    1. org.projectlombok:lombok
+1. `org.projectlombok:lombok` - полезные аннотации.
+2. `io.vavr:vavr` - примитивы функционального программирования.
 
 # Инструкции
 Плагины:
