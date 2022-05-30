@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utility.UserService;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -61,7 +62,7 @@ class CreateUserTest {
       throws ExecutionException, InterruptedException {
     // Arrange
     var user = UserService.createTestUser();
-    var failure = new AlreadyExists();
+    var failure = new AlreadyExists("");
 
     when(mockUserRepository.create(user))
         .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

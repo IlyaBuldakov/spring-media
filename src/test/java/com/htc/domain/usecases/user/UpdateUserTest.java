@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utility.UserService;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -59,7 +60,7 @@ class UpdateUserTest {
   void usersNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var user = UserService.createTestUser();
-    var failure = new NotFound();
+    var failure = new NotFound("");
 
     when(mockUserRepository.update(user))
         .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

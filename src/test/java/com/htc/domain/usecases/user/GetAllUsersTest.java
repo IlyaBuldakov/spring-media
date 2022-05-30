@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utility.UserService;
 import io.vavr.collection.List;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;

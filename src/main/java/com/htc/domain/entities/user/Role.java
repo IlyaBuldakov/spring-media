@@ -1,30 +1,24 @@
 package com.htc.domain.entities.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * Роль пользователя.
  */
-@AllArgsConstructor
-public class UserRole {
-  /**
-   * Виды ролей пользователя.
-   */
-  public enum RoleType {
+public enum Role {
+
     /**
      * Администратор.
      */
-    ADMIN,
+    ADMIN(1, "Администратор"),
     /**
      * Менеджер.
      */
-    MANAGER,
+    MANAGER(2, "Менеджер"),
     /**
      * Контент-мейкер.
      */
-    CONTENT_MAKER
-  }
+    CONTENT_MAKER(3, "Контент-мейкер");
 
   /**
    * Идентификатор роли.
@@ -37,5 +31,10 @@ public class UserRole {
    *
    * @return name Название роли.
    */
-  private @Getter RoleType name;
+  private @Getter String name;
+
+  Role(int id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 }

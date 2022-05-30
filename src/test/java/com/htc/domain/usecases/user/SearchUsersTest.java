@@ -6,9 +6,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.htc.domain.entities.user.UserRole;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utility.UserService;
 import io.vavr.collection.List;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
@@ -46,8 +47,7 @@ class SearchUsersTest {
     // Arrange
     var query = new SearchUsers.Query(
         "test",
-        new UserRole(1, UserRole.RoleType.ADMIN)
-    );
+        Role.ADMIN);
 
     // Act
     useCase.execute(query);
@@ -82,7 +82,7 @@ class SearchUsersTest {
     // Arrange
     var query = new SearchUsers.Query(
         "test",
-        new UserRole(1, UserRole.RoleType.ADMIN));
+        Role.ADMIN);
     var expected = List.of(UserService.createTestUser());
 
     when(mockUserRepository.search(query.query(), query.role()))

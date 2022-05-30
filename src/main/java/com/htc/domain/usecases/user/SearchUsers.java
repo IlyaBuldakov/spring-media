@@ -1,8 +1,8 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
-import com.htc.domain.entities.user.UserRole;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -22,7 +22,7 @@ public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<Us
    * @param query Строка запроса.
    * @param role Роль пользователя.
    */
-  public record Query(String query, UserRole role) {}
+  public record Query(String query, Role role) {}
 
   private final UserRepository repository;
 

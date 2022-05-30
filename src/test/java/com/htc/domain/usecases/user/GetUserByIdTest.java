@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utility.UserService;
 import io.vavr.control.Either;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -61,7 +62,7 @@ class GetUserByIdTest {
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var userId = new Random().nextInt();
-    var failure = new NotFound();
+    var failure = new NotFound("");
 
     when(mockUserRepository.get(userId))
         .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

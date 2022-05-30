@@ -2,8 +2,8 @@ package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
-import com.htc.domain.entities.user.UserRole;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
 import java.util.List;
@@ -19,30 +19,30 @@ import org.springframework.stereotype.Component;
 public class FakeUserRepository implements UserRepository {
   private static final Faker faker = Faker.instance(new Locale("ru"));
   private static final List<User> users = List.of(
-      new User(
+      User.create(
           1,
           faker.name().fullName(),
           faker.internet().emailAddress(),
           faker.internet().password(8, 12),
           faker.lorem().characters(40),
-          new UserRole(1, UserRole.RoleType.ADMIN)
-      ),
-      new User(
+          Role.ADMIN
+      ).get(),
+      User.create(
           2,
           faker.name().fullName(),
           faker.internet().emailAddress(),
           faker.internet().password(8, 12),
           faker.lorem().characters(40),
-          new UserRole(1, UserRole.RoleType.MANAGER)
-      ),
-      new User(
+          Role.MANAGER
+      ).get(),
+      User.create(
           3,
           faker.name().fullName(),
           faker.internet().emailAddress(),
           faker.internet().password(8, 12),
           faker.lorem().characters(40),
-          new UserRole(1, UserRole.RoleType.CONTENT_MAKER)
-      )
+          Role.CONTENT_MAKER
+      ).get()
   );
 
   @Override
@@ -79,7 +79,7 @@ public class FakeUserRepository implements UserRepository {
   }
 
   @Override
-  public Future<Either<Failure, Iterable<User>>> search(String query, UserRole role) {
+  public Future<Either<Failure, Iterable<User>>> search(String query, Role role) {
     return null;
   }
 }
