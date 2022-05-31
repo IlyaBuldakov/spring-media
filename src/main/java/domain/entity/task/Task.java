@@ -68,7 +68,7 @@ public class Task {
     /**
      * Комментарий
      */
-    @Getter Comment comments;
+    @Getter Iterable<Comment> comments;
 
     /**
      * Статус задачи
@@ -97,7 +97,7 @@ public class Task {
      */
     public static Either<Failure,Task> create(
             Integer id, String name, ContentType contentType, String description,
-            Path file, User author, LocalDateTime dateCreate, LocalDateTime dateExpired, Content contents, Comment comments){
+            Path file, User author, LocalDateTime dateCreate, LocalDateTime dateExpired, Content contents,Iterable<Comment> comments){
 
         if(id <=0){
             return Either.left(new InvalidValue(INVALID_ID));
@@ -116,7 +116,7 @@ public class Task {
         }
 
 
-        var task = new Task();
+        Task task = new Task();
         task.id = id;
         task.name = name;
         task.contentType = contentType;
