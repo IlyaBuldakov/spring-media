@@ -7,7 +7,7 @@ import lombok.Getter;
  *
  */
 @AllArgsConstructor
-public class BadRequestDto implements Failure{
+public class BadRequestDto {
     /**
      *
      */

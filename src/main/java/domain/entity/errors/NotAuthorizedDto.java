@@ -7,7 +7,7 @@ import lombok.Getter;
  *
  */
 @AllArgsConstructor
-public class NotAuthorizedDto implements Failure{
+public class NotAuthorizedDto {
     /**
      * код статуса ошибки
      */

@@ -7,7 +7,7 @@ import lombok.Getter;
  *
  */
 @AllArgsConstructor
-public class FieldMessageDto implements Failure{
+public class FieldMessageDto {
     /**
      *
      */
