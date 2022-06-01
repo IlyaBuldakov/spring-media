@@ -135,7 +135,7 @@ buildNumber.properties
 # suggested that you use the "grails integrate-with --git" command
 # to generate your .gitignore file.
 
-# web application files
+# web ru.kiryanovid.application files
 /web-app/WEB-INF/classes
 
 # default HSQL database files for production mode
