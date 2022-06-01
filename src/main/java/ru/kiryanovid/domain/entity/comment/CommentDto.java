@@ -1,6 +1,6 @@
 package ru.kiryanovid.domain.entity.comment;
 
-import ru.kiryanovid.domain.entity.users.UserBasicDto;
+import ru.kiryanovid.application.dto.users.UserBasicDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

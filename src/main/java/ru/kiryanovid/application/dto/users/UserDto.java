@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity.users;
+package ru.kiryanovid.application.dto.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,12 @@ import lombok.Getter;
  *
  */
 @AllArgsConstructor
-public class UserRequestDto {
+public class UserDto {
+    /**
+     * Идентификатор пользователя
+     */
+    @Getter private Integer id;
+
     /**
      * Имя пользователя
      */
@@ -19,17 +24,12 @@ public class UserRequestDto {
     @Getter private String email;
 
     /**
-     * Пароль пользователя
-     */
-    @Getter private String password;
-
-    /**
      * Изображение пользователя
      */
-    @Getter private String avatar;
+    @Getter private byte[] avatar;
 
     /**
      * Роль пользователя
      */
-    @Getter private Role role;
+    @Getter private RoleDto role;
 }

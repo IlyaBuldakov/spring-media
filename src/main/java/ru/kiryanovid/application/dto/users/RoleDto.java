@@ -1,7 +1,8 @@
-package ru.kiryanovid.domain.entity.users;
+package ru.kiryanovid.application.dto.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.kiryanovid.domain.entity.users.Role;
 
 /**
  *
