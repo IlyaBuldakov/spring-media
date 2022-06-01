@@ -13,19 +13,19 @@ ___
 - в класс Content добавлены поля
 - создан тест для класса Content
 ### Изменено
-- Класс Content перенесен в пакет domain.entity.content
-- Классы DTO связанные с контентом перенесены в пакет application.dto.content
+- Класс Content перенесен в пакет ru.kiryanovid.domain.entity.content
+- Классы DTO связанные с контентом перенесены в пакет ru.kiryanovid.application.dto.content
 
 ## [v0.2.0] - 2022-05-21
 
 ### Добавлено
 - Созданы все сущности.
-- Создан пакет application.dto.task
+- Создан пакет ru.kiryanovid.application.dto.task
 - Добавлен тест класса Task
 ### Изменено
-- сущность Task перенесена в пакет domain.entity.task
+- сущность Task перенесена в пакет ru.kiryanovid.domain.entity.task
 - enum класс Type переименован в ContentType
-- сущности DTO из пакета domain.entity.task перенесены в пакет application.dto.task
+- сущности DTO из пакета ru.kiryanovid.domain.entity.task перенесены в пакет ru.kiryanovid.application.dto.task
 
 ## [v0.1.0] - 2022-04-16
 
