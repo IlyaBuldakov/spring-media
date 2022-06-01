@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,7 +15,7 @@ class TaskTest {
     Path testPath = Path.of("c:/test.png");
     User user = new User();
     Content content = new Content();
-    Comment comment = new Comment();
+    Iterable<Comment> comment = List.of();
 
     @Test
     void create_ValidValues_ShouldCreateTask() {
