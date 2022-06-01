@@ -3,7 +3,7 @@ package ru.kiryanovid.infrastructure.repositories;
 import com.github.javafaker.Faker;
 import io.vavr.control.Either;
 import org.springframework.stereotype.Component;
-import ru.kiryanovid.domain.entity.User;
+import ru.kiryanovid.domain.entity.users.User;
 import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.errors.Failure;
 import ru.kiryanovid.domain.entity.task.ContentType;
@@ -27,7 +27,7 @@ public class FakeTaskRepositories implements TaskRepositories {
     private static final List<Task> taskList = List.of(
             Task.create(
                     1,
-                    faker.name().fullName(),
+                    faker.lorem().characters(50),
                     ContentType.AUDIO,
                     faker.lorem().characters(50),
                     Path.of(faker.file().fileName()),
@@ -46,7 +46,7 @@ public class FakeTaskRepositories implements TaskRepositories {
             ).get(),
             Task.create(
                     2,
-                    faker.name().fullName(),
+                    faker.lorem().characters(50),
                     ContentType.AUDIO,
                     faker.lorem().characters(50),
                     Path.of(faker.file().fileName()),
@@ -65,7 +65,7 @@ public class FakeTaskRepositories implements TaskRepositories {
             ).get(),
             Task.create(
                     3,
-                    faker.name().fullName(),
+                    faker.lorem().characters(50),
                     ContentType.AUDIO,
                     faker.lorem().characters(50),
                     Path.of(faker.file().fileName()),

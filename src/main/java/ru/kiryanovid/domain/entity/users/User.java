@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity;
+package ru.kiryanovid.domain.entity.users;
 
 
 import io.vavr.control.Either;
@@ -7,7 +7,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.EmailValidator;
 import ru.kiryanovid.domain.entity.errors.Failure;
 import ru.kiryanovid.domain.entity.errors.InvalidValue;
-import ru.kiryanovid.domain.entity.users.Role;
 
 /**
  * Пользователь.

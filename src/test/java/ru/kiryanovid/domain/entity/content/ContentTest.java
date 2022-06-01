@@ -2,7 +2,7 @@ package ru.kiryanovid.domain.entity.content;
 
 
 import com.github.javafaker.Faker;
-import ru.kiryanovid.domain.entity.User;
+import ru.kiryanovid.domain.entity.users.User;
 import ru.kiryanovid.domain.entity.task.ContentType;
 import org.junit.jupiter.api.Test;
 import ru.kiryanovid.domain.entity.users.Role;

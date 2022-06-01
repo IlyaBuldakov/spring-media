@@ -1,6 +1,6 @@
 package ru.kiryanovid.domain.entity.content;
 
-import ru.kiryanovid.domain.entity.User;
+import ru.kiryanovid.domain.entity.users.User;
 import ru.kiryanovid.domain.entity.task.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
