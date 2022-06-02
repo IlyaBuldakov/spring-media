@@ -15,7 +15,7 @@ public interface TaskService {
   Future<Either<Failure, Void>> deleteTask(Task task);
   Future<Either<Failure, Task>> getTaskById(int id);
   Future<Either<Failure, List<Task>>> getAllTasks(User user);
-  Future<Either<Failure, List<Task>>> getTasksByQuery(String query);
+  Future<Either<Failure, List<Task>>> getTasksByQuery(String query, User user);
 
   /**
    * статус задачи меняется с FEEDBACK на APPROVED, статус контента меняется с NON-PUBLISHED на PUBLISHED
