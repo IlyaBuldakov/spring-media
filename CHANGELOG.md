@@ -5,6 +5,13 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [v0.2.0] - 2022-06-02
+
+### Добавлено
+- структура проекта доработана для соответствия требованиям Spring и DDD;
+- добавлены зависимости: Spring, javafaker, commons-codec, commons-lang3, javax.persistence;
+- созданы репозитории и интерфейсы сервисов для работы с ними;
+- добавлен конструктор и валидаторы в класс User;
 
 ## [v0.1.0] - 2022-04-19
 
@@ -23,5 +30,5 @@
 3. file
 - Написана документация Javadoc.
 
-[v0.1.0]: 
+[v0.1.0]: https://gitlab.study.htc-cs.com/root/java/grade/-/compare/v0.0.0...v0.1.0 
 
