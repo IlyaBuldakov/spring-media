@@ -11,17 +11,6 @@ import org.apache.commons.validator.routines.EmailValidator;
  * Пользователь.
  */
 public class User {
-
-  private static final String INVALID_ID = "Некорректный идентификатор.";
-
-  private static final String INVALID_NAME = "Некорректное имя.";
-
-  private static final String INVALID_PASSWORD = "Некорректный пароль.";
-
-  private static final String INVALID_EMAIL = "Некорректная электронная почта.";
-
-  private static final String INVALID_IMAGE = "Некорректное изображение.";
-
   /**
    * <pre>Требования к имени.
    * Длина 3-20 символов (включительно).</pre>
@@ -105,19 +94,19 @@ public class User {
   public static Either<Failure, User> add(
           int id, String name, String password, String email, String avatar, Role role) {
     if (!validateId(id)) {
-      return Either.left(new InvalidValueParam(INVALID_ID));
+      return Either.left(InvalidValueParam.INVALID_ENTITY_ID);
     }
     if (!validateName(name)) {
-      return Either.left(new InvalidValueParam(INVALID_NAME));
+      return Either.left(InvalidValueParam.INVALID_USER_NAME);
     }
     if (!validatePassword(password)) {
-      return Either.left(new InvalidValueParam(INVALID_PASSWORD));
+      return Either.left(InvalidValueParam.INVALID_USER_PASSWORD);
     }
     if (!validateEmail(email)) {
-      return Either.left(new InvalidValueParam(INVALID_EMAIL));
+      return Either.left(InvalidValueParam.INVALID_USER_EMAIL);
     }
     if (!validateImage(avatar)) {
-      return Either.left(new InvalidValueParam(INVALID_IMAGE));
+      return Either.left(InvalidValueParam.INVALID_USER_IMAGE);
     }
     var user = new User();
     user.id = id;

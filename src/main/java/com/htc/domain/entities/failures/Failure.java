@@ -1,15 +1,21 @@
 package com.htc.domain.entities.failures;
 
-import lombok.Getter;
-
 /**
  * Ошибка.
  */
-public abstract class Failure {
-  private final @Getter String message;
+public interface Failure {
 
-  public Failure(String message) {
-    this.message = message;
-  }
+  /**
+   * Получить код ошибки.
+   *
+   * @return status - код ошибки
+   */
+  int getStatus();
 
+  /**
+   * Получить сообщение.
+   *
+   * @return message - сообщение об ошибке
+   */
+  String getMessage();
 }

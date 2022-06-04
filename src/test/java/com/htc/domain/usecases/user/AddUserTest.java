@@ -50,7 +50,7 @@ class AddUserTest {
   @Test
   void usersExist_ShouldReturnAlreadyExists() throws ExecutionException, InterruptedException {
     var user = UserService.createTestUser();
-    var failure = new AlreadyExists("");
+    var failure = AlreadyExists.DEFAULT_MESSAGE;
     Mockito
             .when(mockUserRepository.add(user))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

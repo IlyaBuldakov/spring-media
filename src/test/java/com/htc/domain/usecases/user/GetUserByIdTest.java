@@ -51,7 +51,7 @@ class GetUserByIdTest {
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     var badTestUserId = new Random().nextInt(1, 32);
-    var failure = new NotFound("");
+    var failure = NotFound.DEFAULT_MESSAGE;
     Mockito
             .when(mockUserRepository.get(badTestUserId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

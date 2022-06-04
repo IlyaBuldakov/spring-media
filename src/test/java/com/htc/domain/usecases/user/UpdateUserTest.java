@@ -49,7 +49,7 @@ class UpdateUserTest {
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     var user = UserService.createTestUser();
-    var failure = new NotFound("");
+    var failure = NotFound.DEFAULT_MESSAGE;
     Mockito
             .when(mockUserRepository.update(user))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
