@@ -47,6 +47,6 @@ public abstract class UserService {
    * @return user - тестовый пользователь
    */
   public static User createTestUser() {
-    return createTestUser(new Random().nextInt(32));
+    return createTestUser(new Random().nextInt(1, 32));
   }
 }

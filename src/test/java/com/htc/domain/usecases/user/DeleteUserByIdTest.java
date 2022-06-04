@@ -26,7 +26,7 @@ class DeleteUserByIdTest {
 
   @Test
   void shouldDeleteUserByTheRepository() {
-    var testUserId = new Random().nextInt(32);
+    var testUserId = new Random().nextInt(1, 32);
     useCase.execute(testUserId);
     Mockito.verify(mockUserRepository).delete(testUserId);
   }
@@ -34,7 +34,7 @@ class DeleteUserByIdTest {
   @Test
   void userExists_ShouldDeleteUserAndReturnVoid() throws ExecutionException, InterruptedException {
     // Arrange
-    var testUserId = new Random().nextInt(32);
+    var testUserId = new Random().nextInt(1, 32);
     Mockito
             .when(mockUserRepository.delete(testUserId))
             .thenReturn(CompletableFuture.completedFuture(Either.right(null)));
@@ -48,7 +48,7 @@ class DeleteUserByIdTest {
 
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
-    var badTestUserId = new Random().nextInt(32);
+    var badTestUserId = new Random().nextInt(1, 32);
     var failure = new NotFound("");
     Mockito
             .when(mockUserRepository.delete(badTestUserId))
