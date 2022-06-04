@@ -30,15 +30,15 @@ public class User {
   /**
    * Идентификатор.
    *
-   * @see User#validateId(int)
-   * @return id - новый идентификатор
+   * @see User#validateId (int)
+   * @return id - идентификатор
    */
   private @Getter int id;
 
   /**
    * Полное имя пользователя.
    *
-   * @see User#validateName(String)
+   * @see User#validateName (String)
    * @return name - полное имя пользователя
    */
   private @Getter String name;
@@ -46,7 +46,7 @@ public class User {
   /**
    * Пароль.
    *
-   * @see User#validatePassword(String)
+   * @see User#validatePassword (String)
    * @return password - пароль пользователя
    */
   private @Getter String password;
@@ -54,7 +54,7 @@ public class User {
   /**
    * Электронная почта.
    *
-   * @see User#validateEmail(String)
+   * @see User#validateEmail (String)
    * @return email - электронная почта пользователя
    */
   private @Getter String email;
@@ -62,7 +62,7 @@ public class User {
   /**
    * Аватар в base64.
    *
-   * @see User#validateImage(String)
+   * @see User#validateImage (String)
    * @return avatar - аватар пользователя
    */
   private @Getter String avatar;

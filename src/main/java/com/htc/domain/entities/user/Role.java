@@ -5,7 +5,6 @@ import lombok.Getter;
 /**
  * Роль пользователя.
  */
-
 public enum Role {
   /**
    * Администратор.
