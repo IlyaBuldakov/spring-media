@@ -12,7 +12,7 @@ public enum NotFound implements Failure {
   private final int status;
   private final String message;
 
-  NotFound(int status, String message) {
+  NotFound(Integer status, String message) {
     this.status = status;
     this.message = message;
   }
@@ -26,7 +26,4 @@ public enum NotFound implements Failure {
   public String getMessage() {
     return message;
   }
-
-  //написать тест что наследуется от failure
-
 }

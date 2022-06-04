@@ -12,7 +12,7 @@ public enum AlreadyExists implements Failure {
   private final int status;
   private final String message;
 
-  AlreadyExists(int status, String message) {
+  AlreadyExists(Integer status, String message) {
     this.status = status;
     this.message = message;
   }
