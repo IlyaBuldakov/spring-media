@@ -10,15 +10,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * Сценарий получения контента по его идентификатору.
+ * Сценарий получения ленты контента.
  */
 @Component
 @AllArgsConstructor
-public final class GetContentById implements UseCase<Integer, Content> {
+public final class GetAllContent implements UseCase<Void, Iterable<Content>> {
   private final ContentRepository repository;
 
   @Override
-  public Future<Either<Failure, Content>> execute(Integer id) {
-    return repository.get(id);
+  public Future<Either<Failure, Iterable<Content>>> execute(Void param) {
+    return repository.getAll();
   }
 }

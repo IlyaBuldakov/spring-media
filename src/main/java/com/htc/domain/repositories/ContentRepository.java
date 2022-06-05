@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
  */
 public interface ContentRepository {
   /**
-   * Добавление нового контента.
+   * Добавление нового контента в задачу.
    *
    * @param content - новый контент
    *
@@ -19,13 +19,11 @@ public interface ContentRepository {
   Future<Either<Failure, Content>> add(Content content);
 
   /**
-   * Получение контента по идентификатору.
+   * Получение ленты контента.
    *
-   * @param id - идентификатор контента
-   *
-   * @return content - контент, подробнее {@link Content}
+   * @return list - лента контента, подробнее {@link Content}
    */
-  Future<Either<Failure, Content>> get(int id);
+  Future<Either<Failure, Iterable<Content>>> getAll();
 
   /**
    * Удаление контента по идентификатору.

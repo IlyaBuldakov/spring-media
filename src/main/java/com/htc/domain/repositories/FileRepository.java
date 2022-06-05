@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
  */
 public interface FileRepository {
   /**
-   * Загрузка файла в задачу.
+   * Загрузка нового файла в задачу.
    *
    * @param file - файл
    *

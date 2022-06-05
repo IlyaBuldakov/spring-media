@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * Сценарий добавления контента.
+ * Сценарий добавления нового контента в задачу.
  */
 @Component
 @AllArgsConstructor

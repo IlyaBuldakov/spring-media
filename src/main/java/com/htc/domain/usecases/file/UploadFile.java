@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * Сценарий добавления файла.
+ * Сценарий добавления нового файла в задачу.
  */
 @Component
 @AllArgsConstructor
