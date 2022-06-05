@@ -44,6 +44,8 @@ public class File {
   /**
    * содержимое файла.
    *
+   *<p>Формат Base64.</p>
+   *
    * @return file - содержимое файла
    */
   private @Getter String file;

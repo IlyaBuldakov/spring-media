@@ -15,7 +15,7 @@ class AlreadyExistsTest {
    * Проверка полей конструктора класса, наследуемого от Enum.
    *
    * <p>В начало массива параметров конструктора неявно добавляется два параметра,
-   * смотри конструктор {@link Enum}
+   * смотри конструктор {@link Enum}</p>
    */
   @Test
   void classIsEnumAndConstructorHasIntegerAndStringParamsSequence() {
