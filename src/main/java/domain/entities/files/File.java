@@ -41,4 +41,24 @@ public class File {
    * @return URL файла.
    */
   private @Getter String url;
+
+  /**
+   * Создаёт тестовый файл.
+   *
+   * @return Файл.
+   */
+  public static File createTestFile(int id) {
+    return new File(
+            id,
+            null,
+            null,
+            null,
+            null
+    );
+  }
+
+  public static File createTestFile() {
+    var id = new Random().nextInt(Integer.MAX_VALUE);
+    return createTestFile(id);
+  }
 }
