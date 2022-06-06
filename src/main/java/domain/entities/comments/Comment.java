@@ -2,6 +2,7 @@ package domain.entities.comments;
 
 import domain.entities.user.User;
 import java.time.LocalDateTime;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,14 +28,33 @@ public class Comment {
   /**
    * Автор комментария.
    *
-   * @return  пользователя - автора комментария.
+   * @return пользователя - автора комментария.
    */
   private @Getter User user;
 
   /**
    * Текст комментария.
    *
-   * @return  текст комментария.
+   * @return текст комментария.
    */
   private @Getter String message;
+
+  /**
+   * Создаёт тестовый комментарий.
+   *
+   * @return Комментарий.
+   */
+  public static Comment createTestComment(int id) {
+    return new Comment(
+            id,
+            null,
+            null,
+            null
+    );
+  }
+
+  public static Comment createTestContent() {
+    var id = new Random().nextInt(Integer.MAX_VALUE);
+    return createTestComment(id);
+  }
 }
