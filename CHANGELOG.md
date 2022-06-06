@@ -4,6 +4,29 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [v0.6.0] - 2022-06-06
+### Добавлено
+- Добавлен репозиторий котента.
+- Добавлен репозиторий комметария.
+- Добавлен репозиторий уведомления.
+- Сценарии использования(создания, удаления, получения, обновления) котента.
+- Сценарии использования(создания, удаления, получения, обновления) комметария.
+- Сценарии использования(создания, удаления, получения, обновления) уведомления.
+### Исправлено
+- Обновлена сущность котента.
+- Обновлена сущность комметария.
+- Обновлена сущность уведомления.
+
+## [v0.5.0] - 2022-06-06
+### Добавлено
+- Добавлен репозиторий файлов.
+- Сценарий создания файла.
+- Сценарий получения файла.
+- Сценарий удаления файла.
+- Сценарий обновления файла.
+### Исправлено
+- Обновлена сущность файла.
+
 ## [v0.4.0] - 2022-05-28
 ### Добавлено
 - Сценарий создания задачи.
@@ -55,3 +78,5 @@
 [v0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.1.0...aleksandr.aziatcev-v0.2.0
 [v0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.2.0...aleksandr.aziatcev-v0.3.0
 [v0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.3.0...aleksandr.aziatcev-v0.4.0
+[v0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.4.0...aleksandr.aziatcev-v0.5.0
+[v0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.5.0...aleksandr.aziatcev-v0.6.0
