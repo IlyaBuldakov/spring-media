@@ -2,11 +2,14 @@ package domain.entities.content;
 
 import domain.entities.user.User;
 import java.time.LocalDateTime;
+import java.util.Random;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * Контент.
  */
+@AllArgsConstructor
 public class Content {
 
   /**
@@ -57,4 +60,29 @@ public class Content {
    * @return Превью контента.
    */
   private @Getter String preview;
+
+
+  /**
+   * Создаёт тестовый объект контента.
+   *
+   * @return Контент.
+   */
+
+  public static Content createTestContent(int id) {
+    return new Content(
+            id,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+    );
+  }
+
+  public static Content createTestContent() {
+    var id = new Random().nextInt(Integer.MAX_VALUE);
+    return createTestContent(id);
+  }
 }
