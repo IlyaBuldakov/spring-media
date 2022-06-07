@@ -1,5 +1,8 @@
 # Зависимости проекта
 
+Spring:
+1. `org.springframework.boot:spring-boot-starter-web` - стартер для созадния RESTful API.
+
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` - модульные тесты.
 1. `org.mockito:mockito-core` - объекты-заглушки для внешних зависимостей.
