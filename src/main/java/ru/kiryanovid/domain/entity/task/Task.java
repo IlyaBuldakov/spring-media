@@ -1,6 +1,6 @@
 package ru.kiryanovid.domain.entity.task;
 
-import ru.kiryanovid.domain.entity.Comment;
+import ru.kiryanovid.domain.entity.comment.Comment;
 import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.users.User;
 import ru.kiryanovid.domain.entity.errors.Failure;

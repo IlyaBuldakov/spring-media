@@ -1,7 +1,7 @@
 package ru.kiryanovid.domain.entity.task;
 
 import com.github.javafaker.Faker;
-import ru.kiryanovid.domain.entity.Comment;
+import ru.kiryanovid.domain.entity.comment.Comment;
 import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.users.User;
 import org.junit.jupiter.api.Test;

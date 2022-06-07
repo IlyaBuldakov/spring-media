@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity;
+package ru.kiryanovid.domain.entity.comment;
 
 import lombok.Getter;
 import ru.kiryanovid.application.dto.users.UserBasicDto;
