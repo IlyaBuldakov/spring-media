@@ -1,6 +1,6 @@
 package ru.kiryanovid.application.dto.task;
 
-import ru.kiryanovid.domain.entity.comment.CommentDto;
+import ru.kiryanovid.application.dto.comment.CommentDto;
 import ru.kiryanovid.application.dto.content.ContentDto;
 import ru.kiryanovid.application.dto.content.ContentTypeDto;
 import ru.kiryanovid.application.dto.users.UserDto;

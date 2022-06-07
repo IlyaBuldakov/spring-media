@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity.comment;
+package ru.kiryanovid.application.dto.comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
