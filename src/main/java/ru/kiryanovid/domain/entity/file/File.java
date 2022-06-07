@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity;
+package ru.kiryanovid.domain.entity.file;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
