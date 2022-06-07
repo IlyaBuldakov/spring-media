@@ -1,6 +1,6 @@
 package ru.kiryanovid.application.dto.content;
 
-import ru.kiryanovid.domain.entity.file.FileDto;
+import ru.kiryanovid.application.dto.file.FileDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

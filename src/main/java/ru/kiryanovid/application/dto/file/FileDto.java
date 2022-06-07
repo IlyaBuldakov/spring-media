@@ -1,7 +1,8 @@
-package ru.kiryanovid.domain.entity.file;
+package ru.kiryanovid.application.dto.file;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.kiryanovid.domain.entity.file.Format;
 
 import java.time.LocalDateTime;
 
