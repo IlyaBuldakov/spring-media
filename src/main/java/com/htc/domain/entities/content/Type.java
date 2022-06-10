@@ -9,7 +9,7 @@ public enum Type {
   VIDEO(1, "Видео"),
   AUDIO(2, "Аудио"),
   PHOTO(3, "Фото"),
-  COMMENT(4, "Коммент"),
+  COMMENT(4, "Комментарий"),
   CONTENT(5, "Контент");
 
   /**
