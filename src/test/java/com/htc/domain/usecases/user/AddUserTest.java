@@ -2,12 +2,11 @@ package com.htc.domain.usecases.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.htc.core.EitherHelper;
 import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.utilily.UserService;
-import io.vavr.control.Either;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +39,7 @@ class AddUserTest {
     var user = UserService.createTestUser();
     Mockito
             .when(mockUserRepository.add(user))
-            .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
+            .thenReturn(EitherHelper.goodRight(user));
     var result = useCase.execute(user)
             .get()
             .get();
@@ -53,7 +52,7 @@ class AddUserTest {
     var failure = AlreadyExists.DEFAULT_MESSAGE;
     Mockito
             .when(mockUserRepository.add(user))
-            .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
+            .thenReturn(EitherHelper.badLeft(failure));
     var result = useCase.execute(user)
             .get()
             .getLeft();

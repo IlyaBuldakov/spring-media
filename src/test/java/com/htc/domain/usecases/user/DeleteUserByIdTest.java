@@ -2,12 +2,11 @@ package com.htc.domain.usecases.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.htc.core.EitherHelper;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
-import io.vavr.control.Either;
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +36,7 @@ class DeleteUserByIdTest {
     var testUserId = new Random().nextInt(1, 32);
     Mockito
             .when(mockUserRepository.delete(testUserId))
-            .thenReturn(CompletableFuture.completedFuture(Either.right(null)));
+            .thenReturn(EitherHelper.goodRight(null));
     // Act
     var result = useCase.execute(testUserId)
             .get()
@@ -52,7 +51,7 @@ class DeleteUserByIdTest {
     var failure = NotFound.DEFAULT_MESSAGE;
     Mockito
             .when(mockUserRepository.delete(badTestUserId))
-            .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
+            .thenReturn(EitherHelper.badLeft(failure));
     var result = useCase.execute(badTestUserId)
             .get()
             .getLeft();

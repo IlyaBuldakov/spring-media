@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
- * Вспомогательный класс для работы с возвращаемыми значениями репозитория.
+ * Вспомогательный класс для работы с возвращаемыми значениями.
  */
 public abstract class EitherHelper<T> {
   public static <T> Future<Either<Failure, T>> goodRight(T value) {
