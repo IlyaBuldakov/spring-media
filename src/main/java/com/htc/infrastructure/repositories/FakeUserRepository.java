@@ -2,12 +2,15 @@ package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.failures.RepositoryFailure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.springframework.stereotype.Component;
@@ -52,12 +55,25 @@ public class FakeUserRepository implements UserRepository {
 
   @Override
   public Future<Either<Failure, User>> get(int id) {
-    return CompletableFuture.completedFuture(Either.right(users.get(id)));
+    // тестовая реализация бизнес-логики
+    if (id < 1) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+    }
+    if (new Random().nextBoolean()) {
+      return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
+    }
+    return CompletableFuture.completedFuture(Either.right(
+            users.stream().filter(user -> user.getId() == id)
+                    .toList()
+                    .get(0)));
   }
 
   @Override
   public Future<Either<Failure, Iterable<User>>> getAll() {
-    return CompletableFuture.completedFuture(Either.right(users));
+    // тестовая реализация бизнес-логики
+    return new Random().nextBoolean()
+            ? CompletableFuture.completedFuture(Either.right(users))
+            : CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
   }
 
   @Override
