@@ -11,7 +11,6 @@ import java.util.Random;
  */
 public abstract class UserService {
   private static final Faker faker = Faker.instance(new Locale("ru"));
-  private static final Role defaultRole = Role.ADMIN;
 
   /**
    * Создание экземпляра тестового пользователя c указанным идентификатором и ролью.
@@ -38,7 +37,8 @@ public abstract class UserService {
    * @return user тестовый пользователь
    */
   public static User createTestUser(int id) {
-    return createTestUser(id, defaultRole);
+    var role = createTestRole();
+    return createTestUser(id, role);
   }
 
   /**
@@ -48,5 +48,16 @@ public abstract class UserService {
    */
   public static User createTestUser() {
     return createTestUser(new Random().nextInt(1, 32));
+  }
+
+  /**
+   * Создание экземпляра случайной тестовой роли.
+   *
+   * @return role случайная тестовая роль
+   */
+  public static Role createTestRole() {
+    var roles = Role.values();
+    var roleIndex = new Random().nextInt(roles.length);
+    return roles[roleIndex];
   }
 }
