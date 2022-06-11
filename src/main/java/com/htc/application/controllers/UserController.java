@@ -1,6 +1,7 @@
 package com.htc.application.controllers;
 
-import com.htc.domain.entities.user.User;
+import com.htc.application.dtos.user.UserResponse;
+import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.usecases.user.AddUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
@@ -8,7 +9,10 @@ import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.SearchUsers;
 import com.htc.domain.usecases.user.UpdateUser;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Контроллер пользователя.
@@ -48,10 +53,16 @@ public class UserController {
    * @throws InterruptedException исключение прерывания
    */
   @GetMapping(path = "/{id}")
-  public User get(@PathVariable int id) throws ExecutionException, InterruptedException {
+  public UserResponse get(@PathVariable int id) throws ExecutionException, InterruptedException {
     return getUserById.execute(id)
             .get()
-            .get();
+            .map(UserResponse::new)
+            .getOrElseThrow(failure -> {
+              if (failure instanceof NotFound) {
+                return new ResponseStatusException(HttpStatus.NOT_FOUND);
+              }
+              return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+            });
   }
 
   /**
@@ -62,10 +73,14 @@ public class UserController {
    * @throws InterruptedException исключение прерывания
    */
   @GetMapping
-  public Iterable<User> getAll() throws ExecutionException, InterruptedException {
+  public Iterable<UserResponse> getAll() throws ExecutionException, InterruptedException {
     return getAllUsers.execute(null)
             .get()
-            .get();
+            .map(users -> StreamSupport
+                    .stream(users.spliterator(), false)
+                    .map(UserResponse::new)
+                    .collect(Collectors.toList()))
+            .getOrElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
   }
 
   /**
