@@ -1,6 +1,7 @@
 package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
+import com.htc.core.EitherHelper;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.RepositoryFailure;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.springframework.stereotype.Component;
 
@@ -51,23 +51,23 @@ public class FakeUserRepository implements UserRepository {
   public Future<Either<Failure, User>> get(int id) {
     // тестовая реализация бизнес-логики
     if (id < 1) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+      return EitherHelper.badLeft(NotFound.DEFAULT_MESSAGE);
     }
     if (new Random().nextBoolean()) {
-      return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
+      return EitherHelper.badLeft(RepositoryFailure.DEFAULT_MESSAGE);
     }
-    return CompletableFuture.completedFuture(Either.right(
+    return EitherHelper.goodRight(
             users.stream().filter(user -> user.getId() == id)
                     .toList()
-                    .get(0)));
+                    .get(0));
   }
 
   @Override
   public Future<Either<Failure, Iterable<User>>> getAll() {
     // тестовая реализация бизнес-логики
     return new Random().nextBoolean()
-            ? CompletableFuture.completedFuture(Either.right(users))
-            : CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
+            ? EitherHelper.goodRight(users)
+            : EitherHelper.badLeft(RepositoryFailure.DEFAULT_MESSAGE);
   }
 
   @Override
