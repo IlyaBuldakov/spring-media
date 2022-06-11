@@ -13,41 +13,41 @@ public interface UserRepository {
   /**
    * Добавление нового пользователя.
    *
-   * @param user - новый пользователь
+   * @param user новый пользователь
    *
-   * @return user - новый пользователь, подробнее {@link User}
+   * @return user новый пользователь, подробнее {@link User}
    */
   Future<Either<Failure, User>> add(User user);
 
   /**
    * Получение пользователя.
    *
-   * @param id - идентификатор пользователя
+   * @param id идентификатор пользователя
    *
-   * @return user - пользователь, подробнее {@link User}
+   * @return user пользователь, подробнее {@link User}
    */
   Future<Either<Failure, User>> get(int id);
 
   /**
    * Получение всех пользователей.
    *
-   * @return list - список всех пользователей, подробнее {@link User}
+   * @return list список всех пользователей, подробнее {@link User}
    */
   Future<Either<Failure, Iterable<User>>> getAll();
 
   /**
    * Обновление пользователя.
    *
-   * @param user - пользователь
+   * @param user пользователь
    *
-   * @return user - пользователь, подробнее {@link User}
+   * @return user пользователь, подробнее {@link User}
    */
   Future<Either<Failure, User>> update(User user);
 
   /**
    * Удаление пользователя.
    *
-   * @param id - идентификатор пользователя
+   * @param id идентификатор пользователя
    */
   Future<Either<Failure, Void>> delete(int id);
 
@@ -55,9 +55,9 @@ public interface UserRepository {
    * Получение списка пользователей, чье имя соответствует строке запроса {@code query}.
    * Проверяется не полное соответствие строки запроса и имени пользователя, а ищется подстрока.
    *
-   * @param query - строка запроса
+   * @param query строка запроса
    *
-   * @return list - список пользователей, подробнее {@link User}
+   * @return list список пользователей, подробнее {@link User}
    */
   Future<Either<Failure, Iterable<User>>> search(String query);
 
@@ -66,10 +66,10 @@ public interface UserRepository {
    * запроса {@code query} и роли {@code role}. Проверяется не полное соответствие строки
    * запроса и имени пользователя, а ищется подстрока.
    *
-   * @param query - строка запроса
-   * @param role - роль пользователя, подробнее {@link Role}
+   * @param query строка запроса
+   * @param role роль пользователя, подробнее {@link Role}
    *
-   * @return list - список пользователей, подробнее {@link User}
+   * @return list список пользователей, подробнее {@link User}
    */
   Future<Either<Failure, Iterable<User>>> search(String query, Role role);
 }

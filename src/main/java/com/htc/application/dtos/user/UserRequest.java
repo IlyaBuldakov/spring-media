@@ -12,28 +12,28 @@ public class UserRequest extends DataTransferObject<User> {
   /**
    * Полное имя.
    *
-   * @return name - полное имя
+   * @return name полное имя
    */
   private final @Getter String name;
 
   /**
    * Электронная почта.
    *
-   * @return email - электронная почта
+   * @return email электронная почта
    */
   private final @Getter String email;
 
   /**
    * Пароль.
    *
-   * @return password - пароль
+   * @return password пароль
    */
   private final @Getter String password;
 
   /**
    * Аватар в base64.
    *
-   * @return avatar - аватар
+   * @return avatar аватар
    */
   private final @Getter String avatar;
 
@@ -41,14 +41,14 @@ public class UserRequest extends DataTransferObject<User> {
    * Роль.
    *
    * @see Role
-   * @return role - роль
+   * @return role роль
    */
   private final @Getter Role role;
 
   /**
    * Создание основного представления пользователя.
    *
-   * @param user - сущность пользователя, подробнее {@link User}
+   * @param user сущность пользователя, подробнее {@link User}
    */
   public UserRequest(User user) {
     super(user);

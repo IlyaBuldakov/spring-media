@@ -42,10 +42,10 @@ public class UserController {
   /**
    * Получение пользователя.
    *
-   * @param id - идентификатор
-   * @return user - пользователь
-   * @throws ExecutionException - исключение выполнения
-   * @throws InterruptedException - исключение прерывания
+   * @param id идентификатор
+   * @return user пользователь
+   * @throws ExecutionException исключение выполнения
+   * @throws InterruptedException исключение прерывания
    */
   @GetMapping(path = "/{id}")
   public User get(@PathVariable int id) throws ExecutionException, InterruptedException {
@@ -57,9 +57,9 @@ public class UserController {
   /**
    * Получение всех пользователей.
    *
-   * @return list - список пользователей
-   * @throws ExecutionException - исключение выполнения
-   * @throws InterruptedException - исключение прерывания
+   * @return list список пользователей
+   * @throws ExecutionException исключение выполнения
+   * @throws InterruptedException исключение прерывания
    */
   @GetMapping
   public Iterable<User> getAll() throws ExecutionException, InterruptedException {
@@ -71,7 +71,7 @@ public class UserController {
   /**
    * Обновление пользователя.
    *
-   * @param id - идентификатор
+   * @param id идентификатор
    */
   @PutMapping(path = "/{id}")
   public void update(@PathVariable int id) {
@@ -81,7 +81,7 @@ public class UserController {
   /**
    * Удаление пользователя.
    *
-   * @param id - идентификатор
+   * @param id идентификатор
    */
   @DeleteMapping(path = "/{id}")
   public void delete(@PathVariable int id) {

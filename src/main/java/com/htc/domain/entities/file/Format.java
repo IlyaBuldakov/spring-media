@@ -22,14 +22,14 @@ public enum Format {
   /**
    * Идентификатор формата.
    *
-   * @return id - идентификатор формата
+   * @return id идентификатор формата
    */
   private final @Getter int id;
 
   /**
    * Наименование формата.
    *
-   * @return name - наименование формата
+   * @return name наименование формата
    */
   private final @Getter String name;
 

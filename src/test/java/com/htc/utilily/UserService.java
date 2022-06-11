@@ -16,9 +16,9 @@ public abstract class UserService {
   /**
    * Создание экземпляра тестового пользователя c указанным идентификатором и ролью.
    *
-   * @param id - идентификатор
-   * @param role - роль
-   * @return user - тестовый пользователь
+   * @param id идентификатор
+   * @param role роль
+   * @return user тестовый пользователь
    */
   public static User createTestUser(int id, Role role) {
     return User.add(
@@ -34,8 +34,8 @@ public abstract class UserService {
   /**
    * Создание экземпляра тестового пользователя c указанным идентификатором.
    *
-   * @param id - идентификатор
-   * @return user - тестовый пользователь
+   * @param id идентификатор
+   * @return user тестовый пользователь
    */
   public static User createTestUser(int id) {
     return createTestUser(id, defaultRole);
@@ -44,7 +44,7 @@ public abstract class UserService {
   /**
    * Создание экземпляра тестового пользователя.
    *
-   * @return user - тестовый пользователь
+   * @return user тестовый пользователь
    */
   public static User createTestUser() {
     return createTestUser(new Random().nextInt(1, 32));

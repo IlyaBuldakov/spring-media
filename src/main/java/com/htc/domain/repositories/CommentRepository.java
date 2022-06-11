@@ -12,9 +12,9 @@ public interface CommentRepository {
   /**
    * Добавление нового комментария в задачу.
    *
-   * @param comment - новый комментарий
+   * @param comment новый комментарий
    *
-   * @return comment - новый комментарий, подробнее {@link Comment}
+   * @return comment новый комментарий, подробнее {@link Comment}
    */
   Future<Either<Failure, Comment>> add(Comment comment);
 }

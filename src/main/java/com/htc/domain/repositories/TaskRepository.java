@@ -12,41 +12,41 @@ public interface TaskRepository {
   /**
    * Добавление новой задачи.
    *
-   * @param task - новая задача
+   * @param task новая задача
    *
-   * @return task - новая задача, подробнее {@link Task}
+   * @return task новая задача, подробнее {@link Task}
    */
   Future<Either<Failure, Task>> add(Task task);
 
   /**
    * Получение задачи по идентификатору.
    *
-   * @param id - идентификатор задачи
+   * @param id идентификатор задачи
    *
-   * @return task - задача, подробнее {@link Task}
+   * @return task задача, подробнее {@link Task}
    */
   Future<Either<Failure, Task>> get(int id);
 
   /**
    * Получение списка задач.
    *
-   * @return list - список задач, подробнее {@link Task}
+   * @return list список задач, подробнее {@link Task}
    */
   Future<Either<Failure, Iterable<Task>>> getAll();
 
   /**
    * Изменение задачи.
    *
-   * @param task - задача
+   * @param task задача
    *
-   * @return task - задача, подробнее {@link Task}
+   * @return task задача, подробнее {@link Task}
    */
   Future<Either<Failure, Task>> update(Task task);
 
   /**
    * Удаление задачи по идентификатору.
    *
-   * @param id - идентификатор задачи
+   * @param id идентификатор задачи
    */
   Future<Either<Failure, Void>> delete(int id);
 }

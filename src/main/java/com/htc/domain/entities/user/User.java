@@ -31,7 +31,7 @@ public class User {
    * Идентификатор.
    *
    * @see User#validateId (int)
-   * @return id - идентификатор
+   * @return id идентификатор
    */
   private @Getter int id;
 
@@ -39,7 +39,7 @@ public class User {
    * Полное имя пользователя.
    *
    * @see User#validateName (String)
-   * @return name - полное имя пользователя
+   * @return name полное имя пользователя
    */
   private @Getter String name;
 
@@ -47,7 +47,7 @@ public class User {
    * Пароль.
    *
    * @see User#validatePassword (String)
-   * @return password - пароль пользователя
+   * @return password пароль пользователя
    */
   private @Getter String password;
 
@@ -55,7 +55,7 @@ public class User {
    * Электронная почта.
    *
    * @see User#validateEmail (String)
-   * @return email - электронная почта пользователя
+   * @return email электронная почта пользователя
    */
   private @Getter String email;
 
@@ -63,7 +63,7 @@ public class User {
    * Аватар в base64.
    *
    * @see User#validateImage (String)
-   * @return avatar - аватар пользователя
+   * @return avatar аватар пользователя
    */
   private @Getter String avatar;
 
@@ -71,7 +71,7 @@ public class User {
    * Роль пользователя.
    *
    * @see Role
-   * @return role - роль
+   * @return role роль
    */
   private @Getter Role role;
 
@@ -84,12 +84,12 @@ public class User {
   /**
    * Создание пользователя с проверкой данных на корректность.
    *
-   * @param  id - идентификатор
-   * @param name - полное имя
-   * @param password - пароль
-   * @param email - электронная почта
-   * @param avatar - изображение
-   * @param role - роль
+   * @param id идентификатор
+   * @param name полное имя
+   * @param password пароль
+   * @param email электронная почта
+   * @param avatar изображение
+   * @param role роль
    */
   public static Either<Failure, User> add(
           int id, String name, String password, String email, String avatar, Role role) {
@@ -121,8 +121,8 @@ public class User {
   /**
    * Валидация идентификатора.
    *
-   * @param id - входящий параметр идентификатора
-   * @return result - флаг корректности идентификатора
+   * @param id входящий параметр идентификатора
+   * @return result флаг корректности идентификатора
    */
   private static boolean validateId(int id) {
     return id > 0;
@@ -131,8 +131,8 @@ public class User {
   /**
    * Валидация имени.
    *
-   * @param name - входящий параметр имени
-   * @return result - флаг корректности имени
+   * @param name входящий параметр имени
+   * @return result флаг корректности имени
    */
   private static boolean validateName(String name) {
     return name.matches(NAME_REGEX);
@@ -141,8 +141,8 @@ public class User {
   /**
    * Валидация пароля.
    *
-   * @param password - входящий параметр пароля
-   * @return result - флаг корректности пароля
+   * @param password входящий параметр пароля
+   * @return result флаг корректности пароля
    */
   private static boolean validatePassword(String password) {
     return password.matches(PASSWORD_REGEX);
@@ -151,8 +151,8 @@ public class User {
   /**
    * Валидация электронной почты.
    *
-   * @param email - входящий параметр электронной почты
-   * @return result - флаг корректности электронной почты
+   * @param email входящий параметр электронной почты
+   * @return result флаг корректности электронной почты
    */
   private static boolean validateEmail(String email) {
     return EmailValidator.getInstance().isValid(email);
@@ -161,8 +161,8 @@ public class User {
   /**
    * Валидация кодировки изображения.
    *
-   * @param imageBase64 - входящий параметр изображения в виде base64
-   * @return result - флаг корректности кодировки изображения
+   * @param imageBase64 входящий параметр изображения в виде base64
+   * @return result флаг корректности кодировки изображения
    */
   private static boolean validateImage(String imageBase64) {
     return Base64.isBase64(imageBase64) && (imageBase64.length() > 0);

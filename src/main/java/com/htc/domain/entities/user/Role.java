@@ -22,14 +22,14 @@ public enum Role {
   /**
    * Идентификатор роли.
    *
-   * @return id - идентификатор роли
+   * @return id идентификатор роли
    */
   private final @Getter int id;
 
   /**
    * Название роли.
    *
-   * @return name - название роли
+   * @return name название роли
    */
   private final @Getter String name;
 

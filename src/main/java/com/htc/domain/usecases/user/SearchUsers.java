@@ -19,8 +19,8 @@ public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<Us
   /**
    * Параметры запроса поиска пользователя.
    *
-   * @param query - строка запроса
-   * @param role - роль пользователя
+   * @param query строка запроса
+   * @param role роль пользователя
    */
   public record Query(String query, Role role) {}
 

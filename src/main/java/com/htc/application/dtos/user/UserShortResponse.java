@@ -11,21 +11,21 @@ public class UserShortResponse extends DataTransferObject<User> {
   /**
    * Идентификатор.
    *
-   * @return id - идентификатор
+   * @return id идентификатор
    */
   private final @Getter int id;
 
   /**
    * Полное имя.
    *
-   * @return name - полное имя
+   * @return name полное имя
    */
   private final @Getter String name;
 
   /**
    * Создание краткого представления пользователя.
    *
-   * @param user - сущность пользователя, подробнее {@link User}
+   * @param user сущность пользователя, подробнее {@link User}
    */
   public UserShortResponse(User user) {
     super(user);

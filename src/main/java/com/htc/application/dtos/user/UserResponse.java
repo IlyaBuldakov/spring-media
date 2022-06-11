@@ -12,28 +12,28 @@ public class UserResponse extends DataTransferObject<User> {
   /**
    * Идентификатор.
    *
-   * @return id - идентификатор
+   * @return id идентификатор
    */
   private final @Getter int id;
 
   /**
    * Полное имя.
    *
-   * @return name - полное имя
+   * @return name полное имя
    */
   private final @Getter String name;
 
   /**
    * Электронная почта.
    *
-   * @return email - электронная почта
+   * @return email электронная почта
    */
   private final @Getter String email;
 
   /**
    * Аватар в base64.
    *
-   * @return avatar - аватар
+   * @return avatar аватар
    */
   private final @Getter String avatar;
 
@@ -41,14 +41,14 @@ public class UserResponse extends DataTransferObject<User> {
    * Роль.
    *
    * @see Role
-   * @return role - роль
+   * @return role роль
    */
   private final @Getter Role role;
 
   /**
    * Создание основного представления пользователя.
    *
-   * @param user - сущность пользователя, подробнее {@link User}
+   * @param user сущность пользователя, подробнее {@link User}
    */
   public UserResponse(User user) {
     super(user);

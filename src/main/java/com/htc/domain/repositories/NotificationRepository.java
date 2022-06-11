@@ -12,7 +12,7 @@ public interface NotificationRepository {
   /**
    * Получение списка уведомлений.
    *
-   * @return list - список уведомлений, подробнее {@link Notification}
+   * @return list список уведомлений, подробнее {@link Notification}
    */
   Future<Either<Failure, Iterable<Notification>>> getAll();
 }

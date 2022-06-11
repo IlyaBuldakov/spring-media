@@ -15,14 +15,14 @@ public enum Type {
   /**
    * Идентификатор типа контента.
    *
-   * @return id - идентификатор типа
+   * @return id идентификатор типа
    */
   private final @Getter int id;
 
   /**
    * Наименование типа контента.
    *
-   * @return name - наименование типа
+   * @return name наименование типа
    */
   private final @Getter String name;
 

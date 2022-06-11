@@ -13,14 +13,14 @@ public enum Status {
   /**
    * Идентификатор статуса задачи.
    *
-   * @return id - идентификатор статуса задачи
+   * @return id идентификатор статуса задачи
    */
   private final @Getter int id;
 
   /**
    * Наименование статуса задачи.
    *
-   * @return name - наименование статуса задачи
+   * @return name наименование статуса задачи
    */
   private final @Getter String name;
 
