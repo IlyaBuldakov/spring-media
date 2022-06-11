@@ -8,6 +8,7 @@ import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -21,32 +22,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class FakeUserRepository implements UserRepository {
   private static final Faker faker = Faker.instance(new Locale("ru"));
-  private static final List<User> users = List.of(
-          User.add(
-                  32,
-                  faker.name().fullName(),
-                  "gTeggstiag1",
-                  faker.internet().emailAddress(),
-                  faker.lorem().characters(40) + "==",
-                  Role.ADMIN
-          ).get(),
-          User.add(
-                  45,
-                  faker.name().fullName(),
-                  "gTeggstiag2",
-                  faker.internet().emailAddress(),
-                  faker.lorem().characters(40) + "==",
-                  Role.MANAGER
-          ).get(),
-          User.add(
-                  87,
-                  faker.name().fullName(),
-                  "gTeggstiag3",
-                  faker.internet().emailAddress(),
-                  faker.lorem().characters(40) + "==",
-                  Role.CONTENT_MAKER
-          ).get()
-  );
+
+  private static final List<User> users = new ArrayList<>();
+
+  static {
+    var count = new Random().nextInt(10);
+    var roles = Role.values();
+    while (count-- > 0) {
+      users.add(
+              User.add(
+                      new Random().nextInt(1, 32),
+                      faker.name().fullName(),
+                      "gTeggstiag" + count,
+                      faker.internet().emailAddress(),
+                      faker.lorem().characters(40) + "==",
+                      roles[new Random().nextInt(roles.length)]
+              ).get()
+      );
+    }
+  }
 
   @Override
   public Future<Either<Failure, User>> add(User user) {
