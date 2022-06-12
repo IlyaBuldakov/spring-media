@@ -7,9 +7,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.domain.usecases.user.UserService;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -47,7 +47,7 @@ class SearchTasksTest {
     // Arrange
     var query = new SearchTasks.Query(
             "test",
-            User.createTestUser());
+            UserService.createTestUser());
 
     // Act
     useCase.execute(query);
@@ -82,7 +82,7 @@ class SearchTasksTest {
     // Arrange
     var query = new SearchTasks.Query(
             "test",
-            User.createTestUser());
+            UserService.createTestUser());
     var expected = List.of(Task.createTestTask());
 
     when(mockTaskRepository.search(query.query(), query.user()))

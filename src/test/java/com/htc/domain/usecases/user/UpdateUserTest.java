@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -30,7 +29,7 @@ class UpdateUserTest {
   @Test
   void shouldUpdateUserByTheRepository() {
     // Arrange
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
 
     // Act
     useCase.execute(user);
@@ -42,7 +41,7 @@ class UpdateUserTest {
   @Test
   void usersExist_ShouldUpdateUserAndReturnUser() throws ExecutionException, InterruptedException {
     // Arrange
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
 
     when(mockUserRepository.update(user))
             .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
@@ -59,7 +58,7 @@ class UpdateUserTest {
   @Test
   void usersNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
-    var user = User.createTestUser();
+    var user = UserService.createTestUser();
     var failure = new NotFound();
 
     when(mockUserRepository.update(user))

@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -44,7 +43,7 @@ class GetUserByIdTest {
   void userExists_ShouldReturnUser() throws ExecutionException, InterruptedException {
     // Arrange
     var userId = new Random().nextInt();
-    var user = User.createTestUser(userId);
+    var user = UserService.createTestUser(userId);
 
     when(mockUserRepository.get(userId))
             .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
