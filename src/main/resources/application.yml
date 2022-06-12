@@ -1,2 +1,10 @@
 server:
+#  servlet:
+#    context-path: /yur-project
   port: 8080
+spring:
+#  application:
+#    name: yur-project
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
