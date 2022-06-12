@@ -26,7 +26,7 @@ public class UserService {
             faker.internet().emailAddress(),
             faker.internet().password(8, 12),
             faker.name().fullName(),
-            new byte[] {},
+            faker.lorem().characters(40),
             role
     );
   }

@@ -33,7 +33,7 @@ public class FakeUserRepository implements UserRepository {
               faker.internet().emailAddress(),
               faker.internet().password(8, 12),
               faker.name().fullName(),
-              new byte[] {},
+              faker.lorem().characters(40),
               roles[new Random().nextInt(roles.length)]));
     }
   }

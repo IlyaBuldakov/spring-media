@@ -37,7 +37,7 @@ public class User {
    *
    * @return Изображение пользователя.
    */
-  private @Getter byte[] avatar;
+  private @Getter String image;
   /**
    * Роль пользователя, см. {@link Role}.
    *
