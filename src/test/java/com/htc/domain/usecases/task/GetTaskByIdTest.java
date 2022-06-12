@@ -62,7 +62,7 @@ class GetTaskByIdTest {
   void taskDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var taskId = new Random().nextInt();
-    var failure = new NotFound();
+    var failure = new NotFound("");
 
     when(mockTaskRepository.get(taskId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

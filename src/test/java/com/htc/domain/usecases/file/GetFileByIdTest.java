@@ -62,7 +62,7 @@ class GetFileByIdTest {
   void fileDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var fileId = new Random().nextInt();
-    var failure = new NotFound();
+    var failure = new NotFound("");
 
     when(mockFileRepository.get(fileId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

@@ -60,7 +60,7 @@ class UpdateTaskTest {
   void tasksNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var task = Task.createTestTask();
-    var failure = new NotFound();
+    var failure = new NotFound("");
 
     when(mockTaskRepository.update(task))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

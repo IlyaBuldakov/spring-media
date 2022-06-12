@@ -59,7 +59,7 @@ class UpdateUserTest {
   void usersNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var user = UserService.createTestUser();
-    var failure = new NotFound();
+    var failure = new NotFound("");
 
     when(mockUserRepository.update(user))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

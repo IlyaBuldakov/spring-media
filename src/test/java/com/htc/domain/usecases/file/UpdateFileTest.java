@@ -60,7 +60,7 @@ class UpdateFileTest {
   void fileNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var file = File.createTestFile();
-    var failure = new NotFound();
+    var failure = new NotFound("");
 
     when(mockFileRepository.update(file))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

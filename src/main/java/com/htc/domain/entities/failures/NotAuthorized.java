@@ -3,5 +3,8 @@ package com.htc.domain.entities.failures;
 /**
  * Не авторизован.
  */
-public class NotAuthorized implements Failure {
+public class NotAuthorized extends Failure {
+  public NotAuthorized(String message) {
+    super(message);
+  }
 }

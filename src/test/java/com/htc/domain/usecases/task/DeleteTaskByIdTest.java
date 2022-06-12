@@ -60,7 +60,7 @@ class DeleteTaskByIdTest {
   void taskDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var taskId = new Random().nextInt();
-    var failure = new NotFound();
+    var failure = new NotFound("");
 
     when(mockTaskRepository.delete(taskId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

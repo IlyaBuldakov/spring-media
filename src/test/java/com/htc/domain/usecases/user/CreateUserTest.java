@@ -61,7 +61,7 @@ class CreateUserTest {
           throws ExecutionException, InterruptedException {
     // Arrange
     var user = UserService.createTestUser();
-    var failure = new AlreadyExists();
+    var failure = new AlreadyExists("");
 
     when(mockUserRepository.create(user))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

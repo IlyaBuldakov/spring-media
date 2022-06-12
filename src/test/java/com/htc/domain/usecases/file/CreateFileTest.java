@@ -63,7 +63,7 @@ class CreateFileTest {
           throws ExecutionException, InterruptedException {
     // Arrange
     var file = File.createTestFile();
-    var failure = new AlreadyExists();
+    var failure = new AlreadyExists("");
 
     when(mockFileRepository.create(file))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
