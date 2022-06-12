@@ -20,35 +20,35 @@ public class User {
   /**
    *  Имя пользователя.
    *
-   * @return id Имя пользователя.
+   * @return name Имя пользователя.
    */
   private @Getter String name;
 
   /**
    *  Электронная почта пользователя.
    *
-   * @return id Электронная почта пользователя.
+   * @return email Электронная почта пользователя.
    */
   private @Getter String email;
 
   /**
    *  Пароль пользователя.
    *
-   * @return id Пароль пользователя.
+   * @return password Пароль пользователя.
    */
   private @Getter String password;
 
   /**
    *  Изображение пользователя.
    *
-   * @return id Изображение пользователя в кодировке Base64.
+   * @return avatar Изображение пользователя в кодировке Base64.
    */
   private @Getter String avatar;
 
   /**
-   *  Роль пользователя, см. {@Link UserRole}
+   *  Роль пользователя, см. {@Link Role}
    *
-   * @return id Роль пользователя.
+   * @return role Роль пользователя.
    */
   private @Getter Role role;
 
@@ -77,10 +77,6 @@ public class User {
       int id, String name, String email, String password, String avatar, Role role) {
     if (!validateEmail(email)) {
       return Either.left(new InvalidValue(INVALID_EMAIL));
-    }
-
-    if (!validatePassword(password)) {
-      return Either.left(new InvalidValue(INVALID_PASSWORD));
     }
 
     var user = new User();

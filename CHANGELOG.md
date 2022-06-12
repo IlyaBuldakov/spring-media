@@ -4,6 +4,12 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/spec/v2.0.0.html).
 
+## [v0.6.0] - 2022-06-05
+
+### Добавлено
+- Сущности связанные с комментариями.
+
+
 ## [v0.5.0] - 2022-05-30
 
 ### Изменено
@@ -68,8 +74,9 @@
 - Сущности, относящиеся к пользователям.
 - Сущности ошибок (Failure).
 
-[0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.0.0...yaroslav.tarakanov-v0.1.0
-[0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.1.0...yaroslav.tarakanov-v0.2.0
-[0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.2.0...yaroslav.tarakanov-v0.3.0
-[0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.3.0...yaroslav.tarakanov-v0.4.0
-[0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.4.0...yaroslav.tarakanov-v0.5.0
+[v0.1.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.0.0...yaroslav.tarakanov-v0.1.0
+[v0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.1.0...yaroslav.tarakanov-v0.2.0
+[v0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.2.0...yaroslav.tarakanov-v0.3.0
+[v0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.3.0...yaroslav.tarakanov-v0.4.0
+[v0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.4.0...yaroslav.tarakanov-v0.5.0
+[v0.6.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.5.0...yaroslav.tarakanov-v0.6.0
