@@ -1,26 +1,31 @@
 package com.htc.domain.usecases.user;
 
+import com.github.javafaker.Faker;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import java.util.Locale;
 import java.util.Random;
 
 /**
  * Вспомогательные методы для работы с пользователями.
  */
 public class UserService {
+  private static final Faker faker = Faker.instance(new Locale("ru"));
+  private static final Role defaultRole = Role.ADMIN;
+
   /**
    * Создаёт тестового пользователя с указанными идентификатором и ролью.
    *
-   * @param id Идентификатор пользователя.
+   * @param id   Идентификатор пользователя.
    * @param role Роль пользователя.
    * @return Пользователь.
    */
   public static User createTestUser(int id, Role role) {
     return new User(
             id,
-            "user@example.com",
-            "Passw0rd!",
-            "Иванов Иван",
+            faker.internet().emailAddress(),
+            faker.internet().password(8, 12),
+            faker.name().fullName(),
             new byte[] {},
             role
     );
@@ -33,8 +38,7 @@ public class UserService {
    * @return Пользователь.
    */
   public static User createTestUser(int id) {
-    var role = Role.ADMIN;
-    return createTestUser(id, role);
+    return createTestUser(id, defaultRole);
   }
 
   /**
