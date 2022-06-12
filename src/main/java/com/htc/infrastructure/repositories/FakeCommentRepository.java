@@ -7,7 +7,7 @@ import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.CommentRepository;
 import io.vavr.control.Either;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FakeCommentRepository implements CommentRepository {
   private static final Faker faker = Faker.instance(new Locale("ru"));
-  private static final LocalDate date = LocalDate.now();
+  private static final LocalDateTime date = LocalDateTime.now();
   private static final List<User> users = List.of(
       User.create(
           1,
@@ -50,7 +50,7 @@ public class FakeCommentRepository implements CommentRepository {
           3,
           date,
           users.get(0),
-          "Комментарий два",
+          "Комментарий три",
           3
       ).get()
   );

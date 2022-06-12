@@ -3,7 +3,7 @@ package com.htc.domain.entities.comment;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Getter;
 
 /**
@@ -23,7 +23,7 @@ public class Comment {
    *
    * @return date Дата создания комментария.
    */
-  private @Getter LocalDate date;
+  private @Getter LocalDateTime date;
 
   /**
    *  Пользователь создавший комментарий.
@@ -57,7 +57,7 @@ public class Comment {
    * @return Комментарий.
    */
   public static Either<Failure, Comment> create(
-      int id, LocalDate date, User user, String message, int taskId) {
+      int id, LocalDateTime date, User user, String message, int taskId) {
 
     var comment = new Comment();
     comment.id = id;
