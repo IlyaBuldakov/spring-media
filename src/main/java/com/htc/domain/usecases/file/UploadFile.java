@@ -5,7 +5,7 @@ import com.htc.domain.entities.file.File;
 import com.htc.domain.repositories.FileRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public final class UploadFile implements UseCase<File, File> {
   private final FileRepository repository;
 
   @Override
-  public Future<Either<Failure, File>> execute(File file) {
+  public CompletableFuture<Either<Failure, File>> execute(File file) {
     return repository.upload(file);
   }
 }

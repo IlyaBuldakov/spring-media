@@ -4,7 +4,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий пользователя.
@@ -17,7 +17,7 @@ public interface UserRepository {
    *
    * @return user новый пользователь, подробнее {@link User}
    */
-  Future<Either<Failure, User>> add(User user);
+  CompletableFuture<Either<Failure, User>> add(User user);
 
   /**
    * Получение пользователя.
@@ -26,14 +26,14 @@ public interface UserRepository {
    *
    * @return user пользователь, подробнее {@link User}
    */
-  Future<Either<Failure, User>> get(int id);
+  CompletableFuture<Either<Failure, User>> get(int id);
 
   /**
    * Получение всех пользователей.
    *
    * @return list список всех пользователей, подробнее {@link User}
    */
-  Future<Either<Failure, Iterable<User>>> getAll();
+  CompletableFuture<Either<Failure, Iterable<User>>> getAll();
 
   /**
    * Обновление пользователя.
@@ -42,14 +42,14 @@ public interface UserRepository {
    *
    * @return user пользователь, подробнее {@link User}
    */
-  Future<Either<Failure, User>> update(User user);
+  CompletableFuture<Either<Failure, User>> update(User user);
 
   /**
    * Удаление пользователя.
    *
    * @param id идентификатор пользователя
    */
-  Future<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(int id);
 
   /**
    * Получение списка пользователей, чье имя соответствует строке запроса {@code query}.
@@ -59,7 +59,7 @@ public interface UserRepository {
    *
    * @return list список пользователей, подробнее {@link User}
    */
-  Future<Either<Failure, Iterable<User>>> search(String query);
+  CompletableFuture<Either<Failure, Iterable<User>>> search(String query);
 
   /**
    * Получение списка пользователей, чье имя и роль соответствует строке
@@ -71,5 +71,5 @@ public interface UserRepository {
    *
    * @return list список пользователей, подробнее {@link User}
    */
-  Future<Either<Failure, Iterable<User>>> search(String query, Role role);
+  CompletableFuture<Either<Failure, Iterable<User>>> search(String query, Role role);
 }

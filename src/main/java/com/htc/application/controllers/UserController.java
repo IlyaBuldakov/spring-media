@@ -8,11 +8,12 @@ import com.htc.domain.usecases.user.GetAllUsers;
 import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.SearchUsers;
 import com.htc.domain.usecases.user.UpdateUser;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,38 +50,38 @@ public class UserController {
    *
    * @param id идентификатор
    * @return user пользователь
-   * @throws ExecutionException исключение выполнения
-   * @throws InterruptedException исключение прерывания
    */
   @GetMapping(path = "/{id}")
-  public UserResponse get(@PathVariable int id) throws ExecutionException, InterruptedException {
-    return getUserById.execute(id)
-            .get()
-            .map(UserResponse::new)
-            .getOrElseThrow(failure -> {
-              if (failure instanceof NotFound) {
-                return new ResponseStatusException(HttpStatus.NOT_FOUND);
-              }
-              return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-            });
+  @Async
+  public CompletableFuture<UserResponse> get(@PathVariable int id) {
+    return getUserById.execute(id).thenApplyAsync(
+            users -> users.map(UserResponse::new).getOrElseThrow(
+                    failure -> {
+                      if (failure instanceof NotFound) {
+                        return new ResponseStatusException(HttpStatus.NOT_FOUND);
+                      }
+                      return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+                    }
+            )
+    );
   }
 
   /**
    * Получение всех пользователей.
    *
    * @return list список пользователей
-   * @throws ExecutionException исключение выполнения
-   * @throws InterruptedException исключение прерывания
    */
   @GetMapping
-  public Iterable<UserResponse> getAll() throws ExecutionException, InterruptedException {
-    return getAllUsers.execute(null)
-            .get()
-            .map(users -> StreamSupport
-                    .stream(users.spliterator(), false)
-                    .map(UserResponse::new)
-                    .collect(Collectors.toList()))
-            .getOrElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
+  public CompletableFuture<Iterable<UserResponse>> getAll() {
+    return getAllUsers.execute(null).thenApplyAsync(
+            iterUsers -> iterUsers.map(
+                    users -> StreamSupport
+                            .stream(users.spliterator(), false)
+                            .map(UserResponse::new)
+                            .collect(Collectors.toList()))
+                    .getOrElseThrow(
+                            () -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR))
+    );
   }
 
   /**

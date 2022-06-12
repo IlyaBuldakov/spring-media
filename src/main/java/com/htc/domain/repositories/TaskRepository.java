@@ -3,7 +3,7 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.task.Task;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий задачи.
@@ -16,7 +16,7 @@ public interface TaskRepository {
    *
    * @return task новая задача, подробнее {@link Task}
    */
-  Future<Either<Failure, Task>> add(Task task);
+  CompletableFuture<Either<Failure, Task>> add(Task task);
 
   /**
    * Получение задачи по идентификатору.
@@ -25,14 +25,14 @@ public interface TaskRepository {
    *
    * @return task задача, подробнее {@link Task}
    */
-  Future<Either<Failure, Task>> get(int id);
+  CompletableFuture<Either<Failure, Task>> get(int id);
 
   /**
    * Получение списка задач.
    *
    * @return list список задач, подробнее {@link Task}
    */
-  Future<Either<Failure, Iterable<Task>>> getAll();
+  CompletableFuture<Either<Failure, Iterable<Task>>> getAll();
 
   /**
    * Изменение задачи.
@@ -41,12 +41,12 @@ public interface TaskRepository {
    *
    * @return task задача, подробнее {@link Task}
    */
-  Future<Either<Failure, Task>> update(Task task);
+  CompletableFuture<Either<Failure, Task>> update(Task task);
 
   /**
    * Удаление задачи по идентификатору.
    *
    * @param id идентификатор задачи
    */
-  Future<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(int id);
 }

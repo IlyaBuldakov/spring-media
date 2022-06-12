@@ -6,7 +6,7 @@ import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,7 @@ public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<Us
   private final UserRepository repository;
 
   @Override
-  public Future<Either<Failure, Iterable<User>>> execute(SearchUsers.Query query) {
+  public CompletableFuture<Either<Failure, Iterable<User>>> execute(Query query) {
     return (query.role() == null)
         ? repository.search(query.query())
         : repository.search(query.query(), query.role());

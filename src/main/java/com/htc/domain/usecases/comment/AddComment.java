@@ -5,7 +5,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public final class AddComment implements UseCase<Comment, Comment> {
   private final CommentRepository repository;
 
   @Override
-  public Future<Either<Failure, Comment>> execute(Comment comment) {
+  public CompletableFuture<Either<Failure, Comment>> execute(Comment comment) {
     return repository.add(comment);
   }
 }

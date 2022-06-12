@@ -5,7 +5,7 @@ import com.htc.domain.entities.notification.Notification;
 import com.htc.domain.repositories.NotificationRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public final class GetAllNotifications implements UseCase<Void, Iterable<Notific
   private final NotificationRepository repository;
 
   @Override
-  public Future<Either<Failure, Iterable<Notification>>> execute(Void param) {
+  public CompletableFuture<Either<Failure, Iterable<Notification>>> execute(Void param) {
     return repository.getAll();
   }
 }

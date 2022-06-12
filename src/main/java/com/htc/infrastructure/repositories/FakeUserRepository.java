@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.stereotype.Component;
 
 /**
@@ -43,12 +43,12 @@ public class FakeUserRepository implements UserRepository {
   }
 
   @Override
-  public Future<Either<Failure, User>> add(User user) {
+  public CompletableFuture<Either<Failure, User>> add(User user) {
     return null;
   }
 
   @Override
-  public Future<Either<Failure, User>> get(int id) {
+  public CompletableFuture<Either<Failure, User>> get(int id) {
     if (new Random().nextBoolean()) {
       return EitherHelper.badLeft(RepositoryFailure.DEFAULT_MESSAGE);
     }
@@ -60,7 +60,7 @@ public class FakeUserRepository implements UserRepository {
   }
 
   @Override
-  public Future<Either<Failure, Iterable<User>>> getAll() {
+  public CompletableFuture<Either<Failure, Iterable<User>>> getAll() {
     // тестовая реализация бизнес-логики
     return new Random().nextBoolean()
             ? EitherHelper.goodRight(users)
@@ -68,22 +68,22 @@ public class FakeUserRepository implements UserRepository {
   }
 
   @Override
-  public Future<Either<Failure, User>> update(User user) {
+  public CompletableFuture<Either<Failure, User>> update(User user) {
     return null;
   }
 
   @Override
-  public Future<Either<Failure, Void>> delete(int id) {
+  public CompletableFuture<Either<Failure, Void>> delete(int id) {
     return null;
   }
 
   @Override
-  public Future<Either<Failure, Iterable<User>>> search(String query) {
+  public CompletableFuture<Either<Failure, Iterable<User>>> search(String query) {
     return null;
   }
 
   @Override
-  public Future<Either<Failure, Iterable<User>>> search(String query, Role role) {
+  public CompletableFuture<Either<Failure, Iterable<User>>> search(String query, Role role) {
     return null;
   }
 }

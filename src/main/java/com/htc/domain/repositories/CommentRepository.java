@@ -3,7 +3,7 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий для комментария.
@@ -16,5 +16,5 @@ public interface CommentRepository {
    *
    * @return comment новый комментарий, подробнее {@link Comment}
    */
-  Future<Either<Failure, Comment>> add(Comment comment);
+  CompletableFuture<Either<Failure, Comment>> add(Comment comment);
 }
