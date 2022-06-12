@@ -1,13 +1,13 @@
 package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
-import com.htc.core.EitherHelper;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.RepositoryFailure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
+import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.ArrayList;
 import java.util.List;

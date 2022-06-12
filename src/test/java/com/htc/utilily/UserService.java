@@ -9,8 +9,10 @@ import java.util.Random;
 /**
  * Класс обслуживания сущности {@link User}.
  */
-public abstract class UserService {
+public final class UserService {
   private static final Faker faker = Faker.instance(new Locale("ru"));
+
+  private UserService() {}
 
   /**
    * Создание экземпляра тестового пользователя c указанным идентификатором и ролью.

@@ -1,4 +1,4 @@
-package com.htc.core;
+package com.htc.utility;
 
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
@@ -8,7 +8,10 @@ import java.util.concurrent.Future;
 /**
  * Вспомогательный класс для работы с возвращаемыми значениями.
  */
-public abstract class EitherHelper<T> {
+public final class EitherHelper<T> {
+
+  private EitherHelper() {}
+
   public static <T> Future<Either<Failure, T>> goodRight(T value) {
     return CompletableFuture.completedFuture(Either.right(value));
   }
