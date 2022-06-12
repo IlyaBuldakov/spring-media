@@ -7,10 +7,12 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.concurrent.Future;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения списка всех пользователей.
  */
+@Component
 @AllArgsConstructor
 public final class GetAllUsers implements UseCase<Void, Iterable<User>> {
   private final UserRepository repository;

@@ -8,10 +8,12 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.concurrent.Future;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения списка пользователей в соответствии с запросом.
  */
+@Component
 @AllArgsConstructor
 public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<User>> {
   /**
