@@ -49,17 +49,14 @@ public class FakeUserRepository implements UserRepository {
 
   @Override
   public Future<Either<Failure, User>> get(int id) {
-    // тестовая реализация бизнес-логики
-    if (id < 1) {
-      return EitherHelper.badLeft(NotFound.DEFAULT_MESSAGE);
-    }
     if (new Random().nextBoolean()) {
       return EitherHelper.badLeft(RepositoryFailure.DEFAULT_MESSAGE);
     }
-    return EitherHelper.goodRight(
-            users.stream().filter(user -> user.getId() == id)
-                    .toList()
-                    .get(0));
+    var usersResult = users.stream().filter(us -> us.getId() == id).toList();
+    if (usersResult.size() == 0) {
+      return EitherHelper.badLeft(NotFound.DEFAULT_MESSAGE);
+    }
+    return EitherHelper.goodRight(usersResult.get(0));
   }
 
   @Override
