@@ -1,7 +1,8 @@
 # Зависимости проекта
 Фреймворк:
-1. `org.springframework.boot:spring-boot-starter-web` - cтартер для создания веб-приложений.
-2. `io.springfox:springfox-boot-starter` - cтартер для генерации Swagger UI.
+1. `org.springframework.boot:spring-boot-starter-parent` - базовый POM для проектов на Spring.
+2. `org.springframework.boot:spring-boot-starter-web` - cтартер для создания веб-приложений.
+3. `io.springfox:springfox-boot-starter` - cтартер для генерации Swagger UI.
 
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` - модульное тестирование.
