@@ -21,14 +21,14 @@ public class UserService {
    * @return Пользователь.
    */
   public static User createTestUser(int id, Role role) {
-    return new User(
-            id,
-            faker.internet().emailAddress(),
-            faker.internet().password(8, 12),
-            faker.name().fullName(),
-            faker.lorem().characters(40),
-            role
-    );
+    return User.create(
+                    id,
+                    faker.internet().emailAddress(),
+                    faker.internet().password(8, 12),
+                    faker.name().fullName(),
+                    faker.lorem().characters(40),
+                    role)
+            .get();
   }
 
   /**
