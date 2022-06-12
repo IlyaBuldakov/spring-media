@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public final class UploadContent implements UseCase<Content, Content> {
+public class UploadContent implements UseCase<Content, Content> {
   private final ContentRepository repository;
 
   @Override

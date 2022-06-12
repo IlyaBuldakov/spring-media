@@ -27,7 +27,7 @@ public class ContentController {
   private GetContentFeed getContentFeed;
 
   /**
-   * Создаёт контент.
+   * Загружает контент.
    */
   @PostMapping
   public void upload(Content content) {
@@ -57,7 +57,7 @@ public class ContentController {
   }
 
   /**
-   * Создаёт контент.
+   * Возвращает содержимое ленты контента.
    */
   @GetMapping
   public void getContentFeed() {

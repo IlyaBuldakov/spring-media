@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public final class GetContentFeed implements UseCase<Void, Iterable<Content>> {
+public class GetContentFeed implements UseCase<Void, Iterable<Content>> {
   private final ContentRepository repository;
 
   @Override

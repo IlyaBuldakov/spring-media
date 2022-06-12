@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public final class DeleteContentById implements UseCase<Integer, Void> {
+public class DeleteContentById implements UseCase<Integer, Void> {
   private final ContentRepository repository;
 
   @Override
