@@ -1,21 +1,22 @@
 package com.htc.domain.entities.failures;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * Ошибка.
  */
 public interface Failure {
-
   /**
-   * Получить код ошибки.
+   * Получить статус ошибки.
    *
-   * @return status код ошибки
+   * @return status статус ошибки
    */
-  int getStatus();
+  HttpStatus getStatus();
 
   /**
-   * Получить сообщение.
+   * Получить сообщение ошибки.
    *
-   * @return message сообщение об ошибке
+   * @return message сообщение ошибки
    */
   String getMessage();
 }

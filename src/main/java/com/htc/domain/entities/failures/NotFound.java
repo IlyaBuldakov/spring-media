@@ -1,5 +1,7 @@
 package com.htc.domain.entities.failures;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * Сущность не найдена.
  */
@@ -7,18 +9,18 @@ public enum NotFound implements Failure {
   /**
    * Сообщение по умолчанию.
    */
-  DEFAULT_MESSAGE(-1, "Сущность не найдена.");
+  DEFAULT_MESSAGE(HttpStatus.NOT_FOUND, "Сущность не найдена.");
 
-  private final int status;
+  private final HttpStatus status;
   private final String message;
 
-  NotFound(Integer status, String message) {
+  NotFound(HttpStatus status, String message) {
     this.status = status;
     this.message = message;
   }
 
   @Override
-  public int getStatus() {
+  public HttpStatus getStatus() {
     return status;
   }
 

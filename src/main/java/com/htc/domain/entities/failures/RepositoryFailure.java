@@ -1,24 +1,26 @@
 package com.htc.domain.entities.failures;
 
+import org.springframework.http.HttpStatus;
+
 /**
- * ошибка репозитория.
+ * Ошибка репозитория.
  */
 public enum RepositoryFailure implements Failure {
   /**
    * Сообщение по умолчанию.
    */
-  DEFAULT_MESSAGE(-1, "Ошибка репозитория.");
+  DEFAULT_MESSAGE(HttpStatus.INTERNAL_SERVER_ERROR, "Ошибка репозитория.");
 
-  private final int status;
+  private final HttpStatus status;
   private final String message;
 
-  RepositoryFailure(Integer status, String message) {
+  RepositoryFailure(HttpStatus status, String message) {
     this.status = status;
     this.message = message;
   }
 
   @Override
-  public int getStatus() {
+  public HttpStatus getStatus() {
     return status;
   }
 

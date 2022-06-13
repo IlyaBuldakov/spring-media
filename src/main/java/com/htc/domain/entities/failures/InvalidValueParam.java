@@ -1,5 +1,7 @@
 package com.htc.domain.entities.failures;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * Некорректное значение параметра.
  */
@@ -7,25 +9,25 @@ public enum InvalidValueParam implements Failure {
   /**
    * Сообщение по умолчанию.
    */
-  DEFAULT_MESSAGE(-1, "Некорректное значение переданного параметра."),
+  DEFAULT_MESSAGE(HttpStatus.FORBIDDEN, "Некорректное значение переданного параметра."),
 
-  INVALID_ENTITY_ID(-2, "Некорректный идентификатор."),
+  INVALID_ENTITY_ID(HttpStatus.FORBIDDEN, "Некорректный идентификатор."),
 
-  INVALID_USER_NAME(-3, "Некорректное имя."),
-  INVALID_USER_PASSWORD(-4, "Некорректный пароль."),
-  INVALID_USER_EMAIL(-5, "Некорректная электронная почта."),
-  INVALID_USER_IMAGE(-6, "Некорректное изображение.");
+  INVALID_USER_NAME(HttpStatus.FORBIDDEN, "Некорректное имя."),
+  INVALID_USER_PASSWORD(HttpStatus.FORBIDDEN, "Некорректный пароль."),
+  INVALID_USER_EMAIL(HttpStatus.FORBIDDEN, "Некорректная электронная почта."),
+  INVALID_USER_IMAGE(HttpStatus.FORBIDDEN, "Некорректное изображение.");
 
-  private final Integer status;
+  private final HttpStatus status;
   private final String message;
 
-  InvalidValueParam(Integer status, String message) {
+  InvalidValueParam(HttpStatus status, String message) {
     this.status = status;
     this.message = message;
   }
 
   @Override
-  public int getStatus() {
+  public HttpStatus getStatus() {
     return status;
   }
 
