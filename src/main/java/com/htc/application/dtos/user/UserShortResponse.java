@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * Ответ. Краткое представление пользователя.
  */
-public class UserShortResponse extends DataTransferObject<User> {
+public class UserShortResponse implements DataTransferObject<User> {
   /**
    * Идентификатор.
    *
@@ -28,7 +28,6 @@ public class UserShortResponse extends DataTransferObject<User> {
    * @param user сущность пользователя, подробнее {@link User}
    */
   public UserShortResponse(User user) {
-    super(user);
     this.id = user.getId();
     this.name = user.getName();
   }

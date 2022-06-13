@@ -8,7 +8,7 @@ import lombok.Getter;
 /**
  * Запрос. Основное представление сущности пользователя.
  */
-public class UserRequest extends DataTransferObject<User> {
+public class UserRequest implements DataTransferObject<User> {
   /**
    * Полное имя.
    *
@@ -51,7 +51,6 @@ public class UserRequest extends DataTransferObject<User> {
    * @param user сущность пользователя, подробнее {@link User}
    */
   public UserRequest(User user) {
-    super(user);
     this.name = user.getName();
     this.email = user.getEmail();
     this.password = user.getPassword();

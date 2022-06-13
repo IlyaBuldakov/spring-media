@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * Ответ. Основное представление сущности роли.
  */
-public class RoleResponse extends DataTransferObject<Role> {
+public class RoleResponse implements DataTransferObject<Role> {
   /**
    * Идентификатор.
    *
@@ -28,7 +28,6 @@ public class RoleResponse extends DataTransferObject<Role> {
    * @param role сущность роли, подробнее  {@link Role}
    */
   public RoleResponse(Role role) {
-    super(role);
     this.id = role.getId();
     this.name = role.getName();
   }

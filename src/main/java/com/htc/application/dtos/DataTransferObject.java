@@ -5,6 +5,4 @@ package com.htc.application.dtos;
  *
  * @param <EntityT> тип сущности
  */
-public abstract class DataTransferObject<EntityT> {
-  public DataTransferObject(EntityT entity) {}
-}
+public interface DataTransferObject<EntityT> {}

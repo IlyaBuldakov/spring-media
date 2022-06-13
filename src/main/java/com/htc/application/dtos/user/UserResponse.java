@@ -8,7 +8,7 @@ import lombok.Getter;
 /**
  * Ответ. Основное представление сущности пользователя.
  */
-public class UserResponse extends DataTransferObject<User> {
+public class UserResponse implements DataTransferObject<User> {
   /**
    * Идентификатор.
    *
@@ -51,7 +51,6 @@ public class UserResponse extends DataTransferObject<User> {
    * @param user сущность пользователя, подробнее {@link User}
    */
   public UserResponse(User user) {
-    super(user);
     this.id = user.getId();
     this.name = user.getName();
     this.email = user.getEmail();
