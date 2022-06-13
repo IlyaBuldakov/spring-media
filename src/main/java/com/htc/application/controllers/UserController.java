@@ -54,7 +54,7 @@ public class UserController {
   public CompletableFuture<UserResponse> get(@PathVariable int id) {
     return getUserById.execute(id).thenApplyAsync(
             users -> users.map(UserResponse::new)
-                    .getOrElseThrow(() -> CustomExceptionsHelper.getException(users))
+                    .getOrElseThrow(() -> CustomExceptionsHelper.getExceptionFromLeft(users))
     );
   }
 
@@ -71,7 +71,7 @@ public class UserController {
                             .stream(users.spliterator(), false)
                             .map(UserResponse::new)
                             .collect(Collectors.toList()))
-                    .getOrElseThrow(() -> CustomExceptionsHelper.getException(iterUsers))
+                    .getOrElseThrow(() -> CustomExceptionsHelper.getExceptionFromLeft(iterUsers))
     );
   }
 
