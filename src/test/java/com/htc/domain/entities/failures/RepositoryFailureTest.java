@@ -3,6 +3,7 @@ package com.htc.domain.entities.failures;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 
 class RepositoryFailureTest {
   @Test
@@ -22,6 +23,7 @@ class RepositoryFailureTest {
     var constructors = RepositoryFailure.class.getDeclaredConstructors();
     assertThat(InvalidValueParam.class.isEnum()).isTrue();
     assertThat(constructors[0].getParameterCount()).isEqualTo(4);
-    assertThat(constructors[0].getParameterTypes()).containsSequence(Integer.class, String.class);
+    assertThat(constructors[0].getParameterTypes())
+            .containsSequence(HttpStatus.class, String.class);
   }
 }
