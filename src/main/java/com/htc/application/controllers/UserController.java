@@ -1,18 +1,17 @@
 package com.htc.application.controllers;
 
 import com.htc.application.dtos.user.UserResponse;
-import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.usecases.user.AddUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
 import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.SearchUsers;
 import com.htc.domain.usecases.user.UpdateUser;
+import com.htc.utility.CustomExceptionsHelper;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Контроллер пользователя.
@@ -55,14 +53,8 @@ public class UserController {
   @Async
   public CompletableFuture<UserResponse> get(@PathVariable int id) {
     return getUserById.execute(id).thenApplyAsync(
-            users -> users.map(UserResponse::new).getOrElseThrow(
-                    failure -> {
-                      if (failure instanceof NotFound) {
-                        return new ResponseStatusException(HttpStatus.NOT_FOUND);
-                      }
-                      return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-                    }
-            )
+            users -> users.map(UserResponse::new)
+                    .getOrElseThrow(() -> CustomExceptionsHelper.getException(users))
     );
   }
 
@@ -79,8 +71,7 @@ public class UserController {
                             .stream(users.spliterator(), false)
                             .map(UserResponse::new)
                             .collect(Collectors.toList()))
-                    .getOrElseThrow(
-                            () -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR))
+                    .getOrElseThrow(() -> CustomExceptionsHelper.getException(iterUsers))
     );
   }
 
