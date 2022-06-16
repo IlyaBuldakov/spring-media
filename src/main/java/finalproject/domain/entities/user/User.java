@@ -33,7 +33,7 @@ public class User implements Serializable {
   @GeneratedValue
   @Getter
   @Setter
-  private int id;
+  int id;
 
   /**
    * Электронная почта пользователя.
