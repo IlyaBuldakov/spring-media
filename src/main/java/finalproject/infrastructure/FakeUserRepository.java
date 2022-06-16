@@ -3,17 +3,23 @@ package finalproject.infrastructure;
 import finalproject.domain.entities.user.User;
 import finalproject.domain.repositories.UserRepository;
 import org.apache.commons.lang3.SerializationUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Component
 public class FakeUserRepository implements UserRepository {
   static List<User> userList = new ArrayList<>();
   static {
     userList.add(null);
   }
+
+
+
+
 
   @Override
   public <S extends User> S save(S user) {
