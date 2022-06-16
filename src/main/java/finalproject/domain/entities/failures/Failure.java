@@ -1,4 +1,9 @@
 package finalproject.domain.entities.failures;
 
-public interface Failure {
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class Failure extends Throwable{
+  public String message;
+
 }
