@@ -13,7 +13,7 @@ import java.util.concurrent.Future;
  *
  * @author IlyaBuldakov
  */
-public interface UserRepository {
+public interface UsersRepository {
 
     /**
      * Создание пользователя

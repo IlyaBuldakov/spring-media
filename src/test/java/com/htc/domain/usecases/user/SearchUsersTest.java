@@ -2,7 +2,7 @@ package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.user.Role;
 import com.htc.util.Users;
-import com.htc.domain.repositories.UserRepository;
+import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
@@ -26,8 +26,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class SearchUsersTest {
 
-    final UserRepository mockUserRepository = mock(UserRepository.class);
-    final SearchUsers useCase = new SearchUsers(mockUserRepository);
+    final UsersRepository mockUsersRepository = mock(UsersRepository.class);
+    final SearchUsers useCase = new SearchUsers(mockUsersRepository);
 
     @Test
     void shouldInheritUseCase() {
@@ -40,8 +40,8 @@ class SearchUsersTest {
 
         useCase.execute(query);
 
-        verify(mockUserRepository, times(1)).search(query.query());
-        verify(mockUserRepository, times(0)).search(query.query(), query.role());
+        verify(mockUsersRepository, times(1)).search(query.query());
+        verify(mockUsersRepository, times(0)).search(query.query(), query.role());
     }
 
     @Test
@@ -52,8 +52,8 @@ class SearchUsersTest {
 
         useCase.execute(query);
 
-        verify(mockUserRepository, times(1)).search(query.query(), query.role());
-        verify(mockUserRepository, times(0)).search(query.query());
+        verify(mockUsersRepository, times(1)).search(query.query(), query.role());
+        verify(mockUsersRepository, times(0)).search(query.query());
     }
 
     @Test
@@ -64,7 +64,7 @@ class SearchUsersTest {
                 Users.createTestUser()
         );
 
-        when(mockUserRepository.search(query.query()))
+        when(mockUsersRepository.search(query.query()))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(expected)));
 
         var result = useCase.execute(query)
@@ -84,7 +84,7 @@ class SearchUsersTest {
                 Users.createTestUser()
         );
 
-        when(mockUserRepository.search(query.query(), query.role()))
+        when(mockUsersRepository.search(query.query(), query.role()))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(expected)));
 
         var result = useCase.execute(query)

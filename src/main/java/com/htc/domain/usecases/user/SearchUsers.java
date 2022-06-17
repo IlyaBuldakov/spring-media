@@ -3,7 +3,7 @@ package com.htc.domain.usecases.user;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.user.Role;
-import com.htc.domain.repositories.UserRepository;
+import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<Us
      */
     public record Query(String query, Role role) {}
 
-    private final UserRepository repository;
+    private final UsersRepository repository;
 
     @Override
     public Future<Either<Failure, Iterable<User>>> execute(SearchUsers.Query query) {

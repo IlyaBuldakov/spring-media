@@ -2,7 +2,7 @@ package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.user.User;
 import com.htc.util.Users;
-import com.htc.domain.repositories.UserRepository;
+import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ import static org.mockito.Mockito.verify;
  */
 class GetAllUsersTest {
 
-    UserRepository mockUserRepository = mock(UserRepository.class);
-    GetAllUsers useCase = new GetAllUsers(mockUserRepository);
+    UsersRepository mockUsersRepository = mock(UsersRepository.class);
+    GetAllUsers useCase = new GetAllUsers(mockUsersRepository);
 
     @Test
     void shouldInheritUseCase() {
@@ -34,7 +34,7 @@ class GetAllUsersTest {
     void shouldGetAllUsersFromRepository() {
         useCase.execute(null);
 
-        verify(mockUserRepository).getAll();
+        verify(mockUsersRepository).getAll();
     }
 
     @Test
@@ -46,7 +46,7 @@ class GetAllUsersTest {
                 Users.createTestUser()
         );
 
-        when(mockUserRepository.getAll())
+        when(mockUsersRepository.getAll())
                 .thenReturn(CompletableFuture.completedFuture(Either.right(usersList)));
 
         var result = useCase.execute(null)
@@ -58,7 +58,7 @@ class GetAllUsersTest {
 
     @Test
     void usersListIsEmpty_ShouldReturnEmptyList() throws ExecutionException, InterruptedException {
-        when(mockUserRepository.getAll())
+        when(mockUsersRepository.getAll())
                 .thenReturn(CompletableFuture.completedFuture(Either.right(Collections.emptyList())));
 
         var result = useCase.execute(null)

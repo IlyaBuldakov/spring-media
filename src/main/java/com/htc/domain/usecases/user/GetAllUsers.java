@@ -2,7 +2,7 @@ package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
-import com.htc.domain.repositories.UserRepository;
+import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.concurrent.Future;
 @AllArgsConstructor
 public final class GetAllUsers implements UseCase<Void, List<User>> {
 
-    private final UserRepository userRepository;
+    private final UsersRepository usersRepository;
 
     @Override
     public Future<Either<Failure, List<User>>> execute(Void param) {

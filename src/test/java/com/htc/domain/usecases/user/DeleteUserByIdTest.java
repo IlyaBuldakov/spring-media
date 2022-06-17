@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.repositories.UserRepository;
+import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
@@ -24,8 +24,8 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class DeleteUserByIdTest {
 
-    UserRepository mockUserRepository = mock(UserRepository.class);
-    DeleteUserById useCase = new DeleteUserById(mockUserRepository);
+    UsersRepository mockUsersRepository = mock(UsersRepository.class);
+    DeleteUserById useCase = new DeleteUserById(mockUsersRepository);
 
     @Test
     void shouldInheritUseCase() {
@@ -38,14 +38,14 @@ class DeleteUserByIdTest {
 
         useCase.execute(userId);
 
-        verify(mockUserRepository).delete(userId);
+        verify(mockUsersRepository).delete(userId);
     }
 
     @Test
     void userExists_shouldReturnVoid() throws ExecutionException, InterruptedException {
         var userId = new Random().nextInt(255);
 
-        when(mockUserRepository.delete(userId))
+        when(mockUsersRepository.delete(userId))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(null)));
 
         var result = useCase.execute(userId)
@@ -59,7 +59,7 @@ class DeleteUserByIdTest {
     void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
         var userId = new Random().nextInt(255);
 
-        when(mockUserRepository.delete(userId))
+        when(mockUsersRepository.delete(userId))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
 
         var result = useCase.execute(userId)

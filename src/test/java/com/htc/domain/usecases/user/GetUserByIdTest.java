@@ -3,7 +3,7 @@ package com.htc.domain.usecases.user;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.user.User;
 import com.htc.util.Users;
-import com.htc.domain.repositories.UserRepository;
+import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
@@ -26,8 +26,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class GetUserByIdTest {
 
-    final UserRepository mockUserRepository = mock(UserRepository.class);
-    final GetUserById useCase = new GetUserById(mockUserRepository);
+    final UsersRepository mockUsersRepository = mock(UsersRepository.class);
+    final GetUserById useCase = new GetUserById(mockUsersRepository);
 
     @Test
     void shouldInheritUseCase() {
@@ -40,7 +40,7 @@ class GetUserByIdTest {
 
         useCase.execute(userId);
 
-        verify(mockUserRepository).get(userId);
+        verify(mockUsersRepository).get(userId);
     }
 
 
@@ -54,7 +54,7 @@ class GetUserByIdTest {
 
         final User user = Users.createTestUser(userId);
 
-        when(mockUserRepository.get(userId))
+        when(mockUsersRepository.get(userId))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
         var result = useCase.execute(userId)
@@ -70,7 +70,7 @@ class GetUserByIdTest {
         var userId = new Random().nextInt(255);
         var failure = new NotFound("");
 
-        when(mockUserRepository.get(userId))
+        when(mockUsersRepository.get(userId))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
 
         var result = useCase.execute(userId)

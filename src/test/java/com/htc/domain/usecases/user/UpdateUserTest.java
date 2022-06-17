@@ -3,7 +3,7 @@ package com.htc.domain.usecases.user;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.user.User;
 import com.htc.util.Users;
-import com.htc.domain.repositories.UserRepository;
+import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
@@ -25,8 +25,8 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class UpdateUserTest {
 
-    UserRepository mockUserRepository = mock(UserRepository.class);
-    UpdateUser useCase = new UpdateUser(mockUserRepository);
+    UsersRepository mockUsersRepository = mock(UsersRepository.class);
+    UpdateUser useCase = new UpdateUser(mockUsersRepository);
 
     @Test
     void shouldInheritUseCase() {
@@ -39,14 +39,14 @@ class UpdateUserTest {
 
         useCase.execute(user);
 
-        verify(mockUserRepository).update(user);
+        verify(mockUsersRepository).update(user);
     }
 
     @Test
     void userExists_shouldUpdateUser() throws ExecutionException, InterruptedException {
         final User user = Users.createTestUser();
 
-        when(mockUserRepository.update(user))
+        when(mockUsersRepository.update(user))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
         var result = useCase.execute(user)
@@ -61,7 +61,7 @@ class UpdateUserTest {
             throws ExecutionException, InterruptedException {
         final User user = Users.createTestUser();
 
-        when(mockUserRepository.update(user))
+        when(mockUsersRepository.update(user))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
 
         var result = useCase.execute(user)
