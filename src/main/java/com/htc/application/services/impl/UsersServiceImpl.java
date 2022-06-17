@@ -12,6 +12,7 @@ import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -30,27 +31,27 @@ public class UsersServiceImpl implements UsersService {
     DeleteUserById deleteUserById;
 
     @Override
-    public CompletableFuture<Either<Failure, User>> getAll() {
+    public CompletableFuture<Either<Failure, List<User>>> getAll() {
         return null;
     }
 
     @Override
-    public CompletableFuture<Either<Failure, User>> getById() {
+    public CompletableFuture<Either<Failure, User>> getById(int id) {
         return null;
     }
 
     @Override
-    public CompletableFuture<Either<Failure, User>> create() {
+    public CompletableFuture<Either<Failure, User>> create(User user) {
         return null;
     }
 
     @Override
-    public CompletableFuture<Either<Failure, User>> update() {
+    public CompletableFuture<Either<Failure, User>> update(User user) {
         return null;
     }
 
     @Override
-    public CompletableFuture<Either<Failure, User>> delete() {
+    public CompletableFuture<Either<Failure, Void>> delete(int id) {
         return null;
     }
 }
