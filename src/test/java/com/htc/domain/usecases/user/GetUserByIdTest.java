@@ -36,11 +36,11 @@ class GetUserByIdTest {
 
     @Test
     void shouldGetUserFromRepository() {
-        var userId = new Random().nextInt(255);
+        var userId = String.valueOf(new Random().nextInt(255));
 
         useCase.execute(userId);
 
-        verify(mockUsersRepository).get(userId);
+        verify(mockUsersRepository).get(Integer.parseInt(userId));
     }
 
 
@@ -50,11 +50,11 @@ class GetUserByIdTest {
      */
     @Test
     void userExists_shouldReturnUser() throws ExecutionException, InterruptedException {
-        var userId = new Random().nextInt(255);
+        var userId = String.valueOf(new Random().nextInt(255));
 
-        final User user = Users.createTestUser(userId);
+        final User user = Users.createTestUser(Integer.parseInt(userId));
 
-        when(mockUsersRepository.get(userId))
+        when(mockUsersRepository.get(Integer.parseInt(userId)))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
         var result = useCase.execute(userId)
@@ -67,10 +67,10 @@ class GetUserByIdTest {
 
     @Test
     void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
-        var userId = new Random().nextInt(255);
+        var userId = String.valueOf(new Random().nextInt(255));
         var failure = new NotFound("");
 
-        when(mockUsersRepository.get(userId))
+        when(mockUsersRepository.get(Integer.parseInt(userId)))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
 
         var result = useCase.execute(userId)
