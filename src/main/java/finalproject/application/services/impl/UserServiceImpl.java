@@ -8,8 +8,12 @@ import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.lang.management.OperatingSystemMXBean;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 
 @Service
@@ -27,27 +31,41 @@ public class UserServiceImpl implements UserService {
     return CompletableFuture.completedFuture(Either.right(repository.save(user)));
   }
 
+  @Async
   @Override
-  public CompletableFuture<Either<Failure, Void>> editUser(User user) {
-    return null;
+  public CompletableFuture<Either<Failure, User>> editUser(User user) {
+    if (user.getId() < 1) {
+      return CompletableFuture.completedFuture(Either.left(new Failure("Ничего не получилось")));
+    }
+    return CompletableFuture.completedFuture(Either.right(repository.save(user)));
   }
 
+  @Async
   @Override
-  public CompletableFuture<Either<Failure, Void>> deleteUser(User user) {
-    return null;
+  public CompletableFuture<Either<Failure, Void>> deleteUserById(int id) {
+    repository.deleteById(id);
+    return CompletableFuture.completedFuture(Either.right(null));
   }
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, User>> getUserById(int id) {
-    return null;
+    Optional<User> user = repository.findById(id);
+    if (user.isPresent()) {
+    return CompletableFuture.completedFuture(Either.right((user.get())));
+    }
+    return CompletableFuture.completedFuture(Either.left(new Failure("Ничего не получилось")));
+
   }
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, List<User>>> getAllUsers() {
     return CompletableFuture.completedFuture(Either.right((List<User>) repository.findAll()));
 
   }
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, List<User>>> getUsersByQuery(String query) {
     return null;
