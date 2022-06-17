@@ -7,7 +7,7 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Реализация сценария создания пользователя
@@ -21,7 +21,7 @@ public final class CreateUser implements UseCase<User, User> {
     private final UsersRepository usersRepository;
 
     @Override
-    public Future<Either<Failure, User>> execute(User param) {
-        return userRepository.create(param);
+    public CompletableFuture<Either<Failure, User>> execute(User param) {
+        return usersRepository.create(param);
     }
 }

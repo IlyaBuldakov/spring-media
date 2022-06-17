@@ -8,7 +8,7 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Реализация сценария поиска пользователей по параметрам
@@ -29,7 +29,7 @@ public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<Us
     private final UsersRepository repository;
 
     @Override
-    public Future<Either<Failure, Iterable<User>>> execute(SearchUsers.Query query) {
+    public CompletableFuture<Either<Failure, Iterable<User>>> execute(Query query) {
         return query.role() == null
                 ? repository.search(query.query())
                 : repository.search(query.query(), query.role());

@@ -8,7 +8,7 @@ import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Реализация сценария получения всех пользователей
@@ -22,7 +22,7 @@ public final class GetAllUsers implements UseCase<Void, List<User>> {
     private final UsersRepository usersRepository;
 
     @Override
-    public Future<Either<Failure, List<User>>> execute(Void param) {
-        return userRepository.getAll();
+    public CompletableFuture<Either<Failure, List<User>>> execute(Void param) {
+        return usersRepository.getAll();
     }
 }

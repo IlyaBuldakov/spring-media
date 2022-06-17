@@ -6,7 +6,7 @@ import com.htc.domain.entities.user.Role;
 import io.vavr.control.Either;
 
 import java.util.List;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий пользователей
@@ -20,21 +20,21 @@ public interface UsersRepository {
      *
      * @param user Пользователь
      */
-    Future<Either<Failure, User>> create(User user);
+    CompletableFuture<Either<Failure, User>> create(User user);
 
     /**
      * Обновление данных пользователя
      *
      * @param user Пользователь
      */
-    Future<Either<Failure, User>> update(User user);
+    CompletableFuture<Either<Failure, User>> update(User user);
 
     /**
      * Удаление пользователя
      *
      * @param id Идентификатор пользователя
      */
-    Future<Either<Failure, Void>> delete(int id);
+    CompletableFuture<Either<Failure, Void>> delete(int id);
 
     /**
      * Получение пользователя
@@ -42,14 +42,14 @@ public interface UsersRepository {
      * @param id Идентификатор пользователя
      * @return Пользователь
      */
-    Future<Either<Failure, User>> get(int id);
+    CompletableFuture<Either<Failure, User>> get(int id);
 
     /**
      * Получение списка всех пользователей
      *
      * @return Список пользователей
      */
-    Future<Either<Failure, List<User>>> getAll();
+    CompletableFuture<Either<Failure, List<User>>> getAll();
 
     /**
      * Получение списка пользователей, соответствующих запросу
@@ -57,16 +57,16 @@ public interface UsersRepository {
      * @param query Запрос
      * @return Список пользователей
      */
-    Future<Either<Failure, Iterable<User>>> search(String query);
+    CompletableFuture<Either<Failure, Iterable<User>>> search(String query);
 
     /**
      * Получение списка пользователей, соответствующих запросу и роли
      *
-     * @param query    Запрос
-     * @param role Роль
+     * @param query Запрос
+     * @param role  Роль
      * @return Список пользователей
      */
-    Future<Either<Failure, Iterable<User>>> search(String query, Role role);
+    CompletableFuture<Either<Failure, Iterable<User>>> search(String query, Role role);
 
 
 }

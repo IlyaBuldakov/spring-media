@@ -3,7 +3,7 @@ package com.htc.domain.usecases;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
 
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Класс сценария
@@ -20,5 +20,5 @@ public interface UseCase<ParamT, ResultT> {
      * @param param Параметр сценария
      * @return Результат выполнения сценария
      */
-    Future<Either<Failure, ResultT>> execute(ParamT param);
+    CompletableFuture<Either<Failure, ResultT>> execute(ParamT param);
 }

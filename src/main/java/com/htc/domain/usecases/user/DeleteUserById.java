@@ -6,7 +6,7 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Реализация сценария удаления пользователя по идентификатору
@@ -20,7 +20,7 @@ public final class DeleteUserById implements UseCase<Integer, Void> {
     private final UsersRepository usersRepository;
 
     @Override
-    public Future<Either<Failure, Void>> execute(Integer param) {
-        return userRepository.delete(param);
+    public CompletableFuture<Either<Failure, Void>> execute(Integer param) {
+        return usersRepository.delete(param);
     }
 }

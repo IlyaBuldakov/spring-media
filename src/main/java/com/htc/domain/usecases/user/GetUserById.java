@@ -7,7 +7,7 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Реализация сценария получения пользователя по идентификатору
@@ -21,7 +21,7 @@ public final class GetUserById implements UseCase<Integer, User> {
     private final UsersRepository usersRepository;
 
     @Override
-    public Future<Either<Failure, User>> execute(Integer param) {
-        return userRepository.get(param);
+    public CompletableFuture<Either<Failure, User>> execute(Integer param) {
+        return usersRepository.get(param);
     }
 }
