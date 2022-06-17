@@ -35,7 +35,7 @@ class SearchUsersTest {
     }
 
     @Test
-    void queryDoesNotContainRole_ShouldCallSearchMethodWithoutRoleArgumentOnly() {
+    void queryDoesNotContainRole_shouldCallSearchMethodWithoutRoleArgumentOnly() {
         var query = new SearchUsers.Query("test", null);
 
         useCase.execute(query);
@@ -45,7 +45,7 @@ class SearchUsersTest {
     }
 
     @Test
-    void queryContainsRole_ShouldCallSearchMethodWithRoleArgumentOnly() {
+    void queryContainsRole_shouldCallSearchMethodWithRoleArgumentOnly() {
         var query = new SearchUsers.Query(
                 "test",
                 new Role(1, Role.RoleType.ADMIN));
@@ -57,7 +57,7 @@ class SearchUsersTest {
     }
 
     @Test
-    void queryDoesNotContainRole_ShouldGetUsersFromTheRepositoryAccordingToQuery()
+    void queryDoesNotContainRole_shouldGetUsersFromTheRepositoryAccordingToQuery()
             throws ExecutionException, InterruptedException {
         var query = new SearchUsers.Query("test", null);
         var expected = List.of(
@@ -75,7 +75,7 @@ class SearchUsersTest {
     }
 
     @Test
-    void queryContainsRole_ShouldGetUserFromTheRepositoryAccordingToQuery()
+    void queryContainsRole_shouldGetUserFromTheRepositoryAccordingToQuery()
             throws ExecutionException, InterruptedException {
         var query = new SearchUsers.Query(
                 "test",

@@ -57,7 +57,7 @@ class UpdateUserTest {
     }
 
     @Test
-    void userDoesNotExist_ShouldReturnNotFound()
+    void userDoesNotExist_shouldReturnNotFound()
             throws ExecutionException, InterruptedException {
         final User user = Users.createTestUser();
 

@@ -57,7 +57,7 @@ class GetAllUsersTest {
     }
 
     @Test
-    void usersListIsEmpty_ShouldReturnEmptyList() throws ExecutionException, InterruptedException {
+    void usersListIsEmpty_shouldReturnEmptyList() throws ExecutionException, InterruptedException {
         when(mockUsersRepository.getAll())
                 .thenReturn(CompletableFuture.completedFuture(Either.right(Collections.emptyList())));
 

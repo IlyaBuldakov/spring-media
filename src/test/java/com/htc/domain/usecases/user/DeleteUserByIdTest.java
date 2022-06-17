@@ -56,7 +56,7 @@ class DeleteUserByIdTest {
     }
 
     @Test
-    void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
+    void userDoesNotExist_shouldReturnNotFound() throws ExecutionException, InterruptedException {
         var userId = String.valueOf(new Random().nextInt(255));
 
         when(mockUsersRepository.delete(Integer.parseInt(userId)))
