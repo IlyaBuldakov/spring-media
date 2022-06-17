@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public CompletableFuture<Either<Failure, List<User>>> getAllUsers() {
-    return CompletableFuture.completedFuture(Either.right((List) repository.findAll()));
+    return CompletableFuture.completedFuture(Either.right((List<User>) repository.findAll()));
 
   }
 

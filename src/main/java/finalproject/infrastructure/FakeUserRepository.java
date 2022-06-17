@@ -55,7 +55,7 @@ public class FakeUserRepository implements UserRepository {
   }
 
   @Override
-  public Iterable<User> findAll() {
+  public List<User> findAll() {
     return userList.stream().filter(Objects::nonNull).toList();
   }
 
