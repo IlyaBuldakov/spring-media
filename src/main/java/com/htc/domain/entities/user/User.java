@@ -1,13 +1,9 @@
 package com.htc.domain.entities.user;
 
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import lombok.Getter;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.validator.routines.EmailValidator;
-
-import java.util.Locale;
 
 /**
  * Класс, описывающий пользователя
@@ -70,12 +66,6 @@ public class User {
      */
     private @Getter Role role;
 
-    private static final String INVALID_ID = "Некорректный идентификатор";
-    private static final String INVALID_NAME = "Некорректное имя пользователя";
-    private static final String INVALID_PASSWORD = "Пароль не соответствует требованиям";
-    private static final String INVALID_EMAIL = "Некорректный почтовый адрес";
-    private static final String INVALID_AVATAR = "Некорректный аватар";
-
     /**
      * Фабричный метод пользователя
      *
@@ -93,24 +83,13 @@ public class User {
                                                String email,
                                                byte[] avatar,
                                                Role role) {
-        if (id < 0) {
-            return Either.left(new InvalidValue(INVALID_ID));
+        Failure expectedFailure = ValuesValidator
+                .checkUserFields(id, name, password, email, avatar);
+
+        if (expectedFailure != null) {
+            return Either.left(expectedFailure);
         }
-        if (name.length() == 0) {
-            return Either.left(new InvalidValue(INVALID_NAME));
-        }
-        if (!password.matches("\\w{8,20}")
-                || !password.matches(".*\\d+.*")
-                || password.equals(password.toLowerCase(Locale.ROOT))
-                || password.equals(password.toUpperCase(Locale.ROOT))) {
-            return Either.left(new InvalidValue(INVALID_PASSWORD));
-        }
-        if (!EmailValidator.getInstance().isValid(email)) {
-            return Either.left(new InvalidValue(INVALID_EMAIL));
-        }
-        if (!Base64.isBase64(avatar)) {
-            return Either.left(new InvalidValue(INVALID_AVATAR));
-        }
+
         User user = new User();
         user.id = id;
         user.name = name;
