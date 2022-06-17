@@ -5,6 +5,7 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -13,8 +14,8 @@ import java.util.concurrent.CompletableFuture;
  *
  * @author IlyaBuldakov
  */
-
 @AllArgsConstructor
+@Component
 public final class DeleteUserById implements UseCase<Integer, Void> {
 
     private final UsersRepository usersRepository;

@@ -6,6 +6,7 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -15,8 +16,8 @@ import java.util.concurrent.CompletableFuture;
  *
  * @author IlyaBuldakov
  */
-
 @AllArgsConstructor
+@Component
 public final class GetAllUsers implements UseCase<Void, List<User>> {
 
     private final UsersRepository usersRepository;
