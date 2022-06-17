@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -23,7 +24,7 @@ public class UsersController {
 
     @GetMapping
     @Async
-    public CompletableFuture<Iterable<UserResponse>> getAllUsers() {
+    public CompletableFuture<List<UserResponse>> getAllUsers() {
         return null;
     }
 

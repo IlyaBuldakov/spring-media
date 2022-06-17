@@ -1,5 +1,7 @@
 package com.htc.application.services.impl;
 
+import com.htc.application.dto.user.UserRequest;
+import com.htc.application.dto.user.UserResponse;
 import com.htc.application.services.UsersService;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
@@ -31,27 +33,27 @@ public class UsersServiceImpl implements UsersService {
     DeleteUserById deleteUserById;
 
     @Override
-    public CompletableFuture<Either<Failure, List<User>>> getAll() {
+    public CompletableFuture<Either<Failure, List<UserResponse>>> getAll() {
         return null;
     }
 
     @Override
-    public CompletableFuture<Either<Failure, User>> getById(int id) {
+    public CompletableFuture<Either<Failure, UserResponse>> getById(String id) {
         return null;
     }
 
     @Override
-    public CompletableFuture<Either<Failure, User>> create(User user) {
+    public CompletableFuture<Either<Failure, UserResponse>> create(UserRequest user) {
         return null;
     }
 
     @Override
-    public CompletableFuture<Either<Failure, User>> update(User user) {
+    public CompletableFuture<Either<Failure, UserResponse>> update(UserRequest user) {
         return null;
     }
 
     @Override
-    public CompletableFuture<Either<Failure, Void>> delete(int id) {
+    public CompletableFuture<Either<Failure, Void>> delete(String id) {
         return null;
     }
 }
