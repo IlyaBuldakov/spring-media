@@ -3,6 +3,10 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [0.10.0] - 2022-06-18
+### Удалено
+- Интерфейс DataTransferObject.
+
 ## [0.9.0] - 2022-06-13
 ### Добавлено
 - Проверка значения идентификатора в сценарий получения пользователя.
@@ -148,6 +152,7 @@
 [0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
 -->
 
+[0.10.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.9.0...yuriy.krasnoperov-v0.10.0
 [0.9.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.8.0...yuriy.krasnoperov-v0.9.0
 [0.8.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.7.0...yuriy.krasnoperov-v0.8.0
 [0.7.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.6.0...yuriy.krasnoperov-v0.7.0

@@ -1,13 +1,12 @@
 package com.htc.application.dtos.user;
 
-import com.htc.application.dtos.DataTransferObject;
 import com.htc.domain.entities.user.Role;
 import lombok.Getter;
 
 /**
  * Ответ. Основное представление сущности роли.
  */
-public class RoleResponse implements DataTransferObject<Role> {
+public class RoleResponse {
   /**
    * Идентификатор.
    *

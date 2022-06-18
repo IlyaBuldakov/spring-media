@@ -1,6 +1,5 @@
 package com.htc.application.dtos.user;
 
-import com.htc.application.dtos.DataTransferObject;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
@@ -8,7 +7,7 @@ import lombok.Getter;
 /**
  * Ответ. Основное представление сущности пользователя.
  */
-public class UserResponse implements DataTransferObject<User> {
+public class UserResponse {
   /**
    * Идентификатор.
    *

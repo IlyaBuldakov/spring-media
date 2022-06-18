@@ -1,13 +1,12 @@
 package com.htc.application.dtos.user;
 
-import com.htc.application.dtos.DataTransferObject;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
 
 /**
  * Ответ. Краткое представление пользователя.
  */
-public class UserShortResponse implements DataTransferObject<User> {
+public class UserShortResponse {
   /**
    * Идентификатор.
    *
