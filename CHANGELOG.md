@@ -4,7 +4,7 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
-## [v0.7.0] - 2022-06-12
+## [v0.8.0] - 2022-06-18
 ### Добавлено
 -Добавлена динамическая генерация тестовых данных.
 ### Изменено
@@ -96,4 +96,6 @@
 [v0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.2.0...aleksandr.aziatcev-v0.3.0
 [v0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.3.0...aleksandr.aziatcev-v0.4.0
 [v0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.4.0...aleksandr.aziatcev-v0.5.0
-[v0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.5.0...aleksandr.aziatcev-v0.6.0
+[v0.6.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.5.0...aleksandr.aziatcev-v0.6.0
+[v0.7.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.6.0...aleksandr.aziatcev-v0.7.0
+[v0.8.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.7.0...aleksandr.aziatcev-v0.8.0
