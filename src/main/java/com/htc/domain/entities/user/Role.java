@@ -24,6 +24,7 @@ public enum Role {
    *
    * @return id идентификатор роли
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -31,6 +32,7 @@ public enum Role {
    *
    * @return name название роли
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   Role(int id, String name) {

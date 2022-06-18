@@ -11,6 +11,7 @@ public class File {
    *
    * @return id идентификатор
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int id;
 
   /**
@@ -18,6 +19,7 @@ public class File {
    *
    * @return name имя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String name;
 
   /**
@@ -25,6 +27,7 @@ public class File {
    *
    * @return dateCreated дата создания
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String dateCreated;
 
   /**
@@ -32,6 +35,7 @@ public class File {
    *
    * @return format формат
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter Format format;
 
   /**
@@ -39,6 +43,7 @@ public class File {
    *
    * @return fileUrlPath путь до файла
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String fileUrlPath;
 
   /**
@@ -48,6 +53,7 @@ public class File {
    *
    * @return file содержимое файла
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String file;
 
   /**

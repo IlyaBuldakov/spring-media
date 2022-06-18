@@ -12,6 +12,7 @@ public class Task {
    *
    * @return id идентификатор
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int id;
 
   /**
@@ -19,6 +20,7 @@ public class Task {
    *
    * @return name наименование
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String name;
 
   /**
@@ -26,6 +28,7 @@ public class Task {
    *
    * @return type тип
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter Type type;
 
   /**
@@ -33,6 +36,7 @@ public class Task {
    *
    * @return description описание
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String description;
 
   /**
@@ -40,6 +44,7 @@ public class Task {
    *
    * @return array идентификаторы файлов
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int[] files;
 
   /**
@@ -47,6 +52,7 @@ public class Task {
    *
    * @return id идентификатор автора
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int authorId;
 
   /**
@@ -54,6 +60,7 @@ public class Task {
    *
    * @return id идентификатор исполнителя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int executorId;
 
   /**
@@ -61,6 +68,7 @@ public class Task {
    *
    * @return dateCreated дата создания
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String dateCreated;
 
   /**
@@ -68,6 +76,7 @@ public class Task {
    *
    * @return dateExpired дата выполнения
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String dateExpired;
 
   /**
@@ -75,6 +84,7 @@ public class Task {
    *
    * @return array идентификаторы контента
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int[] contents;
 
   /**
@@ -82,6 +92,7 @@ public class Task {
    *
    * @return array идентификаторы комментов
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int[] comments;
 
   /**
@@ -89,5 +100,6 @@ public class Task {
    *
    * @return status статус задачи
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter Status status;
 }

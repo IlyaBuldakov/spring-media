@@ -15,6 +15,7 @@ public enum Status {
    *
    * @return id идентификатор статуса задачи
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -22,6 +23,7 @@ public enum Status {
    *
    * @return name наименование статуса задачи
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   Status(int id, String name) {

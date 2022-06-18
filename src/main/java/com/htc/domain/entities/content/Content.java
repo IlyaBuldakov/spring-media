@@ -12,6 +12,7 @@ public class Content {
    *
    * @return id идентификатор
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int id;
 
   /**
@@ -19,6 +20,7 @@ public class Content {
    *
    * @return type тип
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter Type type;
 
   /**
@@ -26,6 +28,7 @@ public class Content {
    *
    * @return name наименование
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String name;
 
   /**
@@ -33,6 +36,7 @@ public class Content {
    *
    * @return dateCreated дата создания
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String dateCreated;
 
   /**
@@ -41,6 +45,7 @@ public class Content {
    *
    * @return id идентификатор автора
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int authorId;
 
   /**
@@ -48,6 +53,7 @@ public class Content {
    *
    * @return format формат
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter Format format;
 
   /**
@@ -55,6 +61,7 @@ public class Content {
    *
    * @return fileUrlPath путь до файла
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String fileUrlPath;
 
   /**
@@ -62,6 +69,7 @@ public class Content {
    *
    * @return previewPath путь к превью
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String previewPath;
 
   /**
@@ -69,6 +77,7 @@ public class Content {
    *
    * @return id идентификатор файла
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int fileId;
 
   /**
@@ -76,5 +85,6 @@ public class Content {
    *
    * @return id идентификатор задачи
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int taskId;
 }

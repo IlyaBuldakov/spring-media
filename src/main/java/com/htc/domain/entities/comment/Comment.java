@@ -11,6 +11,7 @@ public class Comment {
    *
    * @return id идентификатор
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int id;
 
   /**
@@ -18,6 +19,7 @@ public class Comment {
    *
    * @return dateCreated дата создания
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String dateCreated;
 
   /**
@@ -26,6 +28,7 @@ public class Comment {
    *
    * @return id идентификатор автора
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int authorId;
 
   /**
@@ -33,6 +36,7 @@ public class Comment {
    *
    * @return message текст комментария
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String message;
 
   /**
@@ -40,5 +44,6 @@ public class Comment {
    *
    * @return id идентификатор задачи
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int taskId;
 }

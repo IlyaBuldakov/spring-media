@@ -31,48 +31,60 @@ public class User {
    * Идентификатор.
    *
    * @see User#validateId (int)
+   *
    * @return id идентификатор
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int id;
 
   /**
    * Полное имя пользователя.
    *
    * @see User#validateName (String)
+   *
    * @return name полное имя пользователя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String name;
 
   /**
    * Пароль.
    *
    * @see User#validatePassword (String)
+   *
    * @return password пароль пользователя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String password;
 
   /**
    * Электронная почта.
    *
    * @see User#validateEmail (String)
+   *
    * @return email электронная почта пользователя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String email;
 
   /**
    * Аватар в base64.
    *
    * @see User#validateImage (String)
+   *
    * @return avatar аватар пользователя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String avatar;
 
   /**
    * Роль пользователя.
    *
    * @see Role
+   *
    * @return role роль
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter Role role;
 
   /**

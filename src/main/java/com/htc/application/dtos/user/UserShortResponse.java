@@ -12,6 +12,7 @@ public class UserShortResponse {
    *
    * @return id идентификатор
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -19,6 +20,7 @@ public class UserShortResponse {
    *
    * @return name полное имя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   /**

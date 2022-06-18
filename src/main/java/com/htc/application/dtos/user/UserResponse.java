@@ -13,6 +13,7 @@ public class UserResponse {
    *
    * @return id идентификатор
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -20,6 +21,7 @@ public class UserResponse {
    *
    * @return name полное имя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   /**
@@ -27,6 +29,7 @@ public class UserResponse {
    *
    * @return email электронная почта
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String email;
 
   /**
@@ -34,14 +37,17 @@ public class UserResponse {
    *
    * @return avatar аватар
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String avatar;
 
   /**
    * Роль.
    *
    * @see Role
+   *
    * @return role роль
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter Role role;
 
   /**

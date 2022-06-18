@@ -12,6 +12,7 @@ public class Notification {
    *
    * @return id идентификатор
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int id;
 
   /**
@@ -19,6 +20,7 @@ public class Notification {
    *
    * @return type тип контента
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter Type type;
 
   /**
@@ -26,6 +28,7 @@ public class Notification {
    *
    * @return dateNotification дата уведомления
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String dateNotification;
 
   /**
@@ -33,6 +36,7 @@ public class Notification {
    *
    * @return message текст уведомления
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String message;
 
   /**
@@ -40,6 +44,7 @@ public class Notification {
    *
    * @return id идентификатор пользователя
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int userId;
 
   /**
@@ -47,5 +52,6 @@ public class Notification {
    *
    * @return id идентификатор задачи
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int taskId;
 }

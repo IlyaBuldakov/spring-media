@@ -24,6 +24,7 @@ public enum Format {
    *
    * @return id идентификатор формата
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -31,6 +32,7 @@ public enum Format {
    *
    * @return name наименование формата
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   Format(int id, String name) {

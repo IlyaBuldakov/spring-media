@@ -17,6 +17,7 @@ public enum Type {
    *
    * @return id идентификатор типа
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -24,6 +25,7 @@ public enum Type {
    *
    * @return name наименование типа
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   Type(int id, String name) {
