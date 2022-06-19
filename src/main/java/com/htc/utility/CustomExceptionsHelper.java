@@ -1,6 +1,8 @@
 package com.htc.utility;
 
+import com.htc.application.dtos.exceptions.InvalidValueParamResponse;
 import com.htc.application.dtos.exceptions.NotFoundResponse;
+import com.htc.domain.entities.failures.InvalidValueParam;
 import com.htc.domain.entities.failures.NotFound;
 import io.vavr.control.Either;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,9 @@ public final class CustomExceptionsHelper {
     Object object = result.getLeft();
     if (object instanceof NotFound notFound) {
       return new NotFoundResponse(notFound);
+    }
+    if (object instanceof InvalidValueParam invalidValueParam) {
+      return new InvalidValueParamResponse(invalidValueParam, invalidValueParam.getField());
     }
     return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
   }
