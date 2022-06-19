@@ -61,7 +61,7 @@ class GetUserByIdTest {
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var userId = new Random().nextInt();
-    var failure = new NotFound("");
+    var failure = NotFound.DEFAULT_MESSAGE;
 
     when(mockUserRepository.get(userId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

@@ -60,7 +60,7 @@ class DeleteFileByIdTest {
   void fileDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     // Arrange
     var fileId = new Random().nextInt();
-    var failure = new NotFound("");
+    var failure = NotFound.DEFAULT_MESSAGE;
 
     when(mockFileRepository.delete(fileId))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
