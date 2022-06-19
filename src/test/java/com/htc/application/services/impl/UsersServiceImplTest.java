@@ -97,13 +97,13 @@ class UsersServiceImplTest {
     }
 
     @Test
-    void updateUser_UserRequestInjected_ShouldReturnUserResponse() {
+    void updateUser_ShouldCallUseCaseMethod() {
         usersServiceImpl.update(new UserRequest(testUser));
         verify(updateUser).execute(testUser);
     }
 
     @Test
-    void deleteUser_StringIdInjected_ShouldReturn() {
+    void deleteUser_ShouldCallUseCaseMethod() {
         usersServiceImpl.delete(testIdParam);
         verify(deleteUserById).execute(testIdParam);
     }
