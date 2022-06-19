@@ -1,6 +1,7 @@
 package ru.kiryanovid.domain.usecases.task;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.kiryanovid.domain.entity.errors.Failure;
 import ru.kiryanovid.domain.entity.task.Task;
@@ -16,6 +17,7 @@ import java.util.concurrent.Future;
 @Component
 @AllArgsConstructor
 public final class GetAllTasks implements UseCase<Void, Iterable<Task>> {
+    @Autowired
     private final TaskRepositories repositories;
 
     @Override

@@ -4,7 +4,27 @@ ___
 
 Формат списка изменений - [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/). Проект следует [семантическому версионированию](https://semver.org/lang/ru/)
 
+## [v0.5.0] - 2022-06-07
+### Добавлено
+- добавлены поля в класс Comment
+- в класс File добавлены поля
+- класс File перенесен в пакет ru.kiryanov.domain.entity.file
+-
+### Изменено
+- класс Comment перенесен в пакет ru.kiryanov.domain.entity.comment.
+- Исправлены импорты связанные с классом.
+- классы CommentDto и CommentRequestDto  перенесены в пакет ru.kiryanov.application.dto.comment.
+- Исправлены импорты связанные с классом.
+- классы FileDto и FileRequestDto  перенесены в пакет ru.kiryanov.application.dto.file
 ## [v0.4.0] - 2022-05-29
+### Добавлено
+- добавлены классы реализующие интерфейс UseCase
+- добавлена зависимость io.vavr:vavr.
+- добавлена зависимость org.springframework.boot
+
+### Изменено
+- все пакеты перенесены в пакет ru.kiryanov
+- мелкие изменения связанные с изменением названий пакетов.
 
 ## [v0.3.0] - 2022-05-23  
 
