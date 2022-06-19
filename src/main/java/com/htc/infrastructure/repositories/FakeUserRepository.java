@@ -30,9 +30,9 @@ public class FakeUserRepository implements UserRepository {
     while (count-- >= 0) {
       users.add(User.create(
                       new Random().nextInt(255),
-                      faker.internet().emailAddress(),
-                      faker.internet().password(8, 12),
                       faker.name().fullName(),
+                      faker.internet().emailAddress(),
+                      faker.internet().password(5, 17) + "1aA",
                       faker.lorem().characters(40),
                       roles[new Random().nextInt(roles.length)])
               .get());
