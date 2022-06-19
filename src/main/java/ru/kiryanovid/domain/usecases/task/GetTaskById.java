@@ -17,6 +17,6 @@ public class GetTaskById implements UseCase<Integer, Task> {
     private final TaskRepositories repositories;
     @Override
     public Future<Either<Failure, Task>> execute(Integer id) {
-        return null;
+        return repositories.get(id);
     }
 }

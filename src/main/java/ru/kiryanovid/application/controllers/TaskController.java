@@ -27,19 +27,19 @@ public class TaskController {
     public void create(@ModelAttribute("task") Task task){
         createTask.execute(task);
     }
-    @GetMapping("/{id}")
-    public Task getTaskById(Integer id) throws ExecutionException, InterruptedException {
+    @GetMapping(path = "/{id}")
+    public Task getTaskById(@PathVariable Integer id) throws ExecutionException, InterruptedException {
         return getTaskById.execute(id)
                 .get()
                 .get();
     }
     @PutMapping("/{id}")
-    public void updateTask(Integer id) throws ExecutionException, InterruptedException {
+    public void updateTask(@PathVariable Integer id) throws ExecutionException, InterruptedException {
         var task = getTaskById.execute(id).get().get();
         updateTask.execute(task);
     }
     @DeleteMapping("/{id}")
-    public void deleteTaskById(Integer id){
+    public void deleteTaskById(@PathVariable Integer id){
         deleteTaskById.execute(id);
     }
 

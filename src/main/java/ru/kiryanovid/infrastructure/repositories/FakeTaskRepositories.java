@@ -96,13 +96,13 @@ public class FakeTaskRepositories implements TaskRepositories {
     }
 
     @Override
-    public Future<Either<Failure, Void>> delete(int id) {
+    public Future<Either<Failure, Void>> delete(Integer id) {
         taskList.removeIf(task -> task.getId() == id);
         return CompletableFuture.completedFuture(Either.right(null));
     }
 
     @Override
-    public Future<Either<Failure, Task>> get(int id) {
+    public Future<Either<Failure, Task>> get(Integer id) {
         var task =taskList.stream().filter(taskId -> taskId.getId() == id).toList().get(0);
         return CompletableFuture.completedFuture(Either.right(task));
     }

@@ -30,7 +30,7 @@ public interface TaskRepositories {
      *
      * @param id Идентификатор задачу.
      */
-    Future<Either<Failure, Void>> delete(int id);
+    Future<Either<Failure, Void>> delete(Integer id);
 
     /**
      * Получает пользователя.
@@ -38,7 +38,7 @@ public interface TaskRepositories {
      * @param id Идентификатор задачи.
      * @return задача.
      */
-    Future<Either<Failure, Task>> get(int id);
+    Future<Either<Failure, Task>> get(Integer id);
 
     /**
      * Получает список всех задач.
