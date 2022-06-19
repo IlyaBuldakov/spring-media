@@ -1,23 +1,21 @@
 package ru.kiryanovid.application.controllers;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import ru.kiryanovid.domain.entity.task.Task;
-import ru.kiryanovid.domain.usecases.task.GetAllTasks;
+import ru.kiryanovid.domain.usecases.task.*;
 
 import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping(path = "api/tasks")
+@RequiredArgsConstructor
 public class TaskController {
     private final GetAllTasks getAllTasks;
-
-    public TaskController(GetAllTasks getAllTasks) {
-        this.getAllTasks = getAllTasks;
-    }
+    private final CreateTask createTask;
+    private final GetTaskById getTaskById;
+    private final UpdateTask updateTask;
+    private final DeleteTaskById deleteTaskById;
 
     @GetMapping
     public Iterable<Task> getAll() throws ExecutionException, InterruptedException {
@@ -25,4 +23,24 @@ public class TaskController {
                 .get()
                 .get();
     }
+    @PostMapping
+    public void create(@ModelAttribute("task") Task task){
+        createTask.execute(task);
+    }
+    @GetMapping("/{id}")
+    public Task getTaskById(int id) throws ExecutionException, InterruptedException {
+        return getTaskById.execute(id)
+                .get()
+                .get();
+    }
+    @PutMapping("/{id}")
+    public void updateTask(int id) throws ExecutionException, InterruptedException {
+        var task = getTaskById.execute(id).get().get();
+        updateTask.execute(task);
+    }
+    @GetMapping("/{id}")
+    public void deleteTaskById(int id){
+        deleteTaskById.execute(id);
+    }
+
 }
