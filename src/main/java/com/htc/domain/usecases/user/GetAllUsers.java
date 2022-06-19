@@ -18,12 +18,17 @@ import java.util.concurrent.CompletableFuture;
  */
 @AllArgsConstructor
 @Component
-public final class GetAllUsers implements UseCase<Void, List<User>> {
+public class GetAllUsers implements UseCase<Void, List<User>> {
 
-    private final UsersRepository usersRepository;
+    private UsersRepository usersRepository;
 
     @Override
     public CompletableFuture<Either<Failure, List<User>>> execute(Void param) {
         return usersRepository.getAll();
+    }
+
+    public Void setUsersRepository(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+        return null;
     }
 }

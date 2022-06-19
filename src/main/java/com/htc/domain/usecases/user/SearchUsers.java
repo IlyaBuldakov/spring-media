@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @AllArgsConstructor
 @Component
-public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<User>> {
+public class SearchUsers implements UseCase<SearchUsers.Query, Iterable<User>> {
     /**
      * Параметры запроса поиска пользователей.
      *
@@ -27,13 +27,18 @@ public final class SearchUsers implements UseCase<SearchUsers.Query, Iterable<Us
      */
     public record Query(String query, Role role) {}
 
-    private final UsersRepository repository;
+    private UsersRepository usersRepository;
 
     @Override
     public CompletableFuture<Either<Failure, Iterable<User>>> execute(Query query) {
         return query.role() == null
-                ? repository.search(query.query())
-                : repository.search(query.query(), query.role());
+                ? usersRepository.search(query.query())
+                : usersRepository.search(query.query(), query.role());
+    }
+
+    public Void setUsersRepository(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+        return null;
     }
 }
 

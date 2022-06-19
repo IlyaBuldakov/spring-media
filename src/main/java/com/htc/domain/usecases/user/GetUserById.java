@@ -19,9 +19,9 @@ import java.util.concurrent.CompletableFuture;
  */
 @AllArgsConstructor
 @Component
-public final class GetUserById implements UseCase<String, User> {
+public class GetUserById implements UseCase<String, User> {
 
-    private final UsersRepository usersRepository;
+    private UsersRepository usersRepository;
 
     @Override
     public CompletableFuture<Either<Failure, User>> execute(String param) {
@@ -34,5 +34,10 @@ public final class GetUserById implements UseCase<String, User> {
             return CompletableFuture.completedFuture(Either.left(new InvalidValue("Идентификатор должен быть больше 0")));
         }
         return usersRepository.get(paramToInt);
+    }
+
+    public Void setUsersRepository(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+        return null;
     }
 }
