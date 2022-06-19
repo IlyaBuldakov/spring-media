@@ -10,15 +10,15 @@ public enum InvalidValueParam implements Failure {
    * Сообщение по умолчанию.
    */
   DEFAULT_MESSAGE(
-          HttpStatus.FORBIDDEN, "Некорректное значение переданного параметра.", "parameter"
+          HttpStatus.BAD_REQUEST, "Некорректное значение переданного параметра.", "parameter"
   ),
 
-  INVALID_ENTITY_ID(HttpStatus.FORBIDDEN, "Некорректный идентификатор.", "id"),
+  INVALID_ENTITY_ID(HttpStatus.BAD_REQUEST, "Некорректный идентификатор.", "id"),
 
-  INVALID_USER_NAME(HttpStatus.FORBIDDEN, "Некорректное имя.", "name"),
-  INVALID_USER_PASSWORD(HttpStatus.FORBIDDEN, "Некорректный пароль.", "password"),
-  INVALID_USER_EMAIL(HttpStatus.FORBIDDEN, "Некорректная электронная почта.", "email"),
-  INVALID_USER_IMAGE(HttpStatus.FORBIDDEN, "Некорректное изображение.", "avatar");
+  INVALID_USER_NAME(HttpStatus.BAD_REQUEST, "Некорректное имя.", "name"),
+  INVALID_USER_PASSWORD(HttpStatus.BAD_REQUEST, "Некорректный пароль.", "password"),
+  INVALID_USER_EMAIL(HttpStatus.BAD_REQUEST, "Некорректная электронная почта.", "email"),
+  INVALID_USER_IMAGE(HttpStatus.BAD_REQUEST, "Некорректное изображение.", "avatar");
 
   private final HttpStatus status;
   private final String message;
