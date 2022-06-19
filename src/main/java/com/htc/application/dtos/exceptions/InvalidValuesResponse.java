@@ -10,9 +10,9 @@ import lombok.Getter;
  */
 public class InvalidValuesResponse extends CustomResponseStatusException {
   /**
-   * Список некорректных полей.
+   * Список ошибок некорректных полей.
    *
-   * @return values список некорректных полей
+   * @return values список ошибок некорректных полей
    */
   @SuppressWarnings("JavadocDeclaration")
   private final @Getter List<InvalidValueParamResponse> problems;

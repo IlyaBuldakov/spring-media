@@ -22,6 +22,10 @@ public enum InvalidValueParam implements Failure {
 
   private final HttpStatus status;
   private final String message;
+
+  /**
+   * Наименование поля, в котором возникла ошибка.
+   */
   private final String field;
 
   InvalidValueParam(HttpStatus status, String message, String field) {

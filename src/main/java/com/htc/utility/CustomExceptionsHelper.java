@@ -1,15 +1,16 @@
 package com.htc.utility;
 
+import com.htc.application.dtos.exceptions.InternalServerErrorResponse;
 import com.htc.application.dtos.exceptions.InvalidValueParamResponse;
 import com.htc.application.dtos.exceptions.InvalidValuesResponse;
 import com.htc.application.dtos.exceptions.NotFoundResponse;
+import com.htc.application.dtos.exceptions.UnauthorizedResponse;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValueParam;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.failures.Unauthorized;
 import io.vavr.control.Either;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Вспомогательный класс для работы с возвращаемыми представлениями ошибок.
@@ -36,6 +37,9 @@ public final class CustomExceptionsHelper {
     if (object instanceof InvalidValues) {
       return new InvalidValuesResponse(object, ((InvalidValues) object).getValues());
     }
-    return new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+    if (object instanceof Unauthorized) {
+      return new UnauthorizedResponse(object);
+    }
+    return new InternalServerErrorResponse(object);
   }
 }

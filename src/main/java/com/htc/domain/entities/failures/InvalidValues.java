@@ -15,6 +15,9 @@ public class InvalidValues implements Failure {
 
   private static final HttpStatus status = HttpStatus.BAD_REQUEST;
 
+  /**
+   * Список ошибок некорректных полей.
+   */
   private final @Getter List<InvalidValueParam> values;
 
   /**
