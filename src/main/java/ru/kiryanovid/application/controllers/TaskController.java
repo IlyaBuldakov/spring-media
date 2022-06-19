@@ -28,18 +28,18 @@ public class TaskController {
         createTask.execute(task);
     }
     @GetMapping("/{id}")
-    public Task getTaskById(int id) throws ExecutionException, InterruptedException {
+    public Task getTaskById(Integer id) throws ExecutionException, InterruptedException {
         return getTaskById.execute(id)
                 .get()
                 .get();
     }
     @PutMapping("/{id}")
-    public void updateTask(int id) throws ExecutionException, InterruptedException {
+    public void updateTask(Integer id) throws ExecutionException, InterruptedException {
         var task = getTaskById.execute(id).get().get();
         updateTask.execute(task);
     }
-    @GetMapping("/{id}")
-    public void deleteTaskById(int id){
+    @DeleteMapping("/{id}")
+    public void deleteTaskById(Integer id){
         deleteTaskById.execute(id);
     }
 
