@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity.file;
+package ru.kiryanovid.application.dto.files;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity.comment;
+package ru.kiryanovid.application.dto.comments;
 
 import ru.kiryanovid.application.dto.users.UserBasicDto;
 import lombok.AllArgsConstructor;

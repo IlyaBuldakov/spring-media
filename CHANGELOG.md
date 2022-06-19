@@ -4,6 +4,11 @@ ___
 
 Формат списка изменений - [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/). Проект следует [семантическому версионированию](https://semver.org/lang/ru/)
 
+## [v0.6.0] - 2022-06-19
+### Изменено
+- Добавлены поля в классах File и Comment. Классы File, Comment, CommentDto, CommentRequestDto, FileDto 
+перенесены в соответствующие пакеты.
+- 
 ## [v0.5.0] - 2022-06-07
 ### Добавлено
 - добавлены поля в класс Comment
