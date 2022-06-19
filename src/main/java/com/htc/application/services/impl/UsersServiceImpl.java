@@ -4,7 +4,6 @@ import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.application.services.UsersService;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.usecases.user.CreateUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
@@ -34,7 +33,11 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public CompletableFuture<Either<Failure, List<UserResponse>>> getAll() {
-        return null;
+        return getAllUsers.execute(null)
+                .thenApply(either -> either
+                        .map(list -> list.parallelStream()
+                                .map(UserResponse::new)
+                                .toList()));
     }
 
     @Override
