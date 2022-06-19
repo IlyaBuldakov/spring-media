@@ -7,7 +7,6 @@ import lombok.Getter;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.EmailValidator;
 
-
 /**
  * Пользователь.
  */
@@ -52,12 +51,6 @@ public class User {
   private User() {
   }
 
-  private static final String INVALID_ID = "Некорректный идентификатор.";
-  private static final String INVALID_NAME = "Некорректное имя.";
-  private static final String INVALID_EMAIL = "Некорректная электронная почта.";
-  private static final String INVALID_PASSWORD = "Некорректный пароль.";
-  private static final String INVALID_IMAGE = "Некорректное изображение.";
-
   /**
    * Создаёт пользователя и проверяет данные на корректность.
    *
@@ -73,17 +66,17 @@ public class User {
           int id, String name, String email, String password, String image, Role role) {
     // Проверка идентификатора.
     if (id < 0) {
-      return Either.left(new InvalidValue(INVALID_ID));
+      return Either.left(InvalidValue.INVALID_ENTITY_ID);
     }
 
     // Проверка имени.
     if (name.length() == 0) {
-      return Either.left(new InvalidValue(INVALID_NAME));
+      return Either.left(InvalidValue.INVALID_USER_NAME);
     }
 
     // Проверка почты.
     if (email.length() == 0 || !EmailValidator.getInstance().isValid(email)) {
-      return Either.left(new InvalidValue(INVALID_EMAIL));
+      return Either.left(InvalidValue.INVALID_USER_EMAIL);
     }
 
     // Проверка пароля.
@@ -91,12 +84,12 @@ public class User {
             || !password.matches(".*\\d+.*")
             || password.toLowerCase().equals(password)
             || password.toUpperCase().equals(password)) {
-      return Either.left(new InvalidValue(INVALID_PASSWORD));
+      return Either.left(InvalidValue.INVALID_USER_PASSWORD);
     }
 
     // Проверка изображения.
     if (image.length() == 0 || !Base64.isBase64(image)) {
-      return Either.left(new InvalidValue(INVALID_IMAGE));
+      return Either.left(InvalidValue.INVALID_USER_IMAGE);
     }
 
     var user = new User();

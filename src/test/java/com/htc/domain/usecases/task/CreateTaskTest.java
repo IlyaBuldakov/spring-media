@@ -63,7 +63,7 @@ class CreateTaskTest {
           throws ExecutionException, InterruptedException {
     // Arrange
     var task = Task.createTestTask();
-    var failure = new AlreadyExists("");
+    var failure = AlreadyExists.DEFAULT_MESSAGE;
 
     when(mockTaskRepository.create(task))
             .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));

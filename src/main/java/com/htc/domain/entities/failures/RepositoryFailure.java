@@ -1,15 +1,15 @@
 package com.htc.domain.entities.failures;
 
 /**
- * Сущность не найдена.
+ * Внутренняя ошибка репозитория.
  */
-public enum NotFound implements Failure {
+public enum RepositoryFailure implements Failure {
   /**
    * Сообщение по умолчанию.
    */
-  DEFAULT_MESSAGE("Сущность с указанным идентификатором не найдена.");
+  DEFAULT_MESSAGE("Внутренняя ошибка репозитория.");
 
-  NotFound(String message) {
+  RepositoryFailure(String message) {
     this.message = message;
   }
 
