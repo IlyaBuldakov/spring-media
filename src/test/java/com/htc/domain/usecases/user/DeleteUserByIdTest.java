@@ -22,8 +22,7 @@ public class DeleteUserByIdTest {
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final DeleteUserById useCase = new DeleteUserById(mockUsersRepository);
 
-    UsersRepository mockUsersRepository = mock(UsersRepository.class);
-    DeleteUserById useCase = new DeleteUserById(mockUsersRepository);
+    public static DeleteUserById mockDeleteUserById = mock(DeleteUserById.class);
 
     @Test
     void shouldInheritUseCase() {

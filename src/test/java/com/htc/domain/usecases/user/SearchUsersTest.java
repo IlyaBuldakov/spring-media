@@ -6,8 +6,6 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -26,6 +24,8 @@ public class SearchUsersTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final SearchUsers useCase = new SearchUsers(mockUsersRepository);
+
+    public static SearchUsers mockSearchUsers = mock(SearchUsers.class);
 
     @Test
     void shouldInheritUseCase() {

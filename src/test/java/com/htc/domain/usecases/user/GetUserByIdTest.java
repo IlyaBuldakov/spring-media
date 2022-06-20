@@ -7,8 +7,6 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -26,6 +24,8 @@ public class GetUserByIdTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final GetUserById useCase = new GetUserById(mockUsersRepository);
+
+    public static GetUserById mockGetUserById = mock(GetUserById.class);
 
     @Test
     void shouldInheritUseCase() {

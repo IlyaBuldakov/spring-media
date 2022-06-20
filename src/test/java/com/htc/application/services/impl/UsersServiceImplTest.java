@@ -3,20 +3,20 @@ package com.htc.application.services.impl;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
-import com.htc.domain.usecases.user.CreateUser;
-import com.htc.domain.usecases.user.DeleteUserById;
-import com.htc.domain.usecases.user.GetAllUsers;
-import com.htc.domain.usecases.user.GetUserById;
-import com.htc.domain.usecases.user.UpdateUser;
 import com.htc.util.Users;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+// Mock-и для проверки вызова соответствующего метода UseCase'а
+import static com.htc.domain.usecases.user.CreateUserTest.mockCreateUser;
+import static com.htc.domain.usecases.user.DeleteUserByIdTest.mockDeleteUserById;
+import static com.htc.domain.usecases.user.GetAllUsersTest.mockGetAllUsers;
+import static com.htc.domain.usecases.user.GetUserByIdTest.mockGetUserById;
+import static com.htc.domain.usecases.user.UpdateUserTest.mockUpdateUser;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -25,18 +25,11 @@ import static org.mockito.Mockito.when;
 /**
  * @author IlyaBuldakov
  */
-@ExtendWith(MockitoExtension.class)
 class UsersServiceImplTest {
 
-    // Arrange
-    static GetAllUsers getAllUsers = mock(GetAllUsers.class);
-    static GetUserById getUserById = mock(GetUserById.class);
-    static CreateUser createUser = mock(CreateUser.class);
-    static UpdateUser updateUser = mock(UpdateUser.class);
-    static DeleteUserById deleteUserById = mock(DeleteUserById.class);
-
-    static UsersServiceImpl usersServiceImpl = new UsersServiceImpl(createUser, getUserById, getAllUsers,
-            updateUser, deleteUserById);
+    static UsersServiceImpl usersServiceImpl
+            = new UsersServiceImpl(mockCreateUser, mockGetUserById, mockGetAllUsers,
+            mockUpdateUser, mockDeleteUserById);
     static UsersRepository usersRepository = mock(UsersRepository.class);
 
     static User testUser = Users.createTestUser();
@@ -51,60 +44,59 @@ class UsersServiceImplTest {
                 Users.createTestUser()
         ))));
 
-        when(getAllUsers.execute(null)).thenCallRealMethod();
-        when(getAllUsers.setUsersRepository(usersRepository)).thenCallRealMethod();
+        when(mockGetAllUsers.execute(null)).thenCallRealMethod();
+        when(mockGetAllUsers.setUsersRepository(usersRepository)).thenCallRealMethod();
 
-        getAllUsers.setUsersRepository(usersRepository);
+        mockGetAllUsers.setUsersRepository(usersRepository);
 
-        when(getUserById.execute(testIdParam)).thenCallRealMethod();
-        when(getUserById.setUsersRepository(usersRepository)).thenCallRealMethod();
+        when(mockGetUserById.execute(testIdParam)).thenCallRealMethod();
+        when(mockGetUserById.setUsersRepository(usersRepository)).thenCallRealMethod();
 
-        getUserById.setUsersRepository(usersRepository);
+        mockGetUserById.setUsersRepository(usersRepository);
 
-        when(createUser.execute(testUser)).thenCallRealMethod();
-        when(createUser.setUsersRepository(usersRepository)).thenCallRealMethod();
+        when(mockCreateUser.execute(testUser)).thenCallRealMethod();
+        when(mockCreateUser.setUsersRepository(usersRepository)).thenCallRealMethod();
 
-        createUser.setUsersRepository(usersRepository);
+        mockCreateUser.setUsersRepository(usersRepository);
 
-        when(updateUser.execute(testUser)).thenCallRealMethod();
-        when(updateUser.setUsersRepository(usersRepository)).thenCallRealMethod();
+        when(mockUpdateUser.execute(testUser)).thenCallRealMethod();
+        when(mockUpdateUser.setUsersRepository(usersRepository)).thenCallRealMethod();
 
-        updateUser.setUsersRepository(usersRepository);
+        mockUpdateUser.setUsersRepository(usersRepository);
 
-        when(deleteUserById.execute(testIdParam)).thenCallRealMethod();
-        when(deleteUserById.setUsersRepository(usersRepository)).thenCallRealMethod();
+        when(mockDeleteUserById.execute(testIdParam)).thenCallRealMethod();
+        when(mockDeleteUserById.setUsersRepository(usersRepository)).thenCallRealMethod();
 
-        deleteUserById.setUsersRepository(usersRepository);
+        mockDeleteUserById.setUsersRepository(usersRepository);
     }
 
     @Test
     void getAllUsers_ShouldCallUseCaseMethod() {
         usersServiceImpl.getAll();
-        verify(getAllUsers).execute(null);
+        verify(mockGetAllUsers).execute(null);
     }
 
     @Test
     void getUserById_ShouldCallUseCaseMethod() {
         usersServiceImpl.getById(testIdParam);
-        verify(getUserById).execute(testIdParam);
+        verify(mockGetUserById).execute(testIdParam);
     }
 
     @Test
     void createUser_ShouldCallUseCaseMethod() {
         usersServiceImpl.create(new UserRequest(testUser));
-        verify(createUser).execute(testUser);
-
+        verify(mockCreateUser).execute(testUser);
     }
 
     @Test
     void updateUser_ShouldCallUseCaseMethod() {
         usersServiceImpl.update(new UserRequest(testUser));
-        verify(updateUser).execute(testUser);
+        verify(mockUpdateUser).execute(testUser);
     }
 
     @Test
     void deleteUser_ShouldCallUseCaseMethod() {
         usersServiceImpl.delete(testIdParam);
-        verify(deleteUserById).execute(testIdParam);
+        verify(mockDeleteUserById).execute(testIdParam);
     }
 }

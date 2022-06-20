@@ -7,8 +7,6 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -26,8 +24,7 @@ public class UpdateUserTest {
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final UpdateUser useCase = new UpdateUser(mockUsersRepository);
 
-    UsersRepository mockUsersRepository = mock(UsersRepository.class);
-    UpdateUser useCase = new UpdateUser(mockUsersRepository);
+    public static UpdateUser mockUpdateUser = mock(UpdateUser.class);
 
     @Test
     void shouldInheritUseCase() {

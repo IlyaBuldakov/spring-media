@@ -24,6 +24,8 @@ public class CreateUserTest {
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final CreateUser useCase = new CreateUser(mockUsersRepository);
 
+    public static CreateUser mockCreateUser = mock(CreateUser.class);
+
     @Test
     void shouldInheritUseCase() {
         assertThat(useCase).isInstanceOf(UseCase.class);
