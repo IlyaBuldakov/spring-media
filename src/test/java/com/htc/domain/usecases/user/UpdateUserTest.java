@@ -21,9 +21,10 @@ import static org.mockito.Mockito.verify;
 /**
  * @author IlyaBuldakov
  */
+public class UpdateUserTest {
 
-@ExtendWith(MockitoExtension.class)
-class UpdateUserTest {
+    final UsersRepository mockUsersRepository = mock(UsersRepository.class);
+    final UpdateUser useCase = new UpdateUser(mockUsersRepository);
 
     UsersRepository mockUsersRepository = mock(UsersRepository.class);
     UpdateUser useCase = new UpdateUser(mockUsersRepository);

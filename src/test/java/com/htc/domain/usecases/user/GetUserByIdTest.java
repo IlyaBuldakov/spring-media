@@ -22,9 +22,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author IlyaBuldakov
  */
-
-@ExtendWith(MockitoExtension.class)
-class GetUserByIdTest {
+public class GetUserByIdTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final GetUserById useCase = new GetUserById(mockUsersRepository);

@@ -22,9 +22,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author IlyaBuldakov
  */
-
-@ExtendWith(MockitoExtension.class)
-class SearchUsersTest {
+public class SearchUsersTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final SearchUsers useCase = new SearchUsers(mockUsersRepository);

@@ -20,10 +20,10 @@ import static org.mockito.Mockito.verify;
 /**
  * @author IlyaBuldakov
  */
-class GetAllUsersTest {
+public class GetAllUsersTest {
 
-    UsersRepository mockUsersRepository = mock(UsersRepository.class);
-    GetAllUsers useCase = new GetAllUsers(mockUsersRepository);
+    final UsersRepository mockUsersRepository = mock(UsersRepository.class);
+    final GetAllUsers useCase = new GetAllUsers(mockUsersRepository);
 
     @Test
     void shouldInheritUseCase() {

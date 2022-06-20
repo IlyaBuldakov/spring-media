@@ -7,8 +7,6 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -21,9 +19,7 @@ import static org.mockito.Mockito.verify;
 /**
  * @author IlyaBuldakov
  */
-
-@ExtendWith(MockitoExtension.class)
-class CreateUserTest {
+public class CreateUserTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final CreateUser useCase = new CreateUser(mockUsersRepository);

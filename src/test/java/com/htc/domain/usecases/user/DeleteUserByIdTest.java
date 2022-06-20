@@ -5,9 +5,6 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -20,9 +17,10 @@ import static org.mockito.Mockito.verify;
 /**
  * @author IlyaBuldakov
  */
+public class DeleteUserByIdTest {
 
-@ExtendWith(MockitoExtension.class)
-class DeleteUserByIdTest {
+    final UsersRepository mockUsersRepository = mock(UsersRepository.class);
+    final DeleteUserById useCase = new DeleteUserById(mockUsersRepository);
 
     UsersRepository mockUsersRepository = mock(UsersRepository.class);
     DeleteUserById useCase = new DeleteUserById(mockUsersRepository);
