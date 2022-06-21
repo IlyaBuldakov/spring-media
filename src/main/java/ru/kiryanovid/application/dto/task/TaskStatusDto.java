@@ -1,8 +1,8 @@
 package ru.kiryanovid.application.dto.task;
 
-import ru.kiryanovid.domain.entity.task.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.kiryanovid.domain.entity.task.Task;
 
 /**
  *
@@ -17,5 +17,10 @@ public class TaskStatusDto {
     /**
      *
      */
-    @Getter private Status name;
+    @Getter private String name;
+
+    public TaskStatusDto(Task task){
+        this.id = task.getId();
+        this.name = task.getStatus().getName();
+    }
 }
