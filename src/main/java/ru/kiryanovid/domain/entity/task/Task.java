@@ -97,7 +97,8 @@ public class Task {
      */
     public static Either<Failure,Task> create(
             Integer id, String name, ContentType contentType, String description,
-            Path file, User author, LocalDateTime dateCreate, LocalDateTime dateExpired, Content contents,Iterable<Comment> comments){
+            Path file, User author, LocalDateTime dateCreate, LocalDateTime dateExpired,
+            Content contents,Iterable<Comment> comments, Status status){
 
         if(id <=0){
             return Either.left(new InvalidValue(INVALID_ID));
@@ -122,11 +123,12 @@ public class Task {
         task.contentType = contentType;
         task.description = description;
         task.file = file;
-        task. author = author;
+        task.author = author;
         task.dateCreate = dateCreate;
         task.dateExpired = dateExpired;
         task.contents = contents;
         task.comments = comments;
+        task.status = status;
         return Either.right(task);
     }
 }

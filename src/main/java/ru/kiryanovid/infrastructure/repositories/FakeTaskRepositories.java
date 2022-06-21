@@ -3,6 +3,7 @@ package ru.kiryanovid.infrastructure.repositories;
 import com.github.javafaker.Faker;
 import io.vavr.control.Either;
 import org.springframework.stereotype.Component;
+import ru.kiryanovid.domain.entity.task.Status;
 import ru.kiryanovid.domain.entity.users.User;
 import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.errors.Failure;
@@ -42,7 +43,8 @@ public class FakeTaskRepositories implements TaskRepositories {
                     LocalDateTime.now(),
                     LocalDateTime.now().plusDays(1),
                     new Content(),
-                    List.of()
+                    List.of(),
+                    Status.APPROVED
             ).get(),
             Task.create(
                     2,
@@ -61,7 +63,8 @@ public class FakeTaskRepositories implements TaskRepositories {
                     LocalDateTime.now(),
                     LocalDateTime.now().plusDays(1),
                     new Content(),
-                    List.of()
+                    List.of(),
+                    Status.FEEDBACK
             ).get(),
             Task.create(
                     3,
@@ -80,7 +83,8 @@ public class FakeTaskRepositories implements TaskRepositories {
                     LocalDateTime.now(),
                     LocalDateTime.now().plusDays(1),
                     new Content(),
-                    List.of()
+                    List.of(),
+                    Status.IN_WORK
             ).get()
     );
     @Override
