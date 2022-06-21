@@ -2,9 +2,12 @@ package ru.kiryanovid.application.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.kiryanovid.application.dto.task.TaskListDto;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -18,10 +21,15 @@ public class TaskController {
     private final DeleteTaskById deleteTaskById;
 
     @GetMapping
-    public Iterable<Task> getAll() throws ExecutionException, InterruptedException {
-        return getAllTasks.execute(null)
+    public Iterable<TaskListDto> getAll() throws ExecutionException, InterruptedException {
+        Iterable<Task> taskList = getAllTasks.execute(null)
                 .get()
                 .get();
+        List<TaskListDto> dtoList = new ArrayList<>();
+        for(Task task : taskList){
+            dtoList.add(TaskListDto.map(task));
+        }
+        return dtoList;
     }
     @PostMapping
     public void create(@ModelAttribute("task") Task task){
