@@ -5,6 +5,7 @@ import lombok.Getter;
 import ru.kiryanovid.application.dto.content.ContentTypeDto;
 import ru.kiryanovid.application.dto.users.UserBasicDto;
 import ru.kiryanovid.domain.entity.task.Task;
+import ru.kiryanovid.domain.entity.users.User;
 
 import java.time.LocalDateTime;
 
@@ -47,7 +48,7 @@ public class TaskListDto {
         this.id = task.getId();
         this.name = task.getName();
         this.type = ContentTypeDto.mapToDto(task);
-        this.executor = null;
+        this.executor = UserBasicDto.mapToDto(task.getExecutor());
         this.dateExpired = task.getDateExpired();
         this.status = TaskStatusDto.mapToDto(task);
     }

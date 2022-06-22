@@ -51,6 +51,12 @@ public class Task {
     @Getter private User author;
 
     /**
+     *
+     */
+
+    @Getter private User executor;
+
+    /**
      * Дата создания задачи
      */
     @Getter LocalDateTime dateCreate;
@@ -97,7 +103,7 @@ public class Task {
      */
     public static Either<Failure,Task> create(
             Integer id, String name, ContentType contentType, String description,
-            Path file, User author, LocalDateTime dateCreate, LocalDateTime dateExpired,
+            Path file, User author, User executor, LocalDateTime dateCreate, LocalDateTime dateExpired,
             Content contents,Iterable<Comment> comments, Status status){
 
         if(id <=0){
@@ -124,6 +130,7 @@ public class Task {
         task.description = description;
         task.file = file;
         task.author = author;
+        task.executor = executor;
         task.dateCreate = dateCreate;
         task.dateExpired = dateExpired;
         task.contents = contents;
