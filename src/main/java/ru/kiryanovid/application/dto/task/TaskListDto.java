@@ -2,9 +2,8 @@ package ru.kiryanovid.application.dto.task;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.kiryanovid.application.dto.content.ContentTypeDto;
 import ru.kiryanovid.application.dto.users.UserBasicDto;
-import ru.kiryanovid.domain.entity.task.ContentType;
-import ru.kiryanovid.domain.entity.task.Status;
 import ru.kiryanovid.domain.entity.task.Task;
 
 import java.time.LocalDateTime;
@@ -27,7 +26,7 @@ public class TaskListDto {
     /**
      *
      */
-    @Getter private ContentType type;
+    @Getter private ContentTypeDto type;
 
     /**
      *
@@ -42,18 +41,18 @@ public class TaskListDto {
     /**
      *
      */
-    @Getter private Status status;
+    @Getter private TaskStatusDto status;
 
     public TaskListDto(Task task) {
         this.id = task.getId();
         this.name = task.getName();
-        this.type = task.getContentType();
+        this.type = ContentTypeDto.mapToDto(task);
         this.executor = null;
         this.dateExpired = task.getDateExpired();
-        this.status = task.getStatus();
+        this.status = TaskStatusDto.mapToDto(task);
     }
 
-    public static TaskListDto map(Task task){
+    public static TaskListDto mapToDto(Task task){
         return new TaskListDto(task);
     }
 

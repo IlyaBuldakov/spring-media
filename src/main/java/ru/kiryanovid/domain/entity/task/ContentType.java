@@ -1,5 +1,8 @@
 package ru.kiryanovid.domain.entity.task;
 
+import lombok.Getter;
+import ru.kiryanovid.application.dto.task.TaskStatusDto;
+
 /**
  * Тип контента
  */
@@ -8,11 +11,12 @@ public enum ContentType {
     AUDIO(2, "audio"),
     PHOTO(3, "photo");
 
-    private int id;
-    private String name;
+    @Getter private final int id;
+    @Getter private final String name;
 
     ContentType(int id, String name) {
         this.id = id;
         this.name = name;
     }
+
 }

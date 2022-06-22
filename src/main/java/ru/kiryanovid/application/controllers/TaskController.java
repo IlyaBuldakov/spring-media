@@ -27,7 +27,7 @@ public class TaskController {
                 .get();
         List<TaskListDto> dtoList = new ArrayList<>();
         for(Task task : taskList){
-            dtoList.add(TaskListDto.map(task));
+            dtoList.add(TaskListDto.mapToDto(task));
         }
         return dtoList;
     }

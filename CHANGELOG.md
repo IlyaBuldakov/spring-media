@@ -3,11 +3,17 @@ ___
 В данном файле поэтапно изложены все изменения проекта
 
 Формат списка изменений - [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/). Проект следует [семантическому версионированию](https://semver.org/lang/ru/)
-## [v0.8.0] - 2022-06-21
+## [v0.8.0] - 2022-06-22
 ### Изменено
-- Изменен метод getAll() в TaskController. 
+- Изменения связанные с возвращением json TaskController.getAll();
+## [v0.8.0] - 2022-06-21
+### Добавленно
+- добавлено параметр Status в конструктор класса ru.kiryanovid.domain.entity.task
+### Изменено
+- изменен класс ru.kiryanovid.application.dto.task.TaskRequestDto
+  добавленны геттеры в перечисление ru.kiryanovid.domain.entity.task.Status
+- Изменен метод getAll() в TaskController.
 - Изменена сущность TaskListDto
-
 ## [v0.7.0] - 2022-06-20
 ### Изменено
 - Изменены перечисления ContentType и Status.
