@@ -4,11 +4,7 @@ import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.application.services.UsersService;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.usecases.user.CreateUser;
-import com.htc.domain.usecases.user.DeleteUserById;
-import com.htc.domain.usecases.user.GetAllUsers;
-import com.htc.domain.usecases.user.GetUserById;
-import com.htc.domain.usecases.user.UpdateUser;
+import com.htc.domain.usecases.user.*;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +26,7 @@ public class UsersServiceImpl implements UsersService {
     GetAllUsers getAllUsers;
     UpdateUser updateUser;
     DeleteUserById deleteUserById;
+    SearchUsers searchUsers;
 
     @Override
     public CompletableFuture<Either<Failure, List<UserResponse>>> getAll() {
@@ -42,7 +39,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public CompletableFuture<Either<Failure, UserResponse>> getById(String id) {
-        return null;
+        return getUserById.execute(id)
+                .thenApply(either -> either
+                        .map(UserResponse::new));
     }
 
     @Override
@@ -59,4 +58,10 @@ public class UsersServiceImpl implements UsersService {
     public CompletableFuture<Either<Failure, Void>> delete(String id) {
         return null;
     }
+
+    @Override
+    public CompletableFuture<Either<Failure, Void>> search(String query) {
+        return null;
+    }
+
 }

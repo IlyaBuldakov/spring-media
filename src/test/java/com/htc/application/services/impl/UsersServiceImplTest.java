@@ -3,6 +3,7 @@ package com.htc.application.services.impl;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
+import com.htc.domain.usecases.user.SearchUsers;
 import com.htc.util.Users;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,6 +17,7 @@ import static com.htc.domain.usecases.user.CreateUserTest.mockCreateUser;
 import static com.htc.domain.usecases.user.DeleteUserByIdTest.mockDeleteUserById;
 import static com.htc.domain.usecases.user.GetAllUsersTest.mockGetAllUsers;
 import static com.htc.domain.usecases.user.GetUserByIdTest.mockGetUserById;
+import static com.htc.domain.usecases.user.SearchUsersTest.mockSearchUsers;
 import static com.htc.domain.usecases.user.UpdateUserTest.mockUpdateUser;
 
 import static org.mockito.Mockito.mock;
@@ -29,12 +31,14 @@ class UsersServiceImplTest {
 
     static UsersServiceImpl usersServiceImpl
             = new UsersServiceImpl(mockCreateUser, mockGetUserById, mockGetAllUsers,
-            mockUpdateUser, mockDeleteUserById);
+            mockUpdateUser, mockDeleteUserById, mockSearchUsers);
     static UsersRepository usersRepository = mock(UsersRepository.class);
 
     static User testUser = Users.createTestUser();
 
     static String testIdParam = "1";
+
+    static String testQuery = "QUERY";
 
     @BeforeAll
     static void before() {
@@ -98,5 +102,11 @@ class UsersServiceImplTest {
     void deleteUser_ShouldCallUseCaseMethod() {
         usersServiceImpl.delete(testIdParam);
         verify(mockDeleteUserById).execute(testIdParam);
+    }
+
+    @Test
+    void searchUser_ShouldCallUseCaseMethod() {
+        usersServiceImpl.search(testQuery);
+        verify(mockSearchUsers).execute(new SearchUsers.Query(testQuery, null));
     }
 }

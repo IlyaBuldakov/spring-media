@@ -21,4 +21,6 @@ public interface UsersService {
     CompletableFuture<Either<Failure, UserResponse>> create(UserRequest user);
     CompletableFuture<Either<Failure, UserResponse>> update(UserRequest user);
     CompletableFuture<Either<Failure, Void>> delete(String id);
+    CompletableFuture<Either<Failure, Void>> search(String query);
+
 }
