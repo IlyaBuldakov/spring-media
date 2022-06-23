@@ -1,13 +1,14 @@
 package ru.kiryanovid.application.dto.task;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import ru.kiryanovid.application.dto.comments.CommentDto;
 import ru.kiryanovid.application.dto.content.ContentDto;
 import ru.kiryanovid.application.dto.content.ContentTypeDto;
+import ru.kiryanovid.application.dto.files.FileDto;
 import ru.kiryanovid.application.dto.users.UserDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import ru.kiryanovid.domain.entity.task.Task;
 
-import java.io.File;
 import java.time.LocalDateTime;
 
 /**
@@ -43,7 +44,7 @@ public class TaskDto {
      *
      */
     @Getter
-    private File file;
+    private FileDto[] files;
 
     /**
      *
@@ -73,17 +74,32 @@ public class TaskDto {
      *
      */
     @Getter
-    private ContentDto contents;
+    private ContentDto[] contents;
 
     /**
      *
      */
     @Getter
-    private CommentDto comments;
+    private CommentDto[] comments;
 
     /**
      *
      */
     @Getter
     private TaskStatusDto status;
+
+    public TaskDto(Task task) {
+        this.id = task.getId();
+        this.name = task.getName();
+        this.contentType = ContentTypeDto.mapToDto(task);
+        this.description = task.getDescription();
+        this.files = null;
+        this.author = new UserDto(task.getAuthor());
+        this.executor = new UserDto(task.getExecutor());
+        this.dateCreated = task.getDateCreate();
+        this.dateExpired = task.getDateExpired();
+        this.contents = null;
+        this.comments = null;
+        this.status = TaskStatusDto.mapToDto(task);
+    }
 }
