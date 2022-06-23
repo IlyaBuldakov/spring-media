@@ -35,6 +35,7 @@ class TaskTest {
                         faker.lorem().characters(40),
                         Role.ADMIN
                 ).get(),
+                null,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusDays(1L),
                 content,
