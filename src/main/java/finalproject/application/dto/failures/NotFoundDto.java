@@ -17,6 +17,6 @@ public class NotFoundDto {
   /**
    * Возвращает @return текст ошибки.
    */
-  private @Getter String error;
+  private @Getter String message;
 
 }

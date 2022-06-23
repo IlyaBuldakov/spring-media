@@ -1,22 +1,18 @@
 package finalproject.application.dto.failures;
 
+import finalproject.domain.entities.failures.Failure;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 /**
  * Ошибка сервера.
  */
-@AllArgsConstructor
-public class InternalServerErrorDto {
 
-  /**
-   * Возвращает @return код статуса.
-   */
-  private @Getter int statusCode;
+public class InternalServerErrorDto extends FailureDto {
 
-  /**
-   * Возвращает @return текст ошибки.
-   */
-  private @Getter String error;
+  public InternalServerErrorDto (Failure failure) {
+    super (HttpStatus.INTERNAL_SERVER_ERROR, failure);
+  }
 
 }
