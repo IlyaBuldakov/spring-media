@@ -2,6 +2,7 @@ package ru.kiryanovid.application.dto.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.kiryanovid.domain.entity.users.User;
 
 /**
  *
@@ -26,10 +27,18 @@ public class UserDto {
     /**
      * Изображение пользователя
      */
-    @Getter private byte[] avatar;
+    @Getter private String avatar;
 
     /**
      * Роль пользователя
      */
     @Getter private RoleDto role;
+
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.avatar = user.getImage();
+        this.role = new RoleDto(user);
+    }
 }
