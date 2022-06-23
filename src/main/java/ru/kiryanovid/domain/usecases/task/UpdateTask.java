@@ -17,6 +17,7 @@ public class UpdateTask implements UseCase<Task, Task> {
     private final TaskRepositories repositories;
     @Override
     public Future<Either<Failure, Task>> execute(Task task) {
+        repositories.update(task);
         return null;
     }
 }

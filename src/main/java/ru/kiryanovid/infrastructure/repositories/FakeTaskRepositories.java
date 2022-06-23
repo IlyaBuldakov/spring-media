@@ -81,7 +81,8 @@ public class FakeTaskRepositories implements TaskRepositories {
 
     @Override
     public Future<Either<Failure, Task>> update(Task task) {
-
+        var index = taskList.indexOf(task);
+        taskList.set(index, task);
         return null;
     }
 

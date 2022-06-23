@@ -16,6 +16,7 @@ public class DeleteTaskById implements UseCase<Integer, Void> {
     private final TaskRepositories repositories;
     @Override
     public Future<Either<Failure, Void>> execute(Integer param) {
+        repositories.delete(param);
         return null;
     }
 }
