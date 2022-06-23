@@ -2,6 +2,7 @@ package ru.kiryanovid.application.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.kiryanovid.application.dto.task.TaskDto;
 import ru.kiryanovid.application.dto.task.TaskListDto;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
@@ -36,10 +37,11 @@ public class TaskController {
         createTask.execute(task);
     }
     @GetMapping(path = "/{id}")
-    public Task getTaskById(@PathVariable Integer id) throws ExecutionException, InterruptedException {
-        return getTaskById.execute(id)
+    public TaskDto getTaskById(@PathVariable Integer id) throws ExecutionException, InterruptedException {
+        var task = getTaskById.execute(id)
                 .get()
                 .get();
+        return new TaskDto(task);
     }
     @PutMapping("/{id}")
     public void updateTask(@PathVariable Integer id) throws ExecutionException, InterruptedException {
