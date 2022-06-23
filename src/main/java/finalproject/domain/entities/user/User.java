@@ -2,6 +2,9 @@ package finalproject.domain.entities.user;
 
 
 import com.github.javafaker.Faker;
+import finalproject.domain.entities.failures.Failure;
+import finalproject.utils.Validators;
+import io.vavr.control.Either;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.Validate;
@@ -11,6 +14,8 @@ import org.springframework.data.annotation.Id;
 
 import javax.persistence.GeneratedValue;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -24,6 +29,7 @@ public class User implements Serializable {
   static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})";
 
   static Faker faker = new Faker(new Locale("ru", "RU"));
+  static final String INVALID_USER_FIELD = "INVALID";
 
   /**
    * Возвращает @return id Идентификатор пользователя.
@@ -79,26 +85,49 @@ public class User implements Serializable {
   @Getter
   private Role role;
 
-  public User(String email, String name, String avatar, String password, Role role) {
-    Validate.matchesPattern(email, EMAIL_PATTERN, "invalid email");
-    Validate.matchesPattern(password, PASSWORD_PATTERN, "invalid password");
-    Validate.isTrue(name.length() > 0, "Invalid name");
-   // Validate.isTrue(Base64.isBase64(avatar), "Invalid avatar");
-    this.email = email;
-    this.name = name;
-    this.avatar = avatar;
-    this.password = password;
-    this.role = role;
+  private User() {}
+  public static Either<Failure, User> create(String email, String name, String avatar, String password, Role role) {
+    List<String> problems = new ArrayList<>();
+    User user = new User();
+    if(Validators.patternValidate(email, EMAIL_PATTERN)) {
+      user.email = email;}
+    else {
+      problems.add("email");
+    }
+    if(Validators.patternValidate(password, PASSWORD_PATTERN)) {
+      user.password = password;}
+    else {
+      problems.add("password");
+    }
+    if(Validators.notNullString(name)) {
+      user.name = name;}
+    else {
+      problems.add("name");
+    }
+    user.avatar = avatar;
+    user.role = role;
+
+    if(problems.size() == 0) {return Either.right(user);}
+    else {
+      Failure failure = new Failure("Invalid values");
+      failure.setProblems(problems.toArray(new String[0]));
+      return Either.left(failure);
+    }
   }
 
-  public static User createRandomFakeUser() {
+
+   // Validate.isTrue(Base64.isBase64(avatar), "Invalid avatar");
+
+
+
+  public static Either<Failure, User> createRandomFakeUser() {
 
     String email = faker.internet().emailAddress();
     String password = faker.lorem().characters(5, 17) + "1Aa";
     String name = faker.name().fullName();
     Role role = Role.values()[(int) (Math.random() * 3)];
     String avatar = faker.lorem().fixedString(64);
-    return new User(email, name, avatar, password, role);
+    return create(email, name, avatar, password, role);
   }
 
 }
