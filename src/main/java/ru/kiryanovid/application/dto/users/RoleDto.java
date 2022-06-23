@@ -3,6 +3,7 @@ package ru.kiryanovid.application.dto.users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.kiryanovid.domain.entity.users.Role;
+import ru.kiryanovid.domain.entity.users.User;
 
 /**
  *
@@ -17,5 +18,10 @@ public class RoleDto {
     /**
      * Роль пользователя
      */
-    @Getter private Role role;
+    @Getter private String role;
+
+    public RoleDto(User user) {
+        this.id = user.getRole().getId();
+        this.role = user.getRole().getName();
+    }
 }
