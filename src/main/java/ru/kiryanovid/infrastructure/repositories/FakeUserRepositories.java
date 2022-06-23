@@ -31,6 +31,6 @@ public class FakeUserRepositories {
         }
     }
     public User randomGet(){
-        return userList.get(new Random().nextInt(userList.size()-1));
+        return userList.get(new Random().nextInt(userList.size()));
     }
 }
