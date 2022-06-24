@@ -5,6 +5,7 @@ import finalproject.application.dto.failures.FieldInvalidDto;
 import finalproject.application.dto.failures.InternalServerErrorDto;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -35,11 +36,11 @@ public class UserController {
 
   @GetMapping("/createRandom")
   public CompletableFuture<User> createRandom() {
-    return userservice.createNewUser(User.createRandomFakeUser()
-            .getOrElseThrow(failure -> new BadRequestDto(failure, (FieldInvalidDto[]) Arrays
-                    .stream(failure.getProblems())
+    return userservice.createNewUser(User.create("vasya@mail.ru", "Kolya", "sdfsdfksjdf", "sdf", Role.ADMIN)
+            .getOrElseThrow(failure -> new BadRequestDto(failure, Arrays.stream(failure.getProblems())
                     .map(problem -> new FieldInvalidDto(problem))
-                    .toArray()))).thenApply(either -> either.getOrElseThrow(failure -> new InternalServerErrorDto(failure)));
+                    .toArray(FieldInvalidDto[]::new))))
+            .thenApply(either -> either.getOrElseThrow(failure -> new InternalServerErrorDto(failure)));
 
 
   }
