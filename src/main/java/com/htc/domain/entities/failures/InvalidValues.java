@@ -1,6 +1,6 @@
 package com.htc.domain.entities.failures;
 
-import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -18,14 +18,14 @@ public class InvalidValues implements Failure {
   /**
    * Список ошибок некорректных полей.
    */
-  private final @Getter List<InvalidValueParam> values;
+  private final @Getter Map<InvalidValueParam, String> values;
 
   /**
    * Создание сборной ошибки.
    *
    * @param values список ошибок
    */
-  public InvalidValues(List<InvalidValueParam> values) {
+  public InvalidValues(Map<InvalidValueParam, String> values) {
     this.values = values;
   }
 

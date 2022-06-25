@@ -2,7 +2,7 @@ package com.htc.application.dtos.exceptions;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValueParam;
-import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 
 /**
@@ -15,16 +15,16 @@ public class InvalidValuesResponse extends CustomResponseStatusException {
    * @return values список ошибок некорректных полей
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter List<InvalidValueParamResponse> problems;
+  private final @Getter Iterable<InvalidValueParamResponse> problems;
 
   /**
    * Создание представления ошибки.
    *
    * @param failure сущность ошибки, подробнее {@link Failure}
    */
-  public InvalidValuesResponse(Failure failure, List<InvalidValueParam> invalidValueParams) {
+  public InvalidValuesResponse(Failure failure, Map<InvalidValueParam, String> values) {
     super(failure);
-    problems = invalidValueParams.stream()
-            .map(p -> new InvalidValueParamResponse(p, p.getField())).toList();
+    this.problems = values.entrySet().stream()
+            .map(entry -> new InvalidValueParamResponse(entry.getKey(), entry.getValue())).toList();
   }
 }

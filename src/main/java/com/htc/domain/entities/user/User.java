@@ -2,7 +2,10 @@ package com.htc.domain.entities.user;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValueParam;
+import com.htc.domain.entities.failures.InvalidValues;
 import io.vavr.control.Either;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -105,20 +108,24 @@ public class User {
    */
   public static Either<Failure, User> add(
           int id, String name, String password, String email, String avatar, Role role) {
+    Map<InvalidValueParam, String> problems = new HashMap<>();
     if (!validateId(id)) {
-      return Either.left(InvalidValueParam.INVALID_ENTITY_ID);
+      problems.put(InvalidValueParam.INVALID_ENTITY_ID, "id");
     }
     if (!validateName(name)) {
-      return Either.left(InvalidValueParam.INVALID_USER_NAME);
+      problems.put(InvalidValueParam.INVALID_USER_NAME, "name");
     }
     if (!validatePassword(password)) {
-      return Either.left(InvalidValueParam.INVALID_USER_PASSWORD);
+      problems.put(InvalidValueParam.INVALID_USER_PASSWORD, "password");
     }
     if (!validateEmail(email)) {
-      return Either.left(InvalidValueParam.INVALID_USER_EMAIL);
+      problems.put(InvalidValueParam.INVALID_USER_EMAIL, "email");
     }
     if (!validateImage(avatar)) {
-      return Either.left(InvalidValueParam.INVALID_USER_IMAGE);
+      problems.put(InvalidValueParam.INVALID_USER_IMAGE, "image");
+    }
+    if (problems.size() > 0) {
+      return Either.left(new InvalidValues(problems));
     }
     var user = new User();
     user.id = id;

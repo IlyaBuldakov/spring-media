@@ -1,13 +1,21 @@
 package com.htc.application.dtos.exceptions;
 
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.InvalidValueParam;
 import lombok.Getter;
 
 /**
- * Ответ. Представление ошибки
+ * Представление ошибки параметра
  * {@link com.htc.domain.entities.failures.InvalidValueParam InvalidValueParam}.
  */
-public class InvalidValueParamResponse extends CustomResponseStatusException {
+public class InvalidValueParamResponse {
+  /**
+   * Текст ошибки.
+   *
+   * @return message сообщение ошибки
+   */
+  @SuppressWarnings("JavadocDeclaration")
+  private final @Getter String message;
+
   /**
    * Наименование поля, в котором возникла ошибка.
    *
@@ -19,10 +27,11 @@ public class InvalidValueParamResponse extends CustomResponseStatusException {
   /**
    * Создание представления ошибки.
    *
-   * @param failure сущность ошибки, подробнее {@link Failure}
+   * @param invalidValueParam сообщение ошибки, подробнее {@link InvalidValueParam}
+   * @param field поле, в котором возникла ошибка
    */
-  public InvalidValueParamResponse(Failure failure, String field) {
-    super(failure);
+  public InvalidValueParamResponse(InvalidValueParam invalidValueParam, String field) {
+    this.message = invalidValueParam.getMessage();
     this.field = field;
   }
 }

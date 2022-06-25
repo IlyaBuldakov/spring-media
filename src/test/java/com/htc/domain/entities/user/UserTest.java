@@ -3,7 +3,7 @@ package com.htc.domain.entities.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.javafaker.Faker;
-import com.htc.domain.entities.failures.InvalidValueParam;
+import com.htc.domain.entities.failures.InvalidValues;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Locale;
@@ -58,7 +58,7 @@ class UserTest {
             validAvatar,
             role
     ).getLeft();
-    assertThat(result).isInstanceOf(InvalidValueParam.class);
+    assertThat(result).isInstanceOf(InvalidValues.class);
   }
 
   @Test
@@ -71,7 +71,7 @@ class UserTest {
             validAvatar,
             role
     ).getLeft();
-    assertThat(result).isInstanceOf(InvalidValueParam.class);
+    assertThat(result).isInstanceOf(InvalidValues.class);
   }
 
   @ParameterizedTest
@@ -94,7 +94,7 @@ class UserTest {
             validAvatar,
             role
     ).getLeft();
-    assertThat(result).isInstanceOf(InvalidValueParam.class);
+    assertThat(result).isInstanceOf(InvalidValues.class);
   }
 
   @Test
@@ -107,7 +107,7 @@ class UserTest {
             validAvatar,
             role
     ).getLeft();
-    assertThat(result).isInstanceOf(InvalidValueParam.class);
+    assertThat(result).isInstanceOf(InvalidValues.class);
   }
 
   @Test
@@ -120,6 +120,6 @@ class UserTest {
             invalidAvatar,
             role
     ).getLeft();
-    assertThat(result).isInstanceOf(InvalidValueParam.class);
+    assertThat(result).isInstanceOf(InvalidValues.class);
   }
 }

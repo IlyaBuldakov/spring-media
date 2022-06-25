@@ -51,8 +51,8 @@ public class UserController {
    */
   @GetMapping(path = "/{id}")
   @Async
-  public CompletableFuture<UserResponse> get(@PathVariable int id) {
-    return getUserById.execute(id).thenApplyAsync(
+  public CompletableFuture<UserResponse> get(@PathVariable String id) {
+    return getUserById.execute(new GetUserById.Params(id, "id")).thenApplyAsync(
             users -> users.map(UserResponse::new)
                     .getOrElseThrow(() -> CustomExceptionsHelper.getExceptionFromLeft(users))
     );

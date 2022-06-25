@@ -26,9 +26,9 @@ class GetUserByIdTest {
 
   @Test
   void shouldGetUserFromTheRepository() {
-    var testUserId = new Random().nextInt(1, 32);
-    useCase.execute(testUserId);
-    Mockito.verify(mockUserRepository).get(testUserId);
+    var testUserId = String.valueOf(new Random().nextInt(1, 32));
+    useCase.execute(new GetUserById.Params(testUserId, "id"));
+    Mockito.verify(mockUserRepository).get(Integer.parseInt(testUserId));
   }
 
   @Test
@@ -40,7 +40,7 @@ class GetUserByIdTest {
             .when(mockUserRepository.get(testUserId))
             .thenReturn(EitherHelper.goodRight(user));
     // Act
-    var result = useCase.execute(testUserId)
+    var result = useCase.execute(new GetUserById.Params(String.valueOf(testUserId), "id"))
             .get()
             .get();
     // Assert
@@ -54,7 +54,7 @@ class GetUserByIdTest {
     Mockito
             .when(mockUserRepository.get(badTestUserId))
             .thenReturn(EitherHelper.badLeft(failure));
-    var result = useCase.execute(badTestUserId)
+    var result = useCase.execute(new GetUserById.Params(String.valueOf(badTestUserId), "id"))
             .get()
             .getLeft();
     assertThat(result).isEqualTo(failure);
