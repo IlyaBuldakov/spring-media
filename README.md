@@ -2,6 +2,7 @@
 
 Spring:
 1. `org.springframework.boot:spring-boot-starter-web` – стартер для создания RESTful API.
+2. `io.springfox:springfox-boot-starter` – стартер для генерации Swagger UI.
 
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` – модульные тесты.
