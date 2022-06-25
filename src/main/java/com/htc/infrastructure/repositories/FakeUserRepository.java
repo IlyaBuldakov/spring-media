@@ -3,7 +3,6 @@ package com.htc.infrastructure.repositories;
 import com.github.javafaker.Faker;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.failures.RepositoryFailure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
@@ -49,9 +48,6 @@ public class FakeUserRepository implements UserRepository {
 
   @Override
   public CompletableFuture<Either<Failure, User>> get(int id) {
-    if (new Random().nextBoolean()) {
-      return EitherHelper.badLeft(RepositoryFailure.DEFAULT_MESSAGE);
-    }
     var usersResult = users.stream().filter(us -> us.getId() == id).toList();
     if (usersResult.size() == 0) {
       return EitherHelper.badLeft(NotFound.DEFAULT_MESSAGE);
@@ -61,10 +57,7 @@ public class FakeUserRepository implements UserRepository {
 
   @Override
   public CompletableFuture<Either<Failure, Iterable<User>>> getAll() {
-    // тестовая реализация бизнес-логики
-    return new Random().nextBoolean()
-            ? EitherHelper.goodRight(users)
-            : EitherHelper.badLeft(RepositoryFailure.DEFAULT_MESSAGE);
+    return EitherHelper.goodRight(users);
   }
 
   @Override
