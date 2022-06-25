@@ -31,7 +31,7 @@ public class FakeContentRepository implements ContentRepository {
           1,
           faker.name().fullName(),
           faker.internet().emailAddress(),
-          faker.internet().password(8, 12),
+          faker.internet().password(5, 17) + "1aA",
           faker.lorem().characters(40),
           Role.ADMIN
       ).get()

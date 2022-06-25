@@ -25,7 +25,7 @@ public abstract class UserService {
         id,
         faker.name().fullName(),
         faker.internet().emailAddress(),
-        faker.internet().password(8, 12),
+        faker.internet().password(5, 17) + "1aA",
         faker.lorem().characters(40),
         role
     ).get();
@@ -47,7 +47,7 @@ public abstract class UserService {
    * @return Пользователь.
    */
   public static User createTestUser() {
-    var id = new Random().nextInt();
+    var id = new Random().nextInt(255);
     return createTestUser(id);
   }
 }

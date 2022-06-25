@@ -46,7 +46,7 @@ public class FakeNotificationRepository implements NotificationRepository {
           1,
           faker.name().fullName(),
           faker.internet().emailAddress(),
-          faker.internet().password(8, 12),
+          faker.internet().password(5, 17) + "1aA",
           faker.lorem().characters(40),
           Role.ADMIN
       ).get(),
@@ -54,7 +54,7 @@ public class FakeNotificationRepository implements NotificationRepository {
           2,
           faker.name().fullName(),
           faker.internet().emailAddress(),
-          faker.internet().password(8, 12),
+          faker.internet().password(5, 17) + "1aA",
           faker.lorem().characters(40),
           Role.CONTENT_MAKER
       ).get()
