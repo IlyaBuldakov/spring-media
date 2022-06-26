@@ -1,5 +1,7 @@
 package com.htc.application.controllers;
 
+import com.htc.application.dto.responsestatus.ApplicationFailureException;
+import com.htc.application.dto.responsestatus.NotFoundResponse;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.usecases.user.CreateUser;
@@ -59,11 +61,10 @@ public class UserController {
             .thenApply(user -> user
                     .map(UserResponse::new)
                     .getOrElseThrow(failure -> switch (failure) {
-                      case NotFound ignored -> new ResponseStatusException(HttpStatus.NOT_FOUND);
-                      default -> new ResponseStatusException(
-                              HttpStatus.INTERNAL_SERVER_ERROR, failure.getMessage());
+                      case NotFound ignored -> new NotFoundResponse(failure);
+                      default -> new ApplicationFailureException(
+                              HttpStatus.INTERNAL_SERVER_ERROR, failure);
                     }));
-
   }
   /**
    * Возвращает список всех пользователей.
