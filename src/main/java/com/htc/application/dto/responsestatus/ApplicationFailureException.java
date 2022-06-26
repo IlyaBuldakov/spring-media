@@ -1,6 +1,7 @@
 package com.htc.application.dto.responsestatus;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.htc.domain.entities.failures.Failure;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,9 @@ import org.springframework.http.HttpStatus;
 /**
  * Общий класс ошибок слоя приложения.
  */
-public class ApplicationFailureException extends RuntimeException {
+@JsonIgnoreProperties(value = {
+  "cause", "stackTrace", "suppressed", "localizedMessage" })
+public abstract class ApplicationFailureException extends RuntimeException {
   /**
    * Код статуса.
    *
@@ -19,12 +22,26 @@ public class ApplicationFailureException extends RuntimeException {
   /**
    * Исходная ошибка.
    *
-   * @return message Исходная ошибка.
+   * @return statusCode Код статуса.
    */
-  private final @Getter @JsonIgnore Failure failure;
+  private final @Getter int statusCode;
 
+  /**
+   * Сообщение ошибки.
+   *
+   * @return message Сообщение ошибки.
+   */
+  private final @Getter String message;
+
+  /**
+   * Создаёт экземпляр класса {@link ApplicationFailureException}.
+   *
+   * @param status  Код статуса.
+   * @param failure Исходная ошибка доменного слоя.
+   */
   public ApplicationFailureException(HttpStatus status, Failure failure) {
     this.status = status;
-    this.failure = failure;
+    this.statusCode = status.value();
+    this.message = failure.getMessage();
   }
 }

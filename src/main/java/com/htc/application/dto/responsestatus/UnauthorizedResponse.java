@@ -6,13 +6,13 @@ import org.springframework.http.HttpStatus;
 /**
  * Представление сущности пользователя (ответ на запрос).
  */
-public class NotFoundResponse extends ApplicationFailureException {
+public class UnauthorizedResponse extends ApplicationFailureException {
   /**
-   * Создаёт экземпляр класса {@link com.htc.application.dto.responsestatus.NotFoundResponse}.
+   * Создаёт экземпляр класса {@link UnauthorizedResponse}.
    *
    * @param failure Ошибка доменного слоя.
    */
-  public NotFoundResponse(Failure failure) {
-    super(HttpStatus.NOT_FOUND, failure);
+  public UnauthorizedResponse(Failure failure) {
+    super(HttpStatus.UNAUTHORIZED, failure);
   }
 }

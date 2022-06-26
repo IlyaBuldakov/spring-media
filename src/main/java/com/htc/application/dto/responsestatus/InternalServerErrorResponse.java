@@ -6,13 +6,13 @@ import org.springframework.http.HttpStatus;
 /**
  * Представление сущности пользователя (ответ на запрос).
  */
-public class NotFoundResponse extends ApplicationFailureException {
+public class InternalServerErrorResponse extends ApplicationFailureException {
   /**
-   * Создаёт экземпляр класса {@link com.htc.application.dto.responsestatus.NotFoundResponse}.
+   * Создаёт экземпляр класса {@link InternalServerErrorResponse}.
    *
    * @param failure Ошибка доменного слоя.
    */
-  public NotFoundResponse(Failure failure) {
-    super(HttpStatus.NOT_FOUND, failure);
+  public InternalServerErrorResponse(Failure failure) {
+    super(HttpStatus.INTERNAL_SERVER_ERROR, failure);
   }
 }
