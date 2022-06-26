@@ -1,7 +1,9 @@
 # Зависимости проекта
 
 Spring:
-1. `org.springframework.boot:spring-boot-starter-web` - стартер для созадния RESTful API.
+1. `org.springframework.boot:spring-boot-starter-parent` - базовый POM для проектов на Spring.
+2. `org.springframework.boot:spring-boot-starter-web` - стартер для созадния RESTful API.
+3. `io.springfox:springfox-boot-starter` - стартер для генерации Swagger UI.
 
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` - модульные тесты.
