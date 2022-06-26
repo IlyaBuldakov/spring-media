@@ -6,13 +6,14 @@ import com.htc.domain.usecases.user.CreateUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
 import com.htc.domain.usecases.user.GetUserById;
-import com.htc.domain.usecases.user.SearchUsers;
 import com.htc.domain.usecases.user.UpdateUser;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,6 @@ public class UserController {
   private DeleteUserById deleteUserById;
   private GetUserById getUserById;
   private GetAllUsers getAllUsers;
-  private SearchUsers searchUsers;
 
   /**
    * Создаёт пользователя.
@@ -52,16 +52,19 @@ public class UserController {
    * @throws InterruptedException Ошибка выполнения запроса.
    */
   @GetMapping(path = "/{id}")
-  public UserResponse get(@PathVariable int id) throws ExecutionException, InterruptedException {
+  @Async
+  public CompletableFuture<UserResponse> get(@PathVariable int id)
+          throws ExecutionException, InterruptedException {
     return getUserById.execute(id)
-            .get()
-            .map(UserResponse::new)
-            .getOrElseThrow(failure -> switch (failure) {
-              case NotFound ignored -> new ResponseStatusException(HttpStatus.NOT_FOUND);
-              default -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-            });
-  }
+            .thenApply(user -> user
+                    .map(UserResponse::new)
+                    .getOrElseThrow(failure -> switch (failure) {
+                      case NotFound ignored -> new ResponseStatusException(HttpStatus.NOT_FOUND);
+                      default -> new ResponseStatusException(
+                              HttpStatus.INTERNAL_SERVER_ERROR, failure.getMessage());
+                    }));
 
+  }
   /**
    * Возвращает список всех пользователей.
    *
@@ -70,13 +73,13 @@ public class UserController {
    * @throws InterruptedException Ошибка выполнения запроса.
    */
   @GetMapping
-  public Iterable<UserResponse> getAll() throws ExecutionException, InterruptedException {
+  public CompletableFuture<Iterable<UserResponse>> getAll() throws ExecutionException, InterruptedException {
     return getAllUsers.execute(null)
-            .get()
-            .map(users -> StreamSupport.stream(users.spliterator(), false)
+            .thenApply(users -> users
+            .map(iterable  -> StreamSupport.stream(iterable.spliterator(), false)
                     .map(UserResponse::new)
                     .collect(Collectors.toList()))
-            .getOrElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
+            .getOrElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR)));
   }
 
   /**
@@ -96,6 +99,5 @@ public class UserController {
   @DeleteMapping(path = "/{id}")
   public void delete(@PathVariable String id) {
   }
-
 
 }

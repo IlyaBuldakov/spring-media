@@ -3,7 +3,7 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.notifications.Notification;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий уведомление.
@@ -14,21 +14,21 @@ public interface NotificationRepository {
    *
    * @param notification Уведомление.
    */
-  Future<Either<Failure, Notification>> create(Notification notification);
+  CompletableFuture<Either<Failure, Notification>> create(Notification notification);
 
   /**
    * Обновляет уведомление.
    *
    * @param notification Уведомление.
    */
-  Future<Either<Failure, Notification>> update(Notification notification);
+  CompletableFuture<Either<Failure, Notification>> update(Notification notification);
 
   /**
    * Удаляет уведомление.
    *
    * @param id Идентификатор Уведомления.
    */
-  Future<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(int id);
 
   /**
    * Получает уведомление.
@@ -36,12 +36,12 @@ public interface NotificationRepository {
    * @param id Идентификатор уведомления.
    * @return Уведомление.
    */
-  Future<Either<Failure, Notification>> get(int id);
+  CompletableFuture<Either<Failure, Notification>> get(int id);
 
   /**
    * Получает список всех уведомлений.
    *
    * @return Список уведомлений.
    */
-  Future<Either<Failure, Iterable<Notification>>> getAll();
+  CompletableFuture<Either<Failure, Iterable<Notification>>> getAll();
 }

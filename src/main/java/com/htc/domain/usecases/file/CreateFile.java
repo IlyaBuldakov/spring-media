@@ -5,7 +5,7 @@ import com.htc.domain.entities.files.File;
 import com.htc.domain.repositories.FileRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 
 /**
@@ -17,7 +17,7 @@ public final class CreateFile implements UseCase<File, File> {
   private final FileRepository repository;
 
   @Override
-  public Future<Either<Failure, File>> execute(File file) {
+  public CompletableFuture<Either<Failure, File>> execute(File file) {
     return repository.create(file);
   }
 }

@@ -5,7 +5,7 @@ import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public final class GetUserById implements UseCase<Integer, User> {
   private final UserRepository repository;
 
   @Override
-  public Future<Either<Failure, User>> execute(Integer id) {
+  public CompletableFuture<Either<Failure, User>> execute(Integer id) {
     return repository.get(id);
   }
 }

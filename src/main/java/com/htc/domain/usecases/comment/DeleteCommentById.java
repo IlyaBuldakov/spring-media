@@ -4,7 +4,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 
 /**
@@ -15,7 +15,7 @@ public final class DeleteCommentById implements UseCase<Integer, Void> {
   private final CommentRepository repository;
 
   @Override
-  public Future<Either<Failure, Void>> execute(Integer id) {
+  public CompletableFuture<Either<Failure, Void>> execute(Integer id) {
     return repository.delete(id);
   }
 }

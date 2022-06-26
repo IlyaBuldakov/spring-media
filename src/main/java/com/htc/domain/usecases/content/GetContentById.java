@@ -5,7 +5,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 
 /**
@@ -16,7 +16,7 @@ public final class GetContentById implements UseCase<Integer, Content> {
   private final ContentRepository repository;
 
   @Override
-  public Future<Either<Failure, Content>> execute(Integer id) {
+  public CompletableFuture<Either<Failure, Content>> execute(Integer id) {
     return repository.get(id);
   }
 }

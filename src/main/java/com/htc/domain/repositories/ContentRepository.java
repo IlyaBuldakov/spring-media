@@ -3,7 +3,7 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий контента.
@@ -15,21 +15,21 @@ public interface ContentRepository {
    * @param content Контент.
    */
 
-  Future<Either<Failure, Content>> create(Content content);
+  CompletableFuture<Either<Failure, Content>> create(Content content);
 
   /**
    * Обновляет контент.
    *
    * @param content Контент.
    */
-  Future<Either<Failure, Content>> update(Content content);
+  CompletableFuture<Either<Failure, Content>> update(Content content);
 
   /**
    * Удаляет контент.
    *
    * @param id Идентификатор контента.
    */
-  Future<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(int id);
 
   /**
    * Получает контент.
@@ -37,12 +37,12 @@ public interface ContentRepository {
    * @param id Идентификатор контента.
    * @return Контент.
    */
-  Future<Either<Failure, Content>> get(int id);
+  CompletableFuture<Either<Failure, Content>> get(int id);
 
   /**
    * Получает список всего контента.
    *
    * @return Список контента.
    */
-  Future<Either<Failure, Iterable<Content>>> getAll();
+  CompletableFuture<Either<Failure, Iterable<Content>>> getAll();
 }
