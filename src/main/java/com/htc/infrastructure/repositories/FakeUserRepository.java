@@ -2,6 +2,7 @@ package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.RepositoryFailure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,8 +19,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class FakeUserRepository implements UserRepository {
+  private static final double SUCCESS_CHANCE = 0.8;
   private static final Faker faker = Faker.instance(new Locale("ru"));
-
   private static final List<User> users = new ArrayList<>();
 
   static {
@@ -56,12 +56,18 @@ public class FakeUserRepository implements UserRepository {
 
   @Override
   public CompletableFuture<Either<Failure, User>> get(int id) {
+    if (Math.random() > SUCCESS_CHANCE) {
+      return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
+    }
+
     var user = users.stream().filter(u -> u.getId() == id).toList().get(0);
     return CompletableFuture.completedFuture(Either.right(user));
   }
 
   @Override
   public CompletableFuture<Either<Failure, Iterable<User>>> getAll() {
-    return CompletableFuture.completedFuture(Either.right(users));
+    return Math.random() > SUCCESS_CHANCE
+            ? CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE))
+            : CompletableFuture.completedFuture(Either.right((users)));
   }
 }
