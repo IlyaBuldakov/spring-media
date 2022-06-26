@@ -2,6 +2,7 @@ package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.RepositoryFailure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
@@ -60,8 +61,13 @@ public class FakeUserRepository implements UserRepository {
       return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
     }
 
-    var user = users.stream().filter(u -> u.getId() == id).toList().get(0);
-    return CompletableFuture.completedFuture(Either.right(user));
+    var result = users.stream().filter(u -> u.getId() == id).toList();
+
+    if (result.size() == 0) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+    }
+
+    return CompletableFuture.completedFuture(Either.right(result.get(0)));
   }
 
   @Override
