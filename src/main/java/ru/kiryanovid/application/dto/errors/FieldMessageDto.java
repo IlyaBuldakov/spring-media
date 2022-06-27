@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity.errors;
+package ru.kiryanovid.application.dto.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

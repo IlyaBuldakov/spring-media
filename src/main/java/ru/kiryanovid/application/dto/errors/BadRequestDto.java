@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity.errors;
+package ru.kiryanovid.application.dto.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,14 +7,20 @@ import lombok.Getter;
  *
  */
 @AllArgsConstructor
-public class InternalServerErrorDto {
+public class BadRequestDto {
     /**
-     * код статуса ошибки
+     *
      */
     @Getter private Integer statusCode;
 
     /**
-     * Текст ошибки
+     *
      */
     @Getter private String error;
+
+    /**
+     *
+     */
+    @Getter private FieldMessageDto problems;
+
 }
