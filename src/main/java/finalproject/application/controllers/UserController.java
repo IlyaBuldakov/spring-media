@@ -3,6 +3,8 @@ package finalproject.application.controllers;
 import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.dto.failures.FieldInvalidDto;
 import finalproject.application.dto.failures.InternalServerErrorDto;
+import finalproject.application.dto.user.UserDto;
+import finalproject.application.dto.user.UserRequestDto;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.Role;
@@ -10,10 +12,7 @@ import finalproject.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,11 +31,21 @@ public class UserController {
     return userservice.getAllUsers().get().get();
   }
 
+  @PutMapping
+  public CompletableFuture<User> createUser(@RequestBody UserRequestDto userdto) {
+    User user = User.create(userdto.getEmail(), userdto.getName(), userdto.getAvatar(), userdto.getPassword(), Role.getRoleById(userdto.getRole().getId()))
+            .getOrElseThrow(failure -> new BadRequestDto(failure, Arrays.stream(failure.getProblems())
+                    .map(problem -> new FieldInvalidDto(problem))
+                    .toArray(FieldInvalidDto[]::new)));
+    return userservice.createNewUser(user).thenApply(either -> either.getOrElseThrow(failure -> new InternalServerErrorDto(failure)));
+
+
+  }
 
 
   @GetMapping("/createRandom")
   public CompletableFuture<User> createRandom() {
-    return userservice.createNewUser(User.create("vasya@mail.ru", "Kolya", "sdfsdfksjdf", "sdf", Role.ADMIN)
+    return userservice.createNewUser(User.createRandomFakeUser()
             .getOrElseThrow(failure -> new BadRequestDto(failure, Arrays.stream(failure.getProblems())
                     .map(problem -> new FieldInvalidDto(problem))
                     .toArray(FieldInvalidDto[]::new))))

@@ -21,7 +21,7 @@ public class UserDto extends UserBasicDto {
    *
    * @return id Изображение пользователя.
    */
-  private @Getter byte[] avatar;
+  private @Getter String avatar;
 
   /**
    * Роль пользователя, см. {@link RoleDto}.
@@ -30,7 +30,7 @@ public class UserDto extends UserBasicDto {
    */
   private @Getter RoleDto role;
 
-  public UserDto(int id, String name, String email, byte[] avatar, RoleDto role) {
+  public UserDto(int id, String name, String email, String avatar, RoleDto role) {
     super(id, name);
     this.email = email;
     this.avatar = avatar;

@@ -29,8 +29,6 @@ public class User implements Serializable {
   static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})";
 
   static Faker faker = new Faker(new Locale("ru", "RU"));
-  static final String INVALID_USER_FIELD = "INVALID";
-
   /**
    * Возвращает @return id Идентификатор пользователя.
    * Генерируется репозиторием

@@ -21,7 +21,7 @@ public class UserRequestDto {
   /**
    * Возвращает @return byte[] avatar изображение пользователя.
    */
-  private @Getter byte[] avatar;
+  private @Getter String avatar;
 
   /**
    * Возвращает @return {@link RoleDto} роль пользователя.

@@ -6,37 +6,18 @@ import lombok.Getter;
 /**
  * Роль пользователя.
  */
-@AllArgsConstructor
-public class RoleDto {
-  /**
-   * Виды ролей пользователя.
-   */
-  public enum RoleType {
-    /**
-     * Администратор.
-     */
-    ADMIN,
-    /**
-     * Менеджер.
-     */
-    MANAGER,
-    /**
-     * Контент-мейкер.
-     */
-    CONTENT_MAKER
+
+public enum RoleDto {
+    ADMIN(0, "admin"),
+    MANAGER(1, "manager"),
+    CONTENT_MAKER(2, "contentMaker");
+    final @Getter int id;
+    final @Getter String name;
+    RoleDto(int id, String name) {
+      this.id = id;
+      this.name = name;
+    }
+
   }
 
-  /**
-   * Идентификатор роли.
-   *
-   * @return id Идентификатор роли.
-   */
-  private @Getter int id;
 
-  /**
-   * Название роли.
-   *
-   * @return name Название роли.
-   */
-  private @Getter RoleType name;
-}
