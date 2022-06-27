@@ -81,12 +81,6 @@ public class Task {
      */
     @Getter Status status;
 
-    private static final String INVALID_ID = "Некорректный идентификатор.";
-    private static final String INVALID_NAME = "Не допускается пустое поле.";
-    private static final String INVALID_AUTHOR = "Отсутствует автор.";
-    private static final String INVALID_DATE_EXPIRED = "Некорректная дата завершения.";
-    private static final String INVALID_DATE_CREATE = "Некорректная дата создания.";
-
     /**
      * Создает задачу и проверят накорректность.
      * @param id Идентификатор
@@ -107,19 +101,19 @@ public class Task {
             Content contents,Iterable<Comment> comments, Status status){
 
         if(id <=0){
-            return Either.left(new InvalidValue(INVALID_ID));
+            return Either.left(InvalidValue.INVALID_ENTITY_ID);
         }
         if(name.isEmpty() || name.equals(" ")){
-            return Either.left(new InvalidValue(INVALID_NAME));
+            return Either.left(InvalidValue.INVALID_TASK_NAME);
         }
         if(author == null){
-            return Either.left(new InvalidValue(INVALID_AUTHOR));
+            return Either.left(InvalidValue.INVALID_AUTHOR);
         }
         if(dateCreate.isBefore(LocalDateTime.now())){
-            return Either.left(new InvalidValue(INVALID_DATE_CREATE));
+            return Either.left(InvalidValue.INVALID_DATE_CREATE);
         }
         if(dateCreate.isAfter(dateExpired)){
-            return Either.left((new InvalidValue(INVALID_DATE_EXPIRED)));
+            return Either.left(InvalidValue.INVALID_DATE_EXPIRED);
         }
 
 

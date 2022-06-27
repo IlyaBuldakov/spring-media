@@ -2,8 +2,10 @@ package ru.kiryanovid.application.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.kiryanovid.application.dto.errors.InternalServerErrorDto;
 import ru.kiryanovid.application.dto.task.TaskDto;
 import ru.kiryanovid.application.dto.task.TaskListDto;
+import ru.kiryanovid.domain.entity.errors.RepositoryFailure;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
 
@@ -41,6 +43,9 @@ public class TaskController {
         var task = getTaskById.execute(id)
                 .get()
                 .get();
+        if(task == null){
+            throw new InternalServerErrorDto(RepositoryFailure.DEFAULT_MESSAGE);
+        }
         return new TaskDto(task);
     }
     @PutMapping("/{id}")

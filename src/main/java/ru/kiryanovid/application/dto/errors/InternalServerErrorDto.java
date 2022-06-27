@@ -2,19 +2,16 @@ package ru.kiryanovid.application.dto.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import ru.kiryanovid.domain.entity.errors.Failure;
 
 /**
  *
  */
-@AllArgsConstructor
-public class InternalServerErrorDto {
-    /**
-     * код статуса ошибки
-     */
-    @Getter private Integer statusCode;
 
-    /**
-     * Текст ошибки
-     */
-    @Getter private String error;
+public class InternalServerErrorDto extends FailureException{
+
+    public InternalServerErrorDto(Failure failure) {
+        super(HttpStatus.INTERNAL_SERVER_ERROR, failure);
+    }
 }
