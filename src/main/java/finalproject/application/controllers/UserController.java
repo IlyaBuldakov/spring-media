@@ -6,12 +6,10 @@ import finalproject.application.dto.failures.InternalServerErrorDto;
 import finalproject.application.dto.user.UserDto;
 import finalproject.application.dto.user.UserRequestDto;
 import finalproject.application.services.UserService;
-import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
+import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -32,12 +30,16 @@ public class UserController {
   }
 
   @PutMapping
-  public CompletableFuture<User> createUser(@RequestBody UserRequestDto userdto) {
-    User user = User.create(userdto.getEmail(), userdto.getName(), userdto.getAvatar(), userdto.getPassword(), Role.getRoleById(userdto.getRole().getId()))
+  public CompletableFuture<UserDto> createUser(@RequestBody UserRequestDto userdata) {
+    User user = User
+            .create(userdata.getEmail(), userdata.getName(), userdata.getAvatar(), userdata.getPassword(), Role.getRoleByName(userdata.getRole()))
             .getOrElseThrow(failure -> new BadRequestDto(failure, Arrays.stream(failure.getProblems())
-                    .map(problem -> new FieldInvalidDto(problem))
-                    .toArray(FieldInvalidDto[]::new)));
-    return userservice.createNewUser(user).thenApply(either -> either.getOrElseThrow(failure -> new InternalServerErrorDto(failure)));
+            .map(FieldInvalidDto::new)
+            .toArray(FieldInvalidDto[]::new)));
+    return userservice
+            .createNewUser(user)
+            .thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new))
+            .thenApply(UserDto::new);
 
 
   }
@@ -47,20 +49,20 @@ public class UserController {
   public CompletableFuture<User> createRandom() {
     return userservice.createNewUser(User.createRandomFakeUser()
             .getOrElseThrow(failure -> new BadRequestDto(failure, Arrays.stream(failure.getProblems())
-                    .map(problem -> new FieldInvalidDto(problem))
+                    .map(FieldInvalidDto::new)
                     .toArray(FieldInvalidDto[]::new))))
-            .thenApply(either -> either.getOrElseThrow(failure -> new InternalServerErrorDto(failure)));
+            .thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new));
 
 
   }
 
   @GetMapping("/{id}")
-  public CompletableFuture<User> getUser(@PathVariable int id) throws ExecutionException, InterruptedException {
-    return userservice.getUserById(id).thenApply(either -> either.get());}
+  public CompletableFuture<User> getUser(@PathVariable int id) {
+    return userservice.getUserById(id).thenApply(Either::get);}
 
   @GetMapping("/deleteUser/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
-    return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(failure -> new InternalServerErrorDto(failure)));
+    return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new));
   }
 
 

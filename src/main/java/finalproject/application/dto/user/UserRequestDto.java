@@ -26,7 +26,7 @@ public class UserRequestDto {
   /**
    * Возвращает @return {@link RoleDto} роль пользователя.
    */
-  private @Getter RoleDto role;
+  private @Getter String role;
 
   /**
    * Возвращает @return String password пароль пользователя.

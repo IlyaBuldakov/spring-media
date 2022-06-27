@@ -3,6 +3,7 @@ package finalproject.domain.entities.user;
 import lombok.Getter;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 
 /**
  * Роль пользователя.
@@ -18,7 +19,16 @@ public enum Role {
       this.id = id;
       this.name = name;
     }
-    public static Role getRoleById(int id) {
-      return Role.values()[id];
+
+    public static Role getRoleByName(String name) {
+    HashMap<String, Role> map = new HashMap<>();
+    for (Role role : Role.values()) {
+      map.put(role.getName(), role);
     }
+    return map.get(name);
+
+  }
+
+
+
   }

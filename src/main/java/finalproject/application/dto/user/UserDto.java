@@ -1,5 +1,6 @@
 package finalproject.application.dto.user;
 
+import finalproject.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -30,10 +31,10 @@ public class UserDto extends UserBasicDto {
    */
   private @Getter RoleDto role;
 
-  public UserDto(int id, String name, String email, String avatar, RoleDto role) {
-    super(id, name);
-    this.email = email;
-    this.avatar = avatar;
-    this.role = role;
+  public UserDto(User user) {
+    super(user.getId(), user.getName());
+    this.email = user.getEmail();
+    this.avatar = user.getAvatar();
+    this.role = new RoleDto(user.getRole().getId(), user.getRole().getName());
   }
 }
