@@ -30,7 +30,7 @@ public class FakeUserRepositories {
             userList.add(user);
         }
     }
-    public User randomGet(){
-        return userList.get(new Random().nextInt(userList.size()));
+    public List<User> getList(){
+        return userList;
     }
 }
