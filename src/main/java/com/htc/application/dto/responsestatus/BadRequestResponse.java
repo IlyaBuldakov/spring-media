@@ -1,6 +1,7 @@
 package com.htc.application.dto.responsestatus;
 
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.InvalidValues;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -19,12 +20,14 @@ public class BadRequestResponse extends ApplicationFailureException {
   /**
    * Создаёт экземпляр класса {@link BadRequestResponse}.
    *
-   * @param failure  Ошибка доменного слоя.
-   * @param problems Связанное с ошибкой поля интерфейса.
+   * @param invalidValues Некорректные значения.
    */
-  public BadRequestResponse(Failure failure, Iterable<FieldInvalidResponse> problems) {
-    super(HttpStatus.BAD_REQUEST, failure);
+  public BadRequestResponse(InvalidValues invalidValues) {
+    super(HttpStatus.BAD_REQUEST, invalidValues);
 
-    this.problems = problems;
+    this.problems = invalidValues.getInvalidValues()
+            .stream()
+            .map(FieldInvalidResponse::new)
+            .collect(Collectors.toList());
   }
 }

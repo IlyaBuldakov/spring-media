@@ -4,37 +4,44 @@ package com.htc.domain.entities.failures;
  * Некорректное значение.
  */
 public enum InvalidValue implements Failure {
-  /**
-   * Сообщение по умолчанию.
-   */
-  DEFAULT_MESSAGE("Некорректное значение переданного параметра."),
+  //  /**
+  //   * Сообщение по умолчанию.
+  //   */
+  //  DEFAULT_MESSAGE("Некорректное значение переданного параметра.", ""),
 
   // Сообщения общие для всех сущностей.
   /**
    * Сообщение о некорректном идентификаторе.
    */
-  INVALID_ENTITY_ID("Идентификатор сущности не может быть меньше нуля."),
+  INVALID_ENTITY_ID("Идентификатор сущности не может быть меньше нуля.", "id"),
 
   // Сообщения для пользователей.
   /**
    * Сообщение о некорректном имени пользователя.
    */
-  INVALID_USER_NAME("Некорректное имя пользователя."),
+  INVALID_USER_NAME("Некорректное имя пользователя.", "name"),
   /**
    * Сообщение о некорректной электронной почте пользователя.
    */
-  INVALID_USER_EMAIL("Некорректная электронная почта пользователя."),
-  INVALID_USER_PASSWORD("Некорректный пароль пользователя."),
-  INVALID_USER_IMAGE("Некорректное изображения пользователя.");
+  INVALID_USER_EMAIL("Некорректная электронная почта пользователя.", "email"),
+  INVALID_USER_PASSWORD("Некорректный пароль пользователя.", "password"),
+  INVALID_USER_IMAGE("Некорректное изображения пользователя.", "image");
 
-  InvalidValue(String message) {
+  InvalidValue(String message, String field) {
     this.message = message;
+    this.field = field;
   }
 
   private final String message;
 
+  private final String field;
+
   @Override
   public String getMessage() {
     return message;
+  }
+
+  public String getField() {
+    return field;
   }
 }

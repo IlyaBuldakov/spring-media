@@ -1,6 +1,6 @@
 package com.htc.application.dto.responsestatus;
 
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.InvalidValue;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -20,11 +20,10 @@ public class FieldInvalidResponse extends ApplicationFailureException {
    * Создаёт экземпляр класса {@link FieldInvalidResponse}.
    *
    * @param failure Ошибка доменного слоя.
-   * @param field   Связанное с ошибкой поле интерфейса.
    */
-  public FieldInvalidResponse(Failure failure, String field) {
+  public FieldInvalidResponse(InvalidValue failure) {
     super(HttpStatus.BAD_REQUEST, failure);
 
-    this.field = field;
+    this.field = failure.getField();
   }
 }
