@@ -1,20 +1,20 @@
 package ru.kiryanovid.application.dto.errors;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import ru.kiryanovid.domain.entity.errors.Failure;
 
 /**
  *
  */
-@AllArgsConstructor
-public class NotAuthorizedDto {
-    /**
-     * код статуса ошибки
-     */
-    @Getter private Integer statusCode;
+public class NotAuthorizedDto extends FailureException{
 
     /**
-     * Текст ошибки
+     * Создаёт экземпляр класса {@link FailureException}.
+     *
+     * @param failure Исходная ошибка доменного слоя.
      */
-    @Getter private String error;
+    public NotAuthorizedDto(Failure failure) {
+        super(HttpStatus.UNAUTHORIZED, failure);
+    }
 }
