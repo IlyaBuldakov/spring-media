@@ -9,10 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.data.annotation.Id;
 
 
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,8 @@ import java.util.Locale;
  * Пользователь. Центр всей модели.
  */
 
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
 
   static final String EMAIL_PATTERN = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$";
@@ -33,8 +34,10 @@ public class User implements Serializable {
    * Возвращает @return id Идентификатор пользователя.
    * Генерируется репозиторием
    */
+
+
   @Id
-  @GeneratedValue
+  @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Getter
   @Setter
   int id;
@@ -46,6 +49,7 @@ public class User implements Serializable {
    */
   @Setter
   @Getter
+  @Column
   private String email;
 
   /**
@@ -53,6 +57,7 @@ public class User implements Serializable {
    */
   @Setter
   @Getter
+  @Column
   private String name;
 
   /**
@@ -62,6 +67,7 @@ public class User implements Serializable {
    */
   @Setter
   @Getter
+  @Column
   private String avatar;
 
 
@@ -72,6 +78,7 @@ public class User implements Serializable {
    */
   @Setter
   @Getter
+  @Column
   private String password;
 
   /**
@@ -81,9 +88,10 @@ public class User implements Serializable {
    */
   @Setter
   @Getter
+  @Column
   private Role role;
 
-  private User() {}
+  public User() {}
   public static Either<Failure, User> create(String email, String name, String avatar, String password, Role role) {
     List<String> problems = new ArrayList<>();
     User user = new User();
