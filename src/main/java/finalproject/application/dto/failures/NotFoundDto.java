@@ -1,22 +1,20 @@
 package finalproject.application.dto.failures;
 
+import finalproject.domain.entities.failures.Failure;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 /**
  * Ошибка поиска.
  */
-@AllArgsConstructor
-public class NotFoundDto {
 
-  /**
-   * Возвращает @return код статуса.
-   */
-  private @Getter int statusCode;
+public class NotFoundDto extends FailureDto {
 
-  /**
-   * Возвращает @return текст ошибки.
-   */
-  private @Getter String message;
+
+  public NotFoundDto(Failure failure) {
+    super (HttpStatus.NOT_FOUND, failure);
+
+  }
 
 }
