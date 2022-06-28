@@ -3,6 +3,7 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -43,6 +44,6 @@ public interface UserRepository {
    *
    * @return Список пользователей.
    */
-  CompletableFuture<Either<Failure, Iterable<User>>> getAll();
+  CompletableFuture<Either<Failure, Collection<User>>> getAll();
 
 }

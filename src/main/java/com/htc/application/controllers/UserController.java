@@ -1,20 +1,16 @@
 package com.htc.application.controllers;
 
-import com.htc.application.dto.responsestatus.ApplicationFailureException;
-import com.htc.application.dto.responsestatus.NotFoundResponse;
 import com.htc.application.dto.user.UserResponse;
-import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.usecases.user.CreateUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
 import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.UpdateUser;
+import com.htc.utility.Controllers;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Контроллер для работы с пользователями.
@@ -50,37 +45,29 @@ public class UserController {
    *
    * @param id Идентификатор пользователя.
    * @return Пользователь.
-   * @throws ExecutionException   Ошибка выполнения запроса.
-   * @throws InterruptedException Ошибка выполнения запроса.
    */
   @GetMapping(path = "/{id}")
   @Async
-  public CompletableFuture<UserResponse> get(@PathVariable int id)
-          throws ExecutionException, InterruptedException {
-    return getUserById.execute(id)
-            .thenApply(user -> user
-                    .map(UserResponse::new)
-                    .getOrElseThrow(failure -> switch (failure) {
-                      case NotFound ignored -> new NotFoundResponse(failure);
-                      default -> new ApplicationFailureException(
-                              HttpStatus.INTERNAL_SERVER_ERROR, failure);
-                    }));
+  public CompletableFuture<UserResponse> get(@PathVariable Integer id) {
+    return Controllers.handleRequest(
+            getUserById,
+            id,
+            UserResponse::new);
   }
+
   /**
    * Возвращает список всех пользователей.
    *
    * @return Список пользователей.
-   * @throws ExecutionException   Ошибка выполнения запроса.
-   * @throws InterruptedException Ошибка выполнения запроса.
    */
   @GetMapping
-  public CompletableFuture<Iterable<UserResponse>> getAll() throws ExecutionException, InterruptedException {
-    return getAllUsers.execute(null)
-            .thenApply(users -> users
-            .map(iterable  -> StreamSupport.stream(iterable.spliterator(), false)
+  public CompletableFuture<Collection<UserResponse>> getAll() {
+    return Controllers.handleRequest(
+            getAllUsers,
+            null,
+            users -> users.stream()
                     .map(UserResponse::new)
-                    .collect(Collectors.toList()))
-            .getOrElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR)));
+                    .collect(Collectors.toList()));
   }
 
   /**
@@ -100,5 +87,4 @@ public class UserController {
   @DeleteMapping(path = "/{id}")
   public void delete(@PathVariable String id) {
   }
-
 }

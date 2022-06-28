@@ -9,6 +9,7 @@ import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -71,7 +72,7 @@ public class FakeUserRepository implements UserRepository {
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Iterable<User>>> getAll() {
+  public CompletableFuture<Either<Failure, Collection<User>>> getAll() {
     return Math.random() > SUCCESS_CHANCE
             ? CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE))
             : CompletableFuture.completedFuture(Either.right((users)));

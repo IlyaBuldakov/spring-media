@@ -3,13 +3,13 @@ package com.htc.domain.entities.failures;
 /**
  * Не авторизован.
  */
-public enum NotAuthorized implements Failure {
+public enum Unauthorized implements Failure {
   /**
   * Сообщение по умолчанию.
   */
   DEFAULT_MESSAGE("Не авторизован.");
 
-  NotAuthorized(String message) {
+  Unauthorized(String message) {
     this.message = message;
   }
 
@@ -19,4 +19,4 @@ public enum NotAuthorized implements Failure {
   public String getMessage() {
     return message;
   }
-  }
+}
