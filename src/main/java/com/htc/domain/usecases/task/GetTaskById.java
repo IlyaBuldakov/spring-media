@@ -7,10 +7,12 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения задачи по ее идентификатору.
  */
+@Component
 @AllArgsConstructor
 public final class GetTaskById implements UseCase<Integer, Task> {
   private final TaskRepository repository;
