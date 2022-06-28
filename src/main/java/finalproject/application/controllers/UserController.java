@@ -60,7 +60,7 @@ public class UserController {
   public CompletableFuture<User> getUser(@PathVariable int id) {
     return userservice.getUserById(id).thenApply(Either::get);}
 
-  @GetMapping("/deleteUser/{id}")
+  @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
     return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new));
   }

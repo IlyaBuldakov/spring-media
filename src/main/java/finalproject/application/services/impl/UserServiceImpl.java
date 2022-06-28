@@ -25,18 +25,12 @@ public class UserServiceImpl implements UserService {
   @Async
   @Override
   public CompletableFuture<Either<Failure, User>> createNewUser(User user) {
-    if (user.getId() < 0) {
-      return CompletableFuture.completedFuture(Either.left(new Failure("Ничего не получилось")));
-    }
     return CompletableFuture.completedFuture(Either.right(repository.save(user)));
   }
 
   @Async
   @Override
   public CompletableFuture<Either<Failure, User>> editUser(User user) {
-    if (user.getId() < 1) {
-      return CompletableFuture.completedFuture(Either.left(new Failure("Ничего не получилось")));
-    }
     return CompletableFuture.completedFuture(Either.right(repository.save(user)));
   }
 
