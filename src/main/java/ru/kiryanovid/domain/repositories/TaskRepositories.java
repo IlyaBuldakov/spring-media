@@ -4,6 +4,7 @@ import ru.kiryanovid.domain.entity.errors.Failure;
 import ru.kiryanovid.domain.entity.task.Task;
 import io.vavr.control.Either;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -16,7 +17,7 @@ public interface TaskRepositories {
      *
      * @param task Задача.
      */
-    Future<Either<Failure, Task>> create(Task task);
+    CompletableFuture<Either<Failure, Task>> create(Task task);
 
     /**
      * Обновляет задачу.
@@ -38,12 +39,12 @@ public interface TaskRepositories {
      * @param id Идентификатор задачи.
      * @return задача.
      */
-    Future<Either<Failure, Task>> get(Integer id);
+    CompletableFuture<Either<Failure, Task>> get(Integer id);
 
     /**
      * Получает список всех задач.
      *
      * @return Список задач.
      */
-    Future<Either<Failure, Iterable<Task>>> getAll();
+    CompletableFuture<Either<Failure, Iterable<Task>>> getAll();
 }

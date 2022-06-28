@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.kiryanovid.application.dto.errors.FailureException;
 
 @ControllerAdvice
-public class MyExceptionHandler{
-    @ExceptionHandler(FailureException.class)
-    public ResponseEntity<FailureException> handleException(FailureException exception) {
+public class MyExceptionHandler {
+    @ExceptionHandler({FailureException.class})
+    public static ResponseEntity<FailureException> handleException(FailureException exception) {
         return new ResponseEntity<>(exception, exception.getStatus());
     }
 }

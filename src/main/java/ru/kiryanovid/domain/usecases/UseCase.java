@@ -3,6 +3,7 @@ package ru.kiryanovid.domain.usecases;
 import ru.kiryanovid.domain.entity.errors.Failure;
 import io.vavr.control.Either;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -18,5 +19,5 @@ public interface UseCase<ParamT, ResultT> {
      * @param param Параметр сценария использования.
      * @return Результат выполнения сценария использования.
      */
-    Future<Either<Failure, ResultT>> execute(ParamT param);
+    CompletableFuture<Either<Failure, ResultT>> execute(ParamT param);
 }

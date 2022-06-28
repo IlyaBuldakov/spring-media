@@ -1,11 +1,14 @@
 package ru.kiryanovid.application.dto.errors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import ru.kiryanovid.domain.entity.errors.Failure;
 
-public abstract class FailureException extends RuntimeException{
+@JsonIgnoreProperties(value = {
+        "cause", "stackTrace", "suppressed", "localizedMessage" })
+public class FailureException extends RuntimeException{
     /**
      * Код статуса.
      *

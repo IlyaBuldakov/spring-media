@@ -8,6 +8,7 @@ import ru.kiryanovid.domain.repositories.TaskRepositories;
 import ru.kiryanovid.domain.usecases.UseCase;
 import io.vavr.control.Either;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 @Component
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class DeleteTaskById implements UseCase<Integer, Void> {
     @Autowired
     private final TaskRepositories repositories;
     @Override
-    public Future<Either<Failure, Void>> execute(Integer param) {
+    public CompletableFuture<Either<Failure, Void>> execute(Integer param) {
         repositories.delete(param);
         return null;
     }

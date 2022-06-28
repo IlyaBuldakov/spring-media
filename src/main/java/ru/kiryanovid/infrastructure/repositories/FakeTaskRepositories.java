@@ -5,6 +5,7 @@ import io.vavr.control.Either;
 import org.springframework.stereotype.Component;
 import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.errors.Failure;
+import ru.kiryanovid.domain.entity.errors.InvalidValue;
 import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Status;
 import ru.kiryanovid.domain.entity.task.Task;
@@ -69,12 +70,12 @@ public class FakeTaskRepositories implements TaskRepositories {
             ).get()
     );
 
-    public FakeTaskRepositories(FakeUserRepositories fur) {
-        this.fur = fur;
-    }
+   // public FakeTaskRepositories(FakeUserRepositories fur) {
+   //     this.fur = fur;
+   // }
 
     @Override
-    public Future<Either<Failure, Task>> create(Task task) {
+    public CompletableFuture<Either<Failure, Task>> create(Task task) {
         taskList.add(task);
         return CompletableFuture.completedFuture(Either.right(null));
     }
@@ -93,13 +94,17 @@ public class FakeTaskRepositories implements TaskRepositories {
     }
 
     @Override
-    public Future<Either<Failure, Task>> get(Integer id) {
-        var task =taskList.stream().filter(taskId -> taskId.getId() == id).toList().get(0);
-        return CompletableFuture.completedFuture(Either.right(task));
+    public CompletableFuture<Either<Failure, Task>> get(Integer id) {
+        var result =taskList.stream().filter(taskId -> taskId.getId() == id).toList();
+        if(result.size() == 0){
+            return CompletableFuture.completedFuture(Either.left(InvalidValue.DEFAULT_MESSAGE));
+        }
+
+        return CompletableFuture.completedFuture(Either.right(result.get(0)));
     }
 
     @Override
-    public Future<Either<Failure, Iterable<Task>>> getAll() {
+    public CompletableFuture<Either<Failure, Iterable<Task>>> getAll() {
         return CompletableFuture.completedFuture(Either.right(taskList));
     }
 }

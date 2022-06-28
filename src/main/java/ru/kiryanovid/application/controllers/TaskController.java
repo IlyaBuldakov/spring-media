@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.*;
 import ru.kiryanovid.application.dto.errors.InternalServerErrorDto;
 import ru.kiryanovid.application.dto.task.TaskDto;
 import ru.kiryanovid.application.dto.task.TaskListDto;
-import ru.kiryanovid.domain.entity.errors.RepositoryFailure;
+import ru.kiryanovid.domain.entity.errors.Failure;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -39,14 +40,13 @@ public class TaskController {
         createTask.execute(task);
     }
     @GetMapping(path = "/{id}")
-    public TaskDto getTaskById(@PathVariable Integer id) throws ExecutionException, InterruptedException {
-        var task = getTaskById.execute(id)
-                .get()
-                .get();
-        if(task == null){
-            throw new InternalServerErrorDto(RepositoryFailure.DEFAULT_MESSAGE);
+    public CompletableFuture<TaskDto> getTaskById(@PathVariable Integer id) throws ExecutionException, InterruptedException {
+        var result = getTaskById.execute(id);
+        if(result.get().isLeft()){
+            var temp = result.get().getLeft();
+            throw new InternalServerErrorDto(temp);
         }
-        return new TaskDto(task);
+        return CompletableFuture.completedFuture(new TaskDto(result.get().get()));
     }
     @PutMapping("/{id}")
     public void updateTask(@PathVariable Integer id) throws ExecutionException, InterruptedException {
