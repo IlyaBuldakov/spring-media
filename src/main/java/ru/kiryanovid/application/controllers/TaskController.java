@@ -35,7 +35,7 @@ public class TaskController {
         return dtoList;
     }
     @PostMapping
-    public void create(@ModelAttribute("task") Task task){
+    public void create(@RequestBody Task task){
         createTask.execute(task);
     }
     @GetMapping(path = "/{id}")
