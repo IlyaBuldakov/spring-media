@@ -55,7 +55,7 @@ public class UserController {
     updatedUser.setId(id);
     return userservice.editUser(updatedUser, id)
             .thenApply(either -> either.getOrElseThrow(failure -> {
-              if (failure.getProblems().length > 0) {
+              if (failure.getProblems() != null) {
                 return new BadRequestDto(failure);
               }
               return new NotFoundDto(failure);
