@@ -3,8 +3,10 @@ package com.htc.domain.entities.tasks;
 import com.htc.domain.entities.comments.Comment;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
+import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.user.User;
+import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Random;
 import lombok.AllArgsConstructor;
@@ -88,31 +90,37 @@ public class Task {
    */
   private @Getter TaskStatus status;
 
-  /**
-   * Создаёт тестовую задачу с указанным идентификатором.
-   *
-   * @param id Идентификатор задачи.
-   * @return Задача.
-   */
-  public static Task createTestTask(int id) {
-    return new Task(
-            id,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-    );
+
+  private Task() {
   }
 
-  public static Task createTestTask() {
-    var id = new Random().nextInt(Integer.MAX_VALUE);
-    return createTestTask(id);
+  public static Either<Failure, Task> create(
+          int id,
+          String name,
+          ContentType contentType,
+          String description,
+          File[] files,
+          User author,
+          User executor,
+          LocalDateTime dateCreated,
+          LocalDateTime dateExpired,
+          Content[] contents,
+          Comment[] comments,
+          TaskStatus status) {
+
+    var task = new Task();
+    task.id = id;
+    task.name = name;
+    task.contentType = contentType;
+    task.description = description;
+    task.files = files;
+    task.author = author;
+    task.executor = executor;
+    task.dateCreated = dateCreated;
+    task.dateExpired = dateExpired;
+    task.contents = contents;
+    task.comments = comments;
+    task.status = status;
+    return Either.right(task);
   }
 }
