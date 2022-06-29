@@ -1,4 +1,10 @@
 spring:
   datasource:
-    driverClassName: org.sqlite.JDBC
-    url: jdbc:sqlite:./grade.db
+      platform: postgres
+      url: jdbc:postgresql://localhost:5432/mediacontent
+      username: postgres
+      password: postgres
+      driverClassName: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
