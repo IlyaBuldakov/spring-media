@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: create task
+      author: Igor Kiryanov
+      changes:
+        - createTable:
+            tableName: task
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: type_id_fk
+                    referencedTableName: type
+                    referencedColumnNames: id
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: files_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: files_id_fk
+                    referencedTableName: file
+                    referencedColumnNames: id
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: author_id_fk
+                    referencedTableName: user
+                    referencedColumnNames: id
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: executor_id_fk
+                    referencedTableName: user
+                    referencedColumnNames: id
+              - column:
+                  name: data_created
+                  type: time
+              - column:
+                  name: data_executed
+                  type: time
+              - column:
+                  name: contents_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: contents_id_fk
+                    referencedTableName: content
+                    referencedColumnNames: id
+              - column:
+                  name: comments_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: comment_id_fk
+                    referencedTableName: comment
+                    referencedColumnNames: id
+              - column:
+                  name: status_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: status_id_fk
+                    referencedTableName: status
+                    referencedColumnNames: id

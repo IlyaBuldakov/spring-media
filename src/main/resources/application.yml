@@ -1,6 +1,7 @@
 spring:
+  liquibase:
+    enabled: true
   datasource:
-      platform: postgres
       url: jdbc:postgresql://localhost:5432/mediacontent
       username: postgres
       password: postgres
@@ -8,3 +9,6 @@ spring:
   jpa:
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: validate
+
