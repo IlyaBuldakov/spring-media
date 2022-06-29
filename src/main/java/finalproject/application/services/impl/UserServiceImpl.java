@@ -1,5 +1,6 @@
 package finalproject.application.services.impl;
 
+import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.User;
@@ -30,25 +31,36 @@ public class UserServiceImpl implements UserService {
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, User>> editUser(User user) {
+  public CompletableFuture<Either<Failure, User>> editUser(User user, int id) {
+    if (id <= 0) {
+      String[] problems = {"id"};
+      return CompletableFuture.completedFuture(Either.left(new Failure("Invalid Value", problems)));
+    }
+    if (!repository.existsById(id)) {
+      return CompletableFuture.completedFuture(Either.left(new Failure("Пользователь не существует")));
+    }
     return CompletableFuture.completedFuture(Either.right(repository.save(user)));
   }
 
   @Async
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteUserById(int id) {
-    repository.deleteById(id);
-    return CompletableFuture.completedFuture(Either.right(null));
+    if (repository.existsById(id)) {
+      repository.deleteById(id);
+      return CompletableFuture.completedFuture(Either.right(null));
+    }
+    return CompletableFuture.completedFuture(Either.left(new Failure("Пользователь не существует")));
   }
 
   @Async
   @Override
   public CompletableFuture<Either<Failure, User>> getUserById(int id) {
+
     Optional<User> user = repository.findById(id);
     if (user.isPresent()) {
-    return CompletableFuture.completedFuture(Either.right((user.get())));
+    return CompletableFuture.completedFuture(Either.right(user.get()));
     }
-    return CompletableFuture.completedFuture(Either.left(new Failure("Ничего не получилось")));
+    return CompletableFuture.completedFuture(Either.left(new Failure("Пользователь не существует")));
 
   }
 

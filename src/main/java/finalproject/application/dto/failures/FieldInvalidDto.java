@@ -21,6 +21,7 @@ public class FieldInvalidDto {
       case "email" -> "Некорректный email";
       case "password" -> "Неправильный пароль";
       case "name" -> "Имя не введено";
+      case "id" -> "Некорректный id";
       default -> "Даже не знаю, что тут происходит";
     };
 

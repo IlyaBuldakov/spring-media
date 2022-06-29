@@ -3,9 +3,11 @@ package finalproject.application.controllers;
 import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.dto.failures.FieldInvalidDto;
 import finalproject.application.dto.failures.InternalServerErrorDto;
+import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.user.UserDto;
 import finalproject.application.dto.user.UserRequestDto;
 import finalproject.application.services.UserService;
+import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import io.vavr.control.Either;
@@ -25,17 +27,16 @@ public class UserController {
   UserService userservice;
 
   @GetMapping
-  public List<User> getUsers() throws ExecutionException, InterruptedException {
-    return userservice.getAllUsers().get().get();
+  public CompletableFuture<List<UserDto>> getUsers() {
+    return userservice.getAllUsers().thenApply(either -> either.get().stream().map(UserDto::new).toList());
   }
 
   @PutMapping
   public CompletableFuture<UserDto> createUser(@RequestBody UserRequestDto userdata) {
     User user = User
-            .create(userdata.getEmail(), userdata.getName(), userdata.getAvatar(), userdata.getPassword(), Role.getRoleByName(userdata.getRole()))
-            .getOrElseThrow(failure -> new BadRequestDto(failure, Arrays.stream(failure.getProblems())
-            .map(FieldInvalidDto::new)
-            .toArray(FieldInvalidDto[]::new)));
+            .create(userdata.getEmail(), userdata.getName(), userdata.getAvatar(), userdata.getPassword(),
+                    Role.getRoleByName(userdata.getRole()))
+            .getOrElseThrow(failure -> new BadRequestDto(failure));
     return userservice
             .createNewUser(user)
             .thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new))
@@ -44,25 +45,50 @@ public class UserController {
 
   }
 
+  @PutMapping("/{id}")
+  public CompletableFuture<UserDto> editUser(@PathVariable int id, @RequestBody UserRequestDto userdata) {
+
+    User updatedUser = User
+            .create(userdata.getEmail(), userdata.getName(), userdata.getAvatar(), userdata.getPassword(),
+                    Role.getRoleByName(userdata.getRole()))
+            .getOrElseThrow(failure -> new BadRequestDto(failure));
+    updatedUser.setId(id);
+    return userservice.editUser(updatedUser, id)
+            .thenApply(either -> either.getOrElseThrow(failure -> {
+              if (failure.getProblems().length > 0) {
+                return new BadRequestDto(failure);
+              }
+              return new NotFoundDto(failure);
+            })).thenApply(UserDto::new);
+
+
+  }
 
   @GetMapping("/createRandom")
   public CompletableFuture<User> createRandom() {
     return userservice.createNewUser(User.createRandomFakeUser()
-            .getOrElseThrow(failure -> new BadRequestDto(failure, Arrays.stream(failure.getProblems())
-                    .map(FieldInvalidDto::new)
-                    .toArray(FieldInvalidDto[]::new))))
+            .getOrElseThrow(failure -> new BadRequestDto(failure)))
             .thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new));
 
 
   }
 
   @GetMapping("/{id}")
-  public CompletableFuture<User> getUser(@PathVariable int id) {
-    return userservice.getUserById(id).thenApply(Either::get);}
+  public CompletableFuture<UserDto> getUser(@PathVariable int id) {
+    if (id <= 0) {
+      String[] problems = {"id"};
+      throw new BadRequestDto(new Failure("Invalid Values", problems));
+    }
+
+    return userservice.getUserById(id).thenApply(either -> either.getOrElseThrow(NotFoundDto::new)).thenApply(UserDto::new);}
 
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
-    return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new));
+    if (id <= 0) {
+      String[] problems = {"id"};
+      throw new BadRequestDto(new Failure("Invalid Values", problems));
+    }
+    return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(NotFoundDto::new));
   }
 
 

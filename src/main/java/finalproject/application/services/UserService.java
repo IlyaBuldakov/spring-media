@@ -12,7 +12,7 @@ import java.util.concurrent.Future;
 public interface UserService {
 
   CompletableFuture<Either<Failure, User>> createNewUser(User user);
-  CompletableFuture<Either<Failure, User>> editUser(User user);
+  CompletableFuture<Either<Failure, User>> editUser(User user, int id);
   CompletableFuture<Either<Failure, Void>> deleteUserById(int id);
   CompletableFuture<Either<Failure, User>> getUserById(int id);
   CompletableFuture<Either<Failure, List<User>>> getAllUsers();
