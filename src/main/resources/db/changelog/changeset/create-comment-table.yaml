@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: create comment
+      author: Igor Kiryanov
+      changes:
+        - createTable:
+            tableName: comment
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false

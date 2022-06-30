@@ -29,21 +29,21 @@ databaseChangeLog:
                   name: description
                   type: text
               - column:
-                  name: files_id
+                  name: file_id
                   type: bigint
                   constraints:
                     foreignKeyName: files_id_fk
                     referencedTableName: file
                     referencedColumnNames: id
               - column:
-                  name: user_id
+                  name: user_author_id
                   type: bigint
                   constraints:
                     foreignKeyName: author_id_fk
                     referencedTableName: user
                     referencedColumnNames: id
               - column:
-                  name: user_id
+                  name: user_executor_id
                   type: bigint
                   constraints:
                     foreignKeyName: executor_id_fk
@@ -56,14 +56,14 @@ databaseChangeLog:
                   name: data_executed
                   type: time
               - column:
-                  name: contents_id
+                  name: content_id
                   type: bigint
                   constraints:
-                    foreignKeyName: contents_id_fk
+                    foreignKeyName: content_id_fk
                     referencedTableName: content
                     referencedColumnNames: id
               - column:
-                  name: comments_id
+                  name: comment_id
                   type: bigint
                   constraints:
                     foreignKeyName: comment_id_fk

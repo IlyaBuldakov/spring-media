@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: create content
+      author: Igor Kiryanov
+      changes:
+        - createTable:
+            tableName: content
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false

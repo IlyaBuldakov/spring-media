@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert to status
+      author: Igor Kiryanov
+      changes:
+        - insert:
+           tableName: status
+           columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: inWork
+        - insert:
+            tableName: status
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: feedback
+        - insert:
+            tableName: status
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: approved
