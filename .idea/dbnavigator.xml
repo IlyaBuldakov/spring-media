@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -24,19 +24,19 @@
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="true" />
+    <show-object-properties value="false" />
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="96f608cc-7985-443d-a7cd-1d5d61d2b462">
-      <console name="Connection" type="STANDARD" schema="" session="Main" />
+    <connection id="07fca13c-df5d-4815-9684-4347d2c3739c">
+      <console name="Connection" type="STANDARD" schema="information_schema" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="96f608cc-7985-443d-a7cd-1d5d61d2b462" />
+    <connection id="07fca13c-df5d-4815-9684-4347d2c3739c" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -67,27 +67,23 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="96f608cc-7985-443d-a7cd-1d5d61d2b462" active="true" signed="true">
+      <connection id="07fca13c-df5d-4815-9684-4347d2c3739c" active="true" signed="true">
         <database>
           <name value="Connection" />
           <description value="" />
-          <database-type value="SQLITE" />
+          <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="14.4" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
-          <url-type value="FILE" />
-          <host value="" />
-          <port value="" />
-          <database value="" />
-          <files>
-            <file path="sqlite.db" schema="main" />
-            <file path="C:\Users\Администратор\Desktop\grade.db" schema="grade" />
-          </files>
-          <type value="NONE" />
-          <user value="" />
-          <deprecated-pwd value="" />
+          <url-type value="DATABASE" />
+          <host value="localhost" />
+          <port value="5432" />
+          <database value="mediacontent" />
+          <type value="USER_PASSWORD" />
+          <user value="postgres" />
+          <deprecated-pwd value="cG9zdGdyZXM=" />
         </database>
         <properties>
           <auto-commit value="false" />

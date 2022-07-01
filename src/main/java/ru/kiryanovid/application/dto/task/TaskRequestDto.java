@@ -3,6 +3,7 @@ package ru.kiryanovid.application.dto.task;
 import ru.kiryanovid.domain.entity.task.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.kiryanovid.domain.entity.users.User;
 
 import java.time.LocalDateTime;
 
@@ -29,12 +30,12 @@ public class TaskRequestDto {
     /**
      * Автор задачи
      */
-    @Getter private Integer author;
+    @Getter private User author;
 
     /**
      * Исполнитель задачи
      */
-    @Getter private Integer executor;
+    @Getter private User executor;
 
     /**
      * Дата выполнения

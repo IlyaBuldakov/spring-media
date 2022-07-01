@@ -1,14 +1,15 @@
 spring:
   liquibase:
-    enabled: true
+    enabled: false
   datasource:
-      url: jdbc:postgresql://localhost:5432/mediacontent
+      url: jdbc:postgresql://localhost:5432/test
       username: postgres
       password: postgres
       driverClassName: org.postgresql.Driver
   jpa:
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    generate-ddl: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
 

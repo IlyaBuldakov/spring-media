@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.kiryanovid.application.dto.errors.NotFoundDto;
 import ru.kiryanovid.application.dto.task.TaskDto;
 import ru.kiryanovid.application.dto.task.TaskListDto;
+import ru.kiryanovid.application.dto.task.TaskRequestDto;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
 
@@ -35,7 +36,19 @@ public class TaskController {
         return dtoList;
     }
     @PostMapping
-    public void create(@RequestBody Task task){
+    public void create(@RequestBody TaskRequestDto taskDto){
+        var task = Task.create(null,
+                taskDto.getName(),
+                taskDto.getContentType(),
+                taskDto.getDescription(),
+                null,
+                taskDto.getAuthor(),
+                taskDto.getExecutor(),
+                null,
+                taskDto.getDateExpired(),
+                null,
+                null,
+                null).get();
         createTask.execute(task);
     }
     @GetMapping(path = "/{id}")
