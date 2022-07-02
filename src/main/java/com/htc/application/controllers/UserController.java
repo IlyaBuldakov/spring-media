@@ -1,5 +1,6 @@
 package com.htc.application.controllers;
 
+import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.usecases.user.CreateUser;
 import com.htc.domain.usecases.user.DeleteUserById;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +39,16 @@ public class UserController {
    * Создаёт пользователя.
    */
   @PostMapping
-  public void create() {
+  public void create(@RequestBody UserRequest userRequest) {
+    Controllers.handleRequest(
+            createUser,
+            new CreateUser.Params(
+                    userRequest.getName(),
+                    userRequest.getEmail(),
+                    userRequest.getPassword(),
+                    userRequest.getImage(),
+                    userRequest.getRole()),
+            UserResponse::new);
   }
 
   /**
@@ -74,9 +85,20 @@ public class UserController {
    * Обновляет данные пользователя.
    *
    * @param id Идентификатор пользователя.
+   * @param userRequest Представление сущности пользователя.
    */
   @PutMapping(path = "/{id}")
-  public void update(@PathVariable String id) {
+  public void update(@PathVariable int id, @RequestBody UserRequest userRequest) {
+    Controllers.handleRequest(
+            updateUser,
+            new UpdateUser.Params(
+                    id,
+                    userRequest.getName(),
+                    userRequest.getEmail(),
+                    userRequest.getPassword(),
+                    userRequest.getImage(),
+                    userRequest.getRole()),
+            UserResponse::new);
   }
 
   /**
@@ -85,6 +107,10 @@ public class UserController {
    * @param id Идентификатор пользователя.
    */
   @DeleteMapping(path = "/{id}")
-  public void delete(@PathVariable String id) {
+  public void delete(@PathVariable int id) {
+    Controllers.handleRequest(
+            deleteUserById,
+            id,
+            null);
   }
 }

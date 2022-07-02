@@ -1,6 +1,7 @@
 package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
+import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.RepositoryFailure;
@@ -43,16 +44,47 @@ public class FakeUserRepository implements UserRepository {
 
   @Override
   public CompletableFuture<Either<Failure, User>> create(User user) {
-    return null;
+    if (Math.random() > SUCCESS_CHANCE) {
+      return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
+    }
+
+    if (users.contains(user)) {
+      return CompletableFuture.completedFuture(Either.left(AlreadyExists.DEFAULT_MESSAGE));
+    }
+
+    users.add(user);
+
+    return CompletableFuture.completedFuture(Either.right(user));
   }
 
   @Override
   public CompletableFuture<Either<Failure, User>> update(User user) {
-    return null;
+
+    if (Math.random() > SUCCESS_CHANCE) {
+      return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
+    }
+
+    var userToUpdate = users.stream()
+            .filter(u -> u.getId() == user.getId())
+            .findFirst();
+
+
+    if (userToUpdate.isEmpty()) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+    }
+
+    users.set(users.indexOf(userToUpdate.get()), user);
+
+    return CompletableFuture.completedFuture(Either.right(user));
   }
 
   @Override
   public CompletableFuture<Either<Failure, Void>> delete(int id) {
+    if (Math.random() > SUCCESS_CHANCE) {
+      return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
+    }
+
+    users.removeIf(user -> user.getId() == id);
     return null;
   }
 
