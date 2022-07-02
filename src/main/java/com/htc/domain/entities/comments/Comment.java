@@ -1,5 +1,6 @@
 package com.htc.domain.entities.comments;
 
+import com.htc.domain.entities.tasks.Task;
 import com.htc.domain.entities.user.User;
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -28,10 +29,16 @@ public class Comment {
   /**
    * Автор комментария.
    *
-   * @return пользователя - автора комментария.
+   * @return user - автора комментария.
    */
   private @Getter User user;
 
+  /**
+   * Задача связанная с комментарием.
+   *
+   * @return task задача.
+   */
+  private @Getter Task task;
   /**
    * Текст комментария.
    *
@@ -47,6 +54,7 @@ public class Comment {
   public static Comment createTestComment(int id) {
     return new Comment(
             id,
+            null,
             null,
             null,
             null
