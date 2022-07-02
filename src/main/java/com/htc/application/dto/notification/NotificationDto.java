@@ -1,69 +1,64 @@
-package com.htc.domain.entities.notifications;
+package com.htc.application.dto.notification;
 
+import com.htc.domain.entities.notifications.Notification;
+import com.htc.domain.entities.notifications.NotificationType;
 import com.htc.domain.entities.tasks.Task;
 import com.htc.domain.entities.user.User;
 import java.time.LocalDateTime;
-import java.util.Random;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Уведомление.
+ * Представление сущности уведомления.
  */
-@AllArgsConstructor
-public class Notification {
+public class NotificationDto {
   /**
    * Индентификатор уведомления.
    *
    * @return Индентификатор уведомления.
    */
-  private @Getter int id;
+  private final @Getter int id;
   /**
    * Тип уведомления.
    *
    * @return Тип уведомления.
    */
-  private @Getter NotificationType type;
+  private final @Getter NotificationType type;
   /**
    * Дата получения уведомления.
    *
    * @return Дата плучения уведомления.
    */
-  private @Getter LocalDateTime date;
+  private final @Getter LocalDateTime date;
   /**
    * Сообщение уведомления.
    *
    * @return Сообщение уведомления.
    */
-  private @Getter String message;
+  private final @Getter String message;
   /**
    * Получатель уведомления.
    *
    * @return Пользователь - получатель уведомления.
    */
-  private @Getter User user;
+  private final @Getter User user;
   /**
    *  Задача. Задача связанная с уведомлнием.
    *
    * @return Задача.
    */
-  private @Getter Task task;
+  private final @Getter Task task;
 
   /**
-   * Создаёт тестовое уведомление.
+   * Создаёт экземпляр класса {@link NotificationDto}.
    *
-   * @return Уведомление.
+   * @param notification Уведомление.
    */
-
-  public static Notification createTestNotification() {
-    var id = new Random().nextInt(Integer.MAX_VALUE);
-    return new Notification(
-            id,
-            null,
-            null,
-            null,
-            null,
-            null
-    );
+  public NotificationDto(Notification notification) {
+    this.id = notification.getId();
+    this.type = notification.getType();
+    this.date = notification.getDate();
+    this.message = notification.getMessage();
+    this.user = notification.getUser();
+    this.task = notification.getTask();
   }
 }
