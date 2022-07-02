@@ -6,18 +6,25 @@ import lombok.Getter;
  * Тип контента.
  */
 public enum ContentType {
+
   /**
    * Фото.
    */
-  PHOTO("Фото"),
+  PHOTO(1, "Фото"),
   /**
    * Видео.
    */
-  VIDEO("Видео"),
+  VIDEO(2, "Видео"),
   /**
    * Аудио.
    */
-  AUDIO("Аудио");
+  AUDIO(3, "Аудио");
+  /**
+   * Идентификатор типа контента.
+   *
+   * @return id Идентификатор типа контента.
+   */
+  private final @Getter int id;
 
   /**
    * Наименование типа контента.
@@ -26,7 +33,8 @@ public enum ContentType {
    */
   private final @Getter String name;
 
-  ContentType(String name) {
+  ContentType(int id, String name) {
+    this.id = id;
     this.name = name;
   }
 }
