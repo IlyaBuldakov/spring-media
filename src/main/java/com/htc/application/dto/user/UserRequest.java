@@ -11,35 +11,35 @@ public class UserRequest {
   /**
    * Имя пользователя.
    *
-   * @return id Имя пользователя.
+   * @return Имя пользователя.
    */
   private final @Getter String name;
 
   /**
    * Электронная почта пользователя.
    *
-   * @return id Электронная почта пользователя.
+   * @return Электронная почта пользователя.
    */
   private final @Getter String email;
 
   /**
    * Пароль пользователя.
    *
-   * @return id Пароль пользователя.
+   * @return Пароль пользователя.
    */
   private final @Getter String password;
 
   /**
    * Изображение пользователя.
    *
-   * @return id Изображение пользователя.
+   * @return Изображение пользователя.
    */
   private final @Getter String image;
 
   /**
    * Роль пользователя, см. {@link Role}.
    *
-   * @return id Роль пользователя.
+   * @return Роль пользователя.
    */
   private final @Getter Role role;
 
