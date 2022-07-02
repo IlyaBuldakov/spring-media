@@ -1,5 +1,6 @@
 package com.htc.domain.entities.tasks;
 
+import com.htc.application.dto.file.FileDto;
 import com.htc.domain.entities.comments.Comment;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
@@ -8,6 +9,7 @@ import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +48,7 @@ public class Task {
    *
    * @return Файлы задачи.
    */
-  private @Getter File[] files;
+  private @Getter Collection<File> files;
   /**
    * Автор задачи.
    *
@@ -76,13 +78,13 @@ public class Task {
    *
    * @return Контент.
    */
-  private @Getter Content[] contents;
+  private @Getter Collection<Content> contents;
   /**
    * Коментарии задачи.
    *
    * @return Коментарии задачи.
    */
-  private @Getter Comment[] comments;
+  private @Getter Collection<Comment> comments;
   /**
    * Статус задачи.
    *
@@ -94,18 +96,36 @@ public class Task {
   private Task() {
   }
 
+
+  /**
+   * Создает задачу.
+   *
+   * @param id Индентификатор задачи.
+   * @param name Название задачи.
+   * @param contentType Тип контента.
+   * @param description Описание задачи.
+   * @param files Файлы задачи.
+   * @param author Пользователь - автор задачи.
+   * @param executor Пользователь - исполнитель задачи.
+   * @param dateCreated Дата саздания задачи.
+   * @param dateExpired Срок выполнения задачи.
+   * @param contents Медиаконтент.
+   * @param comments Комментарии.
+   * @param status Статус задачи.
+   * @return Задача, либо ошибку создания задачи.
+   */
   public static Either<Failure, Task> create(
           int id,
           String name,
           ContentType contentType,
           String description,
-          File[] files,
+          Collection<File> files,
           User author,
           User executor,
           LocalDateTime dateCreated,
           LocalDateTime dateExpired,
-          Content[] contents,
-          Comment[] comments,
+          Collection<Content> contents,
+          Collection<Comment> comments,
           TaskStatus status) {
 
     var task = new Task();
