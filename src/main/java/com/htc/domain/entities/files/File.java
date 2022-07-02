@@ -1,5 +1,6 @@
 package com.htc.domain.entities.files;
 
+import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
 import java.util.Random;
 import lombok.AllArgsConstructor;
@@ -43,6 +44,20 @@ public class File {
   private @Getter String url;
 
   /**
+   * Содержимое файла.
+   *
+   * @return файл.
+   */
+  private @Getter String file;
+
+  /**
+   * Задача связаная с файлом.
+   *
+   * @return задачу.
+   */
+  private @Getter Task task;
+
+  /**
    * Создаёт тестовый файл.
    *
    * @return Файл.
@@ -50,6 +65,8 @@ public class File {
   public static File createTestFile(int id) {
     return new File(
             id,
+            null,
+            null,
             null,
             null,
             null,
