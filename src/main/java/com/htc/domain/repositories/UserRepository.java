@@ -4,6 +4,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -33,7 +34,7 @@ public interface UserRepository {
    *
    * @return list список всех пользователей, подробнее {@link User}
    */
-  CompletableFuture<Either<Failure, Iterable<User>>> getAll();
+  CompletableFuture<Either<Failure, List<User>>> getAll();
 
   /**
    * Обновление пользователя.
