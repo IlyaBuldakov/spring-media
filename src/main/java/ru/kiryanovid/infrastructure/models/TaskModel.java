@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task")
 @AllArgsConstructor()
 public class TaskModel {
     /**
@@ -50,7 +49,6 @@ public class TaskModel {
     /**
      * Дата выполнения задачи
      */
-    @Column(name = "data_executed")
     @Getter LocalDateTime dateExpired;
 
     protected TaskModel() {
