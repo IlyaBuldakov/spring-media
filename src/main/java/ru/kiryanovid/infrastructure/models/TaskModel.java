@@ -7,7 +7,6 @@ import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.file.File;
 import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Status;
-import ru.kiryanovid.domain.entity.users.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -49,13 +48,13 @@ public class TaskModel {
      * Автор задачи
      */
     @ManyToOne
-    private @Getter User author;
+    private @Getter UserModel author;
 
     /**
      * Исполнитель задачи
      */
     @ManyToOne
-    private @Getter User executor;
+    private @Getter UserModel executor;
 
     /**
      * Дата создания задачи
