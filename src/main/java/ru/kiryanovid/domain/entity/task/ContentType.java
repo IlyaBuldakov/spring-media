@@ -1,7 +1,6 @@
 package ru.kiryanovid.domain.entity.task;
 
 import lombok.Getter;
-import ru.kiryanovid.application.dto.task.TaskStatusDto;
 
 /**
  * Тип контента
