@@ -28,5 +28,18 @@ public class UserModel {
 
     protected UserModel() {
     }
+
+   /* public UserModel(Integer id, String name, String email, String password, String image, Role role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.image = image;
+        this.role = role;
+    }*/
+    public UserModel(Integer id) {
+        this.id = id;
+
+    }
 }
 
