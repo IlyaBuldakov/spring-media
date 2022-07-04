@@ -1,23 +1,18 @@
 package ru.kiryanovid.domain.entity.task;
 
+import io.vavr.control.Either;
+import lombok.Getter;
 import ru.kiryanovid.domain.entity.comment.Comment;
 import ru.kiryanovid.domain.entity.content.Content;
-import ru.kiryanovid.domain.entity.users.User;
 import ru.kiryanovid.domain.entity.errors.Failure;
-import ru.kiryanovid.domain.entity.errors.InvalidValue;
-import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import ru.kiryanovid.domain.entity.file.File;
+import ru.kiryanovid.domain.entity.users.User;
 
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 /**
  * Задача
  */
-@NoArgsConstructor
-@AllArgsConstructor
 public class Task {
 
     /**
@@ -43,46 +38,45 @@ public class Task {
     /**
      * Путь к файлу контента
      */
-    @Getter private Path file;
+    @Getter private File file;
 
     /**
      * Автор задачи
      */
-    @Getter private User author;
+    private @Getter Integer author;
 
     /**
-     *
+     * Исполнитель задачи
      */
-
-    @Getter private User executor;
+    private @Getter Integer executor;
 
     /**
      * Дата создания задачи
      */
-    @Getter LocalDateTime dateCreate;
+    private @Getter LocalDateTime dateCreate;
 
     /**
      * Дата выполнения задачи
      */
-    @Getter LocalDateTime dateExpired;
+    private @Getter LocalDateTime dateExpired;
 
     /**
      * Контент
      */
-    @Getter Content contents;
+    private @Getter Content content;
 
     /**
      * Комментарий
      */
-    @Getter Iterable<Comment> comments;
+    private @Getter Comment comment;
 
     /**
      * Статус задачи
      */
-    @Getter Status status;
+    private @Getter Status status;
 
     /**
-     * Создает задачу и проверят накорректность.
+     * Создает задачу и проверят на корректность.
      * @param id Идентификатор
      * @param name Название
      * @param contentType Тип контента
@@ -91,16 +85,16 @@ public class Task {
      * @param author Автор
      * @param dateCreate Дата создания
      * @param dateExpired Дата завершения
-     * @param contents Контент
-     * @param comments Комментарии
+     * @param content Контент
+     * @param comment Комментарии
      * @return Задача
      */
     public static Either<Failure,Task> create(
             Integer id, String name, ContentType contentType, String description,
-            Path file, User author, User executor, LocalDateTime dateCreate, LocalDateTime dateExpired,
-            Content contents,Iterable<Comment> comments, Status status){
+            File file, Integer author, Integer executor, LocalDateTime dateCreate, LocalDateTime dateExpired,
+            Content content,Comment comment, Status status){
 
-        if(id <=0){
+       /* if(id <=0){
             return Either.left(InvalidValue.INVALID_ENTITY_ID);
         }
         if(name.isEmpty() || name.equals(" ")){
@@ -114,7 +108,7 @@ public class Task {
         }
         if(dateCreate.isAfter(dateExpired)){
             return Either.left(InvalidValue.INVALID_DATE_EXPIRED);
-        }
+        }*/
 
 
         var task = new Task();
@@ -127,8 +121,8 @@ public class Task {
         task.executor = executor;
         task.dateCreate = dateCreate;
         task.dateExpired = dateExpired;
-        task.contents = contents;
-        task.comments = comments;
+        task.content = content;
+        task.comment = comment;
         task.status = status;
         return Either.right(task);
     }
