@@ -17,7 +17,7 @@ public class User {
      *
      * @return id Идентификатор пользователя.
      */
-    private @Getter int id;
+    private @Getter Integer id;
 
     /**
      * Имя пользователя. Имя - непустая строка.
