@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.kiryanovid.domain.entity.errors.Failure;
+import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.repositories.TaskRepositories;
 import ru.kiryanovid.infrastructure.models.TaskModel;
@@ -54,9 +55,11 @@ public class TaskRepositoriesImpl implements TaskRepositories {
     @Override
     public CompletableFuture<Either<Failure, Task>> get(Integer id) {
         var taskModel = tasks.findById(id).orElseThrow();
+        var typeArray = ContentType.values();
+        var contentType = typeArray[taskModel.getContentType()];
         var task = Task.create(null,
                 taskModel.getName(),
-                null,
+                contentType,
                 taskModel.getDescription(),
                 null,
                 taskModel.getId(),
@@ -72,9 +75,12 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public CompletableFuture<Either<Failure, Iterable<Task>>> getAll() {
+        var xx = tasks.findAll();
+        var t = xx.get(0);
+        var m = t.getContent().getContentType();
         var taskList = tasks.findAll().stream().map(taskModel -> Task.create(null,
                 taskModel.getName(),
-                null,
+                taskModel.getContent().getContentType(),
                 taskModel.getDescription(),
                 null,
                 taskModel.getId(),
@@ -84,6 +90,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
                 null,
                 null,
                 null).get()).toList();
+
         return CompletableFuture.completedFuture(Either.right(taskList));
 
     }

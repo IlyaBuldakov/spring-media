@@ -5,7 +5,6 @@ import lombok.Getter;
 import ru.kiryanovid.domain.entity.comment.Comment;
 import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.file.File;
-import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Status;
 
 import javax.persistence.*;

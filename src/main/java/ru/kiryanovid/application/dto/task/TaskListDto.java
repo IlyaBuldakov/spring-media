@@ -49,7 +49,7 @@ public class TaskListDto {
         this.type = ContentTypeDto.mapToDto(task);
         this.executor = null;
         this.dateExpired = task.getDateExpired();
-        this.status = TaskStatusDto.mapToDto(task);
+        this.status = null;
     }
 
     public static TaskListDto mapToDto(Task task){

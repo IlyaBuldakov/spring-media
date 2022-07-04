@@ -100,6 +100,6 @@ public class TaskDto {
         this.dateExpired = task.getDateExpired();
         this.contents = null;
         this.comments = null;
-        this.status = TaskStatusDto.mapToDto(task);
+        this.status = null;
     }
 }
