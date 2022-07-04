@@ -62,13 +62,6 @@ public class UserController {
 
   }
 
-  @GetMapping("/createRandom")
-  public CompletableFuture<User> createRandom() {
-    return userservice.createNewUser(User.createRandomFakeUser()
-            .getOrElseThrow(failure -> new BadRequestDto(failure)))
-            .thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new));
-  }
-
   @GetMapping("/{id}")
   public CompletableFuture<UserDto> getUser(@PathVariable int id) {
     if (id <= 0) {
