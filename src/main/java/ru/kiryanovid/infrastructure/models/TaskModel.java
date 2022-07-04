@@ -31,7 +31,7 @@ public class TaskModel {
     /**
      * Тип контента в задаче
      */
-    @Getter private ContentType contentType;
+    @Getter private Integer contentType;
 
     /**
      * Описание задачи

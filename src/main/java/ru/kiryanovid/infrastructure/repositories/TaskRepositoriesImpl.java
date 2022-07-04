@@ -21,10 +21,10 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public CompletableFuture<Either<Failure, Task>> create(Task task) {
-        var x = task.getExecutor();
+
         var taskModel = new TaskModel(task.getId(),
                 task.getName(),
-                task.getContentType(),
+                task.getContentType().getId(),
                 task.getDescription(),
                 null,
                 new UserModel(task.getAuthor()),
@@ -56,7 +56,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
         var taskModel = tasks.findById(id).orElseThrow();
         var task = Task.create(null,
                 taskModel.getName(),
-                taskModel.getContentType(),
+                null,
                 taskModel.getDescription(),
                 null,
                 taskModel.getId(),
@@ -74,7 +74,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
     public CompletableFuture<Either<Failure, Iterable<Task>>> getAll() {
         var taskList = tasks.findAll().stream().map(taskModel -> Task.create(null,
                 taskModel.getName(),
-                taskModel.getContentType(),
+                null,
                 taskModel.getDescription(),
                 null,
                 taskModel.getId(),

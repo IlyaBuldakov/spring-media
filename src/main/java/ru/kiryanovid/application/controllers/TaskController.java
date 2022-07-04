@@ -6,6 +6,7 @@ import ru.kiryanovid.application.dto.errors.NotFoundDto;
 import ru.kiryanovid.application.dto.task.TaskDto;
 import ru.kiryanovid.application.dto.task.TaskListDto;
 import ru.kiryanovid.application.dto.task.TaskRequestDto;
+import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
 
@@ -36,16 +37,17 @@ public class TaskController {
         return dtoList;
     }
     @PostMapping
-    public void create(@RequestBody TaskRequestDto taskDto){
+    public void create(@RequestBody TaskRequestDto taskRequestDto){
+        var contentType = ContentType.valueOf(taskRequestDto.getType().toUpperCase());
         var task = Task.create(null,
-                taskDto.getName(),
-                taskDto.getContentType(),
-                taskDto.getDescription(),
+                taskRequestDto.getName(),
+                contentType,
+                taskRequestDto.getDescription(),
                 null,
-                taskDto.getAuthor(),
-                taskDto.getExecutor(),
+                taskRequestDto.getAuthor(),
+                taskRequestDto.getExecutor(),
                 null,
-                taskDto.getDateExpired(),
+                taskRequestDto.getDateExpired(),
                 null,
                 null,
                 null).get();
