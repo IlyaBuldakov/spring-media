@@ -94,8 +94,8 @@ public class TaskDto {
         this.contentType = ContentTypeDto.mapToDto(task);
         this.description = task.getDescription();
         this.files = null;
-        this.author = new UserDto(task.getAuthor());
-        this.executor = new UserDto(task.getExecutor());
+        this.author = null;
+        this.executor = null;
         this.dateCreated = task.getDateCreate();
         this.dateExpired = task.getDateExpired();
         this.contents = null;

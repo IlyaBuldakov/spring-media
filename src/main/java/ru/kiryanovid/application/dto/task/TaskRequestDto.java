@@ -28,17 +28,20 @@ public class TaskRequestDto {
     @Getter private String description;
 
     /**
-     * Автор задачи
+     * Идентификатор автора задачи
      */
-    @Getter private User author;
+    @Getter private Integer author;
 
     /**
-     * Исполнитель задачи
+     * Идентификатор исполнителя задачи
      */
-    @Getter private User executor;
+    @Getter private Integer executor;
 
     /**
      * Дата выполнения
      */
     @Getter private LocalDateTime dateExpired;
+
+    public TaskRequestDto() {
+    }
 }

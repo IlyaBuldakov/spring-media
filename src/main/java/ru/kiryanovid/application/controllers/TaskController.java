@@ -25,10 +25,10 @@ public class TaskController {
     private final DeleteTaskById deleteTaskById;
 
     @GetMapping
-    public Iterable<TaskListDto> getAll() throws ExecutionException, InterruptedException {
-        Iterable<Task> taskList = getAllTasks.execute(null)
-                .get()
-                .get();
+    public List<TaskListDto> getAll() throws ExecutionException, InterruptedException {
+        var taskList = getAllTasks.execute(null).
+                get().
+                get();
         List<TaskListDto> dtoList = new ArrayList<>();
         for(Task task : taskList){
             dtoList.add(new TaskListDto(task));
