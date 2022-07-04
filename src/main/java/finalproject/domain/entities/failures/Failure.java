@@ -8,7 +8,8 @@ public class Failure {
   public enum Messages {
     INVALID_VALUES("Введенные данные некорректны"),
     USER_NOT_FOUND("Пользователь не найден"),
-    INTERNAL_SERVER_ERROR("Ошибка сервера");
+    INTERNAL_SERVER_ERROR("Ошибка сервера"),
+    NOT_FOUND("Страница не найдена");
     final String stringMessage;
     Messages(String stringMessage) {
       this.stringMessage = stringMessage;
