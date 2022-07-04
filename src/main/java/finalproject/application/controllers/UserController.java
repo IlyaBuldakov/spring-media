@@ -1,9 +1,6 @@
 package finalproject.application.controllers;
 
-import finalproject.application.dto.failures.BadRequestDto;
-import finalproject.application.dto.failures.FieldInvalidDto;
-import finalproject.application.dto.failures.InternalServerErrorDto;
-import finalproject.application.dto.failures.NotFoundDto;
+import finalproject.application.dto.failures.*;
 import finalproject.application.dto.user.UserDto;
 import finalproject.application.dto.user.UserRequestDto;
 import finalproject.application.services.UserService;
@@ -12,6 +9,7 @@ import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -69,8 +67,6 @@ public class UserController {
     return userservice.createNewUser(User.createRandomFakeUser()
             .getOrElseThrow(failure -> new BadRequestDto(failure)))
             .thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new));
-
-
   }
 
   @GetMapping("/{id}")
@@ -90,6 +86,11 @@ public class UserController {
     }
     return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(NotFoundDto::new));
   }
+
+
+
+
+
 
 
 }
