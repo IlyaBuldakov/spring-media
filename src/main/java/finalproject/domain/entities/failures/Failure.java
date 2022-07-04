@@ -5,19 +5,32 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Failure {
+  public enum Messages {
+    INVALID_VALUES("Введенные данные некорректны"),
+    USER_NOT_FOUND("Пользователь не найден"),
+    INTERNAL_SERVER_ERROR("Ошибка сервера");
+    final String stringMessage;
+    Messages(String stringMessage) {
+      this.stringMessage = stringMessage;
+    }
 
-  @Getter
+  }
+
   @Setter
-  private String message;
+  private Messages message;
 
   @Getter
   @Setter
   private String[] problems;
 
-  public Failure(String message) {
+  public String getMessage() {
+    return this.message.stringMessage;
+  }
+
+  public Failure(Messages message) {
     this.message = message;
   }
-  public Failure(String message, String[] problems) {
+  public Failure(Messages message, String[] problems) {
     this.message = message;
     this.problems = problems;
   }

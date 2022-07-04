@@ -66,7 +66,7 @@ public class UserController {
   public CompletableFuture<UserDto> getUser(@PathVariable int id) {
     if (id <= 0) {
       String[] problems = {"id"};
-      throw new BadRequestDto(new Failure("Invalid Values", problems));
+      throw new BadRequestDto(new Failure(Failure.Messages.INVALID_VALUES, problems));
     }
 
     return userservice.getUserById(id).thenApply(either -> either.getOrElseThrow(NotFoundDto::new)).thenApply(UserDto::new);}
@@ -75,7 +75,7 @@ public class UserController {
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
     if (id <= 0) {
       String[] problems = {"id"};
-      throw new BadRequestDto(new Failure("Invalid Values", problems));
+      throw new BadRequestDto(new Failure(Failure.Messages.INVALID_VALUES, problems));
     }
     return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(NotFoundDto::new));
   }
