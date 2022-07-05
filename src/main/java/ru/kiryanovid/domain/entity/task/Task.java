@@ -43,12 +43,12 @@ public class Task {
     /**
      * Автор задачи
      */
-    private @Getter Integer author;
+    private @Getter User author;
 
     /**
      * Исполнитель задачи
      */
-    private @Getter Integer executor;
+    private @Getter User executor;
 
     /**
      * Дата создания задачи
@@ -91,7 +91,7 @@ public class Task {
      */
     public static Either<Failure,Task> create(
             Integer id, String name, ContentType contentType, String description,
-            File file, Integer author, Integer executor, LocalDateTime dateCreate, LocalDateTime dateExpired,
+            File file, User author, User executor, LocalDateTime dateCreate, LocalDateTime dateExpired,
             Content content,Comment comment, Status status){
 
        /* if(id <=0){
