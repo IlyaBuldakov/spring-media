@@ -8,6 +8,7 @@ import ru.kiryanovid.domain.entity.errors.Failure;
 import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.repositories.TaskRepositories;
+import ru.kiryanovid.infrastructure.Convert;
 import ru.kiryanovid.infrastructure.models.TaskModel;
 import ru.kiryanovid.infrastructure.models.UserModel;
 
@@ -22,14 +23,13 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public CompletableFuture<Either<Failure, Task>> create(Task task) {
-
         var taskModel = new TaskModel(task.getId(),
                 task.getName(),
                 task.getContentType().getId(),
                 task.getDescription(),
                 null,
-                new UserModel(task.getAuthor()),
-                new UserModel(task.getExecutor()),
+                new UserModel(task.getAuthor().getId()),
+                new UserModel(task.getExecutor().getId()),
                 null,
                 task.getDateExpired(),
                 null,
@@ -42,7 +42,20 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public Future<Either<Failure, Task>> update(Task task) {
-
+        var taskModel = new TaskModel(task.getId(),
+                task.getName(),
+                task.getContentType().getId(),
+                task.getDescription(),
+                null,
+                new UserModel(task.getAuthor().getId()),
+                new UserModel(task.getExecutor().getId()),
+                null,
+                task.getDateExpired(),
+                null,
+                null,
+                null
+        );
+        tasks.save(taskModel);
         return null;
     }
 
@@ -56,14 +69,13 @@ public class TaskRepositoriesImpl implements TaskRepositories {
     public CompletableFuture<Either<Failure, Task>> get(Integer id) {
         var taskModel = tasks.findById(id).orElseThrow();
         var typeArray = ContentType.values();
-        var contentType = typeArray[taskModel.getContentType()];
         var task = Task.create(null,
                 taskModel.getName(),
-                contentType,
+                typeArray[taskModel.getContentType()],
                 taskModel.getDescription(),
                 null,
-                taskModel.getId(),
-                taskModel.getId(),
+                Convert.convertUserModelToEntityUser(taskModel.getAuthor()), //ToDo сделать реализацию
+                Convert.convertUserModelToEntityUser(taskModel.getExecutor()), //ToDo сделать реализацию
                 null,
                 taskModel.getDateExpired(),
                 null,
@@ -75,16 +87,14 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public CompletableFuture<Either<Failure, Iterable<Task>>> getAll() {
-        var xx = tasks.findAll();
-        var t = xx.get(0);
-        var m = t.getContent().getContentType();
+        var typeArray = ContentType.values();
         var taskList = tasks.findAll().stream().map(taskModel -> Task.create(null,
                 taskModel.getName(),
-                taskModel.getContent().getContentType(),
+                typeArray[taskModel.getContentType()],
                 taskModel.getDescription(),
                 null,
-                taskModel.getId(),
-                taskModel.getId(),
+                Convert.convertUserModelToEntityUser(taskModel.getAuthor()), //ToDo сделать реализацию
+                Convert.convertUserModelToEntityUser(taskModel.getExecutor()), //ToDo сделать реализацию
                 null,
                 taskModel.getDateExpired(),
                 null,

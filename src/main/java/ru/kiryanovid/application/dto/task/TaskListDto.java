@@ -47,7 +47,7 @@ public class TaskListDto {
         this.id = task.getId();
         this.name = task.getName();
         this.type = ContentTypeDto.mapToDto(task);
-        this.executor = null;
+        this.executor = new UserBasicDto(task.getExecutor());
         this.dateExpired = task.getDateExpired();
         this.status = null;
     }

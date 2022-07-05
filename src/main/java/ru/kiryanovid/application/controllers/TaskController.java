@@ -9,6 +9,7 @@ import ru.kiryanovid.application.dto.task.TaskRequestDto;
 import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
+import ru.kiryanovid.domain.usecases.user.GetUserById;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class TaskController {
     private final GetTaskById getTaskById;
     private final UpdateTask updateTask;
     private final DeleteTaskById deleteTaskById;
+    private final GetUserById getUserById;
 
     @GetMapping
     public List<TaskListDto> getAll() throws ExecutionException, InterruptedException {
@@ -37,15 +39,17 @@ public class TaskController {
         return dtoList;
     }
     @PostMapping
-    public void create(@RequestBody TaskRequestDto taskRequestDto){
+    public void create(@RequestBody TaskRequestDto taskRequestDto) throws ExecutionException, InterruptedException {
         var contentType = ContentType.valueOf(taskRequestDto.getType().toUpperCase());
+        var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
+        var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
         var task = Task.create(null,
                 taskRequestDto.getName(),
                 contentType,
                 taskRequestDto.getDescription(),
                 null,
-                taskRequestDto.getAuthor(),
-                taskRequestDto.getExecutor(),
+                author,
+                executor,
                 null,
                 taskRequestDto.getDateExpired(),
                 null,
