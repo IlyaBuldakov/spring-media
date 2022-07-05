@@ -52,25 +52,5 @@ public interface UserRepository {
    */
   CompletableFuture<Either<Failure, Void>> delete(int id);
 
-  /**
-   * Получение списка пользователей, чье имя соответствует строке запроса {@code query}.
-   * Проверяется не полное соответствие строки запроса и имени пользователя, а ищется подстрока.
-   *
-   * @param query строка запроса
-   *
-   * @return list список пользователей, подробнее {@link User}
-   */
-  CompletableFuture<Either<Failure, Iterable<User>>> search(String query);
-
-  /**
-   * Получение списка пользователей, чье имя и роль соответствует строке
-   * запроса {@code query} и роли {@code role}. Проверяется не полное соответствие строки
-   * запроса и имени пользователя, а ищется подстрока.
-   *
-   * @param query строка запроса
-   * @param role роль пользователя, подробнее {@link Role}
-   *
-   * @return list список пользователей, подробнее {@link User}
-   */
-  CompletableFuture<Either<Failure, Iterable<User>>> search(String query, Role role);
+  /**/
 }
