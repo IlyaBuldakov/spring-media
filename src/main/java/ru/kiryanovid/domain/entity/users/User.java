@@ -88,7 +88,7 @@ public class User {
      */
     public static Either<Failure, User> create(
             int id, String name, String email, String password, String image, Role role) {
-        // Проверка идентификатора.
+      /*  // Проверка идентификатора.
         if (id < 0) {
             return Either.left(InvalidValue.INVALID_ENTITY_ID);
         }
@@ -114,7 +114,7 @@ public class User {
         // Проверка изображения.
         if (image.length() == 0 || !Base64.isBase64(image)) {
             return Either.left(InvalidValue.INVALID_USER_IMAGE);
-        }
+        }*/
 
         var user = new User();
         user.id = id;
