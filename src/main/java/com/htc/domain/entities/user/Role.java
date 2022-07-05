@@ -39,4 +39,19 @@ public enum Role {
     this.id = id;
     this.name = name;
   }
+
+  /**
+   * Получение роли по названию роли.
+   *
+   * @param name название роли
+   * @return role {@link Role роль}
+   */
+  public static Role getFromName(String name) {
+    for (Role role : Role.values()) {
+      if (role.getName().equals(name))  {
+        return role;
+      }
+    }
+    return null;
+  }
 }
