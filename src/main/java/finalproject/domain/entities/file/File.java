@@ -1,6 +1,5 @@
 package finalproject.domain.entities.file;
 
-import finalproject.application.dto.file.FileDto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

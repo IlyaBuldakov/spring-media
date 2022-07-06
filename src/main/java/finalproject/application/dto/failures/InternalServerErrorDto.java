@@ -1,8 +1,6 @@
 package finalproject.application.dto.failures;
 
 import finalproject.domain.entities.failures.Failure;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 /**

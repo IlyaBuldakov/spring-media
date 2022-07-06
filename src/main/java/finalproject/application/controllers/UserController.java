@@ -1,21 +1,19 @@
 package finalproject.application.controllers;
 
-import finalproject.application.dto.failures.*;
+import finalproject.application.dto.failures.BadRequestDto;
+import finalproject.application.dto.failures.InternalServerErrorDto;
+import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.user.UserDto;
 import finalproject.application.dto.user.UserRequestDto;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
-import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @AllArgsConstructor
 @RestController
