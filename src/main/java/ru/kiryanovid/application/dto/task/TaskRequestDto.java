@@ -1,7 +1,12 @@
 package ru.kiryanovid.application.dto.task;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.kiryanovid.application.dto.content.ContentsResponseDto;
+import ru.kiryanovid.domain.entity.task.ContentType;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +23,8 @@ public class TaskRequestDto {
     /**
      * Тип контента
      */
-    @Getter private String type;
+    @JsonAlias("type")
+    @Getter private ContentType contentType;
 
     /**
      * Описание задачи

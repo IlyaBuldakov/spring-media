@@ -1,5 +1,6 @@
 package ru.kiryanovid.domain.entity.task;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -11,6 +12,7 @@ public enum ContentType {
     PHOTO(3, "photo");
 
     @Getter private final int id;
+    @JsonValue
     @Getter private final String name;
 
     ContentType(int id, String name) {

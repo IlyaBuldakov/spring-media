@@ -2,9 +2,11 @@ package ru.kiryanovid.infrastructure.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import ru.kiryanovid.domain.entity.comment.Comment;
 import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.file.File;
+import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Status;
 
 import javax.persistence.*;
@@ -20,67 +22,70 @@ public class TaskModel {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter private Integer id;
+    @Getter @Setter private Integer id;
 
     /**
      * Название задачи
      */
-    @Getter private String name;
+    @Getter @Setter private String name;
 
     /**
      * Тип контента в задаче
      */
-    @Getter private Integer contentType;
+    @Enumerated(EnumType.STRING)
+    @Getter @Setter private ContentType contentType;
 
     /**
      * Описание задачи
      */
-    @Getter private String description;
+    @Getter @Setter private String description;
 
     /**
      * Путь к файлу контента
      */
     @Transient
-    @Getter private File file;
+    @Getter @Setter private File file;
 
     /**
      * Автор задачи
      */
-    @ManyToOne
-    private @Getter UserModel author;
+    @OneToOne()
+    @JoinColumn(name = "id")
+    private @Getter @Setter UserModel author;
 
     /**
      * Исполнитель задачи
      */
-    @ManyToOne
-    private @Getter UserModel executor;
+    @OneToOne
+    @JoinColumn(name = "id")
+    private @Getter @Setter UserModel executor;
 
     /**
      * Дата создания задачи
      */
-    private @Getter LocalDateTime dateCreate;
+    private @Getter @Setter LocalDateTime dateCreate;
 
     /**
      * Дата выполнения задачи
      */
-    private @Getter LocalDateTime dateExpired;
+    private @Getter @Setter LocalDateTime dateExpired;
 
     /**
      * Контент
      */
     @Transient
-    private @Getter Content content;
+    private @Getter @Setter Content content;
 
     /**
      * Комментарий
      */
     @Transient
-    private @Getter Comment comment;
+    private @Getter @Setter Comment comment;
 
     /**
      * Статус задачи
      */
-    private @Getter Status status;
+    private @Getter @Setter Status status;
 
     protected TaskModel() {
     }

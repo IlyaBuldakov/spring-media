@@ -40,12 +40,11 @@ public class TaskController {
     }
     @PostMapping
     public void create(@RequestBody TaskRequestDto taskRequestDto) throws ExecutionException, InterruptedException {
-        var contentType = ContentType.valueOf(taskRequestDto.getType().toUpperCase());
         var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
         var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
         var task = Task.create(null,
                 taskRequestDto.getName(),
-                contentType,
+                taskRequestDto.getContentType(),
                 taskRequestDto.getDescription(),
                 null,
                 author,
@@ -67,13 +66,13 @@ public class TaskController {
         return CompletableFuture.completedFuture(new TaskDto(result.get().get()));
     }
 
-    @PutMapping("/{id}")
-    public void updateTask(@PathVariable("id") Integer id) throws ExecutionException, InterruptedException {
+    @PutMapping(path = "/{id}")
+    public void updateTask(@PathVariable Integer id) throws ExecutionException, InterruptedException {
         var task = getTaskById.execute(id).get().get();
         updateTask.execute(task);
     }
-    @DeleteMapping("/{id}")
-    public void deleteTaskById(@PathVariable("id") Integer id){
+    @DeleteMapping(path = "/{id}")
+    public void deleteTaskById(@PathVariable Integer id){
         deleteTaskById.execute(id);
     }
 

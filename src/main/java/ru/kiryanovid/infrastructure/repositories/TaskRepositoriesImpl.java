@@ -25,7 +25,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
     public CompletableFuture<Either<Failure, Task>> create(Task task) {
         var taskModel = new TaskModel(task.getId(),
                 task.getName(),
-                task.getContentType().getId(),
+                task.getContentType(),
                 task.getDescription(),
                 null,
                 new UserModel(task.getAuthor().getId()),
@@ -42,22 +42,17 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public Future<Either<Failure, Task>> update(Task task) {
-        var taskModel = new TaskModel(task.getId(),
-                task.getName(),
-                task.getContentType().getId(),
-                task.getDescription(),
-                null,
-                new UserModel(task.getAuthor().getId()),
-                new UserModel(task.getExecutor().getId()),
-                null,
-                task.getDateExpired(),
-                null,
-                null,
-                null
-        );
-        tasks.save(taskModel);
+        var updatedTaskModel = tasks.findById(task.getId()).get();
+        updatedTaskModel.setName(task.getName());
+        updatedTaskModel.setContentType(task.getContentType());
+        updatedTaskModel.setDescription(task.getDescription());
+        updatedTaskModel.setAuthor(null);
+        updatedTaskModel.setExecutor(null);
+        updatedTaskModel.setDateExpired(task.getDateExpired());
+        tasks.save(updatedTaskModel);
         return null;
     }
+
 
     @Override
     public Future<Either<Failure, Void>> delete(Integer id) {
@@ -71,7 +66,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
         var typeArray = ContentType.values();
         var task = Task.create(null,
                 taskModel.getName(),
-                typeArray[taskModel.getContentType()],
+                taskModel.getContentType(),
                 taskModel.getDescription(),
                 null,
                 Convert.convertUserModelToEntityUser(taskModel.getAuthor()), //ToDo сделать реализацию
@@ -90,7 +85,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
         var typeArray = ContentType.values();
         var taskList = tasks.findAll().stream().map(taskModel -> Task.create(null,
                 taskModel.getName(),
-                typeArray[taskModel.getContentType()],
+                taskModel.getContentType(),
                 taskModel.getDescription(),
                 null,
                 Convert.convertUserModelToEntityUser(taskModel.getAuthor()), //ToDo сделать реализацию
