@@ -21,10 +21,10 @@ public abstract class EntityParameter<ValueT> {
       return true;
     }
 
-    if (!(o instanceof EntityParameter<?> that)) {
+    if (!(o instanceof EntityParameter<?>)) {
       return false;
     }
-
+    var that = (EntityParameter<?>) o;
     return Objects.equals(value, that.value);
   }
 
