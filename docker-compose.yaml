@@ -17,6 +17,7 @@ services:
       container_name: keycloak
       environment:
         DB_VENDOR: POSTGRES
+        DB_ADDR: postgres
         DB_DATABASE: testdb
         DB_USER: ${DB_login}
         DB_PASSWORD: ${DB_pass}
