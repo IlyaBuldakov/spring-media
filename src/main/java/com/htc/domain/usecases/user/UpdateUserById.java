@@ -5,6 +5,7 @@ import com.htc.domain.entities.failures.InvalidValueParam;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.UserEmail;
 import com.htc.domain.entities.utility.parameters.UserImage;
 import com.htc.domain.entities.utility.parameters.UserName;
@@ -18,11 +19,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * Сценарий добавления пользователя.
+ * Сценарий обновления пользователя.
  */
 @Component
 @AllArgsConstructor
-public final class AddUser implements UseCase<AddUser.Params, User> {
+public final class UpdateUserById implements UseCase<UpdateUserById.Params, User> {
   /**
    * Параметры сценария получения пользователя по его идентификатору.
    *
@@ -37,7 +38,8 @@ public final class AddUser implements UseCase<AddUser.Params, User> {
    * @param role роль
    * @param roleKey ключ роли
    */
-  public record Params(String name, String nameKey,
+  public record Params(Long id, String idKey,
+                       String name, String nameKey,
                        String email, String emailKey,
                        String password, String passwordKey,
                        String image, String imageKey,
@@ -48,6 +50,10 @@ public final class AddUser implements UseCase<AddUser.Params, User> {
   @Override
   public CompletableFuture<Either<Failure, User>> execute(Params params) {
     var failure = new InvalidValues();
+    var id = Id.create(params.id());
+    if (id.isLeft()) {
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.idKey);
+    }
     var name = UserName.create(params.name());
     if (name.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_USER_NAME, params.nameKey);
@@ -65,7 +71,13 @@ public final class AddUser implements UseCase<AddUser.Params, User> {
       failure.getValues().put(InvalidValueParam.INVALID_USER_IMAGE, params.imageKey);
     }
     return failure.getValues().size() == 0
-            ? repository.add(name.get(), email.get(), password.get(), image.get(), params.role())
+            ? repository.update(
+                    id.get(),
+                    name.get(),
+                    email.get(),
+                    password.get(),
+                    image.get(),
+                    params.role())
             : EitherHelper.badLeft(failure);
   }
 }

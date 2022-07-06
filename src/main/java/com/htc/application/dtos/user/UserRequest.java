@@ -1,12 +1,13 @@
 package com.htc.application.dtos.user;
 
 import com.htc.domain.entities.user.Role;
-import com.htc.domain.entities.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * Запрос. Основное представление сущности пользователя.
  */
+@AllArgsConstructor
 public class UserRequest {
   /**
    * Полное имя.
@@ -14,7 +15,7 @@ public class UserRequest {
    * @return name полное имя
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String name;
+  private @Getter String name;
 
   /**
    * Электронная почта.
@@ -22,7 +23,7 @@ public class UserRequest {
    * @return email электронная почта
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String email;
+  private @Getter String email;
 
   /**
    * Пароль.
@@ -30,7 +31,7 @@ public class UserRequest {
    * @return password пароль
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String password;
+  private @Getter String password;
 
   /**
    * Аватар в base64.
@@ -38,7 +39,7 @@ public class UserRequest {
    * @return avatar аватар
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String avatar;
+  private @Getter String avatar;
 
   /**
    * Роль.
@@ -48,18 +49,7 @@ public class UserRequest {
    * @return role роль
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Role role;
+  private @Getter Role role;
 
-  /**
-   * Создание основного представления пользователя.
-   *
-   * @param user сущность пользователя, подробнее {@link User}
-   */
-  public UserRequest(User user) {
-    this.name = user.getName();
-    this.email = user.getEmail();
-    this.password = user.getPassword();
-    this.avatar = user.getAvatar();
-    this.role = user.getRole();
-  }
+  private UserRequest() {}
 }

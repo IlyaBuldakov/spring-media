@@ -3,6 +3,11 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.Id;
+import com.htc.domain.entities.utility.parameters.UserEmail;
+import com.htc.domain.entities.utility.parameters.UserImage;
+import com.htc.domain.entities.utility.parameters.UserName;
+import com.htc.domain.entities.utility.parameters.UserPassword;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -14,11 +19,12 @@ public interface UserRepository {
   /**
    * Добавление нового пользователя.
    *
-   * @param user новый пользователь
+   * @param name новый пользователь
    *
    * @return user новый пользователь, подробнее {@link User}
    */
-  CompletableFuture<Either<Failure, User>> add(User user);
+  CompletableFuture<Either<Failure, User>> add(UserName name, UserEmail email,
+                                               UserPassword password, UserImage image, Role role);
 
   /**
    * Получение пользователя.
@@ -27,7 +33,7 @@ public interface UserRepository {
    *
    * @return user пользователь, подробнее {@link User}
    */
-  CompletableFuture<Either<Failure, User>> get(int id);
+  CompletableFuture<Either<Failure, User>> get(Id id);
 
   /**
    * Получение всех пользователей.
@@ -39,18 +45,17 @@ public interface UserRepository {
   /**
    * Обновление пользователя.
    *
-   * @param user пользователь
+   * @param id пользователь
    *
    * @return user пользователь, подробнее {@link User}
    */
-  CompletableFuture<Either<Failure, User>> update(User user);
+  CompletableFuture<Either<Failure, User>> update(
+          Id id, UserName name, UserEmail email, UserPassword password, UserImage image, Role role);
 
   /**
    * Удаление пользователя.
    *
    * @param id идентификатор пользователя
    */
-  CompletableFuture<Either<Failure, Void>> delete(int id);
-
-  /**/
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 }

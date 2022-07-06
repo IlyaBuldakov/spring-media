@@ -13,7 +13,7 @@ public class UserShortResponse {
    * @return id идентификатор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int id;
+  private final @Getter long id;
 
   /**
    * Полное имя.
@@ -29,7 +29,7 @@ public class UserShortResponse {
    * @param user сущность пользователя, подробнее {@link User}
    */
   public UserShortResponse(User user) {
-    this.id = user.getId();
-    this.name = user.getName();
+    this.id = user.getId().getValue();
+    this.name = user.getName().getValue();
   }
 }

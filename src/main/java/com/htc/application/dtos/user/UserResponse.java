@@ -14,7 +14,7 @@ public class UserResponse {
    * @return id идентификатор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int id;
+  private final @Getter long id;
 
   /**
    * Полное имя.
@@ -56,10 +56,10 @@ public class UserResponse {
    * @param user сущность пользователя, подробнее {@link User}
    */
   public UserResponse(User user) {
-    this.id = user.getId();
-    this.name = user.getName();
-    this.email = user.getEmail();
-    this.avatar = user.getAvatar();
+    this.id = user.getId().getValue();
+    this.name = user.getName().getValue();
+    this.email = user.getEmail().getValue();
+    this.avatar = user.getAvatar().getValue();
     this.role = user.getRole();
   }
 }
