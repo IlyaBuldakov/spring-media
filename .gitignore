@@ -166,3 +166,6 @@ buildNumber.properties
 
 # macOS Desktop Service Store
 .DS_Store
+
+# Database Navigator plugin
+/.idea/dbnavigator.xml
