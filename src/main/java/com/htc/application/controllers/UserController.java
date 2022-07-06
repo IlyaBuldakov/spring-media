@@ -1,24 +1,17 @@
 package com.htc.application.controllers;
 
-import com.htc.application.dtos.exceptions.InternalServerErrorResponse;
-import com.htc.application.dtos.exceptions.InvalidValuesResponse;
-import com.htc.application.dtos.exceptions.NotFoundResponse;
-import com.htc.application.dtos.exceptions.UnauthorizedResponse;
+import com.htc.application.dtos.user.UserRequest;
 import com.htc.application.dtos.user.UserResponse;
 import com.htc.domain.usecases.user.AddUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
 import com.htc.domain.usecases.user.GetUserById;
-import com.htc.domain.usecases.user.SearchUsers;
-import com.htc.domain.usecases.user.UpdateUser;
+import com.htc.domain.usecases.user.UpdateUserById;
 import com.htc.utility.ControllerHelper;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,18 +30,29 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class UserController {
   private AddUser addUser;
-  private UpdateUser updateUser;
+  private UpdateUserById updateUserById;
   private DeleteUserById deleteUserById;
   private GetUserById getUserById;
   private GetAllUsers getAllUsers;
-  private SearchUsers searchUsers;
 
   /**
    * Добавление пользователя.
    */
   @PostMapping
-  public void add() {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Operation(summary = "Добавить нового пользователя.")
+  @Async
+  public void add(@RequestBody UserRequest userRequest) {
+    ControllerHelper.customRequest(
+            addUser,
+            new AddUser.Params(
+                    userRequest.getName(), "name",
+                    userRequest.getEmail(), "email",
+                    userRequest.getPassword(), "password",
+                    userRequest.getAvatar(), "image",
+                    userRequest.getRole(), "role"
+            ),
+            null
+    );
   }
 
   /**
@@ -59,37 +63,7 @@ public class UserController {
    */
   @GetMapping(path = "/{id}")
   @Async
-  @Operation(
-          summary = "Получить пользователя по идентификатору.",
-          responses = {
-              @ApiResponse(
-                      responseCode = "200",
-                      content = @Content(
-                              mediaType = "application/json",
-                              schema = @Schema(implementation = UserResponse.class))),
-              @ApiResponse(
-                      responseCode = "400",
-                      content = @Content(
-                              mediaType = "application/json",
-                              schema = @Schema(implementation = InvalidValuesResponse.class))),
-              @ApiResponse(
-                      responseCode = "401",
-                      content = @Content(
-                              mediaType = "application/json",
-                              schema = @Schema(implementation = UnauthorizedResponse.class))),
-              @ApiResponse(
-                      responseCode = "404",
-                      content = @Content(
-                              mediaType = "application/json",
-                              schema = @Schema(implementation = NotFoundResponse.class))),
-              @ApiResponse(
-                      responseCode = "500",
-                      content = @Content(
-                              mediaType = "application/json",
-                              schema = @Schema(implementation = InternalServerErrorResponse.class)))
-          }
-  )
-  public CompletableFuture<UserResponse> get(@PathVariable String id) {
+  public CompletableFuture<UserResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getUserById,
             new GetUserById.Params(id, "id"),
@@ -103,12 +77,12 @@ public class UserController {
    * @return list список пользователей
    */
   @GetMapping
+  @Async
   public CompletableFuture<Iterable<UserResponse>> getAll() {
     return ControllerHelper.customRequest(
       getAllUsers,
       null,
-      users -> StreamSupport
-              .stream(users.spliterator(), false)
+      users -> users.stream()
               .map(UserResponse::new)
               .collect(Collectors.toList())
     );
@@ -120,8 +94,20 @@ public class UserController {
    * @param id идентификатор
    */
   @PutMapping(path = "/{id}")
-  public void update(@PathVariable int id) {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Async
+  public void update(@PathVariable Long id, @RequestBody UserRequest userRequest) {
+    ControllerHelper.customRequest(
+            updateUserById,
+            new UpdateUserById.Params(
+                    id, "id",
+                    userRequest.getName(), "name",
+                    userRequest.getEmail(), "email",
+                    userRequest.getPassword(), "password",
+                    userRequest.getAvatar(), "image",
+                    userRequest.getRole(), "role"
+            ),
+            UserResponse::new
+    );
   }
 
   /**
@@ -130,7 +116,12 @@ public class UserController {
    * @param id идентификатор
    */
   @DeleteMapping(path = "/{id}")
-  public void delete(@PathVariable int id) {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Async
+  public CompletableFuture<Void> delete(@PathVariable Long id) {
+    return ControllerHelper.customRequest(
+            deleteUserById,
+            new DeleteUserById.Params(id, "id"),
+            null
+    );
   }
 }
