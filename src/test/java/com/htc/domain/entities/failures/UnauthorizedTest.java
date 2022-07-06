@@ -5,10 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-class AlreadyExistsTest {
+class UnauthorizedTest {
   @Test
   void oneConstructorExistsOnly() {
-    var constructors = AlreadyExists.class.getDeclaredConstructors();
+    var constructors = Unauthorized.class.getDeclaredConstructors();
     assertThat(constructors).hasSize(1);
   }
 
@@ -20,8 +20,8 @@ class AlreadyExistsTest {
    */
   @Test
   void classIsEnumAndConstructorHasHttpStatusAndStringParamsSequence() {
-    var constructors = AlreadyExists.class.getDeclaredConstructors();
-    assertThat(AlreadyExists.class.isEnum()).isTrue();
+    var constructors = Unauthorized.class.getDeclaredConstructors();
+    assertThat(Unauthorized.class.isEnum()).isTrue();
     assertThat(constructors[0].getParameterCount()).isEqualTo(4);
     assertThat(constructors[0].getParameterTypes())
             .containsSequence(String.class, int.class, HttpStatus.class, String.class);

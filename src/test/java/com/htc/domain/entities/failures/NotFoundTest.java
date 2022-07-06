@@ -19,11 +19,11 @@ class NotFoundTest {
    * смотри конструктор {@link Enum}</p>
    */
   @Test
-  void classIsEnumAndConstructorHasIntegerAndStringParamsSequence() {
+  void classIsEnumAndConstructorHasHttpStatusAndStringParamsSequence() {
     var constructors = NotFound.class.getDeclaredConstructors();
-    assertThat(InvalidValueParam.class.isEnum()).isTrue();
+    assertThat(NotFound.class.isEnum()).isTrue();
     assertThat(constructors[0].getParameterCount()).isEqualTo(4);
     assertThat(constructors[0].getParameterTypes())
-            .containsSequence(HttpStatus.class, String.class);
+            .containsSequence(String.class, int.class, HttpStatus.class, String.class);
   }
 }
