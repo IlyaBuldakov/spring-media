@@ -2,7 +2,9 @@
 Фреймворк:
 1. `org.springframework.boot:spring-boot-starter-parent` - базовый POM для проектов на Spring.
 2. `org.springframework.boot:spring-boot-starter-web` - cтартер для создания веб-приложений.
-3. `io.springfox:springfox-boot-starter` - cтартер для генерации Swagger UI.
+3. `org.springframework.boot:spring-boot-starter-data-jpa` - cтартер для взаимодействия с базой данных.
+4. `org.postgresql:postgresql` - JDBC драйвер для СУБД PostgreSQL.
+5. `io.springfox:springfox-boot-starter` - cтартер для генерации Swagger UI.
 
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` - модульное тестирование.
@@ -28,6 +30,10 @@
 ## Сборка проекта
 
 ## Установка проекта
+- В [application.yml](\src\main\resources\application.yml) установить:
+  - 'spring.datasource.url' - ссылка на СУБД.
+  - 'spring.datasource.username' - имя пользователя СУБД.
+  - 'spring.datasource.password' - пароль пользователя СУБД.
 
 ## Запуск проекта
 
@@ -42,4 +48,8 @@
 написать тесты что ошибки реализуют Failure
 на тесты ошибок добавить уникальность статуса
 функция нахождения файлов, не прикрепленных файлов
+протестить на непредвиденное разрастание списка ошибок в invalidvalues
+возможно ли снова сделать имплементацию Failure на InvalidValueParam
+fakeuserrepository - var usersResult = users.stream().filter(us -> us.getId().getValue() == id.getValue()).toList(); написать свой equals
+тест на id = 234234ыва (public CompletableFuture<UserResponse> get(@PathVariable int id))
 -->

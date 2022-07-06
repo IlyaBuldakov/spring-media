@@ -5,3 +5,7 @@
 checkstyle-idea.xml
 /checkstyleidea-libs/readme.txt
 /codeStyles/codeStyleConfig.xml
+
+# Extends
+/jpa-buddy.xml
+/dbnavigator.xml
