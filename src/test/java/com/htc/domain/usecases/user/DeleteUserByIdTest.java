@@ -3,6 +3,7 @@ package com.htc.domain.usecases.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.utility.EitherHelper;
@@ -17,6 +18,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class DeleteUserByIdTest {
   final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
   final DeleteUserById useCase = new DeleteUserById(mockUserRepository);
+  final DeleteUserById.Params params = new DeleteUserById.Params(
+          new Random().nextLong(1, 32),
+          "idKey"
+  );
 
   @Test
   void shouldInheritUseCase() {
@@ -25,36 +30,27 @@ class DeleteUserByIdTest {
 
   @Test
   void shouldDeleteUserByTheRepository() {
-    var testUserId = new Random().nextInt(1, 32);
-    useCase.execute(testUserId);
-    Mockito.verify(mockUserRepository).delete(testUserId);
+    useCase.execute(params);
+    Mockito.verify(mockUserRepository).delete(Id.create(params.id()).get());
   }
 
   @Test
   void userExists_ShouldDeleteUserAndReturnVoid() throws ExecutionException, InterruptedException {
     // Arrange
-    var testUserId = new Random().nextInt(1, 32);
-    Mockito
-            .when(mockUserRepository.delete(testUserId))
+    Mockito.when(mockUserRepository.delete(Id.create(params.id()).get()))
             .thenReturn(EitherHelper.goodRight(null));
     // Act
-    var result = useCase.execute(testUserId)
-            .get()
-            .get();
+    var result = useCase.execute(params).get().get();
     // Assert
     assertThat(result).isNull();
   }
 
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
-    var badTestUserId = new Random().nextInt(1, 32);
     var failure = NotFound.DEFAULT_MESSAGE;
-    Mockito
-            .when(mockUserRepository.delete(badTestUserId))
+    Mockito.when(mockUserRepository.delete(Id.create(params.id()).get()))
             .thenReturn(EitherHelper.badLeft(failure));
-    var result = useCase.execute(badTestUserId)
-            .get()
-            .getLeft();
+    var result = useCase.execute(params).get().getLeft();
     assertThat(result).isEqualTo(failure);
   }
 }

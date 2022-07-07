@@ -2,8 +2,9 @@ package com.htc.domain.usecases.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.htc.domain.entities.failures.AlreadyExists;
+import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.user.Role;
+import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.UserEmail;
 import com.htc.domain.entities.utility.parameters.UserImage;
 import com.htc.domain.entities.utility.parameters.UserName;
@@ -20,10 +21,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class AddUserTest {
+class UpdateUserByIdTest {
   final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
-  final AddUser useCase = new AddUser(mockUserRepository);
-  final AddUser.Params params = new AddUser.Params(
+  final UpdateUserById useCase = new UpdateUserById(mockUserRepository);
+  final UpdateUserById.Params params = new UpdateUserById.Params(
+          new Random().nextLong(1, 32), "idKey",
           "name", "nameKey",
           "email@email.com", "emailKey",
           "password11AA", "passwordKey",
@@ -37,30 +39,30 @@ class AddUserTest {
   }
 
   @Test
-  void shouldCreateUserByTheRepository() {
+  void shouldUpdateUserByTheRepository() {
     // Act
     useCase.execute(params);
     // Assert
-    Mockito.verify(mockUserRepository).add(
+    Mockito.verify(mockUserRepository).update(
+            Id.create(params.id()).get(),
             UserName.create(params.name()).get(),
             UserEmail.create(params.email()).get(),
             UserPassword.create(params.password()).get(),
             UserImage.create(params.image()).get(),
-            params.role()
-    );
+            params.role());
   }
 
   @Test
-  void userDoesNotExist_ShouldCreateUserAndReturnUser()
-          throws ExecutionException, InterruptedException {
+  void usersExist_ShouldUpdateUser() throws ExecutionException, InterruptedException {
     var userm = new UserModel(
-            new Random().nextLong(1, 32),
+            params.id(),
             params.name(),
             params.password(),
             params.email(),
             params.image(),
             params.role().getName());
-    Mockito.when(mockUserRepository.add(
+    Mockito.when(mockUserRepository.update(
+                    Id.create(params.id()).get(),
                     UserName.create(params.name()).get(),
                     UserEmail.create(params.email()).get(),
                     UserPassword.create(params.password()).get(),
@@ -72,9 +74,10 @@ class AddUserTest {
   }
 
   @Test
-  void usersExist_ShouldReturnAlreadyExists() throws ExecutionException, InterruptedException {
-    var failure = AlreadyExists.DEFAULT_MESSAGE;
-    Mockito.when(mockUserRepository.add(
+  void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
+    var failure = NotFound.DEFAULT_MESSAGE;
+    Mockito.when(mockUserRepository.update(
+                    Id.create(params.id()).get(),
                     UserName.create(params.name()).get(),
                     UserEmail.create(params.email()).get(),
                     UserPassword.create(params.password()).get(),
