@@ -50,14 +50,12 @@ public class TaskModel {
      * Автор задачи
      */
     @OneToOne()
-    @JoinColumn(name = "id")
     private @Getter @Setter UserModel author;
 
     /**
      * Исполнитель задачи
      */
     @OneToOne
-    @JoinColumn(name = "id")
     private @Getter @Setter UserModel executor;
 
     /**

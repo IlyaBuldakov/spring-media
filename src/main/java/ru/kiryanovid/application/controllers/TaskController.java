@@ -6,13 +6,16 @@ import ru.kiryanovid.application.dto.errors.NotFoundDto;
 import ru.kiryanovid.application.dto.task.TaskDto;
 import ru.kiryanovid.application.dto.task.TaskListDto;
 import ru.kiryanovid.application.dto.task.TaskRequestDto;
-import ru.kiryanovid.domain.entity.task.ContentType;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
 import ru.kiryanovid.domain.usecases.user.GetUserById;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -49,7 +52,7 @@ public class TaskController {
                 null,
                 author,
                 executor,
-                null,
+                LocalDateTime.now(),
                 taskRequestDto.getDateExpired(),
                 null,
                 null,
@@ -67,9 +70,23 @@ public class TaskController {
     }
 
     @PutMapping(path = "/{id}")
-    public void updateTask(@PathVariable Integer id) throws ExecutionException, InterruptedException {
-        var task = getTaskById.execute(id).get().get();
-        updateTask.execute(task);
+    public void updateTask(@RequestBody TaskRequestDto taskRequestDto, @PathVariable Integer id) throws ExecutionException, InterruptedException {
+        var oldTask = getTaskById.execute(id).get().get();
+        var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
+        var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
+        var updatedTask = Task.create(id,
+                taskRequestDto.getName(),
+                taskRequestDto.getContentType(),
+                taskRequestDto.getDescription(),
+                null,
+                author,
+                executor,
+                null,
+                taskRequestDto.getDateExpired(),
+                null,
+                null,
+                null).get();
+        updateTask.execute(updatedTask);
     }
     @DeleteMapping(path = "/{id}")
     public void deleteTaskById(@PathVariable Integer id){

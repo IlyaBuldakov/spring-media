@@ -30,7 +30,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
                 null,
                 new UserModel(task.getAuthor().getId()),
                 new UserModel(task.getExecutor().getId()),
-                null,
+                task.getDateCreate(),
                 task.getDateExpired(),
                 null,
                 null,
@@ -42,14 +42,20 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public Future<Either<Failure, Task>> update(Task task) {
-        var updatedTaskModel = tasks.findById(task.getId()).get();
-        updatedTaskModel.setName(task.getName());
-        updatedTaskModel.setContentType(task.getContentType());
-        updatedTaskModel.setDescription(task.getDescription());
-        updatedTaskModel.setAuthor(null);
-        updatedTaskModel.setExecutor(null);
-        updatedTaskModel.setDateExpired(task.getDateExpired());
-        tasks.save(updatedTaskModel);
+        var taskModel = new TaskModel(task.getId(),
+                task.getName(),
+                task.getContentType(),
+                task.getDescription(),
+                null,
+                new UserModel(task.getAuthor().getId()),
+                new UserModel(task.getExecutor().getId()),
+                null,
+                task.getDateExpired(),
+                null,
+                null,
+                null
+        );
+        tasks.save(taskModel);
         return null;
     }
 
@@ -63,15 +69,14 @@ public class TaskRepositoriesImpl implements TaskRepositories {
     @Override
     public CompletableFuture<Either<Failure, Task>> get(Integer id) {
         var taskModel = tasks.findById(id).orElseThrow();
-        var typeArray = ContentType.values();
-        var task = Task.create(null,
+        var task = Task.create(taskModel.getId(),
                 taskModel.getName(),
                 taskModel.getContentType(),
                 taskModel.getDescription(),
                 null,
-                Convert.convertUserModelToEntityUser(taskModel.getAuthor()), //ToDo сделать реализацию
-                Convert.convertUserModelToEntityUser(taskModel.getExecutor()), //ToDo сделать реализацию
-                null,
+                Convert.convertUserModelToEntityUser(taskModel.getAuthor()),
+                Convert.convertUserModelToEntityUser(taskModel.getExecutor()),
+                taskModel.getDateCreate(),
                 taskModel.getDateExpired(),
                 null,
                 null,
@@ -82,14 +87,13 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public CompletableFuture<Either<Failure, Iterable<Task>>> getAll() {
-        var typeArray = ContentType.values();
         var taskList = tasks.findAll().stream().map(taskModel -> Task.create(null,
                 taskModel.getName(),
                 taskModel.getContentType(),
                 taskModel.getDescription(),
                 null,
-                Convert.convertUserModelToEntityUser(taskModel.getAuthor()), //ToDo сделать реализацию
-                Convert.convertUserModelToEntityUser(taskModel.getExecutor()), //ToDo сделать реализацию
+                Convert.convertUserModelToEntityUser(taskModel.getAuthor()),
+                Convert.convertUserModelToEntityUser(taskModel.getExecutor()),
                 null,
                 taskModel.getDateExpired(),
                 null,
@@ -100,6 +104,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     }
     public interface Tasks extends JpaRepository<TaskModel, Integer>{
+
 
     }
 }
