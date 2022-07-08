@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity.notification;
+package ru.kiryanovid.application.dto.notification;
 
 import ru.kiryanovid.application.dto.task.TaskBasicDto;
 import ru.kiryanovid.application.dto.users.UserBasicDto;

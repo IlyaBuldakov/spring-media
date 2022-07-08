@@ -1,4 +1,4 @@
-package ru.kiryanovid.domain.entity.authentication;
+package ru.kiryanovid.application.dto.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
