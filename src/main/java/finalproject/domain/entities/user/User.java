@@ -93,9 +93,7 @@ public class User implements Serializable {
       user.role = role;
       return Either.right(user);
     }
-      Failure failure = new Failure(Failure.Messages.INVALID_VALUES);
-      failure.setProblems(validators.problems.toArray(new String[0]));
-      return Either.left(failure);
+      return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.problems));
     }
   }
 

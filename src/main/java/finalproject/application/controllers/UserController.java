@@ -1,12 +1,10 @@
 package finalproject.application.controllers;
 
 import finalproject.application.dto.failures.BadRequestDto;
-import finalproject.application.dto.failures.InternalServerErrorDto;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.user.UserDto;
 import finalproject.application.dto.user.UserRequestDto;
 import finalproject.application.services.UserService;
-import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import lombok.AllArgsConstructor;
@@ -22,6 +20,7 @@ public class UserController {
 
   UserService userservice;
 
+
   @GetMapping
   public CompletableFuture<List<UserDto>> getUsers() {
     return userservice.getAllUsers().thenApply(either -> either.get().stream().map(UserDto::new).toList());
@@ -35,10 +34,8 @@ public class UserController {
             .getOrElseThrow(failure -> new BadRequestDto(failure));
     return userservice
             .createNewUser(user)
-            .thenApply(either -> either.getOrElseThrow(InternalServerErrorDto::new))
+            .thenApply(either -> either.getOrElseThrow(failure -> new BadRequestDto(failure)))
             .thenApply(UserDto::new);
-
-
   }
 
   @PutMapping("/{id}")
@@ -56,26 +53,28 @@ public class UserController {
               }
               return new NotFoundDto(failure);
             })).thenApply(UserDto::new);
-
-
   }
 
   @GetMapping("/{id}")
   public CompletableFuture<UserDto> getUser(@PathVariable int id) {
-    if (id <= 0) {
-      String[] problems = {"id"};
-      throw new BadRequestDto(new Failure(Failure.Messages.INVALID_VALUES, problems));
-    }
-
-    return userservice.getUserById(id).thenApply(either -> either.getOrElseThrow(NotFoundDto::new)).thenApply(UserDto::new);}
+    return userservice.getUserById(id)
+      .thenApply(either -> either.getOrElseThrow(failure -> {
+        if (failure.getProblems() != null) {
+          return new BadRequestDto(failure);
+        }
+        return new NotFoundDto(failure);
+      }))
+      .thenApply(UserDto::new);
+  }
 
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
-    if (id <= 0) {
-      String[] problems = {"id"};
-      throw new BadRequestDto(new Failure(Failure.Messages.INVALID_VALUES, problems));
-    }
-    return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(NotFoundDto::new));
+    return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(failure -> {
+      if (failure.getProblems() != null) {
+        return new BadRequestDto(failure);
+      }
+      return new NotFoundDto(failure);
+    }));
   }
 
 
