@@ -11,11 +11,8 @@ import ru.kiryanovid.domain.usecases.task.*;
 import ru.kiryanovid.domain.usecases.user.GetUserById;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -71,7 +68,6 @@ public class TaskController {
 
     @PutMapping(path = "/{id}")
     public void updateTask(@RequestBody TaskRequestDto taskRequestDto, @PathVariable Integer id) throws ExecutionException, InterruptedException {
-        var oldTask = getTaskById.execute(id).get().get();
         var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
         var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
         var updatedTask = Task.create(id,
