@@ -10,14 +10,18 @@ import ru.kiryanovid.domain.repositories.UserRepositories;
 import ru.kiryanovid.domain.usecases.UseCase;
 
 import java.util.concurrent.CompletableFuture;
+
+/**
+ * Обновление пользователя
+ */
 @Component
 @RequiredArgsConstructor
-public final class GetUserById implements UseCase<Integer, User> {
+public final class UpdateUser implements UseCase<User, User> {
     @Autowired
-    private final UserRepositories repositories;
-
+    UserRepositories repositories;
     @Override
-    public CompletableFuture<Either<Failure, User>> execute(Integer id) {
-        return repositories.get(id);
+    public CompletableFuture<Either<Failure, User>> execute(User user) {
+        repositories.update(user);
+        return null;
     }
 }

@@ -10,14 +10,18 @@ import ru.kiryanovid.domain.repositories.UserRepositories;
 import ru.kiryanovid.domain.usecases.UseCase;
 
 import java.util.concurrent.CompletableFuture;
+
+/**
+ * Получить список всех пользователей
+ */
 @Component
 @RequiredArgsConstructor
-public final class GetUserById implements UseCase<Integer, User> {
+public final class GetAllUser implements UseCase<Void, Iterable<User>> {
     @Autowired
-    private final UserRepositories repositories;
-
+    UserRepositories repositories;
     @Override
-    public CompletableFuture<Either<Failure, User>> execute(Integer id) {
-        return repositories.get(id);
+    public CompletableFuture<Either<Failure, Iterable<User>>> execute(Void param) {
+
+        return repositories.getAll();
     }
 }

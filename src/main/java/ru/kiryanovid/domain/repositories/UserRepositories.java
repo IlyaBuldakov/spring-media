@@ -20,14 +20,14 @@ public interface UserRepositories {
      *
      * @param user Пользователь.
      */
-    Future<Either<Failure, User>> update(User user);
+    CompletableFuture<Either<Failure, User>> update(User user);
 
     /**
      * Удаляет пользователя.
      *
      * @param id Идентификатор пользователь.
      */
-    Future<Either<Failure, Void>> delete(Integer id);
+    CompletableFuture<Either<Failure, Void>> delete(Integer id);
 
     /**
      * Получает пользователя.
