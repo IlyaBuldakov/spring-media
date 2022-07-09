@@ -5,6 +5,7 @@ import lombok.Getter;
 import ru.kiryanovid.domain.entity.comment.Comment;
 import ru.kiryanovid.domain.entity.content.Content;
 import ru.kiryanovid.domain.entity.errors.Failure;
+import ru.kiryanovid.domain.entity.errors.InvalidValue;
 import ru.kiryanovid.domain.entity.file.File;
 import ru.kiryanovid.domain.entity.users.User;
 
@@ -94,13 +95,13 @@ public class Task {
             File file, User author, User executor, LocalDateTime dateCreate, LocalDateTime dateExpired,
             Content content,Comment comment, Status status){
 
-       /* if(id <=0){
-            return Either.left(InvalidValue.INVALID_ENTITY_ID);
-        }
         if(name.isEmpty() || name.equals(" ")){
             return Either.left(InvalidValue.INVALID_TASK_NAME);
         }
         if(author == null){
+            return Either.left(InvalidValue.INVALID_AUTHOR);
+        }
+        if(executor == null){
             return Either.left(InvalidValue.INVALID_AUTHOR);
         }
         if(dateCreate.isBefore(LocalDateTime.now())){
@@ -108,11 +109,11 @@ public class Task {
         }
         if(dateCreate.isAfter(dateExpired)){
             return Either.left(InvalidValue.INVALID_DATE_EXPIRED);
-        }*/
+        }
 
 
         var task = new Task();
-        task.id = id;
+        task.id = 0;
         task.name = name;
         task.contentType = contentType;
         task.description = description;
