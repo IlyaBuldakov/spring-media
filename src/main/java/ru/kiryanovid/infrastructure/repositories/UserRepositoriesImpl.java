@@ -16,20 +16,39 @@ import java.util.concurrent.Future;
 public class UserRepositoriesImpl implements UserRepositories {
 
     @Autowired
-    Users users;
+    private Users users;
 
     @Override
     public CompletableFuture<Either<Failure, User>> create(User user) {
+        var userModel = new UserModel(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getImage(),
+                user.getRole()
+        );
+        users.save(userModel);
         return null;
     }
 
     @Override
-    public Future<Either<Failure, User>> update(User user) {
+    public CompletableFuture<Either<Failure, User>> update(User user) {
+        var userModel = new UserModel(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getImage(),
+                user.getRole()
+        );
+        users.save(userModel);
         return null;
     }
 
     @Override
-    public Future<Either<Failure, Void>> delete(Integer id) {
+    public CompletableFuture<Either<Failure, Void>> delete(Integer id) {
+        users.deleteById(id);
         return null;
     }
 
@@ -47,7 +66,14 @@ public class UserRepositoriesImpl implements UserRepositories {
 
     @Override
     public CompletableFuture<Either<Failure, Iterable<User>>> getAll() {
-        return null;
+        var userList = users.findAll().stream().map(userModel -> User.create(userModel.getId(),
+                userModel.getName(),
+                userModel.getEmail(),
+                userModel.getPassword(),
+                userModel.getImage(),
+                userModel.getRole()
+        ).get()).toList();
+        return CompletableFuture.completedFuture(Either.right(userList));
     }
 
     public interface Users extends JpaRepository<UserModel, Integer>{}
