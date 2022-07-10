@@ -19,7 +19,7 @@ public class Id extends EntityParameter<Long> {
    * @return result идентификатор сущности
    */
   public static Either<Failure, Id> create(Long value) {
-    return (value < 1)
+    return (value < 0)
             ? Either.left(NotFound.DEFAULT_MESSAGE)
             : Either.right(new Id(value));
   }

@@ -9,6 +9,7 @@ import com.htc.domain.entities.utility.parameters.UserName;
 import com.htc.domain.entities.utility.parameters.UserPassword;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 
@@ -20,6 +21,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserModel implements User {
   @javax.persistence.Id
+  @GeneratedValue
   Long id;
 
   @Column(name = "name")

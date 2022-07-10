@@ -3,6 +3,10 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [0.12.0] - 2022-07-07
+### Изменено
+- Добавлена автогенерация идентификатора пользователя.
+
 ## [0.11.0] - 2022-07-07
 ### Добавлено
 - Классы параметров сущностей.
@@ -180,6 +184,7 @@
 [0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
 -->
 
+[0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.11.0...yuriy.krasnoperov-v0.12.0
 [0.11.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.10.0...yuriy.krasnoperov-v0.11.0
 [0.10.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.9.0...yuriy.krasnoperov-v0.10.0
 [0.9.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.8.0...yuriy.krasnoperov-v0.9.0

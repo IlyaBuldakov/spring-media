@@ -31,9 +31,8 @@ public class UserRepositoryImplementation implements UserRepository {
                                                       UserPassword password,
                                                       UserImage image,
                                                       Role role) {
-    // добавить генерируемый идентификатор
     var userModel = new UserModel(
-            1L,
+            0L,
             name.getValue(),
             password.getValue(),
             email.getValue(),
@@ -41,8 +40,6 @@ public class UserRepositoryImplementation implements UserRepository {
             role.getName());
     return EitherHelper.goodRight(users.save(userModel));
   }
-
-
 
   @Override
   public CompletableFuture<Either<Failure, User>> get(Id id) {
