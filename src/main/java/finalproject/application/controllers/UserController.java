@@ -18,12 +18,12 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("api/users")
 public class UserController {
 
-  UserService userservice;
+  UserService userService;
 
 
   @GetMapping
   public CompletableFuture<List<UserDto>> getUsers() {
-    return userservice.getAllUsers().thenApply(either -> either.get().stream().map(UserDto::new).toList());
+    return userService.getAllUsers().thenApply(either -> either.get().stream().map(UserDto::new).toList());
   }
 
   @PutMapping
@@ -32,7 +32,7 @@ public class UserController {
             .create(userdata.getEmail(), userdata.getName(), userdata.getAvatar(), userdata.getPassword(),
                     Role.getRoleByName(userdata.getRole()))
             .getOrElseThrow(failure -> new BadRequestDto(failure));
-    return userservice
+    return userService
             .createNewUser(user)
             .thenApply(either -> either.getOrElseThrow(failure -> new BadRequestDto(failure)))
             .thenApply(UserDto::new);
@@ -46,7 +46,7 @@ public class UserController {
                     Role.getRoleByName(userdata.getRole()))
             .getOrElseThrow(failure -> new BadRequestDto(failure));
     updatedUser.setId(id);
-    return userservice.editUser(updatedUser, id)
+    return userService.editUser(updatedUser, id)
             .thenApply(either -> either.getOrElseThrow(failure -> {
               if (failure.getProblems() != null) {
                 return new BadRequestDto(failure);
@@ -57,7 +57,7 @@ public class UserController {
 
   @GetMapping("/{id}")
   public CompletableFuture<UserDto> getUser(@PathVariable int id) {
-    return userservice.getUserById(id)
+    return userService.getUserById(id)
       .thenApply(either -> either.getOrElseThrow(failure -> {
         if (failure.getProblems() != null) {
           return new BadRequestDto(failure);
@@ -69,7 +69,7 @@ public class UserController {
 
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
-    return userservice.deleteUserById(id).thenApply(either -> either.getOrElseThrow(failure -> {
+    return userService.deleteUserById(id).thenApply(either -> either.getOrElseThrow(failure -> {
       if (failure.getProblems() != null) {
         return new BadRequestDto(failure);
       }
