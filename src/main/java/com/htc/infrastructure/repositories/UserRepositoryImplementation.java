@@ -49,8 +49,8 @@ public class UserRepositoryImplementation implements UserRepository {
 
   @Override
   public CompletableFuture<Either<Failure, List<User>>> getAll() {
-    //return users.getAll().thenApplyAsync(Either::right);
-    return null;
+    var userList = users.findAll().stream().map(userModel -> (User) userModel).toList();
+    return EitherHelper.goodRight(userList);
   }
 
   @Override
@@ -73,6 +73,6 @@ public class UserRepositoryImplementation implements UserRepository {
   @Override
   public CompletableFuture<Either<Failure, Void>> delete(Id id) {
     //users.deleteById(id.getValue());
-    return null;
+    return EitherHelper.goodRight(null);
   }
 }
