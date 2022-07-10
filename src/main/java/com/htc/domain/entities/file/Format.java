@@ -39,4 +39,18 @@ public enum Format {
     this.id = id;
     this.name = name;
   }
+
+  /**
+   * Получение списка расширений файла для REGEX выражения в виде строки.
+   *
+   * @return result список расширений
+   */
+  public static String getRegexFileFormats() {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < Format.values().length; i++) {
+      sb.append(Format.values()[i].getName()).append("|");
+    }
+    sb.deleteCharAt(sb.length() - 1);
+    return sb.toString();
+  }
 }
