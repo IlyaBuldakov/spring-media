@@ -1,22 +1,18 @@
 package finalproject.application.dto.failures;
 
+import finalproject.domain.entities.failures.Failure;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 /**
  * Ошибка авторизации.
  */
-@AllArgsConstructor
-public class NotAuthorizedDto {
 
-  /**
-   * Возвращает @return код статуса.
-   */
-  private @Getter int statusCode;
+public class NotAuthorizedDto extends FailureDto {
 
-  /**
-   * Возвращает @return текст ошибки.
-   */
-  private @Getter String message;
+  public NotAuthorizedDto (Failure failure) {
+    super (HttpStatus.UNAUTHORIZED, failure);
+  }
 
 }

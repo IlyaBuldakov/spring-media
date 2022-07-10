@@ -3,8 +3,6 @@ package finalproject.domain.entities.failures;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Failure {
@@ -13,6 +11,7 @@ public class Failure {
     USER_NOT_FOUND("Пользователь не найден"),
     INTERNAL_SERVER_ERROR("Ошибка сервера"),
     USERS_EMAIL_IS_ALREADY_EXISTS("Пользователь с таким e-mail уже существует"),
+    AUTHORIZATION_FAILURE("Ошибка авторизации"),
     NOT_FOUND("Страница не найдена");
     final String stringMessage;
     Messages(String stringMessage) {
