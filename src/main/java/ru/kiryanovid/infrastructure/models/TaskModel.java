@@ -49,13 +49,13 @@ public class TaskModel {
     /**
      * Автор задачи
      */
-    @OneToOne()
+    @ManyToOne
     private @Getter @Setter UserModel author;
 
     /**
      * Исполнитель задачи
      */
-    @OneToOne
+    @ManyToOne
     private @Getter @Setter UserModel executor;
 
     /**
