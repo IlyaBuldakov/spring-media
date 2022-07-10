@@ -9,6 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class AuthLoginResponseDto {
 
+  @Getter
+  private final String type = "Bearer";
   /**
    * Возвращает @return токен доступа.
    */
