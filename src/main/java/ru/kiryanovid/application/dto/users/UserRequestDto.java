@@ -2,12 +2,14 @@ package ru.kiryanovid.application.dto.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ru.kiryanovid.domain.entity.users.Role;
 
 /**
  *
  */
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserRequestDto {
     /**
      * Имя пользователя
