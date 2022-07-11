@@ -53,4 +53,19 @@ public enum Format {
     sb.deleteCharAt(sb.length() - 1);
     return sb.toString();
   }
+
+  /**
+   * Получение формата по названию формата.
+   *
+   * @param name название формата
+   * @return format {@link Format формат}
+   */
+  public static Format getFromName(String name) {
+    for (Format format : Format.values()) {
+      if (format.getName().equals(name))  {
+        return format;
+      }
+    }
+    return null;
+  }
 }
