@@ -5,10 +5,10 @@ import com.htc.domain.entities.failures.InvalidValueParam;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
-import com.htc.domain.entities.utility.parameters.UserEmail;
-import com.htc.domain.entities.utility.parameters.UserImage;
-import com.htc.domain.entities.utility.parameters.UserName;
-import com.htc.domain.entities.utility.parameters.UserPassword;
+import com.htc.domain.entities.utility.parameters.user.UserEmail;
+import com.htc.domain.entities.utility.parameters.user.UserImage;
+import com.htc.domain.entities.utility.parameters.user.UserName;
+import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.utility.EitherHelper;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public final class AddUser implements UseCase<AddUser.Params, User> {
   /**
-   * Параметры сценария получения пользователя по его идентификатору.
+   * Параметры сценария добавления пользователя.
    *
    * @param name имя пользователя
    * @param nameKey ключ имени пользователя

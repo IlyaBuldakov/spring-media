@@ -4,10 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.entities.user.Role;
-import com.htc.domain.entities.utility.parameters.UserEmail;
-import com.htc.domain.entities.utility.parameters.UserImage;
-import com.htc.domain.entities.utility.parameters.UserName;
-import com.htc.domain.entities.utility.parameters.UserPassword;
+import com.htc.domain.entities.utility.parameters.user.UserEmail;
+import com.htc.domain.entities.utility.parameters.user.UserImage;
+import com.htc.domain.entities.utility.parameters.user.UserName;
+import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.infrastructure.models.user.UserModel;

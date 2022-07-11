@@ -39,10 +39,8 @@
 
 <!--
 проверять доступность порта 8080
-создать общую точку для перехвата исключений
 прописать требования на имя пользователя (User), см. Viki
 <p> javadoc
-написать про application.yml где-то в инструкции/запуске проекта в README.md
 на все failure прописать те два теста
 описание, что id не может быть меньше нуля
 написать тесты что ошибки реализуют Failure
@@ -52,4 +50,9 @@
 возможно ли снова сделать имплементацию Failure на InvalidValueParam
 fakeuserrepository - var usersResult = users.stream().filter(us -> us.getId().getValue() == id.getValue()).toList(); написать свой equals
 тест на id = 234234ыва (public CompletableFuture<UserResponse> get(@PathVariable int id))
+
+поискать везде 'new InvalidValues()' и обработать 
+ошибки не дублировать, создавать и прокидывать наверх
+файл - соответствие формата в имени и указанного формата
+
 -->

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public final class DeleteUserById implements UseCase<DeleteUserById.Params, Void> {
   /**
-   * Параметры сценария получения пользователя по его идентификатору.
+   * Параметры сценария удаления пользователя по его идентификатору.
    *
    * @param id Идентификатор пользователя.
    * @param key Ключ идентификатора пользователя.
