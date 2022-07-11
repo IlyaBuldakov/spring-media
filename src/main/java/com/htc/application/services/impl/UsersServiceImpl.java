@@ -46,23 +46,23 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public CompletableFuture<Either<Failure, UserResponse>> create(UserRequest user) {
-        return null;
+    public CompletableFuture<UserResponse> create(UserRequest userRequest) {
+        return createUser.execute(new UserParams(userRequest))
+                .thenApply(either -> either
+                        .map(UserResponse::new).get());
     }
 
     @Override
-    public CompletableFuture<Either<Failure, UserResponse>> update(UserRequest user) {
-        return null;
+    public CompletableFuture<UserResponse> update(UserRequest userRequest, String id) {
+        return updateUser.execute(new UserParams(id, userRequest))
+                .thenApply(either -> either
+                        .map(UserResponse::new).get());
     }
 
     @Override
-    public CompletableFuture<Either<Failure, Void>> delete(String id) {
-        return null;
+    public CompletableFuture<UserResponse> delete(String id) {
+        return deleteUserById.execute(id)
+                .thenApply(either
+                        -> either.map(UserResponse::new).get());
     }
-
-    @Override
-    public CompletableFuture<Either<Failure, Void>> search(String query) {
-        return null;
-    }
-
 }
