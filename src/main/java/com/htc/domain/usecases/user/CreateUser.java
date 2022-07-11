@@ -1,5 +1,6 @@
 package com.htc.domain.usecases.user;
 
+import com.htc.domain.entities.UserParams;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
@@ -17,17 +18,17 @@ import java.util.concurrent.CompletableFuture;
  */
 @AllArgsConstructor
 @Component
-public class CreateUser implements UseCase<User, User> {
+public class CreateUser implements UseCase<UserParams, User> {
 
     private UsersRepository usersRepository;
 
     @Override
-    public CompletableFuture<Either<Failure, User>> execute(User param) {
-        return usersRepository.create(param);
-    }
-
-    public Void setUsersRepository(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-        return null;
+    public CompletableFuture<Either<Failure, User>> execute(UserParams params) {
+        return usersRepository.create(
+                params.getName(),
+                params.getPassword(),
+                params.getEmail(),
+                params.getAvatar(),
+                params.getRole());
     }
 }

@@ -1,5 +1,6 @@
 package com.htc.domain.usecases.user;
 
+import com.htc.domain.entities.UserParams;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.user.User;
 import com.htc.util.Users;
@@ -23,8 +24,7 @@ public class UpdateUserTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final UpdateUser useCase = new UpdateUser(mockUsersRepository);
-
-    public static UpdateUser mockUpdateUser = mock(UpdateUser.class);
+    final UserParams testUserParams = new UserParams(Users.createTestUser());
 
     @Test
     void shouldInheritUseCase() {
@@ -33,21 +33,32 @@ public class UpdateUserTest {
 
     @Test
     void shouldUpdateUserInRepository() {
-        final User user = Users.createTestUser();
+        useCase.execute(testUserParams);
 
-        useCase.execute(user);
-
-        verify(mockUsersRepository).update(user);
+        verify(mockUsersRepository).update(
+                Integer.parseInt(testUserParams.getId()),
+                testUserParams.getName(),
+                testUserParams.getPassword(),
+                testUserParams.getEmail(),
+                testUserParams.getAvatar(),
+                testUserParams.getRole()
+        );
     }
 
     @Test
     void userExists_shouldUpdateUser() throws ExecutionException, InterruptedException {
         final User user = Users.createTestUser();
 
-        when(mockUsersRepository.update(user))
+        when(mockUsersRepository.update(
+                Integer.parseInt(testUserParams.getId()),
+                testUserParams.getName(),
+                testUserParams.getPassword(),
+                testUserParams.getEmail(),
+                testUserParams.getAvatar(),
+                testUserParams.getRole()))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
-        var result = useCase.execute(user)
+        var result = useCase.execute(testUserParams)
                 .get()
                 .get();
 
@@ -59,10 +70,16 @@ public class UpdateUserTest {
             throws ExecutionException, InterruptedException {
         final User user = Users.createTestUser();
 
-        when(mockUsersRepository.update(user))
-                .thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
+        when(mockUsersRepository.update(
+                Integer.parseInt(testUserParams.getId()),
+                testUserParams.getName(),
+                testUserParams.getPassword(),
+                testUserParams.getEmail(),
+                testUserParams.getAvatar(),
+                testUserParams.getRole()
+        )).thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
 
-        var result = useCase.execute(user)
+        var result = useCase.execute(testUserParams)
                 .get()
                 .getLeft();
 

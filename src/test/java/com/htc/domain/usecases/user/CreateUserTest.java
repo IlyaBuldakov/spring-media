@@ -1,5 +1,6 @@
 package com.htc.domain.usecases.user;
 
+import com.htc.domain.entities.UserParams;
 import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.entities.user.User;
 import com.htc.util.Users;
@@ -23,8 +24,7 @@ public class CreateUserTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final CreateUser useCase = new CreateUser(mockUsersRepository);
-
-    public static CreateUser mockCreateUser = mock(CreateUser.class);
+    final UserParams testUserParams = new UserParams(Users.createTestUser());
 
     @Test
     void shouldInheritUseCase() {
@@ -33,21 +33,29 @@ public class CreateUserTest {
 
     @Test
     void shouldCreateInRepository() {
-        final User user = Users.createTestUser();
+        useCase.execute(testUserParams);
 
-        useCase.execute(user);
-
-        verify(mockUsersRepository).create(user);
+        verify(mockUsersRepository).create(
+                testUserParams.getName(),
+                testUserParams.getPassword(),
+                testUserParams.getEmail(),
+                testUserParams.getAvatar(),
+                testUserParams.getRole());
     }
 
     @Test
     void userNotExists_shouldCreateAndReturnUser() throws ExecutionException, InterruptedException {
         final User user = Users.createTestUser();
 
-        when(mockUsersRepository.create(user))
+        when(mockUsersRepository.create(
+                testUserParams.getName(),
+                testUserParams.getPassword(),
+                testUserParams.getEmail(),
+                testUserParams.getAvatar(),
+                testUserParams.getRole()))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
-        var result = useCase.execute(user)
+        var result = useCase.execute(testUserParams)
                 .get()
                 .get();
 
@@ -58,10 +66,16 @@ public class CreateUserTest {
     void userExists_shouldReturnAlreadyExists() throws ExecutionException, InterruptedException {
         final User user = Users.createTestUser();
 
-        when(mockUsersRepository.create(user))
+        when(mockUsersRepository.create(
+                testUserParams.getName(),
+                testUserParams.getPassword(),
+                testUserParams.getEmail(),
+                testUserParams.getAvatar(),
+                testUserParams.getRole())
+        )
                 .thenReturn(CompletableFuture.completedFuture(Either.left(new AlreadyExists(""))));
 
-        var result = useCase.execute(user)
+        var result = useCase.execute(testUserParams)
                 .get()
                 .getLeft();
 
