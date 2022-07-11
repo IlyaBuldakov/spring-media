@@ -5,7 +5,7 @@ import com.htc.domain.entities.user.Role.RoleType;
 import lombok.Getter;
 
 /**
- * @author IlyaBuldakov
+ * Представление сущности роли (ответ).
  */
 public class RoleResponse {
 
@@ -17,14 +17,14 @@ public class RoleResponse {
     /**
      * Идентификатор роли.
      *
-     * @return id Идентификатор роли.
+     * @return Идентификатор роли.
      */
     private final @Getter int id;
 
     /**
-     * Тип роли {@link RoleType}
+     * Тип роли {@link RoleType}.
      *
-     * @return roleType Тип роли
+     * @return Тип роли.
      */
     private final @Getter RoleType roleType;
 }

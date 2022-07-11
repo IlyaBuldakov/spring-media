@@ -7,39 +7,36 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 /**
- * Класс, описывающий сущность комментария
- *
- * @author IlyaBuldakov
+ * Класс, описывающий сущность комментария.
  */
-
 @AllArgsConstructor
 public class Comment {
 
     /**
-     * Идентификатор комментария
+     * Идентификатор комментария.
      *
-     * @return id Идентификатор комментария
+     * @return Идентификатор комментария.
      */
     private @Getter int id;
 
     /**
-     * Дата создания комментария
+     * Дата создания комментария.
      *
-     * @return date Дата создания
+     * @return Дата создания.
      */
     private @Getter LocalDate date;
 
     /**
-     * Автор комментария
+     * Автор комментария.
      *
-     * @return user Автор комментария
+     * @return Автор комментария.
      */
     private @Getter User user;
 
     /**
-     * Сообщение (содержимое) комментария
+     * Содержимое комментария.
      *
-     * @return message Сообщение комментария
+     * @return Сообщение комментария.
      */
     private @Getter String message;
 }

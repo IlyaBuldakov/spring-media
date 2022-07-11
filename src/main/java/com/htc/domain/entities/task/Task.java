@@ -12,95 +12,92 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Класс, описывающий задачу
- *
- * @author IlyaBuldakov
+ * Класс, описывающий задачу.
  */
-
 @AllArgsConstructor
 public class Task {
 
     /**
-     * Идентификатор задачи
+     * Идентификатор задачи.
      *
-     * @return id Идентификатор задачи
+     * @return Идентификатор задачи.
      */
     private @Getter int id;
 
     /**
-     * Название задачи
+     * Название задачи.
      *
-     * @return name Название задачи
+     * @return Название задачи.
      */
     private @Getter String name;
 
     /**
-     * Тип задачи
+     * Тип задачи.
      *
-     * @return type Тип задачи
+     * @return Тип задачи.
      */
     private @Getter ContentType type;
 
     /**
-     * Описание задачи
+     * Описание задачи.
      *
-     * @return description Описание задачи
+     * @return Описание задачи.
      */
     private @Getter String description;
 
     /**
-     * Приложенные файлы
+     * Приложенные файлы.
      *
-     * @return files Приложенные файлы
+     * @return Приложенные файлы.
      */
     private @Getter File[] files;
 
     /**
-     * Автор задачи
+     * Автор задачи.
      *
-     * @return author Автор задачи
+     * @return Автор задачи.
      */
     private @Getter User author;
 
     /**
-     * Исполнитель задачи
+     * Исполнитель задачи.
      *
-     * @return executor Исполнитель задачи
+     * @return Исполнитель задачи.
      */
     private @Getter User executor;
 
     /**
-     * Дата создания
+     * Дата создания.
      *
-     * @return dateCreated Дата создания
+     * @return Дата создания.
      */
     private @Getter LocalDate dateCreated;
 
     /**
-     * Дата выполнения
+     * Дата выполнения.
      *
-     * @return dateExpired Дата выполнения
+     * @return Дата выполнения.
      */
     private @Getter LocalDate dateExpired;
 
     /**
-     * Приложенный контент
+     * Приложенный контент.
      *
-     * @return contents Список с контентом
+     * @return Список с контентом.
      */
     private @Getter List<Content> contents;
 
     /**
-     * Комментарии
+     * Комментарии.
      *
-     * @return comments Список комментариев
+     * @return Список комментариев.
      */
     private @Getter List<Comment> comments;
 
     /**
-     * Статус задачи {@link TaskStatus.Status}
+     * Статус задачи {@link TaskStatus.Status}.
      *
-     * @return status Статус задачи
+     * @return Статус задачи.
      */
     private @Getter TaskStatus status;
 }

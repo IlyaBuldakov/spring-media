@@ -6,19 +6,18 @@ import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Класс сценария
+ * Класс сценария.
  *
- * @param <ParamT>  Параметр сценария
- * @param <ResultT> Результат использования сценария
- * @author IlyaBuldakov
+ * @param <ParamT>  Параметр сценария.
+ * @param <ResultT> Результат использования сценария.
  */
 public interface UseCase<ParamT, ResultT> {
 
     /**
-     * Метод выполнения сценария
+     * Метод выполнения сценария.
      *
-     * @param param Параметр сценария
-     * @return Результат выполнения сценария
+     * @param param Параметр сценария.
+     * @return Результат выполнения сценария.
      */
     CompletableFuture<Either<Failure, ResultT>> execute(ParamT param);
 }

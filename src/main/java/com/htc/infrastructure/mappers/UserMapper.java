@@ -12,13 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author IlyaBuldakov
+ * Представление пользователя для БД
  */
 @Entity
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserMapper {
+
     public UserMapper(String name, String password, String email, String avatar, String role) {
         this.name = name;
         this.password = password;

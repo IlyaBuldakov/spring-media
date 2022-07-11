@@ -6,17 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Класс, описывающий роль пользователя {@link RoleType}
- *
- * @author IlyaBuldakov
+ * Класс, описывающий роль пользователя {@link RoleType}.
  */
 @AllArgsConstructor
 public class Role {
 
     /**
-     * Конструктор, превращающий строку из запроса в Role
+     * Конструктор, превращающий строку из запроса в Role.
      *
-     * @param input Строка
+     * @param input Строка.
      */
     public Role(String input) {
         RoleType type = validateRoleTypeInput(input).get();
@@ -26,31 +24,31 @@ public class Role {
 
     /**
      * Метод валидации строки из запроса
-     * на соответствие RoleType'у
+     * на соответствие RoleType'у.
      *
-     * @param input Строка для валидации
-     * @return Failure или RoleType
+     * @param input Строка для валидации.
+     * @return Тип роли {@link RoleType}.
      */
     public static Either<Failure, RoleType> validateRoleTypeInput(String input) {
         return Either.right(RoleType.valueOf(input.toUpperCase()));
     }
 
     /**
-     * Тип роли
+     * Тип роли.
      */
     public enum RoleType {
         /**
-         * Администратор
+         * Администратор.
          */
         ADMIN,
 
         /**
-         * Менеджер
+         * Менеджер.
          */
         MANAGER,
 
         /**
-         * Контент-мейкер
+         * Контент-мейкер.
          */
         CONTENT_MAKER
     }
@@ -58,14 +56,14 @@ public class Role {
     /**
      * Идентификатор роли.
      *
-     * @return id Идентификатор роли.
+     * @return Идентификатор роли.
      */
     private @Getter int id;
 
     /**
-     * Тип роли {@link RoleType}
+     * Тип роли {@link RoleType}.
      *
-     * @return roleType Тип роли
+     * @return Тип роли.
      */
     private @Getter RoleType roleType;
 }

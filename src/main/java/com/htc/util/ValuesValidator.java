@@ -7,12 +7,10 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.util.Locale;
 
 /**
- * Класс для валидации различных данных
+ * Класс для валидации различных данных.
  *
  * Возвращает Failure - в случае провала
- * и null - в случае успешной валидации
- *
- * @author IlyaBuldakov
+ * и null - в случае успешной валидации.
  */
 public class ValuesValidator {
 
@@ -24,14 +22,14 @@ public class ValuesValidator {
     private static final String BASE64_REGEX = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
 
     /**
-     * Метод валидации полей пользователя
+     * Метод валидации полей пользователя.
      *
-     * @param id Идентификатор
-     * @param name Имя пользователя
-     * @param password Пароль
-     * @param email Электронная почта
-     * @param avatar Аватар
-     * @return Failure or null
+     * @param id Идентификатор.
+     * @param name Имя пользователя.
+     * @param password Пароль.
+     * @param email Электронная почта.
+     * @param avatar Аватар.
+     * @return {@link Failure} или null.
      */
     public static Failure checkUserFields(int id,
                                           String name,

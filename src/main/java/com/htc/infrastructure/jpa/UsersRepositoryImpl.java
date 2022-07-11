@@ -14,13 +14,24 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * @author IlyaBuldakov
+ * Реализация репозитория пользователей.
  */
 @Component
 @AllArgsConstructor
 public class UsersRepositoryImpl implements UsersRepository {
+
     UsersJpaRepository usersJpaRepository;
 
+    /**
+     * Создание пользователя.
+     *
+     * @param name Имя пользователя.
+     * @param password Пароль пользователя.
+     * @param email E-mail пользователя.
+     * @param avatar Аватар пользователя.
+     * @param role Роль пользователя.
+     * @return Пользователь.
+     */
     @Override
     public CompletableFuture<Either<Failure, User>> create(String name,
                                                            String password,
@@ -39,6 +50,12 @@ public class UsersRepositoryImpl implements UsersRepository {
                         new Role(userMapper.role)));
     }
 
+    /**
+     * Получение пользователя по идентификатору.
+     *
+     * @param id Идентификатор пользователя.
+     * @return Пользователь.
+     */
     @Override
     public CompletableFuture<Either<Failure, User>> getById(int id) {
         var user = usersJpaRepository.findById(id);
@@ -54,6 +71,11 @@ public class UsersRepositoryImpl implements UsersRepository {
                         ))).orElse(null);
     }
 
+    /**
+     * Получение списка всех пользователей.
+     *
+     * @return Список пользователей.
+     */
     @Override
     public CompletableFuture<Either<Failure, List<User>>> getAll() {
         return CompletableFuture.completedFuture(usersJpaRepository.findAll())
@@ -70,6 +92,17 @@ public class UsersRepositoryImpl implements UsersRepository {
                 ));
     }
 
+    /**
+     * Обновление пользователя.
+     *
+     * @param id Идентификатор пользователя.
+     * @param name Имя пользователя.
+     * @param password Пароль пользователя.
+     * @param email E-mail пользователя.
+     * @param avatar Аватар пользователя.
+     * @param role Роль пользователя.
+     * @return Обновлённый пользователь.
+     */
     @Override
     public CompletableFuture<Either<Failure, User>> update(int id,
                                                            String name,
@@ -82,6 +115,12 @@ public class UsersRepositoryImpl implements UsersRepository {
                 .thenApply(ignoreUserMapper -> user);
     }
 
+    /**
+     * Удаление пользователя.
+     *
+     * @param id Идентификатор пользователя.
+     * @return Удалённый пользователь.
+     */
     @Override
     public CompletableFuture<Either<Failure, User>> deleteById(int id) {
         var user = getById(id);

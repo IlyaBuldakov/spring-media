@@ -16,20 +16,23 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Реализация UsersService.
- * Слой преобразования DTO <---> Domain entity
- *
- * @author IlyaBuldakov
+ * Реализация {@link UsersService}.
  */
 @AllArgsConstructor
 @Service
 public class UsersServiceImpl implements UsersService {
+
     CreateUser createUser;
     GetUserById getUserById;
     GetAllUsers getAllUsers;
     UpdateUser updateUser;
     DeleteUserById deleteUserById;
 
+    /**
+     * Получение списка пользователей.
+     *
+     * @return Список {@link UserResponse}.
+     */
     @Override
     public CompletableFuture<List<UserResponse>> getAll() {
         return getAllUsers.execute(null)
@@ -38,6 +41,12 @@ public class UsersServiceImpl implements UsersService {
                                 .map(UserResponse::new)).get().toList());
     }
 
+    /**
+     * Получение пользователя по идентификатору.
+     *
+     * @param id Идентификатор пользователя.
+     * @return Представление пользователя {@link UserResponse}.
+     */
     @Override
     public CompletableFuture<UserResponse> getById(String id) {
         return getUserById.execute(id)
@@ -45,6 +54,12 @@ public class UsersServiceImpl implements UsersService {
                         .map(UserResponse::new).get());
     }
 
+    /**
+     * Создание пользователя.
+     *
+     * @param userRequest Представление пользователя {@link UserRequest}.
+     * @return Представление созданного пользователя {@link UserResponse}.
+     */
     @Override
     public CompletableFuture<UserResponse> create(UserRequest userRequest) {
         return createUser.execute(new UserParams(userRequest))
@@ -52,6 +67,14 @@ public class UsersServiceImpl implements UsersService {
                         .map(UserResponse::new).get());
     }
 
+    /**
+     * Обновление пользователя.
+     *
+     * @param userRequest Представление пользователя {@link UserRequest}
+     *                    (данные для обновления).
+     * @param id Идентификатор пользователя.
+     * @return Представление обновлённого пользователя {@link UserResponse}.
+     */
     @Override
     public CompletableFuture<UserResponse> update(UserRequest userRequest, String id) {
         return updateUser.execute(new UserParams(id, userRequest))
@@ -59,6 +82,13 @@ public class UsersServiceImpl implements UsersService {
                         .map(UserResponse::new).get());
     }
 
+
+    /**
+     * Удаление пользователя.
+     *
+     * @param id Идентификатор пользователя.
+     * @return Представление удалённого пользователя {@link UserResponse}.
+     */
     @Override
     public CompletableFuture<UserResponse> delete(String id) {
         return deleteUserById.execute(id)

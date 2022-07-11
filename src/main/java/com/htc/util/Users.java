@@ -7,26 +7,24 @@ import com.htc.domain.entities.user.User;
 import java.util.Random;
 
 /**
- * Утилитный класс для сущности пользователя
- *
- * @author IlyaBuldakov
+ * Утилитный класс для сущности пользователя.
  */
 public class Users {
 
     /**
-     * Создание тестового пользователя с рандомным идентификатором
+     * Создание тестового пользователя с рандомным идентификатором.
      *
-     * @return User Тестовый пользователь
+     * @return Тестовый пользователь.
      */
     public static User createTestUser() {
         return createTestUser(new Random().nextInt(255));
     }
 
     /**
-     * Создание тестового пользователя с явно заданным идентификатором
+     * Создание тестового пользователя с явно заданным идентификатором.
      *
-     * @param id Идентификатор
-     * @return User Тестовый пользователь
+     * @param id Идентификатор.
+     * @return Тестовый пользователь.
      */
     public static User createTestUser(int id) {
         return createTestUser(id, new Role(1, Role.RoleType.ADMIN));
@@ -35,11 +33,11 @@ public class Users {
 
     /**
      * Создание тестового пользователя с явно заданным
-     * идентификатором и ролью
+     * идентификатором и ролью.
      *
-     * @param id       Идентификатор
-     * @param role     Роль пользователя {@link RoleType}
-     * @return User    Тестовый пользователь
+     * @param id Идентификатор.
+     * @param role Роль пользователя {@link RoleType}.
+     * @return Тестовый пользователь.
      */
     public static User createTestUser(int id, Role role) {
         return User.create(
@@ -53,8 +51,8 @@ public class Users {
     }
 
     /**
-     * Получение случайной роли
-     * @return Role Роль пользователя
+     * Получение случайной роли.
+     * @return Роль пользователя.
      */
     public static Role getRandomTestRole() {
         var values = RoleType.values();

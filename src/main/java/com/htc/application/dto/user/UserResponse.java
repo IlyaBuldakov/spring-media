@@ -5,9 +5,7 @@ import com.htc.domain.entities.user.User;
 import lombok.Getter;
 
 /**
- * Представление сущности пользователя (ответ)
- *
- * @author IlyaBuldakov
+ * Представление сущности пользователя (ответ).
  */
 public class UserResponse {
 
@@ -20,37 +18,37 @@ public class UserResponse {
     }
 
     /**
-     * Идентификатор пользователя
+     * Идентификатор пользователя.
      *
-     * @return id Идентификатор пользователя
+     * @return Идентификатор пользователя.
      */
     private final @Getter int id;
 
     /**
-     * Имя пользователя
+     * Имя пользователя.
      *
-     * @return name Имя пользователя
+     * @return Имя пользователя.
      */
     private final @Getter String name;
 
     /**
-     * E-mail пользователя
+     * E-mail пользователя.
      *
-     * @return email E-mail пользователя
+     * @return E-mail пользователя.
      */
     private final @Getter String email;
 
     /**
-     * Аватар пользователя
+     * Аватар пользователя.
      *
-     * @return avatar Аватар пользователя
+     * @return Аватар пользователя.
      */
     private final @Getter String avatar;
 
     /**
-     * Роль пользователя {@link Role.RoleType}
+     * Роль пользователя {@link Role.RoleType}.
      *
-     * @return role Роль пользователя
+     * @return Роль пользователя.
      */
     private final @Getter Role role;
 }

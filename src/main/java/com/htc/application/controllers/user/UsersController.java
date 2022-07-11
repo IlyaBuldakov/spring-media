@@ -18,9 +18,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Контроллер для пользователей
- *
- * @author IlyaBuldakov
+ * Контроллер для пользователей.
  */
 @RestController
 @AllArgsConstructor

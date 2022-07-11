@@ -4,9 +4,7 @@ import com.htc.domain.entities.user.User;
 import lombok.Getter;
 
 /**
- * Краткое представление сущности пользователя (ответ)
- *
- * @author IlyaBuldakov
+ * Краткое представление сущности пользователя (ответ).
  */
 public class UserShortResponse {
 
@@ -16,16 +14,16 @@ public class UserShortResponse {
     }
 
     /**
-     * Идентификатор пользователя
+     * Идентификатор пользователя.
      *
-     * @return id Идентификатор пользователя
+     * @return Идентификатор пользователя.
      */
     private final @Getter int id;
 
     /**
-     * Имя пользователя
+     * Имя пользователя.
      *
-     * @return name Имя пользователя
+     * @return Имя пользователя.
      */
     private final @Getter String name;
 }

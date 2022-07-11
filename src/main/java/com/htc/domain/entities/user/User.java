@@ -6,31 +6,28 @@ import io.vavr.control.Either;
 import lombok.Getter;
 
 /**
- * Класс, описывающий пользователя
- *
- * @author IlyaBuldakov
+ * Класс, описывающий пользователя.
  */
-
 public class User {
 
     private User() {}
 
     /**
-     * Идентификатор пользователя
+     * Идентификатор пользователя.
      *
-     * @return id Идентификатор пользователя
+     * @return Идентификатор пользователя.
      */
     private @Getter int id;
 
     /**
-     * Имя пользователя
+     * Имя пользователя.
      *
-     * @return name Имя пользователя
+     * @return Имя пользователя.
      */
     private @Getter String name;
 
     /**
-     * Пароль пользователя
+     * Пароль пользователя.
      * <p>
      * Требования к паролю:
      * 1. Длина пароля от 8 до 20 символов (включительно),
@@ -41,40 +38,40 @@ public class User {
      * Корректный пароль: 1aaAbbBccC
      * Некорректный пароль: aaa
      *
-     * @return password Пароль пользователя
+     * @return Пароль пользователя.
      */
     private @Getter String password;
 
     /**
-     * E-mail пользователя
+     * E-mail пользователя.
      *
-     * @return email E-mail пользователя
+     * @return E-mail пользователя.
      */
     private @Getter String email;
 
     /**
-     * Аватар пользователя
+     * Аватар пользователя.
      *
-     * @return avatar Аватар пользователя
+     * @return Аватар пользователя.
      */
     private @Getter String avatar;
 
     /**
-     * Роль пользователя {@link Role.RoleType}
+     * Роль пользователя {@link Role.RoleType}.
      *
-     * @return role Роль пользователя
+     * @return Роль пользователя.
      */
     private @Getter Role role;
 
     /**
-     * Фабричный метод пользователя
+     * Фабричный метод пользователя.
      *
-     * @param id       Идентификатор
-     * @param name     Имя пользователя
-     * @param password Пароль
-     * @param email    Почта
-     * @param avatar   Аватар
-     * @return Пользователь
+     * @param id       Идентификатор.
+     * @param name     Имя пользователя.
+     * @param password Пароль.
+     * @param email    Почта.
+     * @param avatar   Аватар.
+     * @return Пользователь.
      */
 
     public static Either<Failure, User> create(int id,

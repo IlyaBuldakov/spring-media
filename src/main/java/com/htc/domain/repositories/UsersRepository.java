@@ -9,12 +9,20 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Репозиторий пользователей
- *
- * @author IlyaBuldakov
+ * Репозиторий пользователей.
  */
 public interface UsersRepository {
 
+    /**
+     * Создание пользователя.
+     *
+     * @param name Имя пользователя.
+     * @param password Пароль пользователя.
+     * @param email E-mail пользователя.
+     * @param avatar Аватар пользователя.
+     * @param role Роль пользователя.
+     * @return Пользователь.
+     */
     CompletableFuture<Either<Failure, User>> create(String name,
                                                     String password,
                                                     String email,
@@ -22,20 +30,31 @@ public interface UsersRepository {
                                                     Role role);
 
     /**
-     * Получение пользователя
+     * Получение пользователя по идентификатору.
      *
-     * @param id Идентификатор пользователя
-     * @return Пользователь
+     * @param id Идентификатор пользователя.
+     * @return Пользователь.
      */
     CompletableFuture<Either<Failure, User>> getById(int id);
 
     /**
-     * Получение списка всех пользователей
+     * Получение списка всех пользователей.
      *
-     * @return Список пользователей
+     * @return Список пользователей.
      */
     CompletableFuture<Either<Failure, List<User>>> getAll();
 
+    /**
+     * Обновление пользователя.
+     *
+     * @param id Идентификатор пользователя.
+     * @param name Имя пользователя.
+     * @param password Пароль пользователя.
+     * @param email E-mail пользователя.
+     * @param avatar Аватар пользователя.
+     * @param role Роль пользователя.
+     * @return Пользователь.
+     */
     CompletableFuture<Either<Failure, User>> update(int id,
                                                     String name,
                                                     String password,
@@ -44,9 +63,10 @@ public interface UsersRepository {
                                                     Role role);
 
     /**
-     * Удаление пользователя
+     * Удаление пользователя по идентификатору.
      *
-     * @param id Идентификатор пользователя
+     * @param id Идентификатор пользователя.
+     * @return Пользователь.
      */
     CompletableFuture<Either<Failure, User>> deleteById(int id);
 }

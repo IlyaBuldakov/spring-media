@@ -8,9 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Интерфейс, описывающий базовые операции для взаимодействия с пользователем.
- * Слой преобразования DTO <---> Domain entity
- *
- * @author IlyaBuldakov
+ * Слой преобразования DTO <---> Domain entity.
  */
 public interface UsersService {
 

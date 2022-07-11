@@ -3,11 +3,12 @@ package com.htc.application.dto.user;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 /**
- * Представление сущности пользователя (ответ)
- *
- * @author IlyaBuldakov
+ * Представление сущности пользователя (запрос).
  */
+@NoArgsConstructor
 public class UserRequest {
 
     public UserRequest(User user) {
@@ -19,39 +20,39 @@ public class UserRequest {
     }
 
     /**
-     * Имя пользователя
+     * Имя пользователя.
      *
-     * @return name Имя пользователя
+     * @return Имя пользователя.
      */
-    private final @Getter String name;
+    private @Getter String name;
 
     /**
-     * Пароль пользователя
+     * Пароль пользователя.
      *
-     * {@link User#getPassword() Требования к паролю}
+     * {@link User#getPassword() Требования к паролю}.
      *
-     * @return password Пароль пользователя
+     * @return Пароль пользователя.
      */
-    private final @Getter String password;
+    private @Getter String password;
 
     /**
-     * E-mail пользователя
+     * E-mail пользователя.
      *
-     * @return email E-mail пользователя
+     * @return E-mail пользователя.
      */
-    private final @Getter String email;
+    private @Getter String email;
 
     /**
-     * Аватар пользователя
+     * Аватар пользователя.
      *
-     * @return avatar Аватар пользователя
+     * @return Аватар пользователя.
      */
-    private final @Getter String avatar;
+    private @Getter String avatar;
 
     /**
-     * Роль пользователя {@link Role.RoleType}
+     * Роль пользователя {@link Role.RoleType}.
      *
-     * @return role Роль пользователя
+     * @return Роль пользователя.
      */
-    private final @Getter Role role;
+    private @Getter Role role;
 }

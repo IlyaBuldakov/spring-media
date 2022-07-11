@@ -7,16 +7,13 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 /**
- * Класс, описывающий контент
- *
- * @author IlyaBuldakov
+ * Класс, описывающий контент.
  */
-
 @AllArgsConstructor
 public class Content {
 
     /**
-     * Перечисление форматов контента
+     * Перечисление форматов контента.
      */
     public enum Format {
         JPG,
@@ -36,58 +33,58 @@ public class Content {
 
 
     /**
-     * Идентификатор контента
+     * Идентификатор контента.
      *
-     * @return id Идентификатор контента
+     * @return Идентификатор контента.
      */
     private @Getter int id;
 
     /**
-     * Тип контента
+     * Тип контента.
      *
-     * @return contentType Тип контента
+     * @return Тип контента.
      */
     private @Getter ContentType type;
 
     /**
-     * Название контента
+     * Название контента.
      *
-     * @return name Название контента
+     * @return Название контента.
      */
     private @Getter String name;
 
     /**
-     * Дата создания
+     * Дата создания.
      *
-     * @return dateCreated Дата создания
+     * @return Дата создания.
      */
     private @Getter LocalDate dateCreated;
 
     /**
-     * Автор контента
+     * Автор контента.
      *
-     * @return author Автор контента
+     * @return Автор контента.
      */
     private @Getter User author;
 
     /**
-     * Формат контента {@link Format}
+     * Формат контента {@link Format}.
      *
-     * @return format Формат контента
+     * @return Формат контента.
      */
     private @Getter Format format;
 
     /**
-     * Путь к файлу
+     * Путь к файлу.
      *
-     * @return url Путь к файлу
+     * @return Путь к файлу.
      */
     private @Getter String url;
 
     /**
-     * Путь к превью
+     * Путь к превью.
      *
-     * @return preview Путь к превью
+     * @return Путь к превью.
      */
     private @Getter String preview;
 }

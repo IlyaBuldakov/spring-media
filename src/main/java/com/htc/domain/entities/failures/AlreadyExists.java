@@ -1,11 +1,10 @@
 package com.htc.domain.entities.failures;
 
 /**
- * Уже существует
- *
- * @author IlyaBuldakov
+ * Ошибка "Уже существует".
  */
 public class AlreadyExists extends Failure {
+
     public AlreadyExists(String message) {
         super(message);
     }

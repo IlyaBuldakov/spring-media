@@ -3,14 +3,13 @@ package com.htc.domain.entities;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author IlyaBuldakov
+ * Класс-контейнер для данных пользователя.
  */
-@AllArgsConstructor
 public class UserParams {
+
     public UserParams(UserRequest userRequest) {
         this.name = userRequest.getName();
         this.password = userRequest.getPassword();
@@ -33,15 +32,48 @@ public class UserParams {
         this.id = id;
     }
 
+    /**
+     * Идентификатор пользователя.
+     *
+     * @return Идентификатор пользователя.
+     */
     private @Getter String id;
 
-    private @Getter String name;
+    /**
+     * Имя пользователя.
+     *
+     * @return Имя пользователя.
+     */
+    private final @Getter String name;
 
-    private @Getter String password;
+    /**
+     * Пароль пользователя.
+     *
+     * @return Пароль пользователя.
+     */
+    private final @Getter String password;
 
-    private @Getter String email;
 
-    private @Getter String avatar;
+    /**
+     * E-mail пользователя.
+     *
+     * @return E-mail пользователя.
+     */
+    private final @Getter String email;
 
-    private @Getter Role role;
+
+    /**
+     * Аватар пользователя.
+     *
+     * @return Аватар пользователя.
+     */
+    private final @Getter String avatar;
+
+
+    /**
+     * Роль пользователя.
+     *
+     * @return Роль пользователя.
+     */
+    private final @Getter Role role;
 }
