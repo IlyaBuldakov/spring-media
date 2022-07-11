@@ -24,9 +24,6 @@ public class GetUserByIdTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final GetUserById useCase = new GetUserById(mockUsersRepository);
-
-    public static GetUserById mockGetUserById = mock(GetUserById.class);
-
     @Test
     void shouldInheritUseCase() {
         assertThat(useCase).isInstanceOf(UseCase.class);
@@ -41,11 +38,6 @@ public class GetUserByIdTest {
         verify(mockUsersRepository).getById(Integer.parseInt(userId));
     }
 
-
-    /**
-     * Тест-проверка на факт того, что пользователь получен именно тот,
-     * который был запрошен. Дополнительно проверяется идентификатор
-     */
     @Test
     void userExists_shouldReturnUser() throws ExecutionException, InterruptedException {
         var userId = String.valueOf(new Random().nextInt(255));

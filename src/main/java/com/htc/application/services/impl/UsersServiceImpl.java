@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Реализация UsersService
+ * Реализация UsersService.
+ * Слой преобразования DTO <---> Domain entity
  *
  * @author IlyaBuldakov
  */

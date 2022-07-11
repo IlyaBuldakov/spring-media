@@ -2,15 +2,13 @@ package com.htc.application.services;
 
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.user.User;
-import io.vavr.control.Either;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Интерфейс, описывающий базовые операции для взаимодействия с пользователем
+ * Интерфейс, описывающий базовые операции для взаимодействия с пользователем.
+ * Слой преобразования DTO <---> Domain entity
  *
  * @author IlyaBuldakov
  */

@@ -24,9 +24,6 @@ public class GetAllUsersTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);
     final GetAllUsers useCase = new GetAllUsers(mockUsersRepository);
-
-    public static GetAllUsers mockGetAllUsers = mock(GetAllUsers.class);
-
     @Test
     void shouldInheritUseCase() {
         assertThat(useCase).isInstanceOf(UseCase.class);
