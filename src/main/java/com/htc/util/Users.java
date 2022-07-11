@@ -3,7 +3,6 @@ package com.htc.util;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.Role.RoleType;
 import com.htc.domain.entities.user.User;
-import org.apache.commons.codec.binary.Base64;
 
 import java.util.Random;
 
@@ -48,7 +47,7 @@ public class Users {
                 "Тестовый Пользователь",
                 "password1A",
                 "example@mail.ru",
-                Base64.decodeBase64("SGVsbG9Xb3JsZA=="),
+                "SGVsbG9Xb3JsZA==",
                 role
         ).get();
     }

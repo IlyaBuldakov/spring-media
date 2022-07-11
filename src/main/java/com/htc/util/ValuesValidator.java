@@ -2,7 +2,6 @@ package com.htc.util;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.Locale;
@@ -22,6 +21,7 @@ public class ValuesValidator {
     private static final String INVALID_PASSWORD = "Пароль не соответствует требованиям";
     private static final String INVALID_EMAIL = "Некорректный почтовый адрес";
     private static final String INVALID_AVATAR = "Некорректный аватар";
+    private static final String BASE64_REGEX = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
 
     /**
      * Метод валидации полей пользователя
@@ -37,7 +37,7 @@ public class ValuesValidator {
                                           String name,
                                           String password,
                                           String email,
-                                          byte[] avatar) {
+                                          String avatar) {
         if (id < 0) {
             return new InvalidValue(INVALID_ID);
         }
@@ -53,7 +53,7 @@ public class ValuesValidator {
         if (!EmailValidator.getInstance().isValid(email)) {
             return new InvalidValue(INVALID_EMAIL);
         }
-        if (!Base64.isBase64(avatar)) {
+        if (!avatar.matches(BASE64_REGEX) || avatar.length() == 0) {
             return new InvalidValue(INVALID_AVATAR);
         }
         return null;

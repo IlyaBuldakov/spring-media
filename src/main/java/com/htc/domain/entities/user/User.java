@@ -57,7 +57,7 @@ public class User {
      *
      * @return avatar Аватар пользователя
      */
-    private @Getter byte[] avatar;
+    private @Getter String avatar;
 
     /**
      * Роль пользователя {@link Role.RoleType}
@@ -81,7 +81,7 @@ public class User {
                                                String name,
                                                String password,
                                                String email,
-                                               byte[] avatar,
+                                               String avatar,
                                                Role role) {
         Failure expectedFailure = ValuesValidator
                 .checkUserFields(id, name, password, email, avatar);
