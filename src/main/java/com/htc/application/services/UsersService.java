@@ -16,11 +16,9 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface UsersService {
 
-    CompletableFuture<Either<Failure, List<UserResponse>>> getAll();
-    CompletableFuture<Either<Failure, UserResponse>> getById(String id);
-    CompletableFuture<Either<Failure, UserResponse>> create(UserRequest user);
-    CompletableFuture<Either<Failure, UserResponse>> update(UserRequest user);
-    CompletableFuture<Either<Failure, Void>> delete(String id);
-    CompletableFuture<Either<Failure, Void>> search(String query);
-
+    CompletableFuture<List<UserResponse>> getAll();
+    CompletableFuture<UserResponse> getById(String id);
+    CompletableFuture<UserResponse> create(UserRequest user);
+    CompletableFuture<UserResponse> update(UserRequest user, String id);
+    CompletableFuture<UserResponse> delete(String id);
 }
