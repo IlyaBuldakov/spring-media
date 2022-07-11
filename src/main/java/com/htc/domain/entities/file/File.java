@@ -1,65 +1,66 @@
 package com.htc.domain.entities.file;
 
-import lombok.Getter;
+import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.Id;
+import com.htc.domain.entities.utility.parameters.file.FileBody;
+import com.htc.domain.entities.utility.parameters.file.FileName;
+import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
 
 /**
  * Файл.
  */
-public class File {
+public interface File {
   /**
-   * Идентификатор файла.
+   * Идентификатор.
+   *
+   * @see Id#create(Long)
    *
    * @return id идентификатор
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter int id;
+  Id getId();
 
   /**
    * Имя файла.
    *
+   * @see FileName#create(String)
+   *
    * @return name имя
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String name;
+  FileName getName();
 
   /**
    * Дата создания.
    *
+   * @see DateCreated#create()
+   *
    * @return dateCreated дата создания
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String dateCreated;
+  DateCreated getDateCreated();
 
   /**
-   * {@link Format Формат} файла.
+   * Format файла.
+   *
+   * @see Format
    *
    * @return format формат
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter Format format;
+  Format getFormat();
 
   /**
-   * Путь до {@link File файла}.
+   * Путь до файла.
+   *
+   * @see FileUrlPath#create(String)
    *
    * @return fileUrlPath путь до файла
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String fileUrlPath;
+  FileUrlPath getFileUrlPath();
 
   /**
-   * содержимое файла.
+   * Cодержимое файла в base64.
    *
-   *<p>Формат Base64.</p>
+   * @see FileBody#create(String)
    *
    * @return file содержимое файла
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String file;
-
-  /**
-   * Идентификатор {@link com.htc.domain.entities.task.Task задачи}.
-   *
-   * @return id идентификатор задачи
-   */
-  private @Getter int taskId;
+  FileBody getFile();
 }
