@@ -3,7 +3,8 @@ ___
 
 ### Spring:
 
-- **org.springframework.boot:spring-boot-starter-web** - стартер для создания RESTful API
+- **org.springframework.boot:spring-boot-starter-web** - стартер для создания веб-приложения.
+- **org.springframework.boot:spring-boot-starter-data-jpa** - стартер для Spring Data JPA.
 
 ### Тестирование:
 
@@ -15,14 +16,15 @@ ___
 
 ### Валидаторы:
 
-- **commons-codec:commons-codec** - проверка формата Base64
 - **commons-validator:commons-validator** - проверка Email
 
 ### Разное:
 
- - **org.projectlombok:lombok** - полезные аннотации.
+- **org.postgresql:postgresql** - драйвер PostgreSQL.
 
- - **io.vavr:vavr** - примитивы функционального программирования.
+- **org.projectlombok:lombok** - полезные аннотации.
+
+- **io.vavr:vavr** - примитивы функционального программирования.
 
 ## Инструкции
 ___
