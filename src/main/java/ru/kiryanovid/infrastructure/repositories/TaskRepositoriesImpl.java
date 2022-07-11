@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Autowired
-    Tasks tasks;
+    private Tasks tasks;
 
     @Override
     public CompletableFuture<Either<Failure, Task>> create(Task task) {

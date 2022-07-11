@@ -2,10 +2,13 @@ package ru.kiryanovid.application.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.kiryanovid.application.dto.errors.BadRequestDto;
+import ru.kiryanovid.application.dto.errors.InternalServerErrorDto;
 import ru.kiryanovid.application.dto.errors.NotFoundDto;
 import ru.kiryanovid.application.dto.task.TaskDto;
 import ru.kiryanovid.application.dto.task.TaskListDto;
 import ru.kiryanovid.application.dto.task.TaskRequestDto;
+import ru.kiryanovid.domain.entity.errors.InvalidValue;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.usecases.task.*;
 import ru.kiryanovid.domain.usecases.user.GetUserById;
@@ -29,9 +32,12 @@ public class TaskController {
 
     @GetMapping
     public List<TaskListDto> getAll() throws ExecutionException, InterruptedException {
-        var taskList = getAllTasks.execute(null).
-                get().
-                get();
+        var taskList = getAllTasks.execute(null)
+                .get()
+                .getOrElseThrow(failure -> switch (failure){
+                    case InvalidValue invalidValue -> new BadRequestDto(invalidValue);
+                    default -> new InternalServerErrorDto(failure);
+                });
         List<TaskListDto> dtoList = new ArrayList<>();
         for(Task task : taskList){
             dtoList.add(new TaskListDto(task));
@@ -42,7 +48,7 @@ public class TaskController {
     public void create(@RequestBody TaskRequestDto taskRequestDto) throws ExecutionException, InterruptedException {
         var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
         var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
-        var task = Task.create(null,
+        var task = Task.create(0,
                 taskRequestDto.getName(),
                 taskRequestDto.getContentType(),
                 taskRequestDto.getDescription(),
@@ -53,8 +59,16 @@ public class TaskController {
                 taskRequestDto.getDateExpired(),
                 null,
                 null,
-                null).get();
-        createTask.execute(task);
+                null);
+        if(task.isLeft()){
+            if(task.getLeft() instanceof InvalidValue){
+                throw new BadRequestDto(task.getLeft());
+            }
+            else {
+                throw new InternalServerErrorDto(task.getLeft());
+            }
+        }
+        createTask.execute(task.get());
     }
     @GetMapping(path = "/{id}")
     public CompletableFuture<TaskDto> getTaskById(@PathVariable Integer id) throws ExecutionException, InterruptedException {
