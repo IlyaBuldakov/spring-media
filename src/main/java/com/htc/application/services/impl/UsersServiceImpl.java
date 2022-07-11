@@ -28,7 +28,6 @@ public class UsersServiceImpl implements UsersService {
     GetAllUsers getAllUsers;
     UpdateUser updateUser;
     DeleteUserById deleteUserById;
-    SearchUsers searchUsers;
 
     @Override
     public CompletableFuture<List<UserResponse>> getAll() {
