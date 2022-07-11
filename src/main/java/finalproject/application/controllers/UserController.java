@@ -7,7 +7,10 @@ import finalproject.application.dto.user.UserRequestDto;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +24,9 @@ public class UserController {
   UserService userService;
 
 
+
+  @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
+  @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping
   public CompletableFuture<List<UserDto>> getUsers() {
     return userService.getAllUsers().thenApply(either -> either.get().stream().map(UserDto::new).toList());
