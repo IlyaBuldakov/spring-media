@@ -1,8 +1,8 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.user.Role;
+import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 
 import java.util.List;
@@ -15,26 +15,11 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface UsersRepository {
 
-    /**
-     * Создание пользователя
-     *
-     * @param user Пользователь
-     */
-    CompletableFuture<Either<Failure, User>> create(User user);
-
-    /**
-     * Обновление данных пользователя
-     *
-     * @param user Пользователь
-     */
-    CompletableFuture<Either<Failure, User>> update(User user);
-
-    /**
-     * Удаление пользователя
-     *
-     * @param id Идентификатор пользователя
-     */
-    CompletableFuture<Either<Failure, Void>> delete(int id);
+    CompletableFuture<Either<Failure, User>> create(String name,
+                                                    String password,
+                                                    String email,
+                                                    String avatar,
+                                                    Role role);
 
     /**
      * Получение пользователя
@@ -42,7 +27,7 @@ public interface UsersRepository {
      * @param id Идентификатор пользователя
      * @return Пользователь
      */
-    CompletableFuture<Either<Failure, User>> get(int id);
+    CompletableFuture<Either<Failure, User>> getById(int id);
 
     /**
      * Получение списка всех пользователей
@@ -51,22 +36,17 @@ public interface UsersRepository {
      */
     CompletableFuture<Either<Failure, List<User>>> getAll();
 
-    /**
-     * Получение списка пользователей, соответствующих запросу
-     *
-     * @param query Запрос
-     * @return Список пользователей
-     */
-    CompletableFuture<Either<Failure, Iterable<User>>> search(String query);
+    CompletableFuture<Either<Failure, User>> update(int id,
+                                                    String name,
+                                                    String password,
+                                                    String email,
+                                                    String avatar,
+                                                    Role role);
 
     /**
-     * Получение списка пользователей, соответствующих запросу и роли
+     * Удаление пользователя
      *
-     * @param query Запрос
-     * @param role  Роль
-     * @return Список пользователей
+     * @param id Идентификатор пользователя
      */
-    CompletableFuture<Either<Failure, Iterable<User>>> search(String query, Role role);
-
-
+    CompletableFuture<Either<Failure, User>> deleteById(int id);
 }

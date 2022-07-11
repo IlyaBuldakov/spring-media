@@ -35,14 +35,14 @@ public class DeleteUserByIdTest {
 
         useCase.execute(userId);
 
-        verify(mockUsersRepository).delete(Integer.parseInt(userId));
+        verify(mockUsersRepository).deleteById(Integer.parseInt(userId));
     }
 
     @Test
     void userExists_shouldReturnVoid() throws ExecutionException, InterruptedException {
         var userId = String.valueOf(new Random().nextInt(255));
 
-        when(mockUsersRepository.delete(Integer.parseInt(userId)))
+        when(mockUsersRepository.deleteById(Integer.parseInt(userId)))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(null)));
 
         var result = useCase.execute(userId)
@@ -56,7 +56,7 @@ public class DeleteUserByIdTest {
     void userDoesNotExist_shouldReturnNotFound() throws ExecutionException, InterruptedException {
         var userId = String.valueOf(new Random().nextInt(255));
 
-        when(mockUsersRepository.delete(Integer.parseInt(userId)))
+        when(mockUsersRepository.deleteById(Integer.parseInt(userId)))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
 
         var result = useCase.execute(userId)

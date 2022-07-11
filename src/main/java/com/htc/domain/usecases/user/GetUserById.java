@@ -33,7 +33,7 @@ public class GetUserById implements UseCase<String, User> {
         if (!integerValidator.minValue(paramToInt, 1)) {
             return CompletableFuture.completedFuture(Either.left(new InvalidValue("Идентификатор должен быть больше 0")));
         }
-        return usersRepository.get(paramToInt);
+        return usersRepository.getById(paramToInt);
     }
 
     public Void setUsersRepository(UsersRepository usersRepository) {

@@ -2,6 +2,7 @@ package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
@@ -18,12 +19,12 @@ import java.util.concurrent.CompletableFuture;
  */
 @AllArgsConstructor
 @Component
-public class DeleteUserById implements UseCase<String, Void> {
+public class DeleteUserById implements UseCase<String, User> {
 
     private UsersRepository usersRepository;
 
     @Override
-    public CompletableFuture<Either<Failure, Void>> execute(String param) {
+    public CompletableFuture<Either<Failure, User>> execute(String param) {
         IntegerValidator integerValidator = IntegerValidator.getInstance();
         if (!integerValidator.isValid(param)) {
             return CompletableFuture.completedFuture(Either.left(new InvalidValue("Некорректное значение идентификатора")));
@@ -32,7 +33,7 @@ public class DeleteUserById implements UseCase<String, Void> {
         if (!integerValidator.minValue(paramToInt, 1)) {
             return CompletableFuture.completedFuture(Either.left(new InvalidValue("Идентификатор должен быть больше 0")));
         }
-        return usersRepository.delete(paramToInt);
+        return usersRepository.deleteById(paramToInt);
     }
 
     public Void setUsersRepository(UsersRepository usersRepository) {

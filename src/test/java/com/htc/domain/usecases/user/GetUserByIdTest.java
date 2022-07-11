@@ -38,7 +38,7 @@ public class GetUserByIdTest {
 
         useCase.execute(userId);
 
-        verify(mockUsersRepository).get(Integer.parseInt(userId));
+        verify(mockUsersRepository).getById(Integer.parseInt(userId));
     }
 
 
@@ -52,7 +52,7 @@ public class GetUserByIdTest {
 
         final User user = Users.createTestUser(Integer.parseInt(userId));
 
-        when(mockUsersRepository.get(Integer.parseInt(userId)))
+        when(mockUsersRepository.getById(Integer.parseInt(userId)))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
 
         var result = useCase.execute(userId)
@@ -68,7 +68,7 @@ public class GetUserByIdTest {
         var userId = String.valueOf(new Random().nextInt(255));
         var failure = new NotFound("");
 
-        when(mockUsersRepository.get(Integer.parseInt(userId)))
+        when(mockUsersRepository.getById(Integer.parseInt(userId)))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(failure)));
 
         var result = useCase.execute(userId)
