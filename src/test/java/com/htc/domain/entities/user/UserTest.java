@@ -1,11 +1,10 @@
 package com.htc.domain.entities.user;
 
 import com.htc.domain.entities.failures.InvalidValue;
-import org.apache.commons.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
+import com.htc.util.Users;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import com.htc.util.Users;
 
 import java.lang.reflect.Modifier;
 
@@ -16,21 +15,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
  */
 class UserTest {
 
-    private static final int validId = 1;
-
-    private static final String validName = "Ольга Бузова";
-
-    private static final String validPassword = "1aaAbbBccC";
-
-    private static final String validEmail = "olga.buzova@mail.ru";
-
-    private static final byte[] validAvatar = Base64.decodeBase64("SGVsbG9Xb3JsZA==");
-
-    private static final Role validRole = Users.getRandomTestRole();
+    private static final User TEST_USER = Users.createTestUser();
 
     @Test
     void hasOnlyOneConstructor_AndThisConstructorShouldBePrivate() {
-        User user = User.create(validId, validName, validPassword, validEmail, validAvatar, validRole).get();
+        User user = User.create(
+                TEST_USER.getId(), TEST_USER.getName(), TEST_USER.getPassword(),
+                TEST_USER.getEmail(), TEST_USER.getAvatar(), TEST_USER.getRole()).get();
 
         var userClass = user.getClass();
         var userConstructors = userClass.getDeclaredConstructors();
@@ -40,7 +31,8 @@ class UserTest {
 
     @Test
     void create_InvalidId_ShouldReturnFailure() {
-        var user = User.create(-10, validName, validPassword, validEmail, validAvatar, validRole).getLeft();
+        var user = User.create(-10, TEST_USER.getName(), TEST_USER.getPassword(),
+                TEST_USER.getEmail(), TEST_USER.getAvatar(), TEST_USER.getRole()).getLeft();
 
         assertThat(user)
                 .isNotNull()
@@ -49,7 +41,8 @@ class UserTest {
 
     @Test
     void create_InvalidName_ShouldReturnFailure() {
-        var user = User.create(validId, "", validPassword, validEmail, validAvatar, validRole).getLeft();
+        var user = User.create(TEST_USER.getId(), "", TEST_USER.getPassword(),
+                TEST_USER.getEmail(), TEST_USER.getAvatar(), TEST_USER.getRole()).getLeft();
 
         assertThat(user)
                 .isNotNull()
@@ -68,7 +61,8 @@ class UserTest {
             "" // Пустое значение
     })
     void create_InvalidPassword_ShouldReturnFailure(String testPassword) {
-        var user = User.create(validId, validName, testPassword, validEmail, validAvatar, validRole).getLeft();
+        var user = User.create(TEST_USER.getId(), TEST_USER.getName(), testPassword,
+                TEST_USER.getEmail(), TEST_USER.getAvatar(), TEST_USER.getRole()).getLeft();
 
         assertThat(user)
                 .isNotNull()
@@ -77,7 +71,8 @@ class UserTest {
 
     @Test
     void create_InvalidEmail_ShouldReturnFailure() {
-        var user = User.create(validId, validName, validPassword, "213.com", validAvatar, validRole).getLeft();
+        var user = User.create(TEST_USER.getId(), TEST_USER.getName(), TEST_USER.getPassword(),
+                "213.com", TEST_USER.getAvatar(), TEST_USER.getRole()).getLeft();
 
         assertThat(user)
                 .isNotNull()
@@ -86,7 +81,8 @@ class UserTest {
 
     @Test
     void create_InvalidAvatar_ShouldReturnFailure() {
-        var user = User.create(validId, validName, validPassword, validEmail, new byte[]{1, 2, 3}, validRole).getLeft();
+        var user = User.create(TEST_USER.getId(), TEST_USER.getName(), TEST_USER.getPassword(),
+                TEST_USER.getEmail(), "", TEST_USER.getRole()).getLeft();
 
         assertThat(user)
                 .isNotNull()
