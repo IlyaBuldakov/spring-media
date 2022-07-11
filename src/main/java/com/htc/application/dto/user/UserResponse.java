@@ -45,7 +45,7 @@ public class UserResponse {
      *
      * @return avatar Аватар пользователя
      */
-    private final @Getter byte[] avatar;
+    private final @Getter String avatar;
 
     /**
      * Роль пользователя {@link Role.RoleType}

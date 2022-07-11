@@ -3,14 +3,11 @@ package com.htc.application.dto.user;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 /**
  * Представление сущности пользователя (ответ)
  *
  * @author IlyaBuldakov
  */
-@NoArgsConstructor
 public class UserRequest {
 
     public UserRequest(User user) {
@@ -49,7 +46,7 @@ public class UserRequest {
      *
      * @return avatar Аватар пользователя
      */
-    private final @Getter byte[] avatar;
+    private final @Getter String avatar;
 
     /**
      * Роль пользователя {@link Role.RoleType}
