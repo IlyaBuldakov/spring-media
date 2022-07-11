@@ -13,15 +13,22 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <junit.version>5.8.2</junit.version>
-        <mockito.version>4.5.1</mockito.version>
-        <spring.version>2.6.7</spring.version>
+        <mockito.version>4.6.1</mockito.version>
+        <spring.version>2.7.0</spring.version>
     </properties>
 
     <dependencies>
 
+        <!-- Spring Dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -49,11 +56,10 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
+            <version>3.23.1</version>
         </dependency>
 
-        <!-- Lombok.
-             Convenient annotations-->
+        <!-- Lombok. Convenient annotations-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -66,19 +72,19 @@
             <version>0.10.4</version>
         </dependency>
 
-        <!-- Apache Commons Codec
-             Base64 Library -->
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.15</version>
-        </dependency>
-
         <!-- Apache Commons Validator -->
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>1.7</version>
         </dependency>
+
+        <!-- Postgres Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.4.0</version>
+        </dependency>
+
     </dependencies>
 </project>
