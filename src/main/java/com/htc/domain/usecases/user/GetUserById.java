@@ -35,9 +35,4 @@ public class GetUserById implements UseCase<String, User> {
         }
         return usersRepository.getById(paramToInt);
     }
-
-    public Void setUsersRepository(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-        return null;
-    }
 }

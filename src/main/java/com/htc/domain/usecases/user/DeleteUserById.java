@@ -35,9 +35,4 @@ public class DeleteUserById implements UseCase<String, User> {
         }
         return usersRepository.deleteById(paramToInt);
     }
-
-    public Void setUsersRepository(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-        return null;
-    }
 }

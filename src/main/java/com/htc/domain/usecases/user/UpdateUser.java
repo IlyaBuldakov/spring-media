@@ -44,9 +44,4 @@ public class UpdateUser implements UseCase<UserParams, User> {
                 params.getAvatar(),
                 params.getRole());
     }
-
-    public Void setUsersRepository(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-        return null;
-    }
 }

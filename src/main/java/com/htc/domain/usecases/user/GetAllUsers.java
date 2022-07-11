@@ -26,9 +26,4 @@ public class GetAllUsers implements UseCase<Void, List<User>> {
     public CompletableFuture<Either<Failure, List<User>>> execute(Void param) {
         return usersRepository.getAll();
     }
-
-    public Void setUsersRepository(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-        return null;
-    }
 }
