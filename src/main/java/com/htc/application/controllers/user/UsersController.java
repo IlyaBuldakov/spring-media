@@ -41,12 +41,14 @@ public class UsersController {
     }
 
     @PutMapping("/{id}")
+    @Async
     public CompletableFuture<UserResponse> updateUser(@RequestBody UserRequest user,
                                                       @PathVariable("id") String id) {
         return usersService.update(user, id);
     }
 
     @DeleteMapping("/{id}")
+    @Async
     public CompletableFuture<UserResponse> deleteUser(@PathVariable("id") String id) {
         return usersService.delete(id);
     }
