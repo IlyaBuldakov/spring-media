@@ -25,29 +25,30 @@ public class UsersController {
     @GetMapping
     @Async
     public CompletableFuture<List<UserResponse>> getAllUsers() {
-        return null;
+        return usersService.getAll();
     }
 
     @GetMapping("/{id}")
     @Async
     public CompletableFuture<UserResponse> getUserById(@PathVariable("id") String id) {
-        return null;
+        return usersService.getById(id);
     }
 
     @PostMapping
     @Async
-    public CompletableFuture<UserResponse> createUser() {
-        return null;
+    public CompletableFuture<UserResponse> createUser(@RequestBody UserRequest user) {
+        return usersService.create(user);
     }
 
     @PutMapping("/{id}")
-    public CompletableFuture<UserResponse> updateUser(@PathVariable("id") String id) {
-        return null;
+    public CompletableFuture<UserResponse> updateUser(@RequestBody UserRequest user,
+                                                      @PathVariable("id") String id) {
+        return usersService.update(user, id);
     }
 
     @DeleteMapping("/{id}")
     public CompletableFuture<UserResponse> deleteUser(@PathVariable("id") String id) {
-        return null;
+        return usersService.delete(id);
     }
 
 }
