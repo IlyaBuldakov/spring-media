@@ -28,7 +28,7 @@ public class UserName extends EntityParameter<String> {
    */
   public static Either<Failure, UserName> create(String value) {
     return (!value.matches(NAME_REGEX))
-            ? Either.left(new InvalidValues(Map.of(InvalidValueParam.INVALID_USER_NAME, "name")))
+            ? Either.left(new InvalidValues(Map.of(InvalidValueParam.INVALID_ENTITY_NAME, "name")))
             : Either.right(new UserName(value));
   }
 }

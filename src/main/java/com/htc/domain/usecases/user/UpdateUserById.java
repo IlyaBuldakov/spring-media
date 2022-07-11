@@ -56,7 +56,7 @@ public final class UpdateUserById implements UseCase<UpdateUserById.Params, User
     }
     var name = UserName.create(params.name());
     if (name.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_USER_NAME, params.nameKey);
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
     }
     var email = UserEmail.create(params.email());
     if (email.isLeft()) {

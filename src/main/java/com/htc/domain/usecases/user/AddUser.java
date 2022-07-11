@@ -50,7 +50,7 @@ public final class AddUser implements UseCase<AddUser.Params, User> {
     var failure = new InvalidValues();
     var name = UserName.create(params.name());
     if (name.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_USER_NAME, params.nameKey);
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
     }
     var email = UserEmail.create(params.email());
     if (email.isLeft()) {
