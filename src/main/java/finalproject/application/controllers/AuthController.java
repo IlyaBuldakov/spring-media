@@ -27,12 +27,6 @@ public class AuthController {
     return ResponseEntity.ok(token);
   }
 
-  @PostMapping("/token")
-  public ResponseEntity<AuthLoginResponseDto> getNewAccessToken(@RequestBody AuthRefreshTokenDto request)
-          throws ExecutionException, InterruptedException {
-    final AuthLoginResponseDto token = authService.getAccessToken(request.getRefreshToken());
-    return ResponseEntity.ok(token);
-  }
 
   @PostMapping("/refresh-token")
   public ResponseEntity<AuthLoginResponseDto> getNewRefreshToken(@RequestBody AuthRefreshTokenDto request)

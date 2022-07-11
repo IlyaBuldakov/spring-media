@@ -35,19 +35,6 @@ public final class AuthService {
     }
   }
 
-  public AuthLoginResponseDto getAccessToken(@NonNull String refreshToken) throws ExecutionException, InterruptedException {
-    if (jwtProvider.validateRefreshToken(refreshToken)) {
-      final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
-      final String email = claims.getSubject();
-      final String saveRefreshToken = refreshStorage.get(email);
-      if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
-        final User user = userService.getUserByEmail(email).get().getOrElseThrow(failure -> new NotAuthorizedDto(failure));
-        final String accessToken = jwtProvider.generateAccessToken(user);
-        return new AuthLoginResponseDto(accessToken, null);
-      }
-    }
-    return new AuthLoginResponseDto(null, null);
-  }
 
   public AuthLoginResponseDto refresh(@NonNull String refreshToken) throws ExecutionException, InterruptedException {
     if (jwtProvider.validateRefreshToken(refreshToken)) {
