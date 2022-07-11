@@ -1,20 +1,19 @@
 package com.htc.application.dto.user;
 
-import com.htc.application.dto.DataTransferObject;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Представление сущности пользователя (ответ)
  *
  * @author IlyaBuldakov
  */
-public class UserRequest extends DataTransferObject<User> {
+@NoArgsConstructor
+public class UserRequest {
 
     public UserRequest(User user) {
-        super(user);
-
         this.name = user.getName();
         this.password = user.getPassword();
         this.email = user.getEmail();

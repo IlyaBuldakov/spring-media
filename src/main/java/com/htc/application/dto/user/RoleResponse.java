@@ -1,6 +1,5 @@
 package com.htc.application.dto.user;
 
-import com.htc.application.dto.DataTransferObject;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.Role.RoleType;
 import lombok.Getter;
@@ -8,11 +7,9 @@ import lombok.Getter;
 /**
  * @author IlyaBuldakov
  */
-public class RoleResponse extends DataTransferObject<Role> {
+public class RoleResponse {
 
     public RoleResponse(Role role) {
-        super(role);
-
         this.id = role.getId();
         this.roleType = role.getRoleType();
     }

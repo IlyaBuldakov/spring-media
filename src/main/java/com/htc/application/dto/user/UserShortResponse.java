@@ -1,6 +1,5 @@
 package com.htc.application.dto.user;
 
-import com.htc.application.dto.DataTransferObject;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
 
@@ -9,11 +8,9 @@ import lombok.Getter;
  *
  * @author IlyaBuldakov
  */
-public class UserShortResponse extends DataTransferObject<User> {
+public class UserShortResponse {
 
     public UserShortResponse(User user) {
-        super(user);
-
         this.id = user.getId();
         this.name = user.getName();
     }
