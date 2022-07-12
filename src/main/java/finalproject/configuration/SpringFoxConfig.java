@@ -9,7 +9,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-
 import java.util.Arrays;
 
 @Configuration
@@ -27,9 +26,9 @@ public class SpringFoxConfig {
 
   private ApiInfo apiInform() {
     return new ApiInfoBuilder()
-            .title("REST API Document")
+            .title("Система создания медиаконтента")
             .description("work in progress")
-            .termsOfServiceUrl("localhost")
+            .termsOfServiceUrl("https://miro.medium.com/max/1400/1*ovB7iwrwZL8gqVzW0E1kNQ.jpeg")
             .version("1.0")
             .build();
   }
