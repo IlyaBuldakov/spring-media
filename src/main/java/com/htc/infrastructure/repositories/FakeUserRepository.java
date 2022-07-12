@@ -1,6 +1,7 @@
 package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
@@ -31,26 +32,38 @@ public class FakeUserRepository implements UserRepository {
     var count = new Random().nextInt(10);
 
     while (count-- >= 0) {
-      users.add(User.create(
-                      new Random().nextInt(255),
-                      faker.name().fullName(),
-                      faker.internet().emailAddress(),
-                      faker.internet().password(5, 17) + "1aA",
-                      faker.lorem().characters(40),
-                      roles[new Random().nextInt(roles.length)])
-              .get());
+      var id = Id.create(new Random().nextInt(255)).get();
+      var name = User.Name.create(faker.name().fullName()).get();
+      var email = User.Email.create(faker.internet().emailAddress()).get();
+      var password = User.Password.create(faker.internet().password(5, 17) + "1aA").get();
+      var image = User.Image.create(faker.lorem().characters(40)).get();
+
+      var user = new User(
+              id,
+              name,
+              email,
+              password,
+              image,
+              roles[new Random().nextInt(roles.length)]
+      );
+
+      users.add(user);
     }
   }
 
   @Override
-  public CompletableFuture<Either<Failure, User>> create(User user) {
+  public CompletableFuture<Either<Failure, User>> create(
+          User.Name name,
+          User.Email email,
+          User.Password password,
+          User.Image image,
+          Role role) {
     if (Math.random() > SUCCESS_CHANCE) {
       return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
     }
 
-    if (users.contains(user)) {
-      return CompletableFuture.completedFuture(Either.left(AlreadyExists.DEFAULT_MESSAGE));
-    }
+    var id = Id.create(new Random().nextInt(255)).get();
+    var user = new User(id, name, email, password, image, role);
 
     users.add(user);
 
@@ -58,14 +71,20 @@ public class FakeUserRepository implements UserRepository {
   }
 
   @Override
-  public CompletableFuture<Either<Failure, User>> update(User user) {
+  public CompletableFuture<Either<Failure, User>> update(
+          Id id,
+          User.Name name,
+          User.Email email,
+          User.Password password,
+          User.Image image,
+          Role role) {
 
     if (Math.random() > SUCCESS_CHANCE) {
       return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
     }
 
     var userToUpdate = users.stream()
-            .filter(u -> u.getId() == user.getId())
+            .filter(u -> u.getId() == id.getValue())
             .findFirst();
 
 
@@ -73,28 +92,30 @@ public class FakeUserRepository implements UserRepository {
       return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
     }
 
+    var user = new User(id, name, email, password, image, role);
+
     users.set(users.indexOf(userToUpdate.get()), user);
 
     return CompletableFuture.completedFuture(Either.right(user));
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Void>> delete(int id) {
+  public CompletableFuture<Either<Failure, Void>> delete(Id id) {
     if (Math.random() > SUCCESS_CHANCE) {
       return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
     }
 
-    users.removeIf(user -> user.getId() == id);
+    users.removeIf(user -> user.getId() == id.getValue());
     return null;
   }
 
   @Override
-  public CompletableFuture<Either<Failure, User>> get(int id) {
+  public CompletableFuture<Either<Failure, User>> get(Id id) {
     if (Math.random() > SUCCESS_CHANCE) {
       return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
     }
 
-    var result = users.stream().filter(u -> u.getId() == id).toList();
+    var result = users.stream().filter(u -> u.getId() == id.getValue()).toList();
 
     if (result.size() == 0) {
       return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));

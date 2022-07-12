@@ -1,6 +1,8 @@
 package com.htc.domain.repositories;
 
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.util.Collection;
@@ -10,26 +12,50 @@ import java.util.concurrent.CompletableFuture;
  * Репозиторий пользователей.
  */
 public interface UserRepository {
+
   /**
    * Создаёт пользователя.
    *
-   * @param user Пользователь.
+   * @param name Имя пользователя.
+   * @param email Электронная почта пользователя
+   * @param password Пароль пользователя.
+   * @param image Изображение пользователя.
+   * @param role Роль пользователя.
+   * @return Пользователь или ошибка.
    */
-  CompletableFuture<Either<Failure, User>> create(User user);
+  CompletableFuture<Either<Failure, User>> create(
+          User.Name name,
+          User.Email email,
+          User.Password password,
+          User.Image image,
+          Role role);
+
 
   /**
    * Обновляет данные пользователя.
    *
-   * @param user Пользователь.
+   * @param id Идентификатор пользователя.
+   * @param name Имя пользователя.
+   * @param email Электронная почта пользователя.
+   * @param password Пароль пользователя.
+   * @param image Изображение пользователя.
+   * @param role Роль пользователя.
+   * @return Пользователь или ошибка.
    */
-  CompletableFuture<Either<Failure, User>> update(User user);
+  CompletableFuture<Either<Failure, User>> update(
+          Id id,
+          User.Name name,
+          User.Email email,
+          User.Password password,
+          User.Image image,
+          Role role);
 
   /**
    * Удаляет пользоваетеля.
    *
    * @param id Идентификатор пользователя.
    */
-  CompletableFuture<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 
   /**
    * Получает пользователя.
@@ -37,7 +63,7 @@ public interface UserRepository {
    * @param id Идентификатор пользователя.
    * @return Пользователь.
    */
-  CompletableFuture<Either<Failure, User>> get(int id);
+  CompletableFuture<Either<Failure, User>> get(Id id);
 
   /**
    * Получает список всех пользователей.
