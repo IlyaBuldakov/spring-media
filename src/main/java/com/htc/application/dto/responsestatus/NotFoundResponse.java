@@ -13,6 +13,6 @@ public class NotFoundResponse extends ApplicationFailureException {
    * @param failure Ошибка доменного слоя.
    */
   public NotFoundResponse(Failure failure) {
-    super(HttpStatus.NOT_FOUND, failure);
+    super(HttpStatus.NOT_FOUND, failure.getMessage());
   }
 }

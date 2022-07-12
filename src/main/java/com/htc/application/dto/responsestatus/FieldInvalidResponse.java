@@ -22,7 +22,7 @@ public class FieldInvalidResponse extends ApplicationFailureException {
    * @param failure Ошибка доменного слоя.
    */
   public FieldInvalidResponse(InvalidValue failure) {
-    super(HttpStatus.BAD_REQUEST, failure);
+    super(HttpStatus.BAD_REQUEST, failure.getMessage());
 
     this.field = failure.getField();
   }

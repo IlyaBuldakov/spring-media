@@ -1,6 +1,8 @@
 package com.htc.application.dto.responsestatus;
 
+import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValues;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -20,14 +22,19 @@ public class BadRequestResponse extends ApplicationFailureException {
   /**
    * Создаёт экземпляр класса {@link BadRequestResponse}.
    *
-   * @param invalidValues Некорректные значения.
+   * @param failure Некорректные значения.
    */
-  public BadRequestResponse(InvalidValues invalidValues) {
-    super(HttpStatus.BAD_REQUEST, invalidValues);
+  public BadRequestResponse(Failure failure) {
+    super(HttpStatus.BAD_REQUEST, failure.getMessage());
+    System.out.println("BadRequestResponse created");
+    if (failure instanceof InvalidValues invalidValues) {
+      this.problems = invalidValues.getInvalidValues()
+              .stream()
+              .map(FieldInvalidResponse::new)
+              .collect(Collectors.toList());
+    } else {
 
-    this.problems = invalidValues.getInvalidValues()
-            .stream()
-            .map(FieldInvalidResponse::new)
-            .collect(Collectors.toList());
+      this.problems = Collections.emptyList();
+    }
   }
 }

@@ -13,6 +13,6 @@ public class UnauthorizedResponse extends ApplicationFailureException {
    * @param failure Ошибка доменного слоя.
    */
   public UnauthorizedResponse(Failure failure) {
-    super(HttpStatus.UNAUTHORIZED, failure);
+    super(HttpStatus.UNAUTHORIZED, failure.getMessage());
   }
 }

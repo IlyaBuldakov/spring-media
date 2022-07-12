@@ -13,6 +13,6 @@ public class InternalServerErrorResponse extends ApplicationFailureException {
    * @param failure Ошибка доменного слоя.
    */
   public InternalServerErrorResponse(Failure failure) {
-    super(HttpStatus.INTERNAL_SERVER_ERROR, failure);
+    super(HttpStatus.INTERNAL_SERVER_ERROR, failure.getMessage());
   }
 }
