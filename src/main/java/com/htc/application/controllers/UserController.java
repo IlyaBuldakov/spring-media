@@ -39,6 +39,7 @@ public class UserController {
    * Создаёт пользователя.
    */
   @PostMapping
+  @Async
   public void create(@RequestBody UserRequest userRequest) {
     Controllers.handleRequest(
             createUser,
@@ -48,7 +49,7 @@ public class UserController {
                     userRequest.getPassword(),
                     userRequest.getImage(),
                     userRequest.getRole()),
-            UserResponse::new);
+            null);
   }
 
   /**
@@ -72,6 +73,7 @@ public class UserController {
    * @return Список пользователей.
    */
   @GetMapping
+  @Async
   public CompletableFuture<Collection<UserResponse>> getAll() {
     return Controllers.handleRequest(
             getAllUsers,
@@ -88,6 +90,7 @@ public class UserController {
    * @param userRequest Представление сущности пользователя.
    */
   @PutMapping(path = "/{id}")
+  @Async
   public void update(@PathVariable int id, @RequestBody UserRequest userRequest) {
     Controllers.handleRequest(
             updateUser,
@@ -98,7 +101,7 @@ public class UserController {
                     userRequest.getPassword(),
                     userRequest.getImage(),
                     userRequest.getRole()),
-            UserResponse::new);
+            null);
   }
 
   /**
@@ -107,6 +110,7 @@ public class UserController {
    * @param id Идентификатор пользователя.
    */
   @DeleteMapping(path = "/{id}")
+  @Async
   public void delete(@PathVariable int id) {
     Controllers.handleRequest(
             deleteUserById,
