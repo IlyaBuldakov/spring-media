@@ -11,10 +11,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @AllArgsConstructor
 @RestController
@@ -24,7 +26,12 @@ public class UserController {
   UserService userService;
 
 
-
+  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  @PreAuthorize("hasAuthority('ADMIN')")
+  @GetMapping("/hello")
+  public String helloAdmin() throws ExecutionException, InterruptedException {
+    return getCurrentUser().getName();
+  }
   @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
   @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping
@@ -91,7 +98,9 @@ public class UserController {
     }));
   }
 
-
+  private User getCurrentUser() throws ExecutionException, InterruptedException {
+    return userService.getUserById((Integer) SecurityContextHolder.getContext().getAuthentication().getDetails()).get().get();
+  }
 
 
 
