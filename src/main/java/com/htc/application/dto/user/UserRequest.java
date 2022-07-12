@@ -13,35 +13,35 @@ public class UserRequest {
    *
    * @return Имя пользователя.
    */
-  private final @Getter String name;
+  private @Getter String name;
 
   /**
    * Электронная почта пользователя.
    *
    * @return Электронная почта пользователя.
    */
-  private final @Getter String email;
+  private @Getter String email;
 
   /**
    * Пароль пользователя.
    *
    * @return Пароль пользователя.
    */
-  private final @Getter String password;
+  private @Getter String password;
 
   /**
    * Изображение пользователя.
    *
    * @return Изображение пользователя.
    */
-  private final @Getter String image;
+  private  @Getter String image;
 
   /**
    * Роль пользователя, см. {@link Role}.
    *
    * @return Роль пользователя.
    */
-  private final @Getter Role role;
+  private @Getter Role role;
 
   /**
    * Создаёт экземпляр класса {@link UserRequest}.
@@ -54,5 +54,8 @@ public class UserRequest {
     this.password = user.getPassword();
     this.image = user.getImage();
     this.role = user.getRole();
+  }
+
+  public UserRequest() {
   }
 }
