@@ -32,6 +32,8 @@ public class UserController {
     return userService.getAllUsers().thenApply(either -> either.get().stream().map(UserDto::new).toList());
   }
 
+  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping
   public CompletableFuture<UserDto> createUser(@RequestBody UserRequestDto userdata) {
     User user = User
@@ -44,6 +46,8 @@ public class UserController {
             .thenApply(UserDto::new);
   }
 
+  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("/{id}")
   public CompletableFuture<UserDto> editUser(@PathVariable int id, @RequestBody UserRequestDto userdata) {
 
@@ -61,6 +65,8 @@ public class UserController {
             })).thenApply(UserDto::new);
   }
 
+  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping("/{id}")
   public CompletableFuture<UserDto> getUser(@PathVariable int id) {
     return userService.getUserById(id)
@@ -73,6 +79,8 @@ public class UserController {
       .thenApply(UserDto::new);
   }
 
+  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
     return userService.deleteUserById(id).thenApply(either -> either.getOrElseThrow(failure -> {
