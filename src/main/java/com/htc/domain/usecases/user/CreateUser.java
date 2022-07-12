@@ -2,7 +2,6 @@ package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValues;
-import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
@@ -32,7 +31,7 @@ public final class CreateUser implements UseCase<CreateUser.Params, User> {
           String email,
           String password,
           String image,
-          Role role) {}
+          User.Role role) {}
 
 
   private final UserRepository repository;

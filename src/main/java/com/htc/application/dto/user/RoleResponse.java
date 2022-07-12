@@ -1,6 +1,6 @@
 package com.htc.application.dto.user;
 
-import com.htc.domain.entities.user.Role;
+import com.htc.domain.entities.user.User;
 import lombok.Getter;
 
 /**
@@ -26,7 +26,7 @@ public class RoleResponse {
    *
    * @param role Роль пользователя.
    */
-  public RoleResponse(Role role) {
+  public RoleResponse(User.Role role) {
     this.id = role.getId();
     this.name = role.getName();
   }

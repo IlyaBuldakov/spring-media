@@ -4,6 +4,7 @@ import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.InvalidValue;
 import io.vavr.control.Either;
+import lombok.Getter;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -190,7 +191,7 @@ public class User {
   /**
    * Пароль пользователя.
    */
-  public static final class Password extends Attribute<String> {
+  final class Password extends Attribute<String> {
     /**
      * Проверяет входные данные на корректность и создаёт пароль пользователя.
      *
@@ -215,5 +216,41 @@ public class User {
     }
   }
 
+  /**
+   * Роль пользователя.
+   */
+  public enum Role {
+    /**
+     * Администратор.
+     */
+    ADMIN(1, "Администратор"),
+    /**
+     * Менеджер.
+     */
+    MANAGER(2, "Менеджер"),
+    /**
+     * Контент-мейкер.
+     */
+    CONTENT_MAKER(3, "Контент-мейкер");
 
+
+    /**
+     * Идентификатор роли.
+     *
+     * @return id Идентификатор роли.
+     */
+    private final @Getter int id;
+
+    /**
+     * Название роли.
+     *
+     * @return name Название роли.
+     */
+    private final @Getter String name;
+
+    Role(int id, String name) {
+      this.id = id;
+      this.name = name;
+    }
+  }
 }

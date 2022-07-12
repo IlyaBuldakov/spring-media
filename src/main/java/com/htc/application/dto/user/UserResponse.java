@@ -1,6 +1,5 @@
 package com.htc.application.dto.user;
 
-import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
 
@@ -41,12 +40,12 @@ public class UserResponse {
   private final @Getter String image;
 
   /**
-   * Роль пользователя, см. {@link Role}.
+   * Роль пользователя, см. {@link User.Role}.
    *
    * @return id Роль пользователя.
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Role role;
+  private final @Getter User.Role role;
 
   /**
    * Создаёт экземпляр класса {@link UserResponse}.
@@ -54,10 +53,10 @@ public class UserResponse {
    * @param user Сущность пользователя.
    */
   public UserResponse(User user) {
-    this.id = user.getId();
-    this.name = user.getName();
-    this.email = user.getEmail();
-    this.image = user.getImage();
+    this.id = user.getId().getValue();
+    this.name = user.getName().getValue();
+    this.email = user.getEmail().getValue();
+    this.image = user.getImage().getValue();
     this.role = user.getRole();
   }
 

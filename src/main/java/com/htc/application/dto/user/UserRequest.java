@@ -1,6 +1,5 @@
 package com.htc.application.dto.user;
 
-import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
 
@@ -37,11 +36,11 @@ public class UserRequest {
   private  @Getter String image;
 
   /**
-   * Роль пользователя, см. {@link Role}.
+   * Роль пользователя, см. {@link User.Role}.
    *
    * @return Роль пользователя.
    */
-  private @Getter Role role;
+  private @Getter User.Role role;
 
   /**
    * Создаёт экземпляр класса {@link UserRequest}.
@@ -49,10 +48,10 @@ public class UserRequest {
    * @param user Сущность пользователя.
    */
   public UserRequest(User user) {
-    this.name = user.getName();
-    this.email = user.getEmail();
-    this.password = user.getPassword();
-    this.image = user.getImage();
+    this.name = user.getName().getValue();
+    this.email = user.getEmail().getValue();
+    this.password = user.getPassword().getValue();
+    this.image = user.getImage().getValue();
     this.role = user.getRole();
   }
 

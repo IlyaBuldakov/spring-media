@@ -27,7 +27,7 @@ public class UserShortResponse {
    * @param user Сущность пользователя.
    */
   public UserShortResponse(User user) {
-    this.id = user.getId();
-    this.name = user.getName();
+    this.id = user.getId().getValue();
+    this.name = user.getName().getValue();
   }
 }

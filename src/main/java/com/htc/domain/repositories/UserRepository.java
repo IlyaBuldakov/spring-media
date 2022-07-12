@@ -2,7 +2,6 @@ package com.htc.domain.repositories;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.util.Collection;
@@ -28,7 +27,7 @@ public interface UserRepository {
           User.Email email,
           User.Password password,
           User.Image image,
-          Role role);
+          User.Role role);
 
 
   /**
@@ -48,7 +47,7 @@ public interface UserRepository {
           User.Email email,
           User.Password password,
           User.Image image,
-          Role role);
+          User.Role role);
 
   /**
    * Удаляет пользоваетеля.

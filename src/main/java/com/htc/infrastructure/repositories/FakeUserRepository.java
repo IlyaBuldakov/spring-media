@@ -2,11 +2,9 @@ package com.htc.infrastructure.repositories;
 
 import com.github.javafaker.Faker;
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.RepositoryFailure;
-import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
@@ -28,7 +26,7 @@ public class FakeUserRepository implements UserRepository {
   private static final List<User> users = new ArrayList<>();
 
   static {
-    var roles = Role.values();
+    var roles = User.Role.values();
     var count = new Random().nextInt(10);
 
     while (count-- >= 0) {
@@ -57,7 +55,7 @@ public class FakeUserRepository implements UserRepository {
           User.Email email,
           User.Password password,
           User.Image image,
-          Role role) {
+          User.Role role) {
     if (Math.random() > SUCCESS_CHANCE) {
       return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
     }
@@ -77,7 +75,7 @@ public class FakeUserRepository implements UserRepository {
           User.Email email,
           User.Password password,
           User.Image image,
-          Role role) {
+          User.Role role) {
 
     if (Math.random() > SUCCESS_CHANCE) {
       return CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE));
