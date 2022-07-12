@@ -109,4 +109,7 @@ public class FakeUserRepository implements UserRepository {
             ? CompletableFuture.completedFuture(Either.left(RepositoryFailure.DEFAULT_MESSAGE))
             : CompletableFuture.completedFuture(Either.right((users)));
   }
+
+  public FakeUserRepository() {
+  }
 }
