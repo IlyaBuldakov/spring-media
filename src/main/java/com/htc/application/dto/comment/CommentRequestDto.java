@@ -4,7 +4,7 @@ import com.htc.domain.entities.comments.Comment;
 import lombok.Getter;
 
 /**
- * Предсавление запрса комментария.
+ * Представление запрса комментария.
  */
 public class CommentRequestDto {
   /**
@@ -34,7 +34,7 @@ public class CommentRequestDto {
    * @param comment Коментарий.
    */
   public CommentRequestDto(Comment comment) {
-    this.user = comment.getUser().getId();
+    this.user = comment.getUser().getId().getValue();
     this.task = comment.getTask().getId();
     this.message = comment.getMessage();
   }
