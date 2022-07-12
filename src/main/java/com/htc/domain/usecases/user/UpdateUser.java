@@ -39,11 +39,11 @@ public class UpdateUser implements UseCase<UserParams, User> {
 
         IntegerValidator integerValidator = IntegerValidator.getInstance();
         if (!integerValidator.isValid(notValidatedId)) {
-            return CompletableFuture.completedFuture(Either.left(new InvalidValue("Некорректное значение идентификатора")));
+            return CompletableFuture.completedFuture(Either.left(InvalidValue.INCORRECT_ID));
         }
         int id = Integer.parseInt(notValidatedId);
         if (!integerValidator.minValue(id, 1)) {
-            return CompletableFuture.completedFuture(Either.left(new InvalidValue("Идентификатор должен быть больше 0")));
+            return CompletableFuture.completedFuture(Either.left(InvalidValue.NEGATIVE_ID));
         }
         return usersRepository.update(
                 id,

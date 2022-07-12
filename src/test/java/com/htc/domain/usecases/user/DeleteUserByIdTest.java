@@ -54,7 +54,7 @@ public class DeleteUserByIdTest {
         var userId = String.valueOf(new Random().nextInt(255));
 
         when(mockUsersRepository.deleteById(Integer.parseInt(userId)))
-                .thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
+                .thenReturn(CompletableFuture.completedFuture(Either.left(NotFound.USER)));
 
         var result = useCase.execute(userId)
                 .get()

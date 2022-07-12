@@ -36,11 +36,11 @@ public class GetUserById implements UseCase<String, User> {
     public CompletableFuture<Either<Failure, User>> execute(String param) {
         IntegerValidator integerValidator = IntegerValidator.getInstance();
         if (!integerValidator.isValid(param)) {
-            return CompletableFuture.completedFuture(Either.left(new InvalidValue("Некорректное значение идентификатора")));
+            return CompletableFuture.completedFuture(Either.left(InvalidValue.INCORRECT_ID));
         }
         int paramToInt = Integer.parseInt(param);
         if (!integerValidator.minValue(paramToInt, 1)) {
-            return CompletableFuture.completedFuture(Either.left(new InvalidValue("Идентификатор должен быть больше 0")));
+            return CompletableFuture.completedFuture(Either.left(InvalidValue.NEGATIVE_ID));
         }
         return usersRepository.getById(paramToInt);
     }

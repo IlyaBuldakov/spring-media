@@ -1,11 +1,25 @@
 package com.htc.domain.entities.failures;
 
+import lombok.Getter;
+
 /**
  * Ошибка "Уже существует".
  */
-public class AlreadyExists extends Failure {
+public enum AlreadyExists implements Failure {
 
-    public AlreadyExists(String message) {
-        super(message);
+    /**
+     * Стандартное сообщение.
+     */
+    DEFAULT_MESSAGE("Уже существует");
+
+    AlreadyExists(String message) {
+        this.message = message;
     }
+
+    /**
+     * Сообщение об ошибке.
+     *
+     * @return Сообщение об ошибке.
+     */
+    private final @Getter String message;
 }

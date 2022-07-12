@@ -77,7 +77,7 @@ public class UpdateUserTest {
                 testUserParams.getEmail(),
                 testUserParams.getAvatar(),
                 testUserParams.getRole()
-        )).thenReturn(CompletableFuture.completedFuture(Either.left(new NotFound(""))));
+        )).thenReturn(CompletableFuture.completedFuture(Either.left(NotFound.USER)));
 
         var result = useCase.execute(testUserParams)
                 .get()

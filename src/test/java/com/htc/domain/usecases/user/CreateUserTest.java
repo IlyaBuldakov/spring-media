@@ -64,8 +64,6 @@ public class CreateUserTest {
 
     @Test
     void userExists_shouldReturnAlreadyExists() throws ExecutionException, InterruptedException {
-        final User user = Users.createTestUser();
-
         when(mockUsersRepository.create(
                 testUserParams.getName(),
                 testUserParams.getPassword(),
@@ -73,7 +71,7 @@ public class CreateUserTest {
                 testUserParams.getAvatar(),
                 testUserParams.getRole())
         )
-                .thenReturn(CompletableFuture.completedFuture(Either.left(new AlreadyExists(""))));
+                .thenReturn(CompletableFuture.completedFuture(Either.left(AlreadyExists.DEFAULT_MESSAGE)));
 
         var result = useCase.execute(testUserParams)
                 .get()

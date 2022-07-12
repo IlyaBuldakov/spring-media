@@ -14,11 +14,6 @@ import java.util.Locale;
  */
 public class ValuesValidator {
 
-    private static final String INVALID_ID = "Некорректный идентификатор";
-    private static final String INVALID_NAME = "Некорректное имя пользователя";
-    private static final String INVALID_PASSWORD = "Пароль не соответствует требованиям";
-    private static final String INVALID_EMAIL = "Некорректный почтовый адрес";
-    private static final String INVALID_AVATAR = "Некорректный аватар";
     private static final String BASE64_REGEX = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
 
     /**
@@ -37,22 +32,22 @@ public class ValuesValidator {
                                           String email,
                                           String avatar) {
         if (id < 0) {
-            return new InvalidValue(INVALID_ID);
+            return InvalidValue.NEGATIVE_ID;
         }
         if (name.length() == 0) {
-            return new InvalidValue(INVALID_NAME);
+            return InvalidValue.INCORRECT_USERNAME;
         }
         if (!password.matches("\\w{8,20}")
                 || !password.matches(".*\\d+.*")
                 || password.equals(password.toLowerCase(Locale.ROOT))
                 || password.equals(password.toUpperCase(Locale.ROOT))) {
-            return new InvalidValue(INVALID_PASSWORD);
+            return InvalidValue.INCORRECT_PASSWORD;
         }
         if (!EmailValidator.getInstance().isValid(email)) {
-            return new InvalidValue(INVALID_EMAIL);
+            return InvalidValue.INCORRECT_EMAIL;
         }
         if (!avatar.matches(BASE64_REGEX) || avatar.length() == 0) {
-            return new InvalidValue(INVALID_AVATAR);
+            return InvalidValue.INCORRECT_AVATAR;
         }
         return null;
     }

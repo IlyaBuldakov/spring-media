@@ -1,11 +1,22 @@
 package com.htc.domain.entities.failures;
 
+import lombok.Getter;
+
 /**
  * Ошибка авторизации.
  */
-public class NotAuthorized extends Failure {
+public enum NotAuthorized implements Failure {
 
-    public NotAuthorized(String message) {
-        super(message);
+    DEFAULT_MESSAGE("Ошибка авторизации");
+
+    NotAuthorized(String message) {
+        this.message = message;
     }
+
+    /**
+     * Сообщение об ошибке.
+     *
+     * @return Сообщение об ошибке.
+     */
+    private final @Getter String message;
 }
