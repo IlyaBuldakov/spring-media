@@ -3,7 +3,7 @@ package com.htc.domain.entities.failures;
 /**
  * Некорректное значение.
  */
-public enum InvalidValue implements Failure {
+public enum InvalidValue {
   //  /**
   //   * Сообщение по умолчанию.
   //   */
@@ -36,7 +36,6 @@ public enum InvalidValue implements Failure {
 
   private final String field;
 
-  @Override
   public String getMessage() {
     return message;
   }

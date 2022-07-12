@@ -15,7 +15,7 @@ public class InvalidValues implements Failure {
   /**
    * Список некорректных значений.
    */
-  private final ArrayList<InvalidValue> invalidValues;
+  private ArrayList<InvalidValue> invalidValues;
 
   @Override
   public String getMessage() {
@@ -26,7 +26,15 @@ public class InvalidValues implements Failure {
     return invalidValues;
   }
 
+  /**
+   * Добавляет ошибку в список.
+   *
+   * @param invalidValue Ошибка поля сущности.
+   */
   public void addInvalidValue(InvalidValue invalidValue) {
+    if (invalidValue == null) {
+      return;
+    }
     invalidValues.add(invalidValue);
   }
 
