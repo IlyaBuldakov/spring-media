@@ -11,114 +11,53 @@ import org.apache.commons.validator.routines.EmailValidator;
 /**
  * Пользователь.
  */
-public class User {
-  /**
-   * Идентификатор пользователя.
-   */
-  private Id id;
-
-  /**
-   * Электронная почта пользователя.
-   */
-  private Email email;
-  /**
-   * Пароль пользователя.
-   */
-  private Password password;
-  /**
-   * Имя пользователя.
-   */
-  private Name name;
-  /**
-   * Изображение пользователя.
-   */
-  private Image image;
-  /**
-   * Роль пользователя, см. {@link Role}.
-   */
-  private Role role;
-
+public interface User {
   /**
    * Идентификатор пользователя.
    *
    * @return Идентификатор пользователя.
    */
-  public int getId() {
-    return id.getValue();
-  }
+  Id getId();
 
   /**
    * Электронная почта пользователя.
    *
    * @return Электронная почта пользователя.
    */
-  public String getEmail() {
-    return email.getValue();
-  }
+  Email getEmail();
 
   /**
    * Пароль пользователя.
    *
    * @return Пароль пользователя.
    */
-  public String getPassword() {
-    return password.getValue();
-  }
+  Password getPassword();
 
   /**
    * Имя пользователя.
    *
    * @return Имя пользователя.
    */
-  public String getName() {
-    return name.getValue();
-  }
+  Name getName();
 
   /**
    * Изображение пользователя.
    *
    * @return Изображение пользователя.
    */
-  public String getImage() {
-    return image.getValue();
-  }
+  Image getImage();
 
   /**
    * Роль пользователя, см. {@link Role}.
    *
    * @return Роль пользователя.
    */
-  public Role getRole() {
-    return role;
-  }
-
-  private User() {
-  }
-
-  /**
-   * Создаёт пользователя и проверяет данные на корректность.
-   *
-   * @param id       Идентификатор.
-   * @param name     Имя.
-   * @param email    Электронная почта.
-   * @param password Пароль.
-   * @param image    Изображение.
-   * @param role     Роль.
-   */
-  public User(Id id, Name name, Email email, Password password, Image image, Role role) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.image = image;
-    this.role = role;
-
-  }
+  Role getRole();
 
   /**
    * Электронная почта пользователя.
    */
-  public static final class Email extends Attribute<String> {
+  final class Email extends Attribute<String> {
     /**
      * Проверяет входные данные на корректность и создаёт электронную почту пользователя.
      *
@@ -141,7 +80,7 @@ public class User {
   /**
    * Изображение пользователя.
    */
-  public static final class Image extends Attribute<String> {
+  final class Image extends Attribute<String> {
     /**
      * Проверяет входные данные на корректность и создаёт изображение пользователя.
      * Изображение пользователя должно быть представлено в кодировке Base64.
@@ -166,7 +105,7 @@ public class User {
   /**
    * Имя пользователя.
    */
-  public static final class Name extends Attribute<String> {
+  final class Name extends Attribute<String> {
     /**
      * Проверяет входные данные на корректность и создаёт имя пользователя.
      * Имя пользователя не должно быть пустой строкой и не должно быть длиннее 32 символов
@@ -219,7 +158,7 @@ public class User {
   /**
    * Роль пользователя.
    */
-  public enum Role {
+  enum Role {
     /**
      * Администратор.
      */
@@ -239,6 +178,7 @@ public class User {
      *
      * @return id Идентификатор роли.
      */
+    @SuppressWarnings("JavadocDeclaration")
     private final @Getter int id;
 
     /**
@@ -246,6 +186,7 @@ public class User {
      *
      * @return name Название роли.
      */
+    @SuppressWarnings("JavadocDeclaration")
     private final @Getter String name;
 
     Role(int id, String name) {
