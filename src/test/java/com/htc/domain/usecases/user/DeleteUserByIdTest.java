@@ -14,9 +14,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
-/**
- * @author IlyaBuldakov
- */
 public class DeleteUserByIdTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);

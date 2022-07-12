@@ -17,9 +17,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * @author IlyaBuldakov
- */
 public class GetUserByIdTest {
 
     final UsersRepository mockUsersRepository = mock(UsersRepository.class);

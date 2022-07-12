@@ -8,9 +8,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-/**
- * @author IlyaBuldakov
- */
 class ValuesValidatorTest {
 
     private final static User TEST_USER = Users.createTestUser();

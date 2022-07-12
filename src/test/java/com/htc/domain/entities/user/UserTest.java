@@ -10,9 +10,6 @@ import java.lang.reflect.Modifier;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-/**
- * @author IlyaBuldakov
- */
 class UserTest {
 
     private static final User TEST_USER = Users.createTestUser();
