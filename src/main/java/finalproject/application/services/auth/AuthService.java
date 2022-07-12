@@ -9,7 +9,6 @@ import finalproject.domain.entities.user.User;
 import io.jsonwebtoken.Claims;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,9 +51,7 @@ public final class AuthService {
     throw new NotAuthorizedDto(new Failure(Failure.Messages.AUTHORIZATION_FAILURE));
   }
 
-  public JwtAuthentication getAuthInfo() {
-    return (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
-  }
+
 
 
 }
