@@ -34,7 +34,7 @@ public class SpringFoxConfig {
             .build();
   }
   private ApiKey apiKey() {
-    return new ApiKey("jwtToken", "Authorization", "header");
+    return new ApiKey("Bearer", "Authorization", "header");
   }
 
 

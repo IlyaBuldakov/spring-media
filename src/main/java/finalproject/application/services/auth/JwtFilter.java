@@ -42,8 +42,11 @@ import java.util.Collections;
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
-      return request.getHeader(AUTHORIZATION);
-
+      final String bearer = request.getHeader(AUTHORIZATION);
+      if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
+        return bearer.substring(7);
+      }
+      return null;
     }
 
   }

@@ -25,7 +25,7 @@ public class UserController {
 
 
 
-  @ApiOperation(value = "", authorizations = { @Authorization(value="jwtToken") })
+  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
   @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping
   public CompletableFuture<List<UserDto>> getUsers() {
