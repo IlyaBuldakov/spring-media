@@ -7,3 +7,12 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  datasource:
+    url: # Указать ссылку на источник данных.
+    username: # Указать имя пользователя СУБД.
+    password: # Указать пароль пользователя СУБД.
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop

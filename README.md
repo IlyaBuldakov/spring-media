@@ -3,7 +3,12 @@
 Spring:
 1. `org.springframework.boot:spring-boot-starter-parent` - базовый POM для проектов на Spring.
 2. `org.springframework.boot:spring-boot-starter-web` - стартер для созадния RESTful API.
-3. `io.springfox:springfox-boot-starter` - стартер для генерации Swagger UI.
+3. `org.springframework.boot:spring-boot-starter-data-jpa` - стартер для работы со Spring Data.
+4. `io.springfox:springfox-boot-starter` - стартер для генерации Swagger UI.
+
+Работа с данными:
+1. `org.postgresql:postgresql` - драйвер PostgreSQL для Spring Data.
+
 
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` - модульные тесты.
@@ -26,5 +31,8 @@ Spring:
 ## Сборка проекта
 
 ## Установка проекта
+В [application.yaml](src/main/resources/application.yaml) установить следующие параметры:
+1. `spring.datasource.url` - ссылка на источник данных.
+2. `spring.datasource.username` - имя пользователя СУБД.
 
 ## Запуск проекта
