@@ -4,6 +4,16 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [v0.11.0] - 2022-07-12
+### Добавлено
+- Представления связаное с задачами.
+- Представления связаное с комментариями.
+- Представления связаное с медиаконтеном.
+- Представления связаное с файлами.
+- Представления связаное с уведомлениями.
+### Изменено
+- Проверка полей при создании пользователя перенесана в отдельный класс.
+
 ## [v0.10.0] - 2022-06-26
 ### Добавлено
 - Механизм обработки ошибок.
@@ -121,3 +131,4 @@
 [v0.8.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.7.0...aleksandr.aziatcev-v0.8.0
 [v0.9.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.8.0...aleksandr.aziatcev-v0.9.0
 [v0.10.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.9.0...aleksandr.aziatcev-v0.10.0
+[v0.11.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.10.0...aleksandr.aziatcev-v0.11.0
