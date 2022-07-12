@@ -13,6 +13,7 @@ import java.util.Set;
 @Setter
 public class JwtAuthentication implements Authentication {
 
+  private int userId;
   private boolean authenticated;
   private String email;
   private String name;
@@ -30,7 +31,7 @@ public class JwtAuthentication implements Authentication {
 
   @Override
   public Object getDetails() {
-    return null;
+    return userId;
   }
 
   @Override
@@ -52,4 +53,7 @@ public class JwtAuthentication implements Authentication {
   public String getName() {
     return name;
   }
+
+
+
 }

@@ -35,6 +35,8 @@ import java.util.Collections;
         final Claims claims = jwtProvider.getAccessClaims(token);
         final JwtAuthentication jwtToken = new JwtAuthentication();
         jwtToken.setRoles(Collections.singleton(Role.valueOf(claims.get("role", String.class))));
+        jwtToken.setUserId(claims.get("id", Integer.class));
+        jwtToken.setEmail(claims.getSubject());
         jwtToken.setAuthenticated(true);
         SecurityContextHolder.getContext().setAuthentication(jwtToken);
       }
