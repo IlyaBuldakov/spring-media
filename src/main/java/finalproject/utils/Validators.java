@@ -2,8 +2,10 @@ package finalproject.utils;
 
 import finalproject.domain.entities.user.Role;
 import lombok.NoArgsConstructor;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.Validate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,22 +49,42 @@ public class Validators {
 
   }
 
-  public void validateName(String name) {
-    if (!Validators.notNullString(name)) {
-      problems.add("name");
+  public void validateNonNullString(String value, String field) {
+    if (!Validators.notNullString(value)) {
+      problems.add(field);
     }
   }
 
-  public void validateRole(Role role) {
+  public void validateNotNull(Object object, String field) {
       try {
-        Validate.notNull(role);
+        Validate.notNull(object);
       }
       catch (Exception e) {
-        problems.add("role");
+        problems.add(field);
       }
   }
 
+  public void validateBase64(String image) {
+    try {
+      Validate.isTrue(Base64.isBase64(image) && Validators.notNullString(image));
+    } catch (Exception e) {
+      problems.add("image");
+    }
+  }
 
+  public void validateDateTime(String date) {
+    try {
+      LocalDateTime.parse(date);
+    } catch (Exception e) {
+      problems.add("dateExpired");
+    }
+  }
+
+  public void validateDateTime(LocalDateTime date) {
+    if (date.isBefore(LocalDateTime.now())) {
+      problems.add("dateExpired");
+    }
+  }
 
 
 }
