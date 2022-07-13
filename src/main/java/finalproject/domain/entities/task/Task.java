@@ -1,10 +1,11 @@
 package finalproject.domain.entities.task;
 
-import finalproject.domain.entities.Comment;
-import finalproject.domain.entities.content.Content;
+
 import finalproject.domain.entities.content.ContentType;
-import finalproject.domain.entities.file.File;
+import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.User;
+import finalproject.utils.Validators;
+import io.vavr.control.Either;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -16,9 +17,12 @@ public class Task {
   /**
    * Возвращает @return id идентификатор задачи.
    */
+
   @Id
   @GeneratedValue
-  private @Getter int id;
+  @Getter
+  @Setter
+  private  int id;
 
   /**
    * Возвращает @return name название задачи.
@@ -26,6 +30,13 @@ public class Task {
   @Getter
   @Setter
   private String name;
+
+  /**
+   * Возвращает @return type тип контента.
+   */
+  @Getter
+  @Setter
+  private ContentType type;
 
   /**
    * Возвращает @return description описание задачи.
@@ -65,10 +76,7 @@ public class Task {
   @Setter
   private LocalDateTime dateExpired;
 
-  /**
-   * Возвращает @return type тип контента.
-   */
-  private @Getter ContentType type;
+
 
   /**
    * Возвращает @return TaskStatusDto status статус задачи.
@@ -76,5 +84,34 @@ public class Task {
   @Getter
   @Setter
   private TaskStatus taskStatus;
+
+  public Task() {}
+
+  public Either<Failure, Task> create (String name, ContentType type, String description, User author, User contentMaker, LocalDateTime dateExpired) {
+    Task task = new Task();
+    Validators validators = new Validators();
+    validators.validateNonNullString(name, "name");
+    validators.validateNotNull(type, "contentType");
+    validators.validateNonNullString(description, "description");
+    validators.validateNotNull(contentMaker, "contentMaker");
+    validators.validateDateTime(dateExpired);
+
+    if (validators.problems.size() == 0) {
+      this.name = name;
+      this.type = type;
+      this.description = description;
+      this.author = author;
+      this.contentMaker = contentMaker;
+      this.dateExpired = dateExpired;
+      this.taskStatus = TaskStatus.INWORK;
+
+      return Either.right(task);
+    }
+
+    return Either.left(new Failure(Failure.Messages.INVALID_VALUES));
+  }
+
+
+
 
 }
