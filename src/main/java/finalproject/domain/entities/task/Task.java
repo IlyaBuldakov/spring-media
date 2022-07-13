@@ -87,28 +87,30 @@ public class Task {
 
   public Task() {}
 
-  public Either<Failure, Task> create (String name, ContentType type, String description, User author, User contentMaker, LocalDateTime dateExpired) {
+  public static Either<Failure, Task> create (String name, ContentType type, String description, User author,
+                                       User contentMaker, String stingDate) {
     Task task = new Task();
     Validators validators = new Validators();
     validators.validateNonNullString(name, "name");
     validators.validateNotNull(type, "contentType");
     validators.validateNonNullString(description, "description");
     validators.validateNotNull(contentMaker, "contentMaker");
-    validators.validateDateTime(dateExpired);
-
+    if(validators.validateDateTime(stingDate)) {
+      task.dateExpired = LocalDateTime.parse(stingDate);
+      validators.validateDateTime(task.dateExpired);
+    };
     if (validators.problems.size() == 0) {
-      this.name = name;
-      this.type = type;
-      this.description = description;
-      this.author = author;
-      this.contentMaker = contentMaker;
-      this.dateExpired = dateExpired;
-      this.taskStatus = TaskStatus.INWORK;
+      task.name = name;
+      task.type = type;
+      task.description = description;
+      task.author = author;
+      task.contentMaker = contentMaker;
+      task.taskStatus = TaskStatus.INWORK;
 
       return Either.right(task);
     }
 
-    return Either.left(new Failure(Failure.Messages.INVALID_VALUES));
+    return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.problems));
   }
 
 
