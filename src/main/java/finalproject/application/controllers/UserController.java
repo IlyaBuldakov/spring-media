@@ -33,7 +33,7 @@ public class UserController {
     return getCurrentUser().getName();
   }
   @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
   @GetMapping
   public CompletableFuture<List<UserDto>> getUsers() {
     return userService.getAllUsers().thenApply(either -> either.get().stream().map(UserDto::new).toList());
