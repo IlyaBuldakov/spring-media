@@ -1,11 +1,10 @@
 package finalproject.application.dto.task;
 
 import finalproject.application.dto.content.ContentTypeDto;
-import finalproject.application.dto.user.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+
 
 @AllArgsConstructor
 public class TaskRequestDto {
@@ -28,16 +27,16 @@ public class TaskRequestDto {
   /**
    * Возвращает @return UserDto автора задачи.
    */
-  private @Getter UserDto author;
+  private @Getter int authorId;
 
   /**
    * Возвращает @return UserDto исполнителя задачи.
    */
-  private @Getter UserDto executor;
+  private @Getter int contentMakerId;
 
   /**
    * Возвращает @return LocalDateTime дату выполнения задачи.
    */
-  private @Getter LocalDateTime dateExpired;
+  private @Getter String dateExpired;
 
 }
