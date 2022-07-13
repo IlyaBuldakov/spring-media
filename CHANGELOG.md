@@ -4,6 +4,12 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/spec/v2.0.0.html).
 
+## [v0.9.0] - 2022-07-14
+
+### Изменено
+- Аттрибуты сущности пользователя и их валидация вынесены в отдельный тип данных.
+
+
 ## [v0.8.0] - 2022-07-13
 
 ### Добавлено
@@ -120,3 +126,4 @@
 [v0.6.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.5.0...yaroslav.tarakanov-v0.6.0
 [v0.7.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.6.0...yaroslav.tarakanov-v0.7.0
 [v0.8.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.7.0...yaroslav.tarakanov-v0.8.0
+[v0.9.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.8.0...yaroslav.tarakanov-v0.9.0
