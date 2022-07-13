@@ -1,17 +1,26 @@
 package com.htc.application.dto.user;
 
-import com.htc.application.dto.DataTransferObject;
-import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.User;
 import lombok.Getter;
 
 /**
  * Краткое представление сущности пользователя (ответ на запрос).
  */
-public class UserShortResponse extends DataTransferObject<User> {
-
-
+public class UserShortResponse {
+  /**
+   * Идентификатор пользователя.
+   *
+   * @return id Идентификатор пользователя.
+   */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
+  /**
+   * Имя пользователя.
+   *
+   * @return id Имя пользователя.
+   */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   /**
@@ -20,9 +29,7 @@ public class UserShortResponse extends DataTransferObject<User> {
    * @param user Сущность пользователя.
    */
   public UserShortResponse(User user) {
-    super(user);
-
-    this.id = user.getId();
-    this.name = user.getName();
+    this.id = user.getId().getValue();
+    this.name = user.getName().getValue();
   }
 }
