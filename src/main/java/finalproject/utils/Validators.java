@@ -1,6 +1,5 @@
 package finalproject.utils;
 
-import finalproject.domain.entities.user.Role;
 import lombok.NoArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.Validate;
@@ -72,12 +71,14 @@ public class Validators {
     }
   }
 
-  public void validateDateTime(String date) {
+  public boolean validateDateTime(String date) {
     try {
       LocalDateTime.parse(date);
     } catch (Exception e) {
       problems.add("dateExpired");
+      return false;
     }
+    return true;
   }
 
   public void validateDateTime(LocalDateTime date) {

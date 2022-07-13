@@ -17,7 +17,7 @@ public class TaskRequestDto {
   /**
    * Возвращает @return type тип контента.
    */
-  private @Getter ContentTypeDto type;
+  private @Getter String type;
 
   /**
    * Возвращает @return description описание задачи.

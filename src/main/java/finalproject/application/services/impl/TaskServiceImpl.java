@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 @Service
@@ -25,7 +26,9 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public Future<Either<Failure, Task>> createNewTask(Task task) {
-    return null;
+
+
+    return CompletableFuture.completedFuture(Either.right(taskRepository.save(task));
   }
 
   @Override
