@@ -17,4 +17,19 @@ public interface CommentRepository {
    * @return comment новый комментарий, подробнее {@link Comment}
    */
   CompletableFuture<Either<Failure, Comment>> add(Comment comment);
+
+  /**
+   * Получение комментария по идентификатору.
+   *
+   * @param id идентификатор комментария
+   * @return comment комментарий, подробнее {@link Comment}
+   */
+  CompletableFuture<Either<Failure, Comment>> get(int id);
+
+  /**
+   * Удаление комментария по идентификатору.
+   *
+   * @param id идентификатор комментария
+   */
+  CompletableFuture<Either<Failure, Void>> delete(int id);
 }
