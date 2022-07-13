@@ -1,11 +1,12 @@
 package com.htc.domain.usecases.user;
 
+import com.htc.domain.entities.User;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public final class GetAllUsers implements UseCase<Void, Iterable<User>> {
+public final class GetAllUsers implements UseCase<Void, Collection<User>> {
   private final UserRepository repository;
 
   @Override
-  public Future<Either<Failure, Iterable<User>>> execute(Void param) {
+  public CompletableFuture<Either<Failure, Collection<User>>> execute(Void param) {
     return repository.getAll();
   }
 }

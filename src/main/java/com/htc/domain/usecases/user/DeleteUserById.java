@@ -1,10 +1,13 @@
 package com.htc.domain.usecases.user;
 
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.utility.Results;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +16,26 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public final class DeleteUserById implements UseCase<Integer, Void> {
+public final class DeleteUserById implements UseCase<DeleteUserById.Params, Void> {
+  /**
+   * Параметры сценария получения пользователя по его идентификатору.
+   *
+   * @param id Идентификатор пользователя.
+   * @param key Ключ идентификатора пользователя.
+   */
+  public record Params(int id, String key) {}
+
   private final UserRepository repository;
 
   @Override
-  public Future<Either<Failure, Void>> execute(Integer id) {
-    return repository.delete(id);
+  public CompletableFuture<Either<Failure, Void>> execute(Params params) {
+    var id = Id.create(params.id);
+    if (id.isRight()) {
+      return repository.delete(id.get());
+    }
+
+    var failure = new InvalidValues();
+    failure.invalidValues().put(id.getLeft(), params.key);
+    return Results.fail(failure);
   }
 }

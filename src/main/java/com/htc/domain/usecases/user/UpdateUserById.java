@@ -1,6 +1,7 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.repositories.UserRepository;
@@ -12,13 +13,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * Сценарий создания пользователя.
+ * Сценарий обновления данных пользователя.
  */
 @Component
 @AllArgsConstructor
-public final class CreateUser implements UseCase<CreateUser.Params, User> {
+public final class UpdateUserById implements UseCase<UpdateUserById.Params, User> {
 
   public record Params(
+      int id, String idKey,
       String name, String nameKey,
       String email, String emailKey,
       String password, String passwordKey,
@@ -30,6 +32,11 @@ public final class CreateUser implements UseCase<CreateUser.Params, User> {
   @Override
   public CompletableFuture<Either<Failure, User>> execute(Params params) {
     var failure = new InvalidValues();
+
+    var id = Id.create(params.id);
+    if (id.isLeft()) {
+      failure.invalidValues().put(id.getLeft(), params.idKey);
+    }
 
     var name = User.Name.create(params.name);
     if (name.isLeft()) {
@@ -52,7 +59,7 @@ public final class CreateUser implements UseCase<CreateUser.Params, User> {
     }
 
     return failure.invalidValues().size() == 0
-        ? repository.create(name.get(), email.get(), password.get(), image.get(), params.role)
+        ? repository.update(id.get(), name.get(), email.get(), password.get(), image.get(), params.role)
         : Results.fail(failure);
   }
 }
