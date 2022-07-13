@@ -1,15 +1,15 @@
 package com.htc.domain.entities.failures;
 
 /**
- * Сущность уже существует.
+ * Внутренняя ошибка репозитория.
  */
-public enum AlreadyExists implements Failure {
+public enum RepositoryFailure implements Failure {
   /**
    * Сообщение по умолчанию.
    */
-  DEFAULT_MESSAGE("Сущность уже существует.");
+  DEFAULT_MESSAGE("Внутренняя ошибка репозитория.");
 
-  AlreadyExists(String message) {
+  RepositoryFailure(String message) {
     this.message = message;
   }
 
