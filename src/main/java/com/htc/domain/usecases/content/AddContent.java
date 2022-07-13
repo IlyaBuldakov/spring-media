@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий добавления нового контента в задачу.
  */
-@Component
+//@Component
 @AllArgsConstructor
 public final class AddContent implements UseCase<Content, Content> {
   private final ContentRepository repository;

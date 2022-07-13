@@ -26,7 +26,6 @@ public final class UploadFile implements UseCase<UploadFile.Params, File> {
   /**
    * Параметры сценария добавления файла.
    */
-
   public record Params(String name, String nameKey,
                        Format format, String formatKey,
                        String fileUrlPath, String fileUrlPathKey,

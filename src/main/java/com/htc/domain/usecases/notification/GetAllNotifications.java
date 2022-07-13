@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий получения списка уведомлений.
  */
-@Component
+//@Component
 @AllArgsConstructor
 public final class GetAllNotifications implements UseCase<Void, Iterable<Notification>> {
   private final NotificationRepository repository;

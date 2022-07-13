@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий получения ленты контента.
  */
-@Component
+//@Component
 @AllArgsConstructor
 public final class GetAllContent implements UseCase<Void, Iterable<Content>> {
   private final ContentRepository repository;

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий изменения задачи.
  */
-@Component
+//@Component
 @AllArgsConstructor
 public final class UpdateTask implements UseCase<Task, Task> {
   private final TaskRepository repository;

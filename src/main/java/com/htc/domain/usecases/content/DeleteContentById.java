@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий удаления контента по его идентификатору.
  */
-@Component
+//@Component
 @AllArgsConstructor
 public final class DeleteContentById implements UseCase<Integer, Void> {
   private final ContentRepository repository;
