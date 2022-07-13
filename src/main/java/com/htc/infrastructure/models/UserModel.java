@@ -3,6 +3,7 @@ package com.htc.infrastructure.models;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.user.User;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 
@@ -17,6 +18,7 @@ public class UserModel implements User {
    * Идентификатор пользователя.
    */
   @javax.persistence.Id
+  @GeneratedValue
   private Integer id;
 
   @Override
@@ -75,5 +77,29 @@ public class UserModel implements User {
   }
 
   protected UserModel() {
+  }
+
+  public UserModel(
+          Id id,
+          Name name,
+          Email email,
+          Password password,
+          Image image,
+          Role role) {
+    this.id = id.getValue();
+    this.name = name.getValue();
+    this.email = email.getValue();
+    this.password = password.getValue();
+    this.image = image.getValue();
+    this.role = role;
+  }
+
+  public UserModel(
+          Name name,
+          Email email,
+          Password password,
+          Image image,
+          Role role) {
+    this(Id.create(0).get(), name, email, password, image, role);
   }
 }
