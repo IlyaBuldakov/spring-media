@@ -1,10 +1,11 @@
 package com.htc.domain.repositories;
 
+import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.user.Role;
-import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий пользователей.
@@ -13,23 +14,45 @@ public interface UserRepository {
   /**
    * Создаёт пользователя.
    *
-   * @param user Пользователь.
+   * @param name Имя пользователя.
+   * @param email Электронная почта пользователя
+   * @param password Пароль пользователя.
+   * @param image Изображение пользователя.
+   * @param role Роль пользователя.
+   * @return Пользователь или ошибка.
    */
-  Future<Either<Failure, User>> create(User user);
+  CompletableFuture<Either<Failure, User>> create(
+      User.Name name,
+      User.Email email,
+      User.Password password,
+      User.Image image,
+      User.Role role);
 
   /**
    * Обновляет данные пользователя.
    *
-   * @param user Пользователь.
+   * @param id Идентификатор пользователя.
+   * @param name Имя пользователя.
+   * @param email Электронная почта пользователя.
+   * @param password Пароль пользователя.
+   * @param image Изображение пользователя.
+   * @param role Роль пользователя.
+   * @return Пользователь или ошибка.
    */
-  Future<Either<Failure, User>> update(User user);
+  CompletableFuture<Either<Failure, User>> update(
+      Id id,
+      User.Name name,
+      User.Email email,
+      User.Password password,
+      User.Image image,
+      User.Role role);
 
   /**
    * Удаляет пользователя.
    *
    * @param id Идентификатор пользователя.
    */
-  Future<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 
   /**
    * Получает пользователя.
@@ -37,33 +60,12 @@ public interface UserRepository {
    * @param id Идентификатор пользователя.
    * @return Пользователь.
    */
-  Future<Either<Failure, User>> get(int id);
+  CompletableFuture<Either<Failure, User>> get(Id id);
 
   /**
    * Получает список всех пользователей.
    *
-   * @return Список всех пользователей.
-   */
-  Future<Either<Failure, Iterable<User>>> getAll();
-
-  /**
-   * Получает список пользователей, чье имя соответствует.
-   * строке запроса {@code query}. Проверяется не полное соответствие строки
-   * запроса и имени пользователя, а ищется подстрока.
-   *
-   * @param query Строка поиска.
    * @return Список пользователей.
    */
-  Future<Either<Failure, Iterable<User>>> search(String query);
-
-  /**
-   * Получает список пользователей, чьё имя и роль соответствуют
-   * строке поиска {@code query} и роли {@code role}. Проверяется не полное
-   * соответствие строки поиска и имени пользователя, а ищется подстрока.
-   *
-   * @param query Строка поика.
-   * @param role Роль пользователя.
-   * @return Список пользователей.
-   */
-  Future<Either<Failure, Iterable<User>>> search(String query, Role role);
+  CompletableFuture<Either<Failure, Collection<User>>> getAll();
 }
