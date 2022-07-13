@@ -1,19 +1,24 @@
 package com.htc.application.controllers;
 
-import com.htc.domain.entities.user.User;
+import com.htc.application.dto.user.UserRequest;
+import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.usecases.user.CreateUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
 import com.htc.domain.usecases.user.GetUserById;
-import com.htc.domain.usecases.user.SearchUsers;
-import com.htc.domain.usecases.user.UpdateUser;
-import java.util.concurrent.ExecutionException;
+import com.htc.domain.usecases.user.UpdateUserById;
+import com.htc.utility.Controllers;
+import io.swagger.v3.oas.annotations.Operation;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,66 +30,98 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class UserController {
   private CreateUser createUser;
-  private UpdateUser updateUser;
+  private UpdateUserById updateUserById;
   private DeleteUserById deleteUserById;
-  private GetAllUsers getAllUsers;
   private GetUserById getUserById;
-  private SearchUsers searchUsers;
+  private GetAllUsers getAllUsers;
 
   /**
-   * Создаёт пользователя.
+   * Создаёт нового пользователя.
+   *
+   * @param userRequest Представление сущности пользователя.
    */
   @PostMapping
-  public void create() {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Operation(summary = "Создать нового пользователя.")
+  @Async
+  public void create(@RequestBody UserRequest userRequest) {
+    Controllers.handleRequest(
+        createUser,
+        new CreateUser.Params(
+            userRequest.name, "name",
+            userRequest.email, "email",
+            userRequest.password, "password",
+            userRequest.image, "image",
+            userRequest.role, "role"),
+        null);
   }
 
   /**
-   * Обновляет данные пользователя.
+   * Изменяет пользователя по идентификатору.
    *
    * @param id Идентификатор пользователя.
+   * @param userRequest Представление сущности пользователя.
    */
   @PutMapping(path = "/{id}")
-  public void update(@PathVariable int id) {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Operation(summary = "Изменить пользователя по идентификатору.")
+  @Async
+  public void update(@PathVariable int id, @RequestBody UserRequest userRequest) {
+    Controllers.handleRequest(
+        updateUserById,
+        new UpdateUserById.Params(
+            id, "id",
+            userRequest.name, "name",
+            userRequest.email, "email",
+            userRequest.password, "password",
+            userRequest.image, "image",
+            userRequest.role, "role"),
+        null);
   }
 
   /**
-   * Удаляет пользователя.
+   * Удаляет пользователя по идентификатору.
    *
    * @param id Идентификатор пользователя.
    */
   @DeleteMapping(path = "/{id}")
+  @Operation(summary = "Удалить пользователя по идентификатору.")
+  @Async
   public void delete(@PathVariable int id) {
-    throw new UnsupportedOperationException("Метод не реализован");
+    Controllers.handleRequest(
+        deleteUserById,
+        new DeleteUserById.Params(id, "id"),
+        null);
   }
 
   /**
-   * Возвращает пользователя.
+   * Получает пользователя по идентификатору.
    *
    * @param id Идентификатор пользователя.
-   * @return Пользователь.
-   * @throws ExecutionException Ошибка выполения запроса.
-   * @throws InterruptedException Ошибка выполения запроса.
+   * @return Представление сущности пользователя.
    */
   @GetMapping(path = "/{id}")
-  public User get(@PathVariable int id) throws ExecutionException, InterruptedException {
-    return getUserById.execute(id)
-        .get()
-        .get();
+  @Operation(summary = "Получить пользователя по идентификатору.")
+  @Async
+  public CompletableFuture<UserResponse> get(@PathVariable int id) {
+    return Controllers.handleRequest(
+        getUserById,
+        new GetUserById.Params(id, "id"),
+        UserResponse::new);
   }
 
   /**
-   * Возвращает список всех пользователей.
+   * Получает список пользователей.
    *
-   * @return Список пользователей.
-   * @throws ExecutionException Ошибка выполения запроса.
-   * @throws InterruptedException Ошибка выполения запроса.
+   * @return Список представлений сущности пользователя.
    */
   @GetMapping
-  public Iterable<User> getAll() throws ExecutionException, InterruptedException {
-    return getAllUsers.execute(null)
-        .get()
-        .get();
+  @Operation(summary = "Получить список пользователей.")
+  @Async
+  public CompletableFuture<Iterable<UserResponse>> getAll() {
+    return Controllers.handleRequest(
+        getAllUsers,
+        null,
+        users -> users.stream()
+            .map(UserResponse::new)
+            .collect(Collectors.toList()));
   }
 }

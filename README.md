@@ -3,12 +3,16 @@
 Spring:
 1. `org.springframework.boot:spring-boot-starter-web` – стартер для создания RESTful API.
 2. `io.springfox:springfox-boot-starter` – стартер для генерации Swagger UI.
+3. `org.springframework.boot:spring-boot-starter-data-jpa` – стартер для работы со Spring Data.
 
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` – модульные тесты.
 2. `org.mockito:mockito-core` – объекты-заглушки для внешних зависимостей.
 3. `org.assertj:assertj-core` – человекочитаемые проверки.
 4. `com.github.javafaker:javafaker` – генерация тестовых данных.
+
+Работа с данными:
+1. `org.postgresql:postgresql` – драйвер PostgreSQL для Spring Data.
 
 Разное:
 1. `org.projectlombok:lombok` – полезные аннотации.
