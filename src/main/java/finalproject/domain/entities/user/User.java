@@ -83,8 +83,8 @@ public class User implements Serializable {
     Validators validators = new Validators();
     validators.validateEmail(email);
     validators.validatePassword(password);
-    validators.validateName(name);
-    validators.validateRole(role);
+    validators.validateNonNullString(name, "name");
+    validators.validateNotNull(role, "role");
     if (validators.problems.size() == 0) {
       user.name = name;
       user.email = email;
