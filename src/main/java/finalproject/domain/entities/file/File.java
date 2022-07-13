@@ -34,5 +34,5 @@ public class File {
   /**
      * Возвращает @return task идентификатор задачи.
      */
-    private @Getter int task;
+    private @Getter int taskId;
 }
