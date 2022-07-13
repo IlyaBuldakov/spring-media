@@ -19,11 +19,27 @@ public interface ContentRepository {
   CompletableFuture<Either<Failure, Content>> add(Content content);
 
   /**
+   * Получение контента по идентификатору.
+   *
+   * @param id идентификатор контента
+   * @return content контент, подробнее {@link Content}
+   */
+  CompletableFuture<Either<Failure, Content>> get(int id);
+
+  /**
    * Получение ленты контента.
    *
    * @return list лента контента, подробнее {@link Content}
    */
   CompletableFuture<Either<Failure, Iterable<Content>>> getAll();
+
+  /**
+   * Изменение контента.
+   *
+   * @param content контент
+   * @return content измененный контент
+   */
+  CompletableFuture<Either<Failure, Content>> change(Content content);
 
   /**
    * Удаление контента по идентификатору.
