@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public CompletableFuture<Either<Failure, User>> editUser(User user, int id) {
     List<String> problems = new ArrayList<>();
-    if (id <= 0) {
+    if (id <= 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.INVALID_VALUES, problems)));
     }
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
       repository.deleteById(id);
       return CompletableFuture.completedFuture(Either.right(null));
     }
-    if (id <= 0) {
+    if (id <= 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.INVALID_VALUES, problems)));
     }
