@@ -16,7 +16,7 @@ public class BadRequestResponse extends AbstractDtoError {
 
     private final @Getter List<InvalidValueResponse> problems;
 
-    public final static String DEFAULT_MESSAGE = "Невалидный запрос";
+    private final static String DEFAULT_MESSAGE = "Невалидный запрос";
 
     public BadRequestResponse(InvalidValuesContainer invalidValues) {
         super(DEFAULT_MESSAGE);

@@ -25,11 +25,11 @@ public class UsersRepositoryImpl implements UsersRepository {
     /**
      * Создание пользователя.
      *
-     * @param name Имя пользователя.
+     * @param name     Имя пользователя.
      * @param password Пароль пользователя.
-     * @param email E-mail пользователя.
-     * @param avatar Аватар пользователя.
-     * @param role Роль пользователя.
+     * @param email    E-mail пользователя.
+     * @param avatar   Аватар пользователя.
+     * @param role     Роль пользователя.
      * @return Пользователь.
      */
     @Override
@@ -95,12 +95,12 @@ public class UsersRepositoryImpl implements UsersRepository {
     /**
      * Обновление пользователя.
      *
-     * @param id Идентификатор пользователя.
-     * @param name Имя пользователя.
+     * @param id       Идентификатор пользователя.
+     * @param name     Имя пользователя.
      * @param password Пароль пользователя.
-     * @param email E-mail пользователя.
-     * @param avatar Аватар пользователя.
-     * @param role Роль пользователя.
+     * @param email    E-mail пользователя.
+     * @param avatar   Аватар пользователя.
+     * @param role     Роль пользователя.
      * @return Обновлённый пользователь.
      */
     @Override

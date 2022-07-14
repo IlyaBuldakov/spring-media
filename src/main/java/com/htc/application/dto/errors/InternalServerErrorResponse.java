@@ -9,7 +9,9 @@ public class InternalServerErrorResponse extends AbstractDtoError {
 
     private final @Getter int statusCode = httpStatus.value();
 
-    public InternalServerErrorResponse(String message) {
-        super(message);
+    private final static String DEFAULT_MESSAGE = "Внутренняя ошибка сервера";
+
+    public InternalServerErrorResponse() {
+        super(DEFAULT_MESSAGE);
     }
 }
