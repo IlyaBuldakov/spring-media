@@ -17,7 +17,7 @@ public class User {
      *
      * @return Идентификатор пользователя.
      */
-    private @Getter int id;
+    private @Getter Integer id;
 
     /**
      * Имя пользователя.
@@ -74,14 +74,14 @@ public class User {
      * @return Пользователь.
      */
 
-    public static Either<Failure, User> create(int id,
+    public static Either<Failure, User> create(Integer id,
                                                String name,
                                                String password,
                                                String email,
                                                String avatar,
                                                Role role) {
         Failure expectedFailure = ValuesValidator
-                .checkUserFields(id, name, password, email, avatar);
+                .checkUserFields(id.toString(), name, password, email, avatar);
 
         if (expectedFailure != null) {
             return Either.left(expectedFailure);
