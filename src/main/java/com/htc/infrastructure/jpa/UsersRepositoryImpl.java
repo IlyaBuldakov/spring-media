@@ -42,8 +42,8 @@ public class UsersRepositoryImpl implements UsersRepository {
                         usersJpaRepository.save(
                                 new UserMapper(name, password, email, avatar, role.getRoleType().name())))
                 .thenApply(userMapper -> User.create(
-                        userMapper.id + 1,
-                        userMapper.name + "aa",
+                        userMapper.id,
+                        userMapper.name,
                         userMapper.password,
                         userMapper.email,
                         userMapper.avatar,
