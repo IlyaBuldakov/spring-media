@@ -22,7 +22,8 @@ import lombok.AllArgsConstructor;
 public class FileModel implements File {
   @javax.persistence.Id
   @GeneratedValue
-  Long id;
+  @Column(name = "id")
+  Long fileId;
 
   @Column(name = "name")
   String name;
@@ -39,9 +40,8 @@ public class FileModel implements File {
   @Column(name = "file")
   String file;
 
-  @Override
   public Id getId() {
-    return Id.create(this.id).get();
+    return Id.create(this.fileId).get();
   }
 
   @Override

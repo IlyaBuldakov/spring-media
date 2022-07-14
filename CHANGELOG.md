@@ -3,7 +3,11 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
-## [0.12.0] - 2022-07-11
+## [0.13.0] - 2022-07-13
+### Исправлено
+- Доработан метод удаления файла.
+
+## [0.12.0] - 2022-07-13
 ### Добавлено
 - Получение списка расширений файла для REGEX выражения в виде строки.
 - Текст сообщений ошибки некорректного значения параметра.
@@ -204,6 +208,7 @@
 [0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
 -->
 
+[0.13.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.12.0...yuriy.krasnoperov-v0.13.0
 [0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.11.0...yuriy.krasnoperov-v0.12.0
 [0.11.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.10.0...yuriy.krasnoperov-v0.11.0
 [0.10.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.9.0...yuriy.krasnoperov-v0.10.0
