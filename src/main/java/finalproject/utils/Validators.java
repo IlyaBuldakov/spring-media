@@ -5,6 +5,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.Validate;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,20 +72,20 @@ public class Validators {
     }
   }
 
-  public boolean validateDateTime(String date) {
+  public LocalDateTime validateDateTime(String date) {
+    LocalDateTime validated;
     try {
-      LocalDateTime.parse(date);
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+      validated = LocalDateTime.parse(date, formatter);
     } catch (Exception e) {
       problems.add("dateExpired");
-      return false;
+      return null;
     }
-    return true;
-  }
-
-  public void validateDateTime(LocalDateTime date) {
-    if (date.isBefore(LocalDateTime.now())) {
+    if (validated.isBefore(LocalDateTime.now())) {
       problems.add("dateExpired");
+      return null;
     }
+    return validated;
   }
 
 

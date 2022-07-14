@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "tasks")
@@ -111,10 +112,9 @@ public class Task implements Serializable {
     validators.validateNotNull(type, "contentType");
     validators.validateNonNullString(description, "description");
     validators.validateNotNull(contentMaker, "contentMaker");
-    if(validators.validateDateTime(stingDate)) {
-      task.dateExpired = LocalDateTime.parse(stingDate);
-      validators.validateDateTime(task.dateExpired);
-    };
+    task.dateExpired = validators.validateDateTime(stingDate);
+
+
     if (validators.problems.size() == 0) {
       task.name = name;
       task.type = type;

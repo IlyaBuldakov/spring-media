@@ -35,7 +35,7 @@ public class TaskController {
   TaskService taskService;
 
   @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
-  @PreAuthorize("hasAuthority('ADMIN', 'MANAGER')")
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
   @PutMapping
   public CompletableFuture<Task> createTask(@RequestBody TaskRequestDto taskdto) throws ExecutionException, InterruptedException {
     User author = userService.getUserById(taskdto.getAuthorId())
