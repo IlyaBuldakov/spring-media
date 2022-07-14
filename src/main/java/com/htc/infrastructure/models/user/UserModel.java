@@ -22,7 +22,8 @@ import lombok.AllArgsConstructor;
 public class UserModel implements User {
   @javax.persistence.Id
   @GeneratedValue
-  Long id;
+  @Column(name = "id")
+  Long userId;
 
   @Column(name = "name")
   String name;
@@ -41,7 +42,7 @@ public class UserModel implements User {
 
   @Override
   public Id getId() {
-    return Id.create(this.id).get();
+    return Id.create(this.userId).get();
   }
 
   @Override
