@@ -143,4 +143,45 @@ public class Task {
     task.status = status;
     return Either.right(task);
   }
+
+  /**
+   * Статус задачи.
+   */
+  public enum TaskStatus {
+    /**
+     * В работе.
+     */
+    IN_WORK("В работе", 1),
+    /**
+     * Ожидает согласование.
+     */
+    FEEDBACK("Ожидает согласование", 2),
+    /**
+     * Выполнено.
+     */
+    APPROVED("Выполнено", 3);
+
+    /**
+     * Идентификатор статуса.
+     *
+     * @return id Идентификатор статуса.
+     */
+    @SuppressWarnings("JavadocDeclaration")
+    private final @Getter int id;
+
+    /**
+     * Название статуса.
+     *
+     * @return Название статуса задачи.
+     */
+    @SuppressWarnings("JavadocDeclaration")
+    private final @Getter String name;
+
+    TaskStatus(String name, int id) {
+      this.name = name;
+      this.id = id;
+    }
+  }
+
+
 }

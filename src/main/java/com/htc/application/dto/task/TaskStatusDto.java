@@ -1,6 +1,6 @@
 package com.htc.application.dto.task;
 
-import com.htc.domain.entities.tasks.TaskStatus;
+import com.htc.domain.entities.tasks.Task;
 import lombok.Getter;
 
 /**
@@ -26,7 +26,7 @@ public class TaskStatusDto {
    *
    * @param taskStatus Статус задачи.
    */
-  public TaskStatusDto(TaskStatus taskStatus) {
+  public TaskStatusDto(Task.TaskStatus taskStatus) {
     this.id = taskStatus.getId();
     this.name = taskStatus.getName();
   }

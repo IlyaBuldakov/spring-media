@@ -5,7 +5,6 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.RepositoryFailure;
 import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.tasks.TaskStatus;
 import com.htc.domain.repositories.TaskRepository;
 import io.vavr.control.Either;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class FakeTaskRepository implements TaskRepository {
   private static final List<Task> tasks = new ArrayList<>();
 
   static {
-    var taskStatus = TaskStatus.values();
+    var taskStatus = Task.TaskStatus.values();
     var count = new Random().nextInt(10);
 
     while (count-- >= 0) {
