@@ -1,14 +1,13 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.infrastructure.jpa.UsersRepositoryImpl;
+import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
-import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
@@ -34,14 +33,8 @@ public class GetUserById implements UseCase<String, User> {
      */
     @Override
     public CompletableFuture<Either<Failure, User>> execute(String param) {
-        IntegerValidator integerValidator = IntegerValidator.getInstance();
-        if (!integerValidator.isValid(param)) {
-            return CompletableFuture.completedFuture(Either.left(InvalidValue.INCORRECT_ID));
-        }
-        int paramToInt = Integer.parseInt(param);
-        if (!integerValidator.minValue(paramToInt, 1)) {
-            return CompletableFuture.completedFuture(Either.left(InvalidValue.NEGATIVE_ID));
-        }
-        return usersRepository.getById(paramToInt);
+        var expectedFailure = ValuesValidator.validateStringId(param);
+        return expectedFailure == null ? usersRepository.getById(Integer.parseInt(param))
+                : CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
 }
