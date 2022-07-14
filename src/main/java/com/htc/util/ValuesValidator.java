@@ -83,6 +83,7 @@ public class ValuesValidator {
         IntegerValidator integerValidator = IntegerValidator.getInstance();
         if (!integerValidator.isValid(id)) {
             invalidValues.addInvalidValue(InvalidValue.INCORRECT_ID);
+            return invalidValues;
         }
         int paramToInt = Integer.parseInt(id);
         if (!integerValidator.minValue(paramToInt, 1)) {
