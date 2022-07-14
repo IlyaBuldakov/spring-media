@@ -46,6 +46,7 @@ public class TaskController {
             .get();
     Task task = Task.create(taskdto.getName(), ContentType.getContentTypeByName(taskdto.getType()),
             taskdto.getDescription(), author, contentMaker, taskdto.getDateExpired()).getOrElseThrow(failure -> new BadRequestDto(failure));
+    task.setDateCreated(LocalDateTime.now());
     return taskService.createNewTask(task).thenApply(either -> either.get());
 
 
