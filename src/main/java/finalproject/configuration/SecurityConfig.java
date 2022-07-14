@@ -31,6 +31,7 @@ public class SecurityConfig {
                     authz -> authz
                             .antMatchers("/api/auth/login", "/api/auth/token", "/api/auth/refresh-token",
                                     "/grade/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
+                            .antMatchers("/content/*", "/files/*").hasAnyAuthority("ADMIN", "CONTENT_MAKER", "MANAGER")
                             .anyRequest().authenticated()
                             .and()
                             .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
