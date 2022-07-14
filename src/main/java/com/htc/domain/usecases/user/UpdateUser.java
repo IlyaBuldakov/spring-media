@@ -1,6 +1,6 @@
 package com.htc.domain.usecases.user;
 
-import com.htc.domain.entities.UserParams;
+import com.htc.util.UserParams;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.user.User;

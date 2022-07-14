@@ -1,4 +1,4 @@
-package com.htc.domain.entities;
+package com.htc.util;
 
 import com.htc.application.dto.user.UserRequest;
 import com.htc.domain.entities.user.Role;
