@@ -1,5 +1,7 @@
 package finalproject.application.controllers;
 
+import finalproject.application.dto.failures.BadRequestDto;
+import finalproject.application.dto.failures.InternalServerErrorDto;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.task.TaskDto;
 import finalproject.application.dto.task.TaskRequestDto;
@@ -35,7 +37,7 @@ public class TaskController {
   @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
   @PreAuthorize("hasAuthority('ADMIN', 'MANAGER')")
   @PutMapping
-  public CompletableFuture<TaskDto> createTask(@RequestBody TaskRequestDto taskdto) throws ExecutionException, InterruptedException {
+  public CompletableFuture<Task> createTask(@RequestBody TaskRequestDto taskdto) throws ExecutionException, InterruptedException {
     User author = userService.getUserById(taskdto.getAuthorId())
             .thenApply(either -> either.getOrElseThrow(failure -> new NotFoundDto(failure)))
             .get();
@@ -43,7 +45,8 @@ public class TaskController {
             .thenApply(either -> either.getOrElseThrow(failure -> new NotFoundDto(failure)))
             .get();
     Task task = Task.create(taskdto.getName(), ContentType.getContentTypeByName(taskdto.getType()),
-            taskdto.getDescription(), author, contentMaker, taskdto.getDateExpired());
+            taskdto.getDescription(), author, contentMaker, taskdto.getDateExpired()).getOrElseThrow(failure -> new BadRequestDto(failure));
+    return taskService.createNewTask(task).thenApply(either -> either.get());
 
 
   }

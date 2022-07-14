@@ -8,25 +8,29 @@ import finalproject.utils.Validators;
 import io.vavr.control.Either;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Task {
+@Entity
+@Table(name = "tasks")
+public class Task implements Serializable {
   /**
    * Возвращает @return id идентификатор задачи.
    */
 
+
   @Id
-  @GeneratedValue
+  @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Getter
   @Setter
-  private  int id;
+  int id;
 
   /**
    * Возвращает @return name название задачи.
    */
+  @Column
   @Getter
   @Setter
   private String name;
@@ -34,6 +38,7 @@ public class Task {
   /**
    * Возвращает @return type тип контента.
    */
+  @Column
   @Getter
   @Setter
   private ContentType type;
@@ -41,6 +46,7 @@ public class Task {
   /**
    * Возвращает @return description описание задачи.
    */
+  @Column
   @Getter
   @Setter
   private String description;
@@ -48,11 +54,15 @@ public class Task {
   /**
    * Возвращает @return автора задачи.
    */
-  private @Getter User author;
+  @Column
+  @Getter
+  @Setter
+  private User author;
 
   /**
    * Возвращает @return исполнителя задачи.
    */
+  @Column
   @Getter
   @Setter
   private User contentMaker;
@@ -60,6 +70,7 @@ public class Task {
   /**
    * Возвращает @return менеджера задачи.
    */
+  @Column
   @Getter
   @Setter
   private User manager;
@@ -67,11 +78,15 @@ public class Task {
   /**
    * Возвращает @return LocalDateTime дату создания задачи.
    */
-  private @Getter LocalDateTime dateCreated;
+  @Column
+  @Getter
+  @Setter
+  private LocalDateTime dateCreated;
 
   /**
    * Возвращает @return LocalDateTime дату выполнения задачи.
    */
+  @Column
   @Getter
   @Setter
   private LocalDateTime dateExpired;
@@ -81,6 +96,7 @@ public class Task {
   /**
    * Возвращает @return TaskStatusDto status статус задачи.
    */
+  @Column
   @Getter
   @Setter
   private TaskStatus taskStatus;
