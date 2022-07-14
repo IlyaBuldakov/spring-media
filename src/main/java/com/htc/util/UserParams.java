@@ -3,11 +3,13 @@ package com.htc.util;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * Класс-контейнер для данных пользователя.
  */
+@AllArgsConstructor
 public class UserParams {
 
     public UserParams(UserRequest userRequest) {
