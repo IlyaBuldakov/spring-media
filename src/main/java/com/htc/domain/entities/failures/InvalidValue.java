@@ -25,7 +25,11 @@ public enum InvalidValue {
    */
   INVALID_USER_EMAIL("Некорректная электронная почта пользователя.", "email"),
   INVALID_USER_PASSWORD("Некорректный пароль пользователя.", "password"),
-  INVALID_USER_IMAGE("Некорректное изображения пользователя.", "image");
+  INVALID_USER_IMAGE("Некорректное изображения пользователя.", "image"),
+
+  //Сообщения для задач.
+  INVALID_TASK_NAME("Некорректное назване задачи", "name"),
+  INVALID_TASK_DESCRIPTION("Некорректное описание задачи", "description");
 
   InvalidValue(String message, String field) {
     this.message = message;

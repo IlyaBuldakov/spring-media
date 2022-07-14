@@ -35,7 +35,7 @@ public class CommentRequestDto {
    */
   public CommentRequestDto(Comment comment) {
     this.user = comment.getUser().getId().getValue();
-    this.task = comment.getTask().getId();
+    this.task = comment.getTask().getId().getValue();
     this.message = comment.getMessage();
   }
 }

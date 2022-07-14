@@ -1,10 +1,13 @@
 package com.htc.domain.entities.tasks;
 
 import com.htc.application.dto.file.FileDto;
+import com.htc.domain.entities.attributes.Attribute;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.comments.Comment;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
@@ -24,13 +27,13 @@ public class Task {
    *
    * @return Индентификатор задачи.
    */
-  private @Getter int id;
+  private @Getter Id id;
   /**
    * Заголовок задачи.
    *
    * @return заголовок задачи.
    */
-  private @Getter String name;
+  private @Getter Name name;
   /**
    * Требуемный тип контента.
    *
@@ -42,7 +45,7 @@ public class Task {
    *
    * @return Описание задачи.
    */
-  private @Getter String description;
+  private @Getter Description description;
   /**
    * Приложеные файлы..
    *
@@ -115,10 +118,10 @@ public class Task {
    * @return Задача, либо ошибку создания задачи.
    */
   public static Either<Failure, Task> create(
-          int id,
-          String name,
+          Id id,
+          Name name,
           ContentType contentType,
-          String description,
+          Description description,
           Collection<File> files,
           User author,
           User executor,
@@ -142,6 +145,58 @@ public class Task {
     task.comments = comments;
     task.status = status;
     return Either.right(task);
+  }
+
+  /**
+   * Название задачи.
+   */
+  public static final class Name extends Attribute<String> {
+
+    /**
+     * Проверяет входные данные на корректность и создаёт название задачи.
+     * Название задачи не должно быть пустой строкой и не должно быть длиннее 32 символов
+     *
+     * @param value Входные данные.
+     * @return Название задачи или ошибка.
+     */
+    public static Either<InvalidValue, Task.Name> create(String value) {
+      if (value.length() == 0 || value.length() > 32) {
+        return Either.left(InvalidValue.INVALID_TASK_NAME);
+      }
+
+      var taskName = new Task.Name(value);
+      return Either.right(taskName);
+    }
+    
+    private Name(String value) {
+      super(value);
+    }
+
+  }
+
+  /**
+   * Описание задачи.
+   */
+  public static final class Description extends Attribute<String> {
+    /**
+     * Проверяет входные данные на корректность и создаёт описание задачи.
+     * Описание задачи не должно быть пустой строкой.
+     *
+     * @param value Входные данные.
+     * @return Описание задачи или ошибка.
+     */
+    public static Either<InvalidValue, Task.Description> create(String value) {
+      if (value.length() == 0) {
+        return Either.left(InvalidValue.INVALID_TASK_DESCRIPTION);
+      }
+
+      var taskDescription = new Task.Description(value);
+      return Either.right(taskDescription);
+    }
+
+    private Description(String value) {
+      super(value);
+    }
   }
 
   /**

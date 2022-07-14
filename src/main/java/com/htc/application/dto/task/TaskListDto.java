@@ -53,7 +53,7 @@ public class TaskListDto {
    * @param task Сущность пользователя.
    */
   public TaskListDto(Task task) {
-    this.name = task.getName();
+    this.name = task.getName().getValue();
     this.contentType = new ContentTypeDto(task.getContentType());
     this.executor = new UserResponse(task.getExecutor());
     this.dateExpired = task.getDateExpired();

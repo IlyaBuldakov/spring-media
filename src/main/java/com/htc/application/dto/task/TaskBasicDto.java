@@ -27,7 +27,7 @@ public class TaskBasicDto {
    * @param task Сущность пользователя.
    */
   public TaskBasicDto(Task task) {
-    this.id = task.getId();
-    this.name = task.getName();
+    this.id = task.getId().getValue();
+    this.name = task.getName().getValue();
   }
 }

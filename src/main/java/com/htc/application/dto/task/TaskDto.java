@@ -96,10 +96,10 @@ public class TaskDto {
    * @param task Сущность пользователя.
    */
   public TaskDto(Task task) {
-    this.id = task.getId();
-    this.name = task.getName();
+    this.id = task.getId().getValue();
+    this.name = task.getName().getValue();
     this.contentType = new ContentTypeDto(task.getContentType());
-    this.description = task.getDescription();
+    this.description = task.getDescription().getValue();
     this.files = task.getFiles().stream()
             .map(FileDto::new)
             .collect(Collectors.toList());

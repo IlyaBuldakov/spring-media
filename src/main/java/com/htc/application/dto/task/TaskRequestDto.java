@@ -62,9 +62,9 @@ public class TaskRequestDto {
    * @param task Сущность пользователя.
    */
   public TaskRequestDto(Task task) {
-    this.name = task.getName();
+    this.name = task.getName().getValue();
     this.contentType = new ContentTypeDto(task.getContentType());
-    this.description = task.getDescription();
+    this.description = task.getDescription().getValue();
     this.files = task.getFiles().stream()
             .map(FileDto::new)
             .collect(Collectors.toList());
