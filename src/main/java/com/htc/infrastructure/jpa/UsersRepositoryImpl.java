@@ -1,6 +1,7 @@
 package com.htc.infrastructure.jpa;
 
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
@@ -8,6 +9,7 @@ import com.htc.infrastructure.mappers.UserMapper;
 import com.htc.infrastructure.repositories.UsersJpaRepository;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -68,7 +70,7 @@ public class UsersRepositoryImpl implements UsersRepository {
                                 userMapper.email,
                                 userMapper.avatar,
                                 new Role(userMapper.role)
-                        ))).orElse(null);
+                        ))).orElse(CompletableFuture.completedFuture(Either.left(NotFound.USER)));
     }
 
     /**
@@ -124,7 +126,11 @@ public class UsersRepositoryImpl implements UsersRepository {
     @Override
     public CompletableFuture<Either<Failure, User>> deleteById(int id) {
         var user = getById(id);
-        usersJpaRepository.deleteById(id);
+        try {
+            usersJpaRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException exception) {
+            return CompletableFuture.completedFuture(Either.left(NotFound.USER));
+        }
         return user;
     }
 }
