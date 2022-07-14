@@ -1,6 +1,6 @@
 package com.htc.util;
 
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failures.InvalidValuesContainer;
 import com.htc.domain.entities.user.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,22 +15,22 @@ class ValuesValidatorTest {
     @Test
     void checkUserFields_IncorrectId_ShouldReturnInvalidValue() {
         var result = ValuesValidator.checkUserFields(
-                -10, TEST_USER.getName(), TEST_USER.getPassword(),
+                "-10", TEST_USER.getName(), TEST_USER.getPassword(),
                 TEST_USER.getEmail(), TEST_USER.getAvatar());
 
         assertThat(result)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 
     @Test
     void checkUserFields_IncorrectName_ShouldReturnInvalidValue() {
-        var result = ValuesValidator.checkUserFields(TEST_USER.getId(), "", TEST_USER.getPassword(),
+        var result = ValuesValidator.checkUserFields(TEST_USER.getId().toString(), "", TEST_USER.getPassword(),
                 TEST_USER.getEmail(), TEST_USER.getAvatar());
 
         assertThat(result)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 
     @ParameterizedTest
@@ -45,31 +45,31 @@ class ValuesValidatorTest {
             "" // Пустое значение
     })
     void checkUserFields_IncorrectPassword_ShouldReturnInvalidValue(String testPassword) {
-        var result = ValuesValidator.checkUserFields(TEST_USER.getId(), TEST_USER.getName(), testPassword,
+        var result = ValuesValidator.checkUserFields(TEST_USER.getId().toString(), TEST_USER.getName(), testPassword,
                 TEST_USER.getEmail(), TEST_USER.getAvatar());
 
         assertThat(result)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 
     @Test
     void checkUserFields_IncorrectEmail_ShouldReturnInvalidValue() {
-        var result = ValuesValidator.checkUserFields(TEST_USER.getId(), TEST_USER.getEmail(), TEST_USER.getPassword(),
+        var result = ValuesValidator.checkUserFields(TEST_USER.getId().toString(), TEST_USER.getEmail(), TEST_USER.getPassword(),
                 "213.com", TEST_USER.getAvatar());
 
         assertThat(result)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 
     @Test
     void checkUserFields_IncorrectAvatar_ShouldReturnInvalidValue() {
-        var result = ValuesValidator.checkUserFields(TEST_USER.getId(), TEST_USER.getName(), TEST_USER.getPassword(),
+        var result = ValuesValidator.checkUserFields(TEST_USER.getId().toString(), TEST_USER.getName(), TEST_USER.getPassword(),
                 TEST_USER.getEmail(), "");
 
         assertThat(result)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 }

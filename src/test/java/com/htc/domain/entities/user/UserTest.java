@@ -1,6 +1,6 @@
 package com.htc.domain.entities.user;
 
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failures.InvalidValuesContainer;
 import org.junit.jupiter.api.Test;
 import com.htc.util.Users;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,7 +33,7 @@ class UserTest {
 
         assertThat(user)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 
     @Test
@@ -43,7 +43,7 @@ class UserTest {
 
         assertThat(user)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 
     @ParameterizedTest
@@ -63,7 +63,7 @@ class UserTest {
 
         assertThat(user)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 
     @Test
@@ -73,7 +73,7 @@ class UserTest {
 
         assertThat(user)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 
     @Test
@@ -83,6 +83,6 @@ class UserTest {
 
         assertThat(user)
                 .isNotNull()
-                .isInstanceOf(InvalidValue.class);
+                .isInstanceOf(InvalidValuesContainer.class);
     }
 }
