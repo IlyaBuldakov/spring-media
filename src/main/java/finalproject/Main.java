@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 @EnableJpaRepositories
-@EnableConfigurationProperties(StorageProperties.class)
+
 public class Main extends AsyncConfigurerSupport {
 
   public static void main(String[] args) {

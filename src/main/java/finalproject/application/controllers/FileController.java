@@ -26,7 +26,8 @@ import java.nio.file.Paths;
     public String uploadContent(@RequestParam("file") MultipartFile file, HttpServletRequest request){
       String filename =  StringUtils.cleanPath(file.getOriginalFilename());
       String type = file.getContentType();
-      fileStorageService.save(file);
+      Path path = Paths.get("./src/main/resources/static/content");
+      fileStorageService.save(file, path);
       return filename + " " + type;
 
     }

@@ -15,17 +15,13 @@ import java.nio.file.Paths;
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
 
-  private final Path rootLocation;
 
-  public FileStorageServiceImpl(StorageProperties properties) {
-    this.rootLocation = Paths.get(properties.getLocation());
-  }
 
   @Override
-  public void save(MultipartFile file) {
+  public void save(MultipartFile file, Path path) {
 
       try {
-        Files.copy(file.getInputStream(),rootLocation.resolve(file.getOriginalFilename()));
+        Files.copy(file.getInputStream(),path.resolve(file.getOriginalFilename()));
       } catch (IOException e) {
         throw new RuntimeException("Could not store the file. Error:"+e.getMessage());
       }

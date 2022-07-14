@@ -11,7 +11,7 @@ public interface FileStorageService {
 
 
 
-    void save(MultipartFile file);
+    void save(MultipartFile file, Path path);
 
 
 
