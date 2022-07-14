@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * Главный обработчик ошибок в приложении.
+ */
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 

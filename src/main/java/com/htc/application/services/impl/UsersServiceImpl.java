@@ -91,7 +91,7 @@ public class UsersServiceImpl implements UsersService {
      *
      * @param userRequest Представление пользователя {@link UserRequest}
      *                    (данные для обновления).
-     * @param id Идентификатор пользователя.
+     * @param id          Идентификатор пользователя.
      * @return Представление обновлённого пользователя {@link UserResponse}.
      */
     @Override

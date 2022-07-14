@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Представление пользователя для БД
+ * Представление пользователя для БД.
  */
 @Entity
 @Table(name = "users")
