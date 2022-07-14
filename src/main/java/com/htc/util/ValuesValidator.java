@@ -1,8 +1,9 @@
 package com.htc.util;
 
-import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failures.InvalidValuesContainer;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.validator.routines.IntegerValidator;
 
 import java.util.Locale;
 
@@ -14,41 +15,44 @@ import java.util.Locale;
  */
 public class ValuesValidator {
 
-    private static final String BASE64_REGEX = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
+    private static final String BASE64_REGEX = "^([A-Za-z\\d+/]{4})*([A-Za-z\\d+/]{4}|[A-Za-z\\d+/]{3}=|[A-Za-z\\d+/]{2}==)?$";
 
     /**
-     * Метод валидации полей пользователя.
+     * Метод валидации всех полей пользователя.
      *
-     * @param id Идентификатор.
-     * @param name Имя пользователя.
+     * @param id       Идентификатор.
+     * @param name     Имя пользователя.
      * @param password Пароль.
-     * @param email Электронная почта.
-     * @param avatar Аватар.
-     * @return {@link Failure} или null.
+     * @param email    Электронная почта.
+     * @param avatar   Аватар.
+     * @return {@link InvalidValuesContainer} - контейнер с ошибками {@link InvalidValue}.
      */
-    public static Failure checkUserFields(int id,
-                                          String name,
-                                          String password,
-                                          String email,
-                                          String avatar) {
-        if (id < 0) {
-            return InvalidValue.NEGATIVE_ID;
+    public static InvalidValuesContainer checkUserFields(
+            String id, String name, String password, String email, String avatar) {
+        InvalidValuesContainer invalidValues = new InvalidValuesContainer();
+        IntegerValidator integerValidator = IntegerValidator.getInstance();
+        if (!integerValidator.isValid(id)) {
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_ID);
+        }
+        int paramToInt = Integer.parseInt(id);
+        if (!integerValidator.minValue(paramToInt, 1)) {
+            invalidValues.addInvalidValue(InvalidValue.NEGATIVE_ID);
         }
         if (name.length() == 0) {
-            return InvalidValue.INCORRECT_USERNAME;
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_USERNAME);
         }
         if (!password.matches("\\w{8,20}")
                 || !password.matches(".*\\d+.*")
                 || password.equals(password.toLowerCase(Locale.ROOT))
                 || password.equals(password.toUpperCase(Locale.ROOT))) {
-            return InvalidValue.INCORRECT_PASSWORD;
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_PASSWORD);
         }
         if (!EmailValidator.getInstance().isValid(email)) {
-            return InvalidValue.INCORRECT_EMAIL;
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_EMAIL);
         }
         if (!avatar.matches(BASE64_REGEX) || avatar.length() == 0) {
-            return InvalidValue.INCORRECT_AVATAR;
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_AVATAR);
         }
-        return null;
+        return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
     }
 }
