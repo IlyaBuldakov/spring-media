@@ -4,6 +4,7 @@ import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.user.UserDto;
 import finalproject.application.dto.user.UserRequestDto;
+import finalproject.application.services.AuthService;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
@@ -24,13 +25,14 @@ import java.util.concurrent.ExecutionException;
 public class UserController {
 
   UserService userService;
+  AuthService authService;
 
 
   @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
   @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping("/hello")
   public String helloAdmin() throws ExecutionException, InterruptedException {
-    return getCurrentUser().getName();
+    return userService.getUserById(authService.getId()).thenApply(either -> either.get()).get().getName();
   }
   @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
   @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
@@ -98,9 +100,7 @@ public class UserController {
     }));
   }
 
-  private User getCurrentUser() throws ExecutionException, InterruptedException {
-    return userService.getUserById((Integer) SecurityContextHolder.getContext().getAuthentication().getDetails()).get().get();
-  }
+
 
 
 
