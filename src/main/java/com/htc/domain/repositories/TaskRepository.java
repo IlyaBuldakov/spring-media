@@ -1,8 +1,15 @@
 package com.htc.domain.repositories;
 
+import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.comments.Comment;
+import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.tasks.Task;
+import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
@@ -10,26 +17,73 @@ import java.util.concurrent.CompletableFuture;
  * Репозиторий задач.
  */
 public interface TaskRepository {
+
   /**
    * Созает задачу.
    *
-   * @param task Задача.
+   * @param name Название задачи.
+   * @param contentType Тип медиаконтекта.
+   * @param description Описание задачи.
+   * @param files Файлы задачи.
+   * @param author Автор задачи.
+   * @param executor Исполнитель задачи.
+   * @param dateCreated Дата создания задачи.
+   * @param dateExpired Срок задачи.
+   * @param contents Медиаконтент связанный с задачей
+   * @param comments Комментарии задачи
+   * @param taskStatus Статус задачи
+   * @return Задача или ошибка
    */
-  CompletableFuture<Either<Failure, Task>> create(Task task);
+  CompletableFuture<Either<Failure, Task>> create(
+          Task.Name name,
+          ContentType contentType,
+          Task.Description description,
+          Collection<File> files,
+          User author,
+          User executor,
+          LocalDateTime dateCreated,
+          LocalDateTime dateExpired,
+          Collection<Content> contents,
+          Collection<Comment> comments,
+          Task.TaskStatus taskStatus);
 
   /**
-   * Обновляет задачу.
+   * Обновляет данные задачи.
    *
-   * @param task Задача.
+   * @param id Идентификатор задачи.
+   * @param name Название задачи.
+   * @param contentType Тип медиаконтекта.
+   * @param description Описание задачи.
+   * @param files Файлы задачи.
+   * @param author Автор задачи.
+   * @param executor Исполнитель задачи.
+   * @param dateCreated Дата создания задачи.
+   * @param dateExpired Срок задачи.
+   * @param contents Медиаконтент связанный с задачей
+   * @param comments Комментарии задачи
+   * @param taskStatus Статус задачи
+   * @return Задача или ошибка
    */
-  CompletableFuture<Either<Failure, Task>> update(Task task);
+  CompletableFuture<Either<Failure, Task>> update(
+          Id id,
+          Task.Name name,
+          ContentType contentType,
+          Task.Description description,
+          Collection<File> files,
+          User author,
+          User executor,
+          LocalDateTime dateCreated,
+          LocalDateTime dateExpired,
+          Collection<Content> contents,
+          Collection<Comment> comments,
+          Task.TaskStatus taskStatus);
 
   /**
    * Удаляет задачу.
    *
    * @param id Идентификатор задачи.
    */
-  CompletableFuture<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 
   /**
    * Получает задачу.
@@ -37,7 +91,7 @@ public interface TaskRepository {
    * @param id Идентификатор задачи.
    * @return Задача.
    */
-  CompletableFuture<Either<Failure, Task>> get(int id);
+  CompletableFuture<Either<Failure, Task>> get(Id id);
 
   /**
    * Получает список всех задач.
