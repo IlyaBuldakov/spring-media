@@ -2,6 +2,8 @@ package com.htc.domain.repositories;
 
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.DateCreated;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 
@@ -12,11 +14,17 @@ public interface CommentRepository {
   /**
    * Добавление нового комментария в задачу.
    *
-   * @param comment новый комментарий
-   *
+   * @param dateCreated дата создания
+   * @param author автор
+   * @param message текст комментария
+   * @param content контент (набор)
    * @return comment новый комментарий, подробнее {@link Comment}
    */
-  CompletableFuture<Either<Failure, Comment>> add(Comment comment);
+  //TODO Content
+  CompletableFuture<Either<Failure, Comment>> add(DateCreated dateCreated,
+                                                  User author,
+                                                  String message,
+                                                  int[] content);
 
   /**
    * Получение комментария по идентификатору.
