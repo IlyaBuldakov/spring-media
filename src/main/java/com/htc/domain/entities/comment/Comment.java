@@ -1,49 +1,50 @@
 package com.htc.domain.entities.comment;
 
-import lombok.Getter;
+import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.Id;
 
 /**
  * Комментарий.
  */
-public class Comment {
+public interface Comment {
   /**
    * Идентификатор комментария.
    *
+   * @see Id#create(Long)
+   *
    * @return id идентификатор
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter int id;
+  Id getId();
 
   /**
    * Дата создания.
    *
+   * @see DateCreated#create()
+   *
    * @return dateCreated дата создания
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String dateCreated;
+  DateCreated getDateCreated();
 
   /**
-   * Идентификатор {@link com.htc.domain.entities.user.User автора}.
+   * {@link User Автор}.
    *
-   *
-   * @return id идентификатор автора
+   * @return user автор
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter int authorId;
+  User getAuthor();
 
   /**
    * Текст комментария.
    *
    * @return message текст комментария
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String message;
+  String getMessage();
 
   /**
-   * Идентификатор {@link com.htc.domain.entities.task.Task задачи}.
+   * {@link com.htc.domain.entities.content.Content Контент}.
    *
-   * @return id идентификатор задачи
+   * @return content контент(набор)
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter int taskId;
+  // TODO заменить на экземпляр массива контента (list?)
+  int[] getContents();
 }
