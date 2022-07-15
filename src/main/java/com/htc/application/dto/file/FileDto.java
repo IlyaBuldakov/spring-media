@@ -1,6 +1,5 @@
 package com.htc.application.dto.file;
 
-import com.htc.application.dto.content.ContentTypeDto;
 import com.htc.domain.entities.files.File;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -15,30 +14,35 @@ public class FileDto {
    *
    * @return Индентификатор файла.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
   /**
    * Имя файла.
    *
    * @return Имя файла.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
   /**
    * Дата загрузки файла.
    *
    * @return Дата загрузки файла.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime dateCreated;
   /**
    * Формат файла.
    *
    * @return Формат файла.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String format;
   /**
    * URL файла.
    *
    * @return URL файла.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String url;
 
   /**

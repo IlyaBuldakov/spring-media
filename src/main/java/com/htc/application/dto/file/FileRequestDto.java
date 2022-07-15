@@ -1,7 +1,6 @@
 package com.htc.application.dto.file;
 
 import com.htc.domain.entities.files.File;
-import com.htc.domain.entities.tasks.Task;
 import lombok.Getter;
 
 /**
@@ -13,13 +12,15 @@ public class FileRequestDto {
    *
    * @return Формат файла.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String file;
   /**
    * URL файла.
    *
    * @return URL файла.
    */
-  private final @Getter Task task;
+  @SuppressWarnings("JavadocDeclaration")
+  private final @Getter int task;
 
   /**
    * Создаёт экземпляр класса {@link FileRequestDto}.
@@ -28,6 +29,6 @@ public class FileRequestDto {
    */
   public FileRequestDto(File file) {
     this.file = file.getFile();
-    this.task = file.getTask();
+    this.task = file.getTask().getId().getValue();
   }
 }
