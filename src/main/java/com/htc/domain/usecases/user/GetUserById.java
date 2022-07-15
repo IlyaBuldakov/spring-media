@@ -31,24 +31,3 @@ public final class GetUserById implements UseCase<Integer, User> {
     return CompletableFuture.completedFuture(Either.left(invalidValues));
   }
 }
-
-
-/*
-* @AllArgsConstructor
-public final class DeleteUserById implements UseCase<Integer, Void> {
-  private final UserRepository repository;
-
-  @Override
-  public CompletableFuture<Either<Failure, Void>> execute(Integer id) {
-    var idEither = Id.create(id);
-    if (idEither.isRight()) {
-      return repository.delete(idEither.get());
-    }
-
-    var invalidValues = new InvalidValues();
-    invalidValues.addInvalidValue(idEither.getLeft());
-    return CompletableFuture.completedFuture(Either.left(invalidValues));
-
-  }
-}
-*/
