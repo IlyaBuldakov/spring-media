@@ -20,72 +20,84 @@ public class TaskResponse {
    *
    * @return Индентификатор задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
   /**
    * Заголовок задачи.
    *
    * @return заголовок задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
   /**
    * Требуемный тип контента.
    *
    * @return Тип контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter ContentTypeDto contentType;
   /**
    * Описание задачи.
    *
    * @return Описание задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String description;
   /**
    * Приложеные файлы..
    *
    * @return Файлы задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter Collection<FileDto> files;
   /**
    * Автор задачи.
    *
    * @return Позьзователя - автора задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter UserResponse author;
   /**
    * Исполнитель задачи.
    *
    * @return Позьзователя - исполнителя задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter UserResponse executor;
   /**
    * Дата создания задачи.
    *
    * @return Дату создания задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime dateCreated;
   /**
    * Срок выполнения задачи.
    *
    * @return Срок выполнения задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime dateExpired;
   /**
    * Контент - результат выполнения задачи.
    *
    * @return Контент.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter Collection<ContentDto> contents;
   /**
    * Коментарии задачи.
    *
    * @return Коментарии задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter Collection<CommentDto> comments;
   /**
    * Статус задачи.
    *
    * @return Статус задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter TaskStatusDto status;
 
 

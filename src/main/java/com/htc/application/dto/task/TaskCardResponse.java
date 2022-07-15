@@ -12,6 +12,7 @@ public class TaskCardResponse {
    *
    * @return id Идентификатор задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -19,6 +20,7 @@ public class TaskCardResponse {
    *
    * @return name Имя задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   /**

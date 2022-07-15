@@ -16,36 +16,42 @@ public class TaskListItemResponse {
    *
    * @return Индентификатор задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int id;
   /**
    * Заголовок задачи.
    *
    * @return заголовок задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
   /**
    * Требуемный тип контента.
    *
    * @return Тип контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter ContentTypeDto contentType;
   /**
    * Исполнитель задачи.
    *
    * @return Позьзователь - исполнителя задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter UserShortResponse executor;
   /**
    * Срок выполнения задачи.
    *
    * @return Срок выполнения задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime dateExpired;
   /**
    * Статус задачи.
    *
    * @return Статус задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter TaskStatusDto status;
 
   /**

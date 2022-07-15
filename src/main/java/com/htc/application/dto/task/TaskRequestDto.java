@@ -14,36 +14,42 @@ public class TaskRequestDto {
    *
    * @return заголовок задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String name;
   /**
    * Требуемный тип контента.
    *
    * @return Тип контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter ContentTypeDto contentType;
   /**
    * Описание задачи.
    *
    * @return Описание задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String description;
   /**
    * Индентификатор автора задачи.
    *
    * @return Индентификатор позьзователя - автора задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int author;
   /**
    * Индентификатор исполнителя задачи.
    *
    * @return Индентификатор позьзователя - исполнителя задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter int executor;
   /**
    * Срок выполнения задачи.
    *
    * @return Срок выполнения задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter LocalDateTime dateExpired;
 
   /**

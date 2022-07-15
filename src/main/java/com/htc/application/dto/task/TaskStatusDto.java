@@ -12,6 +12,7 @@ public class TaskStatusDto {
    *
    * @return id Идентификатор статуса.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -19,6 +20,7 @@ public class TaskStatusDto {
    *
    * @return name Название статуса.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   /**
