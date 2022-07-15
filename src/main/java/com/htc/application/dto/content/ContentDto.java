@@ -19,48 +19,56 @@ public class ContentDto {
    *
    * @return Индентификатор медиаконтента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
   /**
    * Тип медиаконтента.
    *
    * @return Тип медиаконтента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter ContentTypeDto type;
   /**
    * Наименование медиаконтента.
    *
    * @return Наименование медиаконтента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
   /**
    * Дата загрузки контента.
    *
    * @return Дата загрузки контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime dateCreated;
   /**
    * Пользователь - автор контента.
    *
    * @return Пользователь - автор контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter UserShortResponse author;
   /**
    * Формат контента.
    *
    * @return Формат контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String format;
   /**
    * Адресс контента.
    *
    * @return Адресс контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String url;
   /**
    * Превью контента.
    *
    * @return Превью контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String preview;
 
   /**

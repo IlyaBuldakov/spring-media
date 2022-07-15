@@ -12,6 +12,7 @@ public class ContentTypeDto {
    *
    * @return id Идентификатор типа медиаконтента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -19,6 +20,7 @@ public class ContentTypeDto {
    *
    * @return name Название типа медиаконтента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   /**

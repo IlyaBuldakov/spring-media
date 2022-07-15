@@ -1,7 +1,7 @@
 package com.htc.application.dto.content;
 
 import com.htc.application.dto.file.FileDto;
-import com.htc.application.dto.task.TaskDto;
+import com.htc.application.dto.task.TaskResponse;
 import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.tasks.Task;
 import lombok.Getter;
@@ -15,13 +15,15 @@ public class ContentCreateRequestDto {
    *
    * @return Файл медиаконтента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter FileDto file;
   /**
    * Задача связаная с создаваемым медиаконтента.
    *
    * @return Задача.
    */
-  private final @Getter TaskDto task;
+  @SuppressWarnings("JavadocDeclaration")
+  private final @Getter int task;
 
   /**
    * Создаёт экземпляр класса {@link ContentDto}.
@@ -31,6 +33,6 @@ public class ContentCreateRequestDto {
    */
   public ContentCreateRequestDto(File file, Task task) {
     this.file = new FileDto(file);
-    this.task = new TaskDto(task);
+    this.task = task.getId().getValue();
   }
 }

@@ -14,12 +14,14 @@ public class ContentsResponseDto {
    *
    * @return Список медиаконтента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter Collection<ContentDto> contents;
   /**
    * Количество медиаконтента.
    *
    * @return Количество медиаконтента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int total;
 
   /**
