@@ -1,17 +1,11 @@
 package com.htc.application.controllers;
 
-import com.htc.application.dto.task.TaskDto;
-import com.htc.application.dto.user.UserResponse;
+import com.htc.application.dto.task.TaskResponse;
 import com.htc.domain.usecases.task.CreateTask;
 import com.htc.domain.usecases.task.DeleteTaskById;
 import com.htc.domain.usecases.task.GetAllTasks;
 import com.htc.domain.usecases.task.GetTaskById;
 import com.htc.domain.usecases.task.UpdateTask;
-import com.htc.domain.usecases.user.CreateUser;
-import com.htc.domain.usecases.user.DeleteUserById;
-import com.htc.domain.usecases.user.GetAllUsers;
-import com.htc.domain.usecases.user.GetUserById;
-import com.htc.domain.usecases.user.UpdateUser;
 import com.htc.utility.Controllers;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
@@ -54,11 +48,11 @@ public class TaskController {
    */
   @GetMapping(path = "/{id}")
   @Async
-  public CompletableFuture<TaskDto> get(@PathVariable Integer id) {
+  public CompletableFuture<TaskResponse> get(@PathVariable Integer id) {
     return Controllers.handleRequest(
             getTaskById,
             id,
-            TaskDto::new);
+            TaskResponse::new);
   }
 
   /**
@@ -67,12 +61,12 @@ public class TaskController {
    * @return Список пользователей.
    */
   @GetMapping
-  public CompletableFuture<Collection<TaskDto>> getAll() {
+  public CompletableFuture<Collection<TaskResponse>> getAll() {
     return Controllers.handleRequest(
             getAllTasks,
             null,
             tasks -> tasks.stream()
-                    .map(TaskDto::new)
+                    .map(TaskResponse::new)
                     .collect(Collectors.toList()));
   }
 

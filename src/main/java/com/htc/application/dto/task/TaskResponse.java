@@ -5,7 +5,6 @@ import com.htc.application.dto.content.ContentDto;
 import com.htc.application.dto.content.ContentTypeDto;
 import com.htc.application.dto.file.FileDto;
 import com.htc.application.dto.user.UserResponse;
-import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -15,7 +14,7 @@ import lombok.Getter;
 /**
  * Представление сущности задачи.
  */
-public class TaskDto {
+public class TaskResponse {
   /**
    * Индентификатор задачи.
    *
@@ -91,11 +90,11 @@ public class TaskDto {
 
 
   /**
-   * Создаёт экземпляр класса {@link TaskDto}.
+   * Создаёт экземпляр класса {@link TaskResponse}.
    *
    * @param task Сущность пользователя.
    */
-  public TaskDto(Task task) {
+  public TaskResponse(Task task) {
     this.id = task.getId().getValue();
     this.name = task.getName().getValue();
     this.contentType = new ContentTypeDto(task.getContentType());

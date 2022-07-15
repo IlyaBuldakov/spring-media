@@ -2,6 +2,7 @@ package com.htc.application.dto.task;
 
 import com.htc.application.dto.content.ContentTypeDto;
 import com.htc.application.dto.user.UserResponse;
+import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.Getter;
 /**
  * Представление списка задач.
  */
-public class TaskListDto {
+public class TaskListItemResponse {
   /**
    * Индентификатор задачи.
    *
@@ -33,7 +34,7 @@ public class TaskListDto {
    *
    * @return Позьзователь - исполнителя задачи.
    */
-  private final @Getter UserResponse executor;
+  private final @Getter UserShortResponse executor;
   /**
    * Срок выполнения задачи.
    *
@@ -48,14 +49,14 @@ public class TaskListDto {
   private final @Getter TaskStatusDto status;
 
   /**
-   * Создаёт экземпляр класса {@link TaskListDto}.
+   * Создаёт экземпляр класса {@link TaskListItemResponse}.
    *
    * @param task Сущность пользователя.
    */
-  public TaskListDto(Task task) {
+  public TaskListItemResponse(Task task) {
     this.name = task.getName().getValue();
     this.contentType = new ContentTypeDto(task.getContentType());
-    this.executor = new UserResponse(task.getExecutor());
+    this.executor = new UserShortResponse(task.getExecutor());
     this.dateExpired = task.getDateExpired();
     this.status = new TaskStatusDto(task.getStatus());
   }

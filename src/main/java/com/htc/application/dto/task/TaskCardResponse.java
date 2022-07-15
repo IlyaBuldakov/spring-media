@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * Краткое представление сущности задачи.
  */
-public class TaskBasicDto {
+public class TaskCardResponse {
   /**
    * Идентификатор задачи.
    *
@@ -22,11 +22,11 @@ public class TaskBasicDto {
   private final @Getter String name;
 
   /**
-   * Создаёт экземпляр класса {@link TaskBasicDto}.
+   * Создаёт экземпляр класса {@link TaskCardResponse}.
    *
    * @param task Сущность пользователя.
    */
-  public TaskBasicDto(Task task) {
+  public TaskCardResponse(Task task) {
     this.id = task.getId().getValue();
     this.name = task.getName().getValue();
   }

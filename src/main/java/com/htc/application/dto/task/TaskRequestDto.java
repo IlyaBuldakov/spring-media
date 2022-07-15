@@ -1,12 +1,8 @@
 package com.htc.application.dto.task;
 
 import com.htc.application.dto.content.ContentTypeDto;
-import com.htc.application.dto.file.FileDto;
-import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.stream.Collectors;
 import lombok.Getter;
 
 /**
@@ -18,43 +14,37 @@ public class TaskRequestDto {
    *
    * @return заголовок задачи.
    */
-  private final @Getter String name;
+  private @Getter String name;
   /**
    * Требуемный тип контента.
    *
    * @return Тип контента.
    */
-  private final @Getter ContentTypeDto contentType;
+  private @Getter ContentTypeDto contentType;
   /**
    * Описание задачи.
    *
    * @return Описание задачи.
    */
-  private final @Getter String description;
+  private @Getter String description;
   /**
-   * Приложеные файлы.
+   * Индентификатор автора задачи.
    *
-   * @return Файлы задачи.
+   * @return Индентификатор позьзователя - автора задачи.
    */
-  private final @Getter Collection<FileDto> files;
+  private @Getter int author;
   /**
-   * Автор задачи.
+   * Индентификатор исполнителя задачи.
    *
-   * @return Позьзователя - автора задачи.
+   * @return Индентификатор позьзователя - исполнителя задачи.
    */
-  private final @Getter UserResponse author;
-  /**
-   * Исполнитель задачи.
-   *
-   * @return Позьзователя - исполнителя задачи.
-   */
-  private final @Getter UserResponse executor;
+  private @Getter int executor;
   /**
    * Срок выполнения задачи.
    *
    * @return Срок выполнения задачи.
    */
-  private final @Getter LocalDateTime dateExpired;
+  private @Getter LocalDateTime dateExpired;
 
   /**
    * Создаёт экземпляр класса {@link TaskRequestDto}.
@@ -65,11 +55,11 @@ public class TaskRequestDto {
     this.name = task.getName().getValue();
     this.contentType = new ContentTypeDto(task.getContentType());
     this.description = task.getDescription().getValue();
-    this.files = task.getFiles().stream()
-            .map(FileDto::new)
-            .collect(Collectors.toList());
-    this.author = new UserResponse(task.getAuthor());
-    this.executor = new UserResponse(task.getExecutor());
+    this.author = task.getAuthor().getId().getValue();
+    this.executor = task.getExecutor().getId().getValue();
     this.dateExpired = task.getDateExpired();
+  }
+
+  public TaskRequestDto() {
   }
 }

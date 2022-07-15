@@ -115,7 +115,7 @@ public interface Task {
      * @return Название задачи или ошибка.
      */
     public static Either<InvalidValue, Task.Name> create(String value) {
-      if (value.length() == 0 || value.length() > 32) {
+      if (value.length() == 0 || value.length() > 255) {
         return Either.left(InvalidValue.INVALID_TASK_NAME);
       }
 
