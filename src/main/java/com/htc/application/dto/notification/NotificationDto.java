@@ -1,9 +1,9 @@
 package com.htc.application.dto.notification;
 
+import com.htc.application.dto.task.TaskCardResponse;
+import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.notifications.Notification;
 import com.htc.domain.entities.notifications.NotificationType;
-import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.user.User;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
@@ -16,37 +16,43 @@ public class NotificationDto {
    *
    * @return Индентификатор уведомления.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
   /**
    * Тип уведомления.
    *
    * @return Тип уведомления.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter NotificationType type;
   /**
    * Дата получения уведомления.
    *
    * @return Дата плучения уведомления.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime date;
   /**
    * Сообщение уведомления.
    *
    * @return Сообщение уведомления.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String message;
   /**
    * Получатель уведомления.
    *
    * @return Пользователь - получатель уведомления.
    */
-  private final @Getter User user;
+  @SuppressWarnings("JavadocDeclaration")
+  private final @Getter UserShortResponse user;
   /**
-   *  Задача. Задача связанная с уведомлнием.
+   * Задача. Задача связанная с уведомлнием.
    *
    * @return Задача.
    */
-  private final @Getter Task task;
+  @SuppressWarnings("JavadocDeclaration")
+  private final @Getter TaskCardResponse task;
 
   /**
    * Создаёт экземпляр класса {@link NotificationDto}.
@@ -58,7 +64,7 @@ public class NotificationDto {
     this.type = notification.getType();
     this.date = notification.getDate();
     this.message = notification.getMessage();
-    this.user = notification.getUser();
-    this.task = notification.getTask();
+    this.user = new UserShortResponse(notification.getUser());
+    this.task = new TaskCardResponse(notification.getTask());
   }
 }
