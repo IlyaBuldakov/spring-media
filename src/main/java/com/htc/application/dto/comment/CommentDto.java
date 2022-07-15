@@ -14,6 +14,7 @@ public class CommentDto {
    *
    * @return  Идентификатор комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -21,6 +22,7 @@ public class CommentDto {
    *
    * @return  дату создания комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime date;
 
   /**
@@ -28,6 +30,7 @@ public class CommentDto {
    *
    * @return пользователя - автора комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter UserShortResponse user;
 
   /**
@@ -35,6 +38,7 @@ public class CommentDto {
    *
    * @return текст комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String message;
 
   /**

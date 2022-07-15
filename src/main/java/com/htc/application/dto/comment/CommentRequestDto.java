@@ -12,6 +12,7 @@ public class CommentRequestDto {
    *
    * @return Идентификатор пользователя.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int user;
 
   /**
@@ -19,6 +20,7 @@ public class CommentRequestDto {
    *
    * @return Идентификатор задачи.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int task;
 
   /**
@@ -26,6 +28,7 @@ public class CommentRequestDto {
    *
    * @return текст комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String message;
 
   /**
