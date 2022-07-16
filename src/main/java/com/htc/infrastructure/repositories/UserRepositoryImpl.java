@@ -8,14 +8,11 @@ import com.htc.domain.repositories.UserRepository;
 import com.htc.infrastructure.models.UserModel;
 import com.htc.utility.Results;
 import io.vavr.control.Either;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
