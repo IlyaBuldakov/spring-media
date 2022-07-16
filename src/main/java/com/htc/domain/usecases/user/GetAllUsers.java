@@ -3,7 +3,6 @@ package com.htc.domain.usecases.user;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
-import com.htc.domain.usecases.UseCase;
 import com.htc.infrastructure.jpa.UsersRepositoryImpl;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @AllArgsConstructor
 @Component
-public class GetAllUsers implements UseCase<Void, List<User>> {
+public class GetAllUsers {
 
     /**
      * Поле для внедрения реализации из infrastructure layer.

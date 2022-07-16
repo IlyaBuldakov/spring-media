@@ -4,7 +4,6 @@ import com.htc.util.UserParams;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
-import com.htc.domain.usecases.UseCase;
 import com.htc.infrastructure.jpa.UsersRepositoryImpl;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
@@ -18,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @AllArgsConstructor
 @Component
-public class UpdateUser implements UseCase<UserParams, User> {
+public class UpdateUser {
 
     /**
      * Поле для внедрения реализации из infrastructure layer.
