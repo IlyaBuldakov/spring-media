@@ -3,7 +3,7 @@ package com.htc.config;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Конфигурация для SwaggerUI.
+ * Конфигурация для Swagger UI.
  */
 @Configuration
 public class SpringfoxConfig {}
