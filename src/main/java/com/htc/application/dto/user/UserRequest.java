@@ -50,7 +50,7 @@ public class UserRequest {
     private @Getter String avatar;
 
     /**
-     * Роль пользователя {@link Role.RoleType}.
+     * Роль пользователя.
      *
      * @return Роль пользователя.
      */

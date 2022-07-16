@@ -57,6 +57,6 @@ public class UserMapper {
     @Column(name = "avatar")
     public String avatar;
 
-    @Column(name = "role")
-    public String role;
+    @Enumerated(EnumType.STRING)
+    private @Getter Role role;
 }

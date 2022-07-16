@@ -1,69 +1,24 @@
 package com.htc.domain.entities.user;
 
-import com.htc.domain.entities.failures.Failure;
-import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Класс, описывающий роль пользователя {@link RoleType}.
+ * Класс, описывающий роль пользователя.
  */
-@AllArgsConstructor
-public class Role {
+public enum Role {
 
-    /**
-     * Конструктор, превращающий строку из запроса в Role.
-     *
-     * @param input Строка.
-     */
-    public Role(String input) {
-        RoleType type = validateRoleTypeInput(input).get();
-        this.id = type.ordinal() + 1;
-        this.roleType = type;
+    ADMIN(1, "Администратор"),
+
+    MANAGER(2, "Менеджер"),
+
+    CONTENT_MAKER(3, "Контент-мейкер");
+
+    Role(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    /**
-     * Метод валидации строки из запроса
-     * на соответствие RoleType'у.
-     *
-     * @param input Строка для валидации.
-     * @return Тип роли {@link RoleType}.
-     */
-    public static Either<Failure, RoleType> validateRoleTypeInput(String input) {
-        return Either.right(RoleType.valueOf(input.toUpperCase()));
-    }
+    private final @Getter int id;
 
-    /**
-     * Тип роли.
-     */
-    public enum RoleType {
-        /**
-         * Администратор.
-         */
-        ADMIN,
-
-        /**
-         * Менеджер.
-         */
-        MANAGER,
-
-        /**
-         * Контент-мейкер.
-         */
-        CONTENT_MAKER
-    }
-
-    /**
-     * Идентификатор роли.
-     *
-     * @return Идентификатор роли.
-     */
-    private @Getter int id;
-
-    /**
-     * Тип роли {@link RoleType}.
-     *
-     * @return Тип роли.
-     */
-    private @Getter RoleType roleType;
+    private final @Getter String name;
 }
