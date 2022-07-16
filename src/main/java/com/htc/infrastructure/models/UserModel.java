@@ -2,8 +2,11 @@ package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
 
 /**
  * Модель пользователя для СУБД.
@@ -80,6 +83,16 @@ public class UserModel implements User {
     this(Id.create(0).get(), name, email, password, image, role);
   }
 
+  /**
+   * Создаёт экземпляр класса {@link UserModel}.
+   *
+   * @param id Идентификатор пользователя.
+   * @param name Имя пользователя.
+   * @param email Электронная почта пользователя.
+   * @param password Пароль пользователя.
+   * @param image Изображение пользователя.
+   * @param role Роль пользователя.
+   */
   public UserModel(Id id, Name name, Email email, Password password, Image image, Role role) {
     this.id = id.getValue();
     this.name = name.getValue();
