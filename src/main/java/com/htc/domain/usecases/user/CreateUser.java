@@ -18,6 +18,20 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public final class CreateUser implements UseCase<CreateUser.Params, User> {
 
+  /**
+   * Параметры сценария создания пользователя.
+   *
+   * @param name Имя пользователя.
+   * @param nameKey Ключ имени пользователя.
+   * @param email Электронная почта пользователя
+   * @param emailKey Ключ электронной почты пользователя.
+   * @param password Пароль пользователя.
+   * @param passwordKey Ключ пароля пользователя.
+   * @param image Изображение пользователя.
+   * @param imageKey Ключ изображения пользователя.
+   * @param role Роль пользователя.
+   * @param roleKey Ключ роли пользователя.
+   */
   public record Params(
       String name, String nameKey,
       String email, String emailKey,
