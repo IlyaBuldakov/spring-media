@@ -2,22 +2,16 @@ package com.htc.application.dto.user;
 
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * Представление сущности пользователя (запрос).
  */
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserRequest {
-
-    public UserRequest(User user) {
-        this.name = user.getName();
-        this.password = user.getPassword();
-        this.email = user.getEmail();
-        this.avatar = user.getAvatar();
-        this.role = user.getRole();
-    }
 
     /**
      * Имя пользователя.
