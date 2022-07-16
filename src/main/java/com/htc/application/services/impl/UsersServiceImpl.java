@@ -56,15 +56,8 @@ public class UsersServiceImpl implements UsersService {
     public CompletableFuture<UserResponse> getById(String id) {
         return getUserById.execute(id)
                 .thenApply(either ->
-                        either.map(UserResponse::new).getOrElseThrow(
-                                failure -> switch (failure) {
-                                    case InvalidValuesContainer invalidValues ->
-                                            new BadRequestResponse(invalidValues);
-                                    case NotFound notFound ->
-                                            new NotFoundResponse(notFound);
-                                    default -> new InternalServerErrorResponse();
-                                }
-                        ));
+                        either.map(UserResponse::new)
+                                .getOrElseThrow(ExceptionDtoResolver::resolve));
     }
 
     /**
@@ -77,13 +70,8 @@ public class UsersServiceImpl implements UsersService {
     public CompletableFuture<UserResponse> create(UserRequest userRequest) {
         return createUser.execute(new UserParams(userRequest))
                 .thenApply(either ->
-                        either.map(UserResponse::new).getOrElseThrow(
-                                failure -> switch (failure) {
-                                    case InvalidValuesContainer invalidValues ->
-                                            new BadRequestResponse(invalidValues);
-                                    default -> new InternalServerErrorResponse();
-                                }
-                        ));
+                        either.map(UserResponse::new)
+                                .getOrElseThrow(ExceptionDtoResolver::resolve));
     }
 
     /**
@@ -98,15 +86,8 @@ public class UsersServiceImpl implements UsersService {
     public CompletableFuture<UserResponse> update(UserRequest userRequest, String id) {
         return updateUser.execute(new UserParams(id, userRequest))
                 .thenApply(either ->
-                        either.map(UserResponse::new).getOrElseThrow(
-                                failure -> switch (failure) {
-                                    case InvalidValuesContainer invalidValues ->
-                                            new BadRequestResponse(invalidValues);
-                                    case NotFound notFound ->
-                                            new NotFoundResponse(notFound);
-                                    default -> new InternalServerErrorResponse();
-                                }
-                        ));
+                        either.map(UserResponse::new)
+                                .getOrElseThrow(ExceptionDtoResolver::resolve));
     }
 
 
