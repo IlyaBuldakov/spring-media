@@ -1,30 +1,23 @@
 package com.htc.domain.entities.user;
 
-import com.htc.domain.entities.failures.Failure;
-import com.htc.util.ValuesValidator;
-import io.vavr.control.Either;
-import lombok.Getter;
-
 /**
  * Класс, описывающий пользователя.
  */
-public class User {
-
-    private User() {}
+public interface User {
 
     /**
      * Идентификатор пользователя.
      *
      * @return Идентификатор пользователя.
      */
-    private @Getter Integer id;
+    Integer getId();
 
     /**
      * Имя пользователя.
      *
      * @return Имя пользователя.
      */
-    private @Getter String name;
+    String getName();
 
     /**
      * Пароль пользователя.
@@ -40,60 +33,26 @@ public class User {
      *
      * @return Пароль пользователя.
      */
-    private @Getter String password;
+    String getPassword();
 
     /**
      * E-mail пользователя.
      *
      * @return E-mail пользователя.
      */
-    private @Getter String email;
+    String getEmail();
 
     /**
      * Аватар пользователя.
      *
      * @return Аватар пользователя.
      */
-    private @Getter String avatar;
+    String getAvatar();
 
     /**
-     * Роль пользователя {@link Role.RoleType}.
+     * Роль пользователя.
      *
      * @return Роль пользователя.
      */
-    private @Getter Role role;
-
-    /**
-     * Фабричный метод пользователя.
-     *
-     * @param id       Идентификатор.
-     * @param name     Имя пользователя.
-     * @param password Пароль.
-     * @param email    Почта.
-     * @param avatar   Аватар.
-     * @return Пользователь.
-     */
-
-    public static Either<Failure, User> create(Integer id,
-                                               String name,
-                                               String password,
-                                               String email,
-                                               String avatar,
-                                               Role role) {
-        Failure expectedFailure = ValuesValidator
-                .checkUserFields(id.toString(), name, password, email, avatar);
-
-        if (expectedFailure != null) {
-            return Either.left(expectedFailure);
-        }
-
-        User user = new User();
-        user.id = id;
-        user.name = name;
-        user.email = email;
-        user.password = password;
-        user.avatar = avatar;
-        user.role = role;
-        return Either.right(user);
-    }
+    Role getRole();
 }
