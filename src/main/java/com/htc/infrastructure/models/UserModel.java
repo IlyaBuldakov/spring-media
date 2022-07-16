@@ -2,6 +2,7 @@ package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.user.User;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
@@ -19,11 +20,11 @@ public class UserModel implements User {
    */
   @javax.persistence.Id
   @GeneratedValue
-  private Integer id;
+  private Integer userId;
 
   @Override
   public Id getId() {
-    return Id.create(this.id).get();
+    return Id.create(this.userId).get();
   }
 
   /**
@@ -86,7 +87,7 @@ public class UserModel implements User {
           Password password,
           Image image,
           Role role) {
-    this.id = id.getValue();
+    this.userId = id.getValue();
     this.name = name.getValue();
     this.email = email.getValue();
     this.password = password.getValue();

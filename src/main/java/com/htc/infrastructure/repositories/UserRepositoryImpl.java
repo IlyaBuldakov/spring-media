@@ -48,7 +48,8 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override
   public CompletableFuture<Either<Failure, Void>> delete(Id id) {
-    return null;
+    users.deleteById(id.getValue());
+    return CompletableFuture.completedFuture(Either.right(null));
   }
 
   @Override
