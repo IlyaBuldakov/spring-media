@@ -3,7 +3,6 @@ package com.htc.application.dto.notification;
 import com.htc.application.dto.task.TaskCardResponse;
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.notifications.Notification;
-import com.htc.domain.entities.notifications.NotificationType;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
@@ -24,7 +23,7 @@ public class NotificationDto {
    * @return Тип уведомления.
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter NotificationType type;
+  private final @Getter Notification.Type type;
   /**
    * Дата получения уведомления.
    *
@@ -60,10 +59,10 @@ public class NotificationDto {
    * @param notification Уведомление.
    */
   public NotificationDto(Notification notification) {
-    this.id = notification.getId();
+    this.id = notification.getId().getValue();
     this.type = notification.getType();
     this.date = notification.getDate();
-    this.message = notification.getMessage();
+    this.message = notification.getMessage().getValue();
     this.user = new UserShortResponse(notification.getUser());
     this.task = new TaskCardResponse(notification.getTask());
   }

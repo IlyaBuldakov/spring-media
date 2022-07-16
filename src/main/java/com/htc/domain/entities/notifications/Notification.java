@@ -1,69 +1,87 @@
 package com.htc.domain.entities.notifications;
 
+import com.htc.domain.entities.attributes.Attribute;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.tasks.Task;
 import com.htc.domain.entities.user.User;
+import io.vavr.control.Either;
 import java.time.LocalDateTime;
-import java.util.Random;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Уведомление.
  */
-@AllArgsConstructor
-public class Notification {
+public interface Notification {
   /**
    * Индентификатор уведомления.
    *
    * @return Индентификатор уведомления.
    */
-  private @Getter int id;
+  Id getId();
+
   /**
    * Тип уведомления.
    *
    * @return Тип уведомления.
    */
-  private @Getter NotificationType type;
+  Type getType();
+
   /**
    * Дата получения уведомления.
    *
    * @return Дата плучения уведомления.
    */
-  private @Getter LocalDateTime date;
+  LocalDateTime getDate();
+
   /**
    * Сообщение уведомления.
    *
    * @return Сообщение уведомления.
    */
-  private @Getter String message;
+  Message getMessage();
+
   /**
    * Получатель уведомления.
    *
    * @return Пользователь - получатель уведомления.
    */
-  private @Getter User user;
+  User getUser();
+
   /**
-   *  Задача. Задача связанная с уведомлнием.
+   * Задача. Задача связанная с уведомлнием.
    *
    * @return Задача.
    */
-  private @Getter Task task;
+  Task getTask();
 
   /**
-   * Создаёт тестовое уведомление.
-   *
-   * @return Уведомление.
+   * Тип уведомления.
    */
+  enum Type {
+    VIDEO,
+    AUDIO,
+    PHOTO,
+    COMMENT,
+    CONTENT
+  }
 
-  public static Notification createTestNotification() {
-    var id = new Random().nextInt(Integer.MAX_VALUE);
-    return new Notification(
-            id,
-            null,
-            null,
-            null,
-            null,
-            null
-    );
+  /**
+   * Сообщение уведомления.
+   */
+  class Message extends Attribute<String> {
+    /**
+     * Создаёт сообщение уведомления.
+     *
+     * @param value Входные данные.
+     * @return Сообщение уведомления.
+     */
+    public static Either<InvalidValue, Notification.Message> create(String value) {
+      var message = new Notification.Message(value);
+      return Either.right(message);
+    }
+
+    private Message(String value) {
+      super(value);
+    }
   }
 }
