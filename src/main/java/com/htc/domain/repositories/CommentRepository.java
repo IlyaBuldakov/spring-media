@@ -40,5 +40,5 @@ public interface CommentRepository {
    *
    * @param id идентификатор комментария
    */
-  CompletableFuture<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 }
