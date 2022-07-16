@@ -33,17 +33,11 @@ public class CreateUser {
     public CompletableFuture<Either<Failure, User>> execute(String name, String password,
                                                             String email, String avatar, Role role) {
         var expectedFailure = ValuesValidator.checkUserFields(
-                params.getName(),
-                params.getPassword(),
-                params.getEmail(),
-                params.getAvatar()
+                name, password, email, avatar
         );
         return expectedFailure == null ?
                 usersRepository.create(
-                        params.getName(),
-                        params.getPassword(),
-                        params.getEmail(),
-                        params.getAvatar(),
-                        params.getRole()) : CompletableFuture.completedFuture(Either.left(expectedFailure));
+                       name, password, email, avatar, role)
+                : CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
 }

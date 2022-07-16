@@ -35,12 +35,7 @@ public class UpdateUser {
         var expectedFailure
                 = ValuesValidator.checkUserFields(id, name, password, email, avatar);
         return expectedFailure == null ?
-                usersRepository.update(
-                        Integer.parseInt(params.getId()),
-                        params.getName(),
-                        params.getPassword(),
-                        params.getEmail(),
-                        params.getAvatar(),
-                        params.getRole()) : CompletableFuture.completedFuture(Either.left(expectedFailure));
+                usersRepository.update(Integer.parseInt(id), name, password, email, avatar, role)
+                : CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
 }
