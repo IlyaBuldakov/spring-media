@@ -40,7 +40,7 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public CompletableFuture<List<UserResponse>> getAll() {
-        return getAllUsers.execute(null)
+        return getAllUsers.execute()
                 .thenApply(either -> either
                         .map(list -> list.parallelStream()
                                 .map(UserResponse::new)).get().toList());
