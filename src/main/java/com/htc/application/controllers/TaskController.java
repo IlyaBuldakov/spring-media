@@ -1,5 +1,6 @@
 package com.htc.application.controllers;
 
+import com.htc.application.dto.task.TaskRequestDto;
 import com.htc.application.dto.task.TaskResponse;
 import com.htc.domain.usecases.task.CreateTask;
 import com.htc.domain.usecases.task.DeleteTaskById;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +39,19 @@ public class TaskController {
    * Создаёт пользователя.
    */
   @PostMapping
-  public void create() {
+  @Async
+  public void create(@RequestBody TaskRequestDto taskRequestDto) {
+    Controllers.handleRequest(
+            createTask,
+            new CreateTask.Params(
+                    taskRequestDto.getName(),
+                    taskRequestDto.getContentType(),
+                    taskRequestDto.getDescription(),
+                    taskRequestDto.getAuthor(),
+                    taskRequestDto.getExecutor(),
+                    taskRequestDto.getDateExpired()
+            ),
+            null);
   }
 
   /**
@@ -76,8 +90,20 @@ public class TaskController {
    * @param id Идентификатор пользователя.
    */
   @PutMapping(path = "/{id}")
-  public void update(@PathVariable Integer id) {
-
+  public void update(@PathVariable int id,
+                     @RequestBody TaskRequestDto taskRequestDto) {
+    Controllers.handleRequest(
+            updateTask,
+            new UpdateTask.Params(
+                    id,
+                    taskRequestDto.getName(),
+                    taskRequestDto.getContentType(),
+                    taskRequestDto.getDescription(),
+                    taskRequestDto.getAuthor(),
+                    taskRequestDto.getExecutor(),
+                    taskRequestDto.getDateExpired()
+            ),
+            null);
   }
 
   /**
