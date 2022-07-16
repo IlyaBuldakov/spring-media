@@ -56,8 +56,7 @@ public class ValuesValidator {
         if (name.length() == 0) {
             invalidValues.addInvalidValue(InvalidValue.INCORRECT_USERNAME);
         }
-        if (password.length() < 8
-                || password.length() > 20
+        if (!password.matches("\\w{8,20}")
                 || !password.matches(".*\\d+.*")
                 || password.equals(password.toLowerCase(Locale.ROOT))
                 || password.equals(password.toUpperCase(Locale.ROOT))) {
