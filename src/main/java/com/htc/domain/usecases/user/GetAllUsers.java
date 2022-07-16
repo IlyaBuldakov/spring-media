@@ -27,11 +27,9 @@ public class GetAllUsers {
     /**
      * Метод сценария.
      *
-     * @param param Параметр-заглушка.
      * @return Список пользователей.
      */
-    @Override
-    public CompletableFuture<Either<Failure, List<User>>> execute(Void param) {
+    public CompletableFuture<Either<Failure, List<User>>> execute() {
         return usersRepository.getAll();
     }
 }

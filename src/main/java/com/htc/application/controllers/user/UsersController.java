@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/users/")
+@RequestMapping("/api/users")
 public class UsersController {
 
     UsersService usersService;

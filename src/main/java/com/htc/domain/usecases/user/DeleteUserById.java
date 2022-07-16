@@ -1,7 +1,6 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.infrastructure.jpa.UsersRepositoryImpl;
 import com.htc.util.ValuesValidator;

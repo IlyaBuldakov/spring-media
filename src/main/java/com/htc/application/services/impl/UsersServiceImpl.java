@@ -1,14 +1,9 @@
 package com.htc.application.services.impl;
 
-import com.htc.application.dto.errors.BadRequestResponse;
-import com.htc.application.dto.errors.InternalServerErrorResponse;
-import com.htc.application.dto.errors.NotFoundResponse;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
+import com.htc.application.services.ExceptionDtoResolver;
 import com.htc.application.services.UsersService;
-import com.htc.domain.entities.failures.InvalidValuesContainer;
-import com.htc.domain.entities.failures.NotFound;
-import com.htc.util.UserParams;
 import com.htc.domain.usecases.user.CreateUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;

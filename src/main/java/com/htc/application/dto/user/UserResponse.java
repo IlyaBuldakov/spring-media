@@ -2,11 +2,13 @@ package com.htc.application.dto.user;
 
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * Представление сущности пользователя (ответ).
  */
+@AllArgsConstructor
 public class UserResponse {
 
     public UserResponse(User user) {

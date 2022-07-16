@@ -1,6 +1,7 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.infrastructure.jpa.UsersRepositoryImpl;
@@ -27,7 +28,6 @@ public class UpdateUser {
     /**
      * Метод сценария.
      *
-     * @param params Данные пользователя {@link UserParams}.
      * @return Пользователь.
      */
     public CompletableFuture<Either<Failure, User>> execute(String id, String name, String password,
