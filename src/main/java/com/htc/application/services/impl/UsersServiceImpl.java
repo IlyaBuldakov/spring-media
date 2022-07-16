@@ -68,7 +68,10 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public CompletableFuture<UserResponse> create(UserRequest userRequest) {
-        return createUser.execute(new UserParams(userRequest))
+        return createUser.execute(
+                        userRequest.getName(), userRequest.getPassword(),
+                        userRequest.getEmail(), userRequest.getAvatar(), userRequest.getRole()
+                )
                 .thenApply(either ->
                         either.map(UserResponse::new)
                                 .getOrElseThrow(ExceptionDtoResolver::resolve));
@@ -84,7 +87,9 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public CompletableFuture<UserResponse> update(UserRequest userRequest, String id) {
-        return updateUser.execute(new UserParams(id, userRequest))
+        return updateUser.execute(
+                        id, userRequest.getName(), userRequest.getPassword(),
+                        userRequest.getEmail(), userRequest.getAvatar(), userRequest.getRole())
                 .thenApply(either ->
                         either.map(UserResponse::new)
                                 .getOrElseThrow(ExceptionDtoResolver::resolve));

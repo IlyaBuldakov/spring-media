@@ -1,6 +1,5 @@
 package com.htc.domain.usecases.user;
 
-import com.htc.util.UserParams;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
@@ -31,15 +30,10 @@ public class UpdateUser {
      * @param params Данные пользователя {@link UserParams}.
      * @return Пользователь.
      */
-    @Override
-    public CompletableFuture<Either<Failure, User>> execute(UserParams params) {
-        var expectedFailure = ValuesValidator.checkUserFields(
-                params.getId(),
-                params.getName(),
-                params.getPassword(),
-                params.getEmail(),
-                params.getAvatar()
-        );
+    public CompletableFuture<Either<Failure, User>> execute(String id, String name, String password,
+                                                            String email, String avatar, Role role) {
+        var expectedFailure
+                = ValuesValidator.checkUserFields(id, name, password, email, avatar);
         return expectedFailure == null ?
                 usersRepository.update(
                         Integer.parseInt(params.getId()),
