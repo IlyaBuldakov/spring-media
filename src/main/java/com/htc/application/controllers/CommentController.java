@@ -1,13 +1,20 @@
 package com.htc.application.controllers;
 
-import com.htc.domain.entities.comment.Comment;
+import com.htc.application.dto.comment.CommentRequest;
+import com.htc.application.dto.comment.CommentResponse;
 import com.htc.domain.usecases.comment.CreateComment;
 import com.htc.domain.usecases.comment.GetCommentsByTaskId;
-import java.util.concurrent.ExecutionException;
+import com.htc.utility.Controllers;
+import io.swagger.v3.oas.annotations.Operation;
+import java.time.LocalDateTime;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,24 +29,37 @@ public class CommentController {
   private GetCommentsByTaskId getCommentsByTaskId;
 
   /**
-   * Создаёт комментарий.
+   * Создаёт новый комментарий.
    */
   @PostMapping
-  public void create() {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Operation(summary = "Создать новый комментарий.")
+  @Async
+  public void create(@RequestBody CommentRequest commentRequest) {
+    Controllers.handleRequest(
+        createComment,
+        new CreateComment.Params(
+            LocalDateTime.now(),
+            commentRequest.userId,
+            commentRequest.taskId,
+            commentRequest.commentMessage),
+        null);
   }
 
   /**
-   * Возвращает комментарии по идентификатору задачи.
+   * Получает комментарии по идентификатору задачи.
    *
    * @param taskId Идентификатор задачи.
    * @return Комментарии по идентификатору задачи.
    */
   @GetMapping(path = "/{taskId}")
-  public Iterable<Comment> getAll(@PathVariable int taskId)
-      throws ExecutionException, InterruptedException {
-    return getCommentsByTaskId.execute(taskId)
-        .get()
-        .get();
+  @Operation(summary = "Получить список комментариев по идентификатору задачи.")
+  @Async
+  public CompletableFuture<Iterable<CommentResponse>> getAll(@PathVariable int taskId) {
+    return Controllers.handleRequest(
+        getCommentsByTaskId,
+        new GetCommentsByTaskId.Params(taskId, "taskId"),
+        comments -> comments.stream()
+            .map(CommentResponse::new)
+            .collect(Collectors.toList()));
   }
 }
