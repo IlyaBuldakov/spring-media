@@ -124,13 +124,12 @@ public class UsersRepositoryImpl implements UsersRepository {
      * @return Удалённый пользователь.
      */
     @Override
-    public CompletableFuture<Either<Failure, User>> deleteById(int id) {
-        var user = getById(id);
+    public CompletableFuture<Either<Failure, Void>> deleteById(int id) {
         try {
             usersJpaRepository.deleteById(id);
         } catch (EmptyResultDataAccessException exception) {
             return CompletableFuture.completedFuture(Either.left(NotFound.USER));
         }
-        return user;
+        return null;
     }
 }

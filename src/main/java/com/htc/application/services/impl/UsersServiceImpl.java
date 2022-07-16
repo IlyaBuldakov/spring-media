@@ -117,17 +117,7 @@ public class UsersServiceImpl implements UsersService {
      * @return Представление удалённого пользователя {@link UserResponse}.
      */
     @Override
-    public CompletableFuture<UserResponse> delete(String id) {
-        return deleteUserById.execute(id)
-                .thenApply(either ->
-                        either.map(UserResponse::new).getOrElseThrow(
-                                failure -> switch (failure) {
-                                    case InvalidValuesContainer invalidValues ->
-                                            new BadRequestResponse(invalidValues);
-                                    case NotFound notFound ->
-                                            new NotFoundResponse(notFound);
-                                    default -> new InternalServerErrorResponse();
-                                }
-                        ));
+    public void delete(String id) {
+        deleteUserById.execute(id);
     }
 }

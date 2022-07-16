@@ -31,8 +31,7 @@ public class DeleteUserById implements UseCase<String, User> {
      * @param param Идентификатор.
      * @return Пользователь.
      */
-    @Override
-    public CompletableFuture<Either<Failure, User>> execute(String param) {
+    public CompletableFuture<Either<Failure, Void>> execute(String param) {
         var expectedFailure = ValuesValidator.validateStringId(param);
         return expectedFailure == null ? usersRepository.deleteById(Integer.parseInt(param))
                 : CompletableFuture.completedFuture(Either.left(expectedFailure));

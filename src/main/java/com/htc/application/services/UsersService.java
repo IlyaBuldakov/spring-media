@@ -16,5 +16,5 @@ public interface UsersService {
     CompletableFuture<UserResponse> getById(String id);
     CompletableFuture<UserResponse> create(UserRequest user);
     CompletableFuture<UserResponse> update(UserRequest user, String id);
-    CompletableFuture<UserResponse> delete(String id);
+    void delete(String id);
 }

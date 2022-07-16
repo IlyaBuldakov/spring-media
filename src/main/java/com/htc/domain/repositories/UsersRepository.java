@@ -68,5 +68,5 @@ public interface UsersRepository {
      * @param id Идентификатор пользователя.
      * @return Пользователь.
      */
-    CompletableFuture<Either<Failure, User>> deleteById(int id);
+    CompletableFuture<Either<Failure, Void>> deleteById(int id);
 }
