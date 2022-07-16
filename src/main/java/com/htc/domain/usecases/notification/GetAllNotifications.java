@@ -1,29 +1,26 @@
 package com.htc.domain.usecases.notification;
 
+import com.htc.domain.entities.Notification;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.notification.Notification;
 import com.htc.domain.repositories.NotificationRepository;
 import com.htc.domain.usecases.UseCase;
-import com.htc.infrastructure.repositories.JpaNotificationRepository;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
+// TODO Нужно ли делать вывод уведомлений по id пользователя?
 /**
  * Сценарий получения списка всех уведомлений.
  */
 @Component
 @AllArgsConstructor
-public class GetAllNotifications implements UseCase<Void, Iterable<Notification>> {
-
-  @Autowired
-  JpaNotificationRepository repository;
+public class GetAllNotifications implements UseCase<Void, Collection<Notification>> {
+  private final NotificationRepository repository;
 
   @Override
-  public Future<Either<Failure, Iterable<Notification>>> execute(Void param) {
+  public CompletableFuture<Either<Failure, Collection<Notification>>> execute(Void param) {
     return repository.getAll();
   }
 }
