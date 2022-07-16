@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -41,15 +42,10 @@ public class UsersRepositoryImpl implements UsersRepository {
                                                            String avatar,
                                                            Role role) {
         return CompletableFuture.completedFuture(
+                Either.right(
                         usersJpaRepository.save(
-                                new UserMapper(name, password, email, avatar, role.getRoleType().name())))
-                .thenApply(userMapper -> User.create(
-                        userMapper.id,
-                        userMapper.name,
-                        userMapper.password,
-                        userMapper.email,
-                        userMapper.avatar,
-                        new Role(userMapper.role)));
+                                new UserMapper(name, password, email, avatar, role))
+                ));
     }
 
     /**
@@ -61,16 +57,10 @@ public class UsersRepositoryImpl implements UsersRepository {
     @Override
     public CompletableFuture<Either<Failure, User>> getById(int id) {
         var user = usersJpaRepository.findById(id);
-        return user.map(mapper -> CompletableFuture.completedFuture(mapper)
-                .thenApply(
-                        userMapper -> User.create(
-                                userMapper.id,
-                                userMapper.name,
-                                userMapper.password,
-                                userMapper.email,
-                                userMapper.avatar,
-                                new Role(userMapper.role)
-                        ))).orElse(CompletableFuture.completedFuture(Either.left(NotFound.USER)));
+        if (user.isPresent()) {
+            return CompletableFuture.completedFuture(Either.right(user.get()));
+        }
+        return CompletableFuture.completedFuture(Either.left(NotFound.USER));
     }
 
     /**
@@ -80,18 +70,8 @@ public class UsersRepositoryImpl implements UsersRepository {
      */
     @Override
     public CompletableFuture<Either<Failure, List<User>>> getAll() {
-        return CompletableFuture.completedFuture(usersJpaRepository.findAll())
-                .thenApply(list -> Either.right(
-                        list.stream()
-                                .map(userMapper -> User.create(
-                                        userMapper.id,
-                                        userMapper.name,
-                                        userMapper.password,
-                                        userMapper.email,
-                                        userMapper.avatar,
-                                        new Role(userMapper.role)
-                                ).get()).toList()
-                ));
+        return CompletableFuture.completedFuture(Either.right(
+                new ArrayList<>(usersJpaRepository.findAll())));
     }
 
     /**
@@ -112,9 +92,9 @@ public class UsersRepositoryImpl implements UsersRepository {
                                                            String email,
                                                            String avatar,
                                                            Role role) {
-        var user = User.create(id, name, password, email, avatar, role);
-        return CompletableFuture.completedFuture(usersJpaRepository.save(new UserMapper(user.get())))
-                .thenApply(ignoreUserMapper -> user);
+        return CompletableFuture.completedFuture(Either.right(
+                usersJpaRepository.save(new UserMapper(id, name, password, email, avatar, role))
+        ));
     }
 
     /**
