@@ -4,6 +4,7 @@ import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.Id;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 
@@ -29,10 +30,10 @@ public interface CommentRepository {
   /**
    * Получение комментария по идентификатору.
    *
-   * @param id идентификатор комментария
+   * @param commentId идентификатор комментария
    * @return comment комментарий, подробнее {@link Comment}
    */
-  CompletableFuture<Either<Failure, Comment>> get(int id);
+  CompletableFuture<Either<Failure, Comment>> get(Id commentId);
 
   /**
    * Удаление комментария по идентификатору.
