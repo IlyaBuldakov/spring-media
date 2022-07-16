@@ -7,7 +7,6 @@ import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -25,8 +24,8 @@ public interface TaskRepository {
    * @param contentType Тип медиаконтекта.
    * @param description Описание задачи.
    * @param files Файлы задачи.
-   * @param author Автор задачи.
-   * @param executor Исполнитель задачи.
+   * @param authorId Автор задачи.
+   * @param executorId Исполнитель задачи.
    * @param dateCreated Дата создания задачи.
    * @param dateExpired Срок задачи.
    * @param contents Медиаконтент связанный с задачей
@@ -39,8 +38,8 @@ public interface TaskRepository {
           ContentType contentType,
           Task.Description description,
           Collection<File> files,
-          User author,
-          User executor,
+          Id authorId,
+          Id executorId,
           LocalDateTime dateCreated,
           LocalDateTime dateExpired,
           Collection<Content> contents,
@@ -55,8 +54,8 @@ public interface TaskRepository {
    * @param contentType Тип медиаконтекта.
    * @param description Описание задачи.
    * @param files Файлы задачи.
-   * @param author Автор задачи.
-   * @param executor Исполнитель задачи.
+   * @param authorId Автор задачи.
+   * @param executorId Исполнитель задачи.
    * @param dateCreated Дата создания задачи.
    * @param dateExpired Срок задачи.
    * @param contents Медиаконтент связанный с задачей
@@ -70,8 +69,8 @@ public interface TaskRepository {
           ContentType contentType,
           Task.Description description,
           Collection<File> files,
-          User author,
-          User executor,
+          Id authorId,
+          Id executorId,
           LocalDateTime dateCreated,
           LocalDateTime dateExpired,
           Collection<Content> contents,

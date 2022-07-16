@@ -1,10 +1,18 @@
 package com.htc.domain.usecases.task;
 
+import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.comments.Comment;
+import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.InvalidValues;
+import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.tasks.Task;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,11 +22,76 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public final class UpdateTask implements UseCase<Task, Task> {
+public final class UpdateTask implements UseCase<UpdateTask.Params, Task> {
+  @Override
+  public CompletableFuture<Either<Failure, Task>> execute(Params params) {
+    InvalidValues invalidValues = new InvalidValues();
+
+    var id = Id.create(params.id);
+    if (id.isLeft()) {
+      invalidValues.addInvalidValue(id.getLeft());
+    }
+
+    var name = Task.Name.create(params.name);
+    if (name.isLeft()) {
+      invalidValues.addInvalidValue(name.getLeft());
+    }
+    var description = Task.Description.create(params.description);
+    var files = params.files;
+    var authorId = Id.create(params.authorId);
+    var executorId = Id.create(params.executorId);
+    var contents = params.contents;
+    var comments = params.comments;
+
+    if (!invalidValues.getInvalidValues().isEmpty()) {
+      return CompletableFuture.completedFuture(Either.left(invalidValues));
+    }
+
+    return repository.update(
+            id.get(),
+            name.get(),
+            params.contentType,
+            description.get(),
+            files,
+            authorId.get(),
+            executorId.get(),
+            params.dateCreated,
+            params.dateExpired,
+            contents,
+            comments,
+            params.taskStatus);
+  }
+
   private final TaskRepository repository;
 
-  @Override
-  public CompletableFuture<Either<Failure, Task>> execute(Task task) {
-    return repository.update(task);
+  /**
+   * Параметры выполнения сценарий обновления задачи.
+   *
+   * @param id          Идентификатор задачи.
+   * @param name        Название задачи.
+   * @param contentType Тип медиаконтекта.
+   * @param description Описание задачи.
+   * @param files       Файлы задачи.
+   * @param authorId    Автор задачи.
+   * @param executorId  Исполнитель задачи.
+   * @param dateCreated Дата создания задачи.
+   * @param dateExpired Срок задачи.
+   * @param contents    Медиаконтент связанный с задачей
+   * @param comments    Комментарии задачи
+   * @param taskStatus  Статус задачи
+   */
+  public record Params(
+          int id,
+          String name,
+          ContentType contentType,
+          String description,
+          Collection<File> files,
+          int authorId,
+          int executorId,
+          LocalDateTime dateCreated,
+          LocalDateTime dateExpired,
+          Collection<Content> contents,
+          Collection<Comment> comments,
+          Task.TaskStatus taskStatus) {
   }
 }
