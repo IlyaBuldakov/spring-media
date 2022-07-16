@@ -1,12 +1,11 @@
 package com.htc.domain.usecases.user;
 
-import com.htc.util.UserParams;
-import com.htc.domain.entities.failures.AlreadyExists;
+import com.htc.domain.entities.failures.InvalidValuesContainer;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
-import com.htc.util.Users;
 import com.htc.domain.repositories.UsersRepository;
-import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CompletableFuture;
@@ -19,61 +18,86 @@ import static org.mockito.Mockito.verify;
 
 public class CreateUserTest {
 
-    final UsersRepository mockUsersRepository = mock(UsersRepository.class);
-    final CreateUser useCase = new CreateUser(mockUsersRepository);
-    final UserParams testUserParams = new UserParams(Users.createTestUser());
+    // Валидные данные пользователя.
+    private final String USERNAME = "Тестовый пользователь";
+    private final String PASSWORD = "1aaaAAAaaa1";
+    private final String EMAIL = "mail@mail.ru";
+    private final String AVATAR = "SGVsbG9Xb3JsZA==";
+    private final Role ROLE = Role.MANAGER;
 
-    @Test
-    void shouldInheritUseCase() {
-        assertThat(useCase).isInstanceOf(UseCase.class);
+    private final UsersRepository MOCK_USERS_REPOSITORY = mock(UsersRepository.class);
+
+    private final CreateUser CREATE_USER = new CreateUser(MOCK_USERS_REPOSITORY);
+
+    private final User MOCK_USER = mock(User.class);
+
+    @BeforeEach
+    public void beforeEach() {
+        when(MOCK_USERS_REPOSITORY.create(USERNAME, PASSWORD,
+                EMAIL, AVATAR, ROLE)).thenReturn(
+                CompletableFuture.completedFuture(Either.right(MOCK_USER))
+        );
     }
 
     @Test
-    void shouldCreateInRepository() {
-        useCase.execute(testUserParams);
-
-        verify(mockUsersRepository).create(
-                testUserParams.getName(),
-                testUserParams.getPassword(),
-                testUserParams.getEmail(),
-                testUserParams.getAvatar(),
-                testUserParams.getRole());
+    public void shouldCallUsersRepositoryMethod_withInitialParams() {
+        CREATE_USER.execute(USERNAME, PASSWORD, EMAIL, AVATAR, ROLE);
+        verify(MOCK_USERS_REPOSITORY).create(USERNAME, PASSWORD, EMAIL, AVATAR, ROLE);
     }
 
     @Test
-    void userNotExists_shouldCreateAndReturnUser() throws ExecutionException, InterruptedException {
-        final User user = Users.createTestUser();
+    public void validParams_shouldReturnUser() throws ExecutionException, InterruptedException {
+        var retVal = CREATE_USER.execute(USERNAME, PASSWORD,
+                EMAIL, AVATAR, ROLE);
 
-        when(mockUsersRepository.create(
-                testUserParams.getName(),
-                testUserParams.getPassword(),
-                testUserParams.getEmail(),
-                testUserParams.getAvatar(),
-                testUserParams.getRole()))
-                .thenReturn(CompletableFuture.completedFuture(Either.right(user)));
-
-        var result = useCase.execute(testUserParams)
-                .get()
-                .get();
-
-        assertThat(result).isEqualTo(user);
+        assertThat(retVal.get().get()).isNotNull().isInstanceOf(User.class);
     }
 
     @Test
-    void userExists_shouldReturnAlreadyExists() throws ExecutionException, InterruptedException {
-        when(mockUsersRepository.create(
-                testUserParams.getName(),
-                testUserParams.getPassword(),
-                testUserParams.getEmail(),
-                testUserParams.getAvatar(),
-                testUserParams.getRole())
-        )
-                .thenReturn(CompletableFuture.completedFuture(Either.left(AlreadyExists.DEFAULT_MESSAGE)));
+    public void invalidUserName_shouldReturnInvalidValuesContainer_aboutUserName() throws ExecutionException, InterruptedException {
+        var retVal = CREATE_USER.execute("", PASSWORD,
+                EMAIL, AVATAR, ROLE);
 
-        var result = useCase.execute(testUserParams)
-                .get()
-                .getLeft();
+        var expectedFailure = retVal.get().getLeft();
+        assertThat(expectedFailure).isNotNull().isInstanceOf(InvalidValuesContainer.class);
 
-        assertThat(result).isInstanceOf(AlreadyExists.class);
+        var invalidValuesContainer = (InvalidValuesContainer) expectedFailure;
+        assertThat(invalidValuesContainer.getInvalidValues().get(0).getField()).isEqualTo("name");
+    }
+
+    @Test
+    public void invalidPassword_shouldReturnInvalidValuesContainer_aboutPassword() throws ExecutionException, InterruptedException {
+        var retVal = CREATE_USER.execute(USERNAME, "",
+                EMAIL, AVATAR, ROLE);
+
+        var expectedFailure = retVal.get().getLeft();
+        assertThat(expectedFailure).isNotNull().isInstanceOf(InvalidValuesContainer.class);
+
+        var invalidValuesContainer = (InvalidValuesContainer) expectedFailure;
+        assertThat(invalidValuesContainer.getInvalidValues().get(0).getField()).isEqualTo("password");
+    }
+
+    @Test
+    public void invalidEmail_shouldReturnInvalidValuesContainer_aboutEmail() throws ExecutionException, InterruptedException {
+        var retVal = CREATE_USER.execute(USERNAME, PASSWORD,
+                "", AVATAR, ROLE);
+
+        var expectedFailure = retVal.get().getLeft();
+        assertThat(expectedFailure).isNotNull().isInstanceOf(InvalidValuesContainer.class);
+
+        var invalidValuesContainer = (InvalidValuesContainer) expectedFailure;
+        assertThat(invalidValuesContainer.getInvalidValues().get(0).getField()).isEqualTo("email");
+    }
+
+    @Test
+    public void invalidAvatar_shouldReturnInvalidValuesContainer_aboutAvatar() throws ExecutionException, InterruptedException {
+        var retVal = CREATE_USER.execute(USERNAME, PASSWORD,
+                EMAIL, "", ROLE);
+
+        var expectedFailure = retVal.get().getLeft();
+        assertThat(expectedFailure).isNotNull().isInstanceOf(InvalidValuesContainer.class);
+
+        var invalidValuesContainer = (InvalidValuesContainer) expectedFailure;
+        assertThat(invalidValuesContainer.getInvalidValues().get(0).getField()).isEqualTo("avatar");
     }
 }

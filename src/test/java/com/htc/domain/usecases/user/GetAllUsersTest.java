@@ -1,13 +1,11 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.user.User;
-import com.htc.util.Users;
 import com.htc.domain.repositories.UsersRepository;
-import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -19,48 +17,33 @@ import static org.mockito.Mockito.verify;
 
 public class GetAllUsersTest {
 
-    final UsersRepository mockUsersRepository = mock(UsersRepository.class);
-    final GetAllUsers useCase = new GetAllUsers(mockUsersRepository);
-    @Test
-    void shouldInheritUseCase() {
-        assertThat(useCase).isInstanceOf(UseCase.class);
-    }
+    private final UsersRepository MOCK_USERS_REPOSITORY = mock(UsersRepository.class);
 
-    @Test
-    void shouldGetAllUsersFromRepository() {
-        useCase.execute(null);
+    private final GetAllUsers GET_ALL_USERS = new GetAllUsers(MOCK_USERS_REPOSITORY);
 
-        verify(mockUsersRepository).getAll();
-    }
+    private final User MOCK_USER = mock(User.class);
 
-    @Test
-    void usersListIsNotEmpty_shouldGetUsersList() throws ExecutionException, InterruptedException {
-
-        List<User> usersList = List.of(
-                Users.createTestUser(),
-                Users.createTestUser(),
-                Users.createTestUser()
+    @BeforeEach
+    public void beforeEach() {
+        when(MOCK_USERS_REPOSITORY.getAll()).thenReturn(
+                CompletableFuture.completedFuture(Either.right(
+                        List.of(MOCK_USER)
+                ))
         );
-
-        when(mockUsersRepository.getAll())
-                .thenReturn(CompletableFuture.completedFuture(Either.right(usersList)));
-
-        var result = useCase.execute(null)
-                .get()
-                .get();
-
-        assertThat(result).isEqualTo(usersList);
     }
 
     @Test
-    void usersListIsEmpty_shouldReturnEmptyList() throws ExecutionException, InterruptedException {
-        when(mockUsersRepository.getAll())
-                .thenReturn(CompletableFuture.completedFuture(Either.right(Collections.emptyList())));
+    public void shouldCallUsersRepositoryMethod() {
+        GET_ALL_USERS.execute();
+        verify(MOCK_USERS_REPOSITORY).getAll();
+    }
 
-        var result = useCase.execute(null)
-                .get()
-                .get();
+    @Test
+    public void shouldReturnListOfUser() throws ExecutionException, InterruptedException {
+        var retVal = GET_ALL_USERS.execute();
+        User listElement = retVal.get().get().get(0);
 
-        assertThat(result).isEqualTo(Collections.emptyList());
+        assertThat(retVal.get().get()).isNotNull();
+        assertThat(listElement).isInstanceOf(User.class);
     }
 }

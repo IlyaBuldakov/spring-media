@@ -1,11 +1,14 @@
 package com.htc.domain.usecases.user;
 
+import com.htc.domain.entities.failures.AlreadyExists;
+import com.htc.domain.entities.failures.InvalidValuesContainer;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.UsersRepository;
-import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.Random;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -16,47 +19,47 @@ import static org.mockito.Mockito.verify;
 
 public class DeleteUserByIdTest {
 
-    final UsersRepository mockUsersRepository = mock(UsersRepository.class);
-    final DeleteUserById useCase = new DeleteUserById(mockUsersRepository);
-    @Test
-    void shouldInheritUseCase() {
-        assertThat(useCase).isInstanceOf(UseCase.class);
-    }
+    // Валидный идентификатор пользователя.
+    private final String ID = "1";
+    private final UsersRepository MOCK_USERS_REPOSITORY = mock(UsersRepository.class);
 
-    @Test
-    void shouldDeleteUserFromRepository() {
-        var userId = String.valueOf(new Random().nextInt(255));
+    private final DeleteUserById DELETE_USER = new DeleteUserById(MOCK_USERS_REPOSITORY);
 
-        useCase.execute(userId);
-
-        verify(mockUsersRepository).deleteById(Integer.parseInt(userId));
-    }
-
-    @Test
-    void userExists_shouldReturnVoid() throws ExecutionException, InterruptedException {
-        var userId = String.valueOf(new Random().nextInt(255));
-
-        when(mockUsersRepository.deleteById(Integer.parseInt(userId)))
+    @BeforeEach
+    public void beforeEach() {
+        when(MOCK_USERS_REPOSITORY.deleteById(Integer.parseInt(ID)))
                 .thenReturn(CompletableFuture.completedFuture(Either.right(null)));
-
-        var result = useCase.execute(userId)
-                .get()
-                .get();
-
-        assertThat(result).isNull();
     }
 
     @Test
-    void userDoesNotExist_shouldReturnNotFound() throws ExecutionException, InterruptedException {
-        var userId = String.valueOf(new Random().nextInt(255));
+    public void shouldCallUsersRepositoryMethod_withInitialParams() {
+        DELETE_USER.execute(ID);
+        verify(MOCK_USERS_REPOSITORY).deleteById(Integer.parseInt(ID));
+    }
 
-        when(mockUsersRepository.deleteById(Integer.parseInt(userId)))
+    @Test
+    public void validId_shouldReturnVoid() throws ExecutionException, InterruptedException {
+        var retVal = DELETE_USER.execute(ID);
+        assertThat(retVal.get().get()).isNull();
+    }
+
+    @Test
+    public void invalidId_shouldReturnInvalidValuesContainer_aboutId() throws ExecutionException, InterruptedException {
+        var retVal = DELETE_USER.execute("abc");
+
+        var expectedFailure = retVal.get().getLeft();
+        assertThat(expectedFailure).isNotNull().isInstanceOf(InvalidValuesContainer.class);
+
+        var invalidValuesContainer = (InvalidValuesContainer) expectedFailure;
+        assertThat(invalidValuesContainer.getInvalidValues().get(0).getField()).isEqualTo("id");
+    }
+
+    @Test
+    public void userNotFound_shouldReturnNotFound() throws ExecutionException, InterruptedException {
+        when(MOCK_USERS_REPOSITORY.deleteById(Integer.parseInt(ID)))
                 .thenReturn(CompletableFuture.completedFuture(Either.left(NotFound.USER)));
+        var retVal = DELETE_USER.execute(ID);
 
-        var result = useCase.execute(userId)
-                .get()
-                .getLeft();
-
-        assertThat(result).isInstanceOf(NotFound.class);
+        assertThat(retVal.get().getLeft()).isNotNull().isInstanceOf(NotFound.class);
     }
 }

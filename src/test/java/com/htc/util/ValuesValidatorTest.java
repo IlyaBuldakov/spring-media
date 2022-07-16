@@ -1,22 +1,28 @@
 package com.htc.util;
 
 import com.htc.domain.entities.failures.InvalidValuesContainer;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.mock;
 
 class ValuesValidatorTest {
 
-    private final static User TEST_USER = Users.createTestUser();
+    // Валидные данные пользователя.
+    private final String ID = "1";
+    private final String USERNAME = "Тестовый пользователь";
+    private final String PASSWORD = "1aaaAAAaaa1";
+    private final String EMAIL = "mail@mail.ru";
+    private final String AVATAR = "SGVsbG9Xb3JsZA==";
 
     @Test
     void checkUserFields_IncorrectId_ShouldReturnInvalidValue() {
         var result = ValuesValidator.checkUserFields(
-                "-10", TEST_USER.getName(), TEST_USER.getPassword(),
-                TEST_USER.getEmail(), TEST_USER.getAvatar());
+                "-10", USERNAME, PASSWORD, EMAIL, AVATAR);
 
         assertThat(result)
                 .isNotNull()
@@ -25,8 +31,8 @@ class ValuesValidatorTest {
 
     @Test
     void checkUserFields_IncorrectName_ShouldReturnInvalidValue() {
-        var result = ValuesValidator.checkUserFields(TEST_USER.getId().toString(), "", TEST_USER.getPassword(),
-                TEST_USER.getEmail(), TEST_USER.getAvatar());
+        var result = ValuesValidator.checkUserFields(ID, "", PASSWORD,
+                EMAIL, AVATAR);
 
         assertThat(result)
                 .isNotNull()
@@ -45,8 +51,8 @@ class ValuesValidatorTest {
             "" // Пустое значение
     })
     void checkUserFields_IncorrectPassword_ShouldReturnInvalidValue(String testPassword) {
-        var result = ValuesValidator.checkUserFields(TEST_USER.getId().toString(), TEST_USER.getName(), testPassword,
-                TEST_USER.getEmail(), TEST_USER.getAvatar());
+        var result = ValuesValidator.checkUserFields(ID, USERNAME, testPassword,
+                EMAIL, AVATAR);
 
         assertThat(result)
                 .isNotNull()
@@ -55,8 +61,8 @@ class ValuesValidatorTest {
 
     @Test
     void checkUserFields_IncorrectEmail_ShouldReturnInvalidValue() {
-        var result = ValuesValidator.checkUserFields(TEST_USER.getId().toString(), TEST_USER.getEmail(), TEST_USER.getPassword(),
-                "213.com", TEST_USER.getAvatar());
+        var result = ValuesValidator.checkUserFields(ID, USERNAME, PASSWORD,
+                "213.com", AVATAR);
 
         assertThat(result)
                 .isNotNull()
@@ -65,8 +71,8 @@ class ValuesValidatorTest {
 
     @Test
     void checkUserFields_IncorrectAvatar_ShouldReturnInvalidValue() {
-        var result = ValuesValidator.checkUserFields(TEST_USER.getId().toString(), TEST_USER.getName(), TEST_USER.getPassword(),
-                TEST_USER.getEmail(), "");
+        var result = ValuesValidator.checkUserFields(ID, USERNAME, PASSWORD,
+                EMAIL, "");
 
         assertThat(result)
                 .isNotNull()
