@@ -1,68 +1,74 @@
 package com.htc.domain.entities.comments;
 
+import com.htc.domain.entities.attributes.Attribute;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.tasks.Task;
 import com.htc.domain.entities.user.User;
+import io.vavr.control.Either;
 import java.time.LocalDateTime;
-import java.util.Random;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Комментарий.
  */
-@AllArgsConstructor
-public class Comment {
+public interface Comment {
   /**
    * Идентификатор Комментария.
    *
-   * @return  Идентификатор комментария.
+   * @return Идентификатор комментария.
    */
-  private @Getter int id;
+  Id getId();
 
   /**
    * Дата создания комментария.
    *
-   * @return  дату создания комментария.
+   * @return дату создания комментария.
    */
-  private @Getter LocalDateTime date;
+  LocalDateTime getDate();
 
   /**
    * Автор комментария.
    *
    * @return user - автора комментария.
    */
-  private @Getter User user;
+  User getUser();
 
   /**
    * Задача связанная с комментарием.
    *
    * @return task задача.
    */
-  private @Getter Task task;
+  Task getTask();
+
   /**
    * Текст комментария.
    *
    * @return текст комментария.
    */
-  private @Getter String message;
+  Message getMessage();
 
   /**
-   * Создаёт тестовый комментарий.
-   *
-   * @return Комментарий.
+   * Сообщение уведомления.
    */
-  public static Comment createTestComment(int id) {
-    return new Comment(
-            id,
-            null,
-            null,
-            null,
-            null
-    );
-  }
+  class Message extends Attribute<String> {
+    /**
+     * Проверяет входные данные на корректность и создаёт сообщение уведомления.
+     * Сообщение не должно быть пустой строкой.
+     *
+     * @param value Входные данные.
+     * @return Сообщение уведомления или ошибка.
+     */
+    public static Either<InvalidValue, Comment.Message> create(String value) {
+      if (value.length() == 0) {
+        return Either.left(InvalidValue.INVALID_TASK_DESCRIPTION);
+      }
 
-  public static Comment createTestContent() {
-    var id = new Random().nextInt(Integer.MAX_VALUE);
-    return createTestComment(id);
+      var message = new Comment.Message(value);
+      return Either.right(message);
+    }
+
+    private Message(String value) {
+      super(value);
+    }
   }
 }

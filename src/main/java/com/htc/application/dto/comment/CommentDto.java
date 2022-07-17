@@ -47,9 +47,9 @@ public class CommentDto {
    * @param comment Коментарий.
    */
   public CommentDto(Comment comment) {
-    this.id = comment.getId();
+    this.id = comment.getId().getValue();
     this.date = comment.getDate();
     this.user = new UserShortResponse(comment.getUser());
-    this.message = comment.getMessage();
+    this.message = comment.getMessage().getValue();
   }
 }
