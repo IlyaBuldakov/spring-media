@@ -28,7 +28,7 @@ public class TaskStatusDto {
    *
    * @param taskStatus Статус задачи.
    */
-  public TaskStatusDto(Task.TaskStatus taskStatus) {
+  public TaskStatusDto(Task.Status taskStatus) {
     this.id = taskStatus.getId();
     this.name = taskStatus.getName();
   }

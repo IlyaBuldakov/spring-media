@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.content.ContentType;
+import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.tasks.Task;
@@ -34,7 +34,7 @@ public final class UpdateTask implements UseCase<UpdateTask.Params, Task> {
   public record Params(
           int id,
           String name,
-          ContentType contentType,
+          Content.Type contentType,
           String description,
           int authorId,
           int executorId,

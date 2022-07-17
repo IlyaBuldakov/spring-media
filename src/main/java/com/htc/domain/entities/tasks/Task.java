@@ -4,7 +4,6 @@ import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.comments.Comment;
 import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.user.User;
@@ -36,7 +35,7 @@ public interface Task {
    *
    * @return Тип контента.
    */
-  ContentType getContentType();
+  Content.Type getContentType();
 
   /**
    * Описание задачи.
@@ -100,7 +99,7 @@ public interface Task {
    *
    * @return Статус задачи.
    */
-  TaskStatus getStatus();
+  Status getStatus();
 
   /**
    * Название задачи.
@@ -157,7 +156,7 @@ public interface Task {
   /**
    * Статус задачи.
    */
-  enum TaskStatus {
+  enum Status {
     /**
      * В работе.
      */
@@ -187,7 +186,7 @@ public interface Task {
     @SuppressWarnings("JavadocDeclaration")
     private final @Getter String name;
 
-    TaskStatus(String name, int id) {
+    Status(String name, int id) {
       this.name = name;
       this.id = id;
     }

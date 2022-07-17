@@ -1,7 +1,7 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.content.ContentType;
+import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.tasks.Task;
 import io.vavr.control.Either;
@@ -27,7 +27,7 @@ public interface TaskRepository {
    */
   CompletableFuture<Either<Failure, Task>> create(
           Task.Name name,
-          ContentType contentType,
+          Content.Type contentType,
           Task.Description description,
           Id authorId,
           Id executorId,
@@ -48,7 +48,7 @@ public interface TaskRepository {
   CompletableFuture<Either<Failure, Task>> update(
           Id id,
           Task.Name name,
-          ContentType contentType,
+          Content.Type contentType,
           Task.Description description,
           Id authorId,
           Id executorId,
