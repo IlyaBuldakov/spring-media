@@ -30,6 +30,21 @@ public enum Status {
     this.id = id;
     this.name = name;
   }
+
+  /**
+   * Получение статуса задачи по названию задачи.
+   *
+   * @param name название задачи
+   * @return status {@link Status статус}
+   */
+  public static Status getFromName(String name) {
+    for (Status status : Status.values()) {
+      if (status.getName().equals(name))  {
+        return status;
+      }
+    }
+    return null;
+  }
 }
 
 /*
