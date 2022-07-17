@@ -1,0 +1,35 @@
+package com.htc.application.dtos.content;
+
+import com.htc.domain.entities.content.Content;
+import lombok.Getter;
+
+/**
+ * Ответ. Основное представление сущности типа контента.
+ */
+public class ContentTypeResponse {
+  /**
+   * Идентификатор.
+   *
+   * @return id идентификатор
+   */
+  @SuppressWarnings("JavadocDeclaration")
+  private final @Getter Long id;
+
+  /**
+   * Название.
+   *
+   * @return name название
+   */
+  @SuppressWarnings("JavadocDeclaration")
+  private final @Getter String name;
+
+  /**
+   * Создание основного представления типа контента.
+   *
+   * @param content сущность роли, подробнее  {@link Content}
+   */
+  public ContentTypeResponse(Content content) {
+    this.id = (long) content.getId();
+    this.name = content.getName();
+  }
+}
