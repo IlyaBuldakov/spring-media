@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 
 /**
- * Представление сущности в СУБД.
+ * Представление сущности пользователя в СУБД.
  */
 @Entity
 @Table(name = "USERS")
