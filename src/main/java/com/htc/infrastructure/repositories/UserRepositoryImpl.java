@@ -58,7 +58,8 @@ public class UserRepositoryImpl implements UserRepository {
       User.Password password,
       User.Image image,
       User.Role role) {
-    return null;
+    var user = new UserModel(id, name, email, password, image, role);
+    return Results.succeed(users.save(user));
   }
 
   @Override

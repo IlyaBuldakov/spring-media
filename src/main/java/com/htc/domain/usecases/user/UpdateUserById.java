@@ -18,7 +18,22 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public final class UpdateUserById implements UseCase<UpdateUserById.Params, User> {
-
+  /**
+   * Параметры сценария обновления данных пользователя.
+   *
+   * @param id Идентификатор пользователя.
+   * @param idKey Ключ идентификатора пользователя.
+   * @param name Имя пользователя.
+   * @param nameKey Ключ имени пользователя.
+   * @param email Электронная почта пользователя.
+   * @param emailKey Ключ электронной почты пользователя.
+   * @param password Пароль пользователя.
+   * @param passwordKey Ключ пароля пользователя.
+   * @param image Изображение пользователя.
+   * @param imageKey Ключ изображения пользователя.
+   * @param role Роль пользователя.
+   * @param roleKey Ключ роли пользователя.
+   */
   public record Params(
       int id, String idKey,
       String name, String nameKey,
@@ -59,7 +74,13 @@ public final class UpdateUserById implements UseCase<UpdateUserById.Params, User
     }
 
     return failure.invalidValues().size() == 0
-        ? repository.update(id.get(), name.get(), email.get(), password.get(), image.get(), params.role)
+        ? repository.update(
+          id.get(),
+          name.get(),
+          email.get(),
+          password.get(),
+          image.get(),
+          params.role)
         : Results.fail(failure);
   }
 }
