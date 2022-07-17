@@ -1,6 +1,13 @@
 package com.htc.domain.entities.task;
 
+import com.htc.domain.entities.comment.Comment;
+import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.Type;
+import com.htc.domain.entities.file.File;
+import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.Id;
+import com.htc.domain.entities.utility.parameters.file.FileName;
 import lombok.Getter;
 
 /**
@@ -13,7 +20,7 @@ public class Task {
    * @return id идентификатор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int id;
+  private @Getter Id id;
 
   /**
    * Наименование задачи.
@@ -21,7 +28,7 @@ public class Task {
    * @return name наименование
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter String name;
+  private @Getter FileName name;
 
   /**
    * {@link Type Тип} контента.
@@ -40,28 +47,29 @@ public class Task {
   private @Getter String description;
 
   /**
-   * Идентификаторы {@link com.htc.domain.entities.file.File файлов}.
+   * {@link File Файл}.
    *
-   * @return array идентификаторы файлов
+   * @return file файл
    */
+  //TODO files[]
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int[] files;
+  private @Getter File file;
 
   /**
-   * Идентификатор {@link com.htc.domain.entities.user.User автора задачи}.
+   * {@link User Автор задачи}.
    *
-   * @return id идентификатор автора
+   * @return author автор задачи
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int authorId;
+  private @Getter User author;
 
   /**
-   * Идентификатор {@link com.htc.domain.entities.user.User исполнителя задачи}.
+   * {@link User Исполнитель задачи}.
    *
-   * @return id идентификатор исполнителя
+   * @return executor исполнитель задачи
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int executorId;
+  private @Getter User executor;
 
   /**
    * Дата создания.
@@ -69,7 +77,7 @@ public class Task {
    * @return dateCreated дата создания
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter String dateCreated;
+  private @Getter DateCreated dateCreated;
 
   /**
    * Дата выполнения.
@@ -77,23 +85,25 @@ public class Task {
    * @return dateExpired дата выполнения
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter String dateExpired;
+  private @Getter DateCreated dateExpired;
 
   /**
-   * Идентификаторы {@link com.htc.domain.entities.content.Content контента}.
+   * {@link Content Контент}.
    *
-   * @return array идентификаторы контента
+   * @return content контент
    */
+  //TODO contents[]
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int[] contents;
+  private @Getter Content content;
 
   /**
-   * Идентификаторы {@link com.htc.domain.entities.comment.Comment комментов}.
+   * {@link Comment Коммент}.
    *
-   * @return array идентификаторы комментов
+   * @return comment коммент
    */
+  //TODO comments[]
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int[] comments;
+  private @Getter Comment comment;
 
   /**
    * {@link Status Статус} задачи.
