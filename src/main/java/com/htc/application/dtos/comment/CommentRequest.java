@@ -17,7 +17,7 @@ public class CommentRequest {
    * @return author автор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter User author;
+  private @Getter Long authorId;
 
   /**
    * Текст.
