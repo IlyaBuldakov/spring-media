@@ -1,9 +1,12 @@
 # Зависимости проекта
 
 Spring:
-1. `org.springframework.boot:spring-boot-starter-web` – стартер для создания RESTful API.
-2. `io.springfox:springfox-boot-starter` – стартер для генерации Swagger UI.
+1. `org.springframework.boot:spring-boot-starter-parent` – базовый POM для проектов на Spring.
+2. `org.springframework.boot:spring-boot-starter-web` – стартер для создания RESTful API.
 3. `org.springframework.boot:spring-boot-starter-data-jpa` – стартер для работы со Spring Data.
+
+Swagger
+1. `org.springdoc:springdoc-openapi-ui` – автоматическая генерация Swagger UI.
 
 Тестирование:
 1. `org.junit.jupiter:junit-jupiter` – модульные тесты.
