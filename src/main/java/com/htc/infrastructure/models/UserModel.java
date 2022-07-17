@@ -2,6 +2,7 @@ package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,11 +20,12 @@ public class UserModel implements User {
    */
   @javax.persistence.Id
   @GeneratedValue
-  private Integer id;
+  @Column(name = "id", unique = true)
+  private Integer userId;
 
   @Override
   public Id getId() {
-    return Id.create(this.id).get();
+    return Id.create(this.userId).get();
   }
 
   /**
@@ -39,6 +41,7 @@ public class UserModel implements User {
   /**
    * Электронная почта пользователя.
    */
+  @Column(unique = true)
   private String email;
 
   @Override
@@ -94,7 +97,7 @@ public class UserModel implements User {
    * @param role Роль пользователя.
    */
   public UserModel(Id id, Name name, Email email, Password password, Image image, Role role) {
-    this.id = id.getValue();
+    this.userId = id.getValue();
     this.name = name.getValue();
     this.email = email.getValue();
     this.password = password.getValue();

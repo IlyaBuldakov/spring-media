@@ -4,6 +4,12 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/spec/v2.0.0.html).
 
+## [v0.13.0] - 2022-07-17
+
+### Исправлено
+- Восстановлена работа метода удаления пользователя по идентификатору в реализаци репозитория пользователей.
+
+
 ## [v0.12.0] - 2022-07-16
 
 ### Добавлено
@@ -179,3 +185,4 @@
 [v0.10.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.9.0...yaroslav.tarakanov-v0.10.0
 [v0.11.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.10.0...yaroslav.tarakanov-v0.11.0
 [v0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.11.0...yaroslav.tarakanov-v0.12.0
+[v0.13.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.12.0...yaroslav.tarakanov-v0.13.0
