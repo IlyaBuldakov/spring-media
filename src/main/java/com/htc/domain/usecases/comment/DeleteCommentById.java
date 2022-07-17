@@ -10,15 +10,16 @@ import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
- * Сценарий получения комментария.
+ * Сценарий удаления комментария по идентификатору.
  */
 //@Component
 @AllArgsConstructor
-public final class GetComment implements UseCase<GetComment.Params, Comment> {
+public final class DeleteCommentById implements UseCase<DeleteCommentById.Params, Comment> {
   /**
-   * Параметры сценария получения комментария.
+   * Параметры сценария удаления комментария.
    *
    * @param id Идентификатор комментария.
    * @param key Ключ идентификатора комментария.
