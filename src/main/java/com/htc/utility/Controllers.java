@@ -4,6 +4,7 @@ import com.htc.application.dto.failures.BadRequestResponse;
 import com.htc.application.dto.failures.InternalServerErrorResponse;
 import com.htc.application.dto.failures.NotFoundResponse;
 import com.htc.application.dto.failures.UnauthorizedResponse;
+import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.Unauthorized;
@@ -35,6 +36,7 @@ public class Controllers {
             .map(entityToDtoConverter)
             .getOrElseThrow(failure -> switch (failure) {
               case InvalidValues invalidValues -> new BadRequestResponse(invalidValues);
+              case AlreadyExists alreadyExists -> new InternalServerErrorResponse(alreadyExists);
               case Unauthorized ignored -> new UnauthorizedResponse(failure);
               case NotFound ignored -> new NotFoundResponse(failure);
               default -> new InternalServerErrorResponse(failure);

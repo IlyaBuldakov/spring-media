@@ -41,7 +41,6 @@ public class UserModel implements User {
   /**
    * Электронная почта пользователя.
    */
-  @Column(unique = true)
   private String email;
 
   @Override

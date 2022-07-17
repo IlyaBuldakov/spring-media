@@ -43,6 +43,21 @@ public final class CreateUser implements UseCase<CreateUser.Params, User> {
 
   @Override
   public CompletableFuture<Either<Failure, User>> execute(Params params) {
+    // Проверка параметров.
+    var failure = this.checkParams(params);
+    if (failure.invalidValues().size() > 0) {
+      return Results.fail(failure);
+    }
+
+    return repository.createIfEmailNotExists(
+        User.Name.create(params.name).get(),
+        User.Email.create(params.email).get(),
+        User.Password.create(params.password).get(),
+        User.Image.create(params.image).get(),
+        params.role);
+  }
+
+  private InvalidValues checkParams(Params params) {
     var failure = new InvalidValues();
 
     var name = User.Name.create(params.name);
@@ -65,8 +80,6 @@ public final class CreateUser implements UseCase<CreateUser.Params, User> {
       failure.invalidValues().put(image.getLeft(), params.imageKey);
     }
 
-    return failure.invalidValues().size() == 0
-        ? repository.create(name.get(), email.get(), password.get(), image.get(), params.role)
-        : Results.fail(failure);
+    return failure;
   }
 }

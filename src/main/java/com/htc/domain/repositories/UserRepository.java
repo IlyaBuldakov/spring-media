@@ -29,6 +29,24 @@ public interface UserRepository {
       User.Role role);
 
   /**
+   * Создает пользователя, с проверкой на то, что пользователя с такой же
+   * электронной почтой не было ранее создано в БД.
+   *
+   * @param name Имя пользователя.
+   * @param email Электронная почта пользователя
+   * @param password Пароль пользователя.
+   * @param image Изображение пользователя.
+   * @param role Роль пользователя.
+   * @return Пользователь или ошибка.
+   */
+  CompletableFuture<Either<Failure, User>> createIfEmailNotExists(
+      User.Name name,
+      User.Email email,
+      User.Password password,
+      User.Image image,
+      User.Role role);
+
+  /**
    * Обновляет данные пользователя.
    *
    * @param id Идентификатор пользователя.
@@ -61,6 +79,8 @@ public interface UserRepository {
    * @return Пользователь.
    */
   CompletableFuture<Either<Failure, User>> get(Id id);
+
+  CompletableFuture<Either<Failure, User>> get(User.Email email);
 
   /**
    * Получает список всех пользователей.
