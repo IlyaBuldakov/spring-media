@@ -1,6 +1,5 @@
 package com.htc.application.dto.user;
 
-import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +15,7 @@ public class UserResponse {
         this.name = user.getName();
         this.email = user.getEmail();
         this.avatar = user.getAvatar();
-        this.role = user.getRole();
+        this.role = new RoleResponse(user.getRole());
     }
 
     /**
@@ -52,5 +51,5 @@ public class UserResponse {
      *
      * @return Роль пользователя.
      */
-    private final @Getter Role role;
+    private final @Getter RoleResponse role;
 }
