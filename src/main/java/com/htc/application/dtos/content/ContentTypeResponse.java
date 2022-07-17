@@ -30,6 +30,6 @@ public class ContentTypeResponse {
    */
   public ContentTypeResponse(Content content) {
     this.id = content.getId().getValue();
-    this.name = content.getName();
+    this.name = content.getName().getValue();
   }
 }

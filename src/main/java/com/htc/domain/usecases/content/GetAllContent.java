@@ -5,6 +5,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Component;
  */
 //@Component
 @AllArgsConstructor
-public final class GetAllContent implements UseCase<Void, Iterable<Content>> {
+public final class GetAllContent implements UseCase<Void, List<Content>> {
   private final ContentRepository repository;
 
   @Override
-  public CompletableFuture<Either<Failure, Iterable<Content>>> execute(Void param) {
+  public CompletableFuture<Either<Failure, List<Content>>> execute(Void param) {
     return repository.getAll();
   }
 }

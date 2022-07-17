@@ -19,29 +19,31 @@ import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
- * Сценарий добавления нового контента.
+ * Сценарий изменения контента.
  */
 //@Component
 @AllArgsConstructor
-public final class AddContent implements UseCase<AddContent.Params, Content> {
+public final class ChangeContentById implements UseCase<ChangeContentById.Params, Content> {
   /**
-   * Параметры сценария добавления контента.
+   * Параметры сценария изменения контента.
    *
+   * @param id идентификатор контента
+   * @param idKey ключ идентификатора контента
    * @param name наименование контента
    * @param nameKey ключ наименования контента
    * @param type тип контента
    * @param typeKey ключ типа контента
-   * @param authorId идентификатор автора контента
-   * @param authorKey ключ идентификатора автора контента
+   * @param authorId автор контента
+   * @param authorKey ключ автора контента
    * @param previewPath превью контента
    * @param previewPathKey ключ превью контента
-   * @param fileId идентификатор файла, относящийся к контенту
-   * @param fileKey ключ идентификатора файла, относящийся к контенту
+   * @param fileId файл, относящийся к контенту
+   * @param fileKey ключ файла, относящийся к контенту
    */
-  public record Params(String name, String nameKey,
+  public record Params(Long id, String idKey,
+                       String name, String nameKey,
                        Type type, String typeKey,
                        Long authorId, String authorKey,
                        String previewPath, String previewPathKey,
@@ -54,7 +56,10 @@ public final class AddContent implements UseCase<AddContent.Params, Content> {
   @Override
   public CompletableFuture<Either<Failure, Content>> execute(Params params) {
     var failure = new InvalidValues();
-    //TODO возможно filename переименовать в EntityName
+    var id = Id.create(params.id());
+    if (id.isLeft()) {
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.idKey);
+    }
     var name = FileName.create(params.name());
     if (name.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
@@ -76,7 +81,7 @@ public final class AddContent implements UseCase<AddContent.Params, Content> {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "file not found");
     }
     return failure.getValues().size() == 0
-            ? repository.add(name.get(), params.type(), user, previewPath.get(), file)
+            ? repository.change(id.get(), name.get(), params.type(), user, previewPath.get(), file)
             : EitherHelper.badLeft(failure);
   }
 }
