@@ -13,15 +13,15 @@ import com.htc.infrastructure.models.file.FileModel;
 import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
  * Реализация репозитория файла.
  */
 @Repository
+@AllArgsConstructor
 public class FileRepositoryImplementation implements FileRepository {
-  @Autowired
   Files files;
 
   @Override

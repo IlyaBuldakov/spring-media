@@ -14,15 +14,15 @@ import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 /**
  * Реализация репозитория пользователя.
  */
 @Repository
+@AllArgsConstructor
 public class UserRepositoryImplementation implements UserRepository {
-  @Autowired
   Users users;
 
   @Override
