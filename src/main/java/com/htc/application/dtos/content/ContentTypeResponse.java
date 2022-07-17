@@ -29,7 +29,7 @@ public class ContentTypeResponse {
    * @param content сущность роли, подробнее  {@link Content}
    */
   public ContentTypeResponse(Content content) {
-    this.id = (long) content.getId();
+    this.id = content.getId().getValue();
     this.name = content.getName();
   }
 }

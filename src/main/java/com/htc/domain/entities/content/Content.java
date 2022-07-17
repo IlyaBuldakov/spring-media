@@ -1,6 +1,11 @@
 package com.htc.domain.entities.content;
 
+import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.file.Format;
+import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.Id;
+import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
 import lombok.Getter;
 
 /**
@@ -13,7 +18,7 @@ public class Content {
    * @return id идентификатор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int id;
+  private @Getter Id id;
 
   /**
    * {@link Type Тип} контента.
@@ -37,7 +42,7 @@ public class Content {
    * @return dateCreated дата создания
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter String dateCreated;
+  private @Getter DateCreated dateCreated;
 
   /**
    * Идентификатор {@link com.htc.domain.entities.user.User автора контента}.
@@ -46,7 +51,7 @@ public class Content {
    * @return id идентификатор автора
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int authorId;
+  private @Getter User author;
 
   /**
    * {@link Format Формат} файла.
@@ -57,20 +62,12 @@ public class Content {
   private @Getter Format format;
 
   /**
-   * Путь до {@link com.htc.domain.entities.file.File файла}.
-   *
-   * @return fileUrlPath путь до файла
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String fileUrlPath;
-
-  /**
    * Путь к превью.
    *
    * @return previewPath путь к превью
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter String previewPath;
+  private @Getter FileUrlPath previewPath;
 
   /**
    * Идентификатор {@link com.htc.domain.entities.file.File файла}.
@@ -78,7 +75,7 @@ public class Content {
    * @return id идентификатор файла
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int fileId;
+  private @Getter File file;
 
   /**
    * Идентификатор {@link com.htc.domain.entities.task.Task задачи}.
@@ -86,5 +83,6 @@ public class Content {
    * @return id идентификатор задачи
    */
   @SuppressWarnings("JavadocDeclaration")
+  //TODO task
   private @Getter int taskId;
 }
