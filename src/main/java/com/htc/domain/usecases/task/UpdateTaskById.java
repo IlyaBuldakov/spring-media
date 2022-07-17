@@ -16,18 +16,18 @@ import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
- * Сценарий добавления новой задачи.
+ * Сценарий изменения задачи.
  */
 //@Component
 @AllArgsConstructor
-public final class AddTask implements UseCase<AddTask.Params, Task> {
+public final class UpdateTaskById implements UseCase<UpdateTaskById.Params, Task> {
   /**
-   * Параметры сценария добавления задачи.
+   * Параметры сценария обновления задачи по идентификатору.
    */
-  public record Params(String name, String nameKey,
+  public record Params(Long id, String idKey,
+                       String name, String nameKey,
                        String description, String descriptionKey,
                        Long authorId, String authorKey,
                        Long executorId, String executorKey,
@@ -39,6 +39,10 @@ public final class AddTask implements UseCase<AddTask.Params, Task> {
   @Override
   public CompletableFuture<Either<Failure, Task>> execute(Params params) {
     var failure = new InvalidValues();
+    var id = Id.create(params.id());
+    if (id.isLeft()) {
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.idKey);
+    }
     var name = FileName.create(params.name());
     if (name.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
@@ -55,18 +59,14 @@ public final class AddTask implements UseCase<AddTask.Params, Task> {
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "user not found (executor)");
     }
-    var dateCreated = DateCreated.create();
-    if (dateCreated.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date created");
-    }
     var dateExpired = DateCreated.create(params.dateExpired());
     if (dateExpired.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date expired");
     }
     //TODO description - тип данных / проверка на null и empty
     return failure.getValues().size() == 0
-            ? repository.add(name.get(), params.description(), author, executor,
-                          dateCreated.get(), dateExpired.get())
+            ? repository.update(id.get(), name.get(), params.description(),
+              author, executor, dateExpired.get())
             : EitherHelper.badLeft(failure);
   }
 }
