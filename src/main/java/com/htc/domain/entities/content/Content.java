@@ -1,88 +1,146 @@
 package com.htc.domain.entities.content;
 
+import com.htc.domain.entities.attributes.Attribute;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.user.User;
+import io.vavr.control.Either;
+import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.Random;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * Контент.
  */
-@AllArgsConstructor
-public class Content {
+public interface Content {
 
   /**
    * Индентификатор контента.
    *
    * @return Индентификатор контента.
    */
-  private @Getter int id;
+  Id getId();
+
   /**
    * Тип контента.
    *
    * @return Тип контента.
    */
-  private @Getter ContentType type;
+  Type getType();
+
   /**
    * Наименование контента.
    *
    * @return Наименование контента.
    */
-  private @Getter String name;
+  String getName();
+
   /**
    * Дата загрузки контента.
    *
    * @return Дата загрузки контента.
    */
-  private @Getter LocalDateTime dateCreated;
+  LocalDateTime getDateCreated();
+
   /**
    * Пользователь - автор контента.
    *
    * @return Пользователь - автор контента.
    */
-  private @Getter User author;
+  User getAuthor();
+
   /**
    * Формат контента.
    *
    * @return Формат контента.
    */
-  private @Getter ContentFormat format;
+  Format getFormat();
+
   /**
    * Адресс контента.
    *
    * @return Адресс контента.
    */
-  private @Getter String url;
+  Url getUrl();
+
   /**
    * Превью контента.
    *
    * @return Превью контента.
    */
-  private @Getter String preview;
+  String getPreview();
+
+  /**
+   * Расширение файла контента.
+   */
+  enum Format {
+    JPG,
+    PNG,
+    MP3,
+    M4A,
+    FLAC,
+    AVI,
+    MP4
+  }
+
+  /**
+   * Тип контента.
+   */
+
+  enum Type {
+    /**
+     * Фото.
+     */
+    PHOTO(1, "Фото"),
+    /**
+     * Видео.
+     */
+    VIDEO(2, "Видео"),
+    /**
+     * Аудио.
+     */
+    AUDIO(3, "Аудио");
+    /**
+     * Идентификатор типа контента.
+     *
+     * @return id Идентификатор типа контента.
+     */
+    @SuppressWarnings("JavadocDeclaration")
+    private final @Getter int id;
+
+    /**
+     * Наименование типа контента.
+     *
+     * @return Наименование типа контента.
+     */
+    @SuppressWarnings("JavadocDeclaration")
+    private final @Getter String name;
+
+    Type(int id, String name) {
+      this.id = id;
+      this.name = name;
+    }
+  }
 
 
   /**
-   * Создаёт тестовый объект контента.
-   *
-   * @return Контент.
+   * Адресс файла.
    */
-
-  public static Content createTestContent(int id) {
-    return new Content(
-            id,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-    );
-  }
-
-  public static Content createTestContent() {
-    var id = new Random().nextInt(Integer.MAX_VALUE);
-    return createTestContent(id);
+  final class Url extends Attribute<String> {
+    /**
+     * Создаёт адресс файла.
+     *
+     * @param value Входные данные.
+     * @return адресс файла или ошибка.
+     */
+    public static Either<InvalidValue, Content.Url> create(String value) {
+      var contentUrl = new Content.Url(value);
+      return Either.right(contentUrl);
+    }
+    
+    private Url(String value) {
+      super(value);
+    }
   }
 }

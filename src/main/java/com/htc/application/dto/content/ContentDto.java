@@ -1,11 +1,7 @@
 package com.htc.application.dto.content;
 
-import com.htc.application.dto.user.UserResponse;
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.content.ContentFormat;
-import com.htc.domain.entities.content.ContentType;
-import com.htc.domain.entities.user.User;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
@@ -77,13 +73,13 @@ public class ContentDto {
    * @param content Сущность медиаконтента.
    */
   public ContentDto(Content content) {
-    this.id = content.getId();
+    this.id = content.getId().getValue();
     this.type = new ContentTypeDto(content.getType());
     this.name = content.getName();
     this.dateCreated = content.getDateCreated();
     this.author = new UserShortResponse(content.getAuthor());
     this.format = content.getFormat().name();
-    this.url = content.getUrl();
+    this.url = content.getUrl().getValue();
     this.preview = content.getPreview();
   }
 }

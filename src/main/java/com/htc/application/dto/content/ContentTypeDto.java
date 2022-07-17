@@ -1,6 +1,6 @@
 package com.htc.application.dto.content;
 
-import com.htc.domain.entities.content.ContentType;
+import com.htc.domain.entities.content.Content;
 import lombok.Getter;
 
 /**
@@ -28,7 +28,7 @@ public class ContentTypeDto {
    *
    * @param contentType Тип медиаконтента.
    */
-  public ContentTypeDto(ContentType contentType) {
+  public ContentTypeDto(Content.Type contentType) {
     this.id = contentType.getId();
     this.name = contentType.getName();
   }
