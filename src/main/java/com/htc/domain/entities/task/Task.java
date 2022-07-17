@@ -8,43 +8,38 @@ import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.file.FileName;
-import lombok.Getter;
 
 /**
  * Задача.
  */
-public class Task {
+public interface Task {
   /**
    * Идентификатор задачи.
    *
    * @return id идентификатор
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter Id id;
+  Id getId();
 
   /**
    * Наименование задачи.
    *
    * @return name наименование
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter FileName name;
+  FileName getName();
 
   /**
    * {@link Type Тип} контента.
    *
    * @return type тип
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter Type type;
+  Type getType();
 
   /**
    * Описание задачи.
    *
    * @return description описание
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String description;
+  String getDescription();
 
   /**
    * {@link File Файл}.
@@ -52,40 +47,36 @@ public class Task {
    * @return file файл
    */
   //TODO files[]
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter File file;
+  File getFile();
 
   /**
    * {@link User Автор задачи}.
    *
    * @return author автор задачи
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter User author;
+  User getAuthor();
 
   /**
    * {@link User Исполнитель задачи}.
    *
    * @return executor исполнитель задачи
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter User executor;
+  User getExecutor();
 
   /**
    * Дата создания.
    *
    * @return dateCreated дата создания
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter DateCreated dateCreated;
+  //TODO DateCreated заменить на DateField?
+  DateCreated getDateCreated();
 
   /**
    * Дата выполнения.
    *
    * @return dateExpired дата выполнения
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter DateCreated dateExpired;
+  DateCreated getDateExpired();
 
   /**
    * {@link Content Контент}.
@@ -93,8 +84,7 @@ public class Task {
    * @return content контент
    */
   //TODO contents[]
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter Content content;
+  Content getContent();
 
   /**
    * {@link Comment Коммент}.
@@ -102,14 +92,12 @@ public class Task {
    * @return comment коммент
    */
   //TODO comments[]
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter Comment comment;
+  Comment getComment();
 
   /**
    * {@link Status Статус} задачи.
    *
    * @return status статус задачи
    */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter Status status;
+  Status getStatus();
 }
