@@ -24,7 +24,7 @@ public class RoleResponse {
   private final @Getter String name;
 
   /**
-   * Создание основного представления пользователя.
+   * Создание основного представления роли.
    *
    * @param role сущность роли, подробнее  {@link Role}
    */

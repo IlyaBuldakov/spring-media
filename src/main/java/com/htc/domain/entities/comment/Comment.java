@@ -43,8 +43,19 @@ public interface Comment {
   /**
    * {@link com.htc.domain.entities.content.Content Контент}.
    *
-   * @return content контент(набор)
+   * @return content контент (набор)
    */
-  // TODO заменить на экземпляр массива контента (list?)
+  //TODO заменить на экземпляр массива контента (list?)
   int[] getContents();
 }
+
+/*
+* пользователь (+вы)
+* дата-время
+* текст
+* ссылка на контент (превью) из задачи
+*
+* add
+* get
+* delete
+*/
