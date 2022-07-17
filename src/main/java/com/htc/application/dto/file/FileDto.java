@@ -51,10 +51,10 @@ public class FileDto {
    * @param file Файл.
    */
   public FileDto(File file) {
-    this.id = file.getId();
-    this.name = file.getName();
+    this.id = file.getId().getValue();
+    this.name = file.getName().getValue();
     this.dateCreated = file.getDateCreated();
     this.format = file.getFormat().name();
-    this.url = file.getUrl();
+    this.url = file.getUrl().getValue();
   }
 }

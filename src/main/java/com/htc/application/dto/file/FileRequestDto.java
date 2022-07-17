@@ -28,7 +28,7 @@ public class FileRequestDto {
    * @param file Файл.
    */
   public FileRequestDto(File file) {
-    this.file = file.getFile();
+    this.file = file.getFile().getValue();
     this.task = file.getTask().getId().getValue();
   }
 }
