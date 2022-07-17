@@ -32,4 +32,19 @@ public enum Type {
     this.id = id;
     this.name = name;
   }
+
+  /**
+   * Получение типа контента по названию контента.
+   *
+   * @param name название контента
+   * @return type {@link Type тип}
+   */
+  public static Type getFromName(String name) {
+    for (Type type : Type.values()) {
+      if (type.getName().equals(name))  {
+        return type;
+      }
+    }
+    return null;
+  }
 }
