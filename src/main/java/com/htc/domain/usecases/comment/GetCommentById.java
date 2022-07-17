@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий получения комментария по идентификатору.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class GetCommentById implements UseCase<GetCommentById.Params, Comment> {
   /**

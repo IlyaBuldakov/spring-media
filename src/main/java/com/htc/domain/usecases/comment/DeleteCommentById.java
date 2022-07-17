@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий удаления комментария по идентификатору.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class DeleteCommentById implements UseCase<DeleteCommentById.Params, Comment> {
   /**

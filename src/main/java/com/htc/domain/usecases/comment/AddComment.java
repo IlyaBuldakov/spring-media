@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий добавления нового комментария в задачу.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class AddComment implements UseCase<AddComment.Params, Comment> {
   /**
