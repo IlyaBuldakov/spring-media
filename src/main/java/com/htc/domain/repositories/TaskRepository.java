@@ -46,7 +46,6 @@ public interface TaskRepository {
   /**
    * Обновляет данные задачи.
    *
-   * @param id Идентификатор задачи.
    * @param name Название задачи.
    * @param type Тип контента в задаче.
    * @param description Описание задачи.
@@ -60,7 +59,6 @@ public interface TaskRepository {
    * @return Задача или ошибка.
    */
   CompletableFuture<Either<Failure, Task>> update(
-      Id id,
       String name,
       Content.Type type,
       String description,
