@@ -1,11 +1,11 @@
 package com.htc.application.controllers;
 
-import com.htc.domain.entities.task.Task;
+import com.htc.domain.entities.Task;
 import com.htc.domain.usecases.task.CreateTask;
 import com.htc.domain.usecases.task.DeleteTaskById;
 import com.htc.domain.usecases.task.GetAllTasks;
 import com.htc.domain.usecases.task.GetTaskById;
-import com.htc.domain.usecases.task.UpdateTask;
+import com.htc.domain.usecases.task.UpdateTaskById;
 import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class TaskController {
   private CreateTask createTask;
-  private UpdateTask updateTask;
+  private UpdateTaskById updateTask;
   private DeleteTaskById deleteTaskById;
   private GetAllTasks getAllTasks;
   private GetTaskById getTaskById;
@@ -67,9 +67,7 @@ public class TaskController {
    */
   @GetMapping(path = "/{id}")
   public Task get(@PathVariable int id) throws ExecutionException, InterruptedException {
-    return getTaskById.execute(id)
-        .get()
-        .get();
+    throw new UnsupportedOperationException("Метод не реализован");
   }
 
   /**
@@ -81,8 +79,6 @@ public class TaskController {
    */
   @GetMapping
   public Iterable<Task> getAll() throws ExecutionException, InterruptedException {
-    return getAllTasks.execute(null)
-        .get()
-        .get();
+    throw new UnsupportedOperationException("Метод не реализован");
   }
 }
