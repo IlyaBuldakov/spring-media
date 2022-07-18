@@ -4,7 +4,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +13,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public class DeleteTaskById implements UseCase<Integer, Void> {
+public class DeleteTaskById implements UseCase<DeleteTaskById.Params, Void> {
+  public record Params(int id, String key) {}
+
   private final TaskRepository repository;
 
   @Override
-  public Future<Either<Failure, Void>> execute(Integer id) {
-    return repository.delete(id);
+  public CompletableFuture<Either<Failure, Void>> execute(Params params) {
+    return null;
   }
 }
