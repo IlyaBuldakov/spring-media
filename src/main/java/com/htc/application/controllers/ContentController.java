@@ -1,16 +1,19 @@
 package com.htc.application.controllers;
 
-import com.htc.domain.entities.content.Content;
+import com.htc.application.dto.content.ContentRequest;
+import com.htc.domain.entities.Content;
 import com.htc.domain.usecases.content.DeleteContentById;
 import com.htc.domain.usecases.content.GetContentFeed;
-import com.htc.domain.usecases.content.GetContentsByTaskId;
 import com.htc.domain.usecases.content.UploadContent;
-import java.util.concurrent.ExecutionException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,18 +22,22 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(path = "api/contents")
+@SecurityRequirement(name = "JWT")
 @AllArgsConstructor
 public class ContentController {
   private UploadContent uploadContent;
-  private GetContentsByTaskId getContentsByTaskId;
   private DeleteContentById deleteContentById;
   private GetContentFeed getContentFeed;
 
   /**
    * Загружает контент.
+   *
+   * @param contentRequest Представление сущности контента.
    */
   @PostMapping
-  public void upload(Content content) {
+  @Operation(summary = "Создать новый контент.")
+  @Async
+  public void upload(@RequestBody ContentRequest contentRequest) {
     throw new UnsupportedOperationException("Метод не реализован");
   }
 
@@ -49,11 +56,8 @@ public class ContentController {
    * @return Комментарии по идентификатору задачи.
    */
   @GetMapping(path = "/{taskId}")
-  public Iterable<Content> getContentsByTaskId(@PathVariable int taskId)
-      throws ExecutionException, InterruptedException {
-    return getContentsByTaskId.execute(taskId)
-        .get()
-        .get();
+  public Iterable<Content> getContentsByTaskId(@PathVariable int taskId) {
+    throw new UnsupportedOperationException("Метод не реализован");
   }
 
   /**

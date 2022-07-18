@@ -4,6 +4,12 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/spec/v2.0.0.html).
 
+## [v0.14.0] - 2022-07-18
+
+## Изменено
+1. Контроллер контента переработан в заготовку для работы с СУБД.
+
+
 ## [v0.13.0] - 2022-07-17
 
 ## Добавлено
@@ -199,3 +205,4 @@
 [v0.11.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.10.0...yaroslav.tarakanov-v0.11.0
 [v0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.11.0...yaroslav.tarakanov-v0.12.0
 [v0.13.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.12.0...yaroslav.tarakanov-v0.13.0
+[v0.14.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.13.0...yaroslav.tarakanov-v0.14.0
