@@ -1,28 +1,25 @@
 package ru.kiryanovid.application.dto.errors;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import ru.kiryanovid.domain.entity.errors.Failure;
 
 /**
  *
  */
-public class NotFoundDto extends FailureException{
+public class FieldMessageDtoTemp extends FailureException{
+    /**
+     * Связанное с ошибкой поле интерфейса
+     */
+    @Getter private String field;
+
     /**
      * Создаёт экземпляр класса {@link FailureException}.
      *
      * @param status  Код статуса.
      * @param message Сообщение ошибки.
      */
-    public NotFoundDto(HttpStatus status, String message) {
+    public FieldMessageDtoTemp(HttpStatus status, String message) {
         super(status, message);
     }
-
-
-    /**
-     * Создаёт экземпляр класса {@link FailureException}.
-     *
-     * @param failure Исходная ошибка доменного слоя.
-     */
-
 }

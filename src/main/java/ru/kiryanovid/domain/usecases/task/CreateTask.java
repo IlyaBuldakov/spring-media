@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @Component
 @AllArgsConstructor
-public class CreateTask implements UseCase<Task, Task> {
+public final class CreateTask implements UseCase<Task, Task> {
 
     @Autowired
     private final TaskRepositories repositories;

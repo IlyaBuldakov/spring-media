@@ -12,7 +12,7 @@ import ru.kiryanovid.domain.usecases.UseCase;
 import java.util.concurrent.CompletableFuture;
 @Component
 @RequiredArgsConstructor
-public class UpdateTask implements UseCase<Task, Task> {
+public final class UpdateTask implements UseCase<Task, Task> {
     @Autowired
     private final TaskRepositories repositories;
     @Override

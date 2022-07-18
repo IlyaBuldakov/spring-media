@@ -2,6 +2,7 @@ package ru.kiryanovid.domain.entity.file;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
  *
  */
 @AllArgsConstructor
+@NoArgsConstructor
 public class File {
     /**
      *

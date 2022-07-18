@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 @Component
 @RequiredArgsConstructor
-public class DeleteTaskById implements UseCase<Integer, Void> {
+public final class DeleteTaskById implements UseCase<Integer, Void> {
     @Autowired
     private final TaskRepositories repositories;
     @Override

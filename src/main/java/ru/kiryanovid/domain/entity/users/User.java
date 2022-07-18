@@ -69,12 +69,6 @@ public class User {
 
     private User() {}
 
-    private static final String INVALID_ID = "Некорректный идентификатор.";
-    private static final String INVALID_NAME = "Некорректное имя.";
-    private static final String INVALID_EMAIL = "Некорректная электронная почта.";
-    private static final String INVALID_PASSWORD = "Некорректный пароль.";
-    private static final String INVALID_IMAGE = "Некорректное изображение.";
-
     /**
      * Создаёт пользователя и проверяет данные на корректность.
      *
@@ -88,11 +82,12 @@ public class User {
      */
     public static Either<Failure, User> create(
             int id, String name, String email, String password, String image, Role role) {
-      /*  // Проверка идентификатора.
+        // Проверка идентификатора.
         if (id < 0) {
             return Either.left(InvalidValue.INVALID_ENTITY_ID);
         }
 
+        /*
         // Проверка имени.
         if (name.length() == 0) {
             return Either.left(InvalidValue.INVALID_USER_NAME);

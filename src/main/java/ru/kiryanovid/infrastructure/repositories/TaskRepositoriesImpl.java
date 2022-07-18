@@ -34,7 +34,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
                 null,
                 null,
                 null
-                );
+        );
         tasks.save(taskModel);
         return null;
     }
@@ -48,7 +48,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
                 null,
                 new UserModel(task.getAuthor().getId()),
                 new UserModel(task.getExecutor().getId()),
-                null,
+                task.getDateCreate(),
                 task.getDateExpired(),
                 null,
                 null,
@@ -86,14 +86,14 @@ public class TaskRepositoriesImpl implements TaskRepositories {
 
     @Override
     public CompletableFuture<Either<Failure, Iterable<Task>>> getAll() {
-        var taskList = tasks.findAll().stream().map(taskModel -> Task.create(null,
+        var taskList = tasks.findAll().stream().map(taskModel -> Task.create(taskModel.getId(),
                 taskModel.getName(),
                 taskModel.getContentType(),
                 taskModel.getDescription(),
                 null,
                 Convert.convertUserModelToEntityUser(taskModel.getAuthor()),
                 Convert.convertUserModelToEntityUser(taskModel.getExecutor()),
-                null,
+                taskModel.getDateCreate(),
                 taskModel.getDateExpired(),
                 null,
                 null,
@@ -102,8 +102,7 @@ public class TaskRepositoriesImpl implements TaskRepositories {
         return CompletableFuture.completedFuture(Either.right(taskList));
 
     }
-    public interface Tasks extends JpaRepository<TaskModel, Integer>{
 
-
+    public interface Tasks extends JpaRepository<TaskModel, Integer> {
     }
 }

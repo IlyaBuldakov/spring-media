@@ -1,20 +1,37 @@
 package ru.kiryanovid.application.dto.errors;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import ru.kiryanovid.domain.entity.errors.Failure;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
  */
 public class BadRequestDto extends FailureException{
+    private final @Getter Iterable<FieldMessageDto> problems;
+
     /**
      * Создаёт экземпляр класса {@link FailureException}.
      *
-     * @param failure Исходная ошибка доменного слоя.
+     * @param status  Код статуса.
+     * @param message Сообщение ошибки.
      */
-    public BadRequestDto(Failure failure) {
-        super(HttpStatus.BAD_REQUEST, failure);
+    public BadRequestDto(HttpStatus status, String message) {
+        super(status, message);
+        this.problems = new ArrayList<FieldMessageDto>() {
+        };
+    }
+
+    private class FieldMessageDto{
+        private @Getter String field;
+        private @Getter String message;
+
+        public FieldMessageDto(String field, String message) {
+            this.field = field;
+            this.message = message;
+        }
     }
 }

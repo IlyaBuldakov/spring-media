@@ -98,14 +98,14 @@ public class Task {
         if(name.isEmpty() || name.equals(" ")){
             return Either.left(InvalidValue.INVALID_TASK_NAME);
         }
+        if(contentType == null){
+            return Either.left(InvalidValue.INVALID_TYPE_OF_CONTENT);
+        }
         if(author == null){
             return Either.left(InvalidValue.INVALID_AUTHOR);
         }
         if(executor == null){
-            return Either.left(InvalidValue.INVALID_AUTHOR);
-        }
-        if(dateCreate.isBefore(LocalDateTime.now())){
-            return Either.left(InvalidValue.INVALID_DATE_CREATE);
+            return Either.left(InvalidValue.INVALID_EXECUTOR);
         }
         if(dateCreate.isAfter(dateExpired)){
             return Either.left(InvalidValue.INVALID_DATE_EXPIRED);
