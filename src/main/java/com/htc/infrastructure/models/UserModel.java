@@ -2,6 +2,7 @@ package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.user.User;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,6 +22,7 @@ public class UserModel implements User {
    */
   @javax.persistence.Id
   @GeneratedValue
+  @Column(name = "user_id")
   private Integer userId;
 
   @Override

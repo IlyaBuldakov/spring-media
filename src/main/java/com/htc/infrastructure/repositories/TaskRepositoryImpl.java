@@ -25,6 +25,7 @@ public class TaskRepositoryImpl implements TaskRepository {
   @Autowired
   Tasks tasks;
 
+  @Autowired
   UserRepositoryImpl userRepository;
 
   @Override

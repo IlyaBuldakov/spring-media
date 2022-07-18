@@ -4,7 +4,6 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -63,17 +62,15 @@ public class TaskModel implements Task {
   /**
    * Автор задачи.
    */
-  @Column(name = "author_id")
   @ManyToOne
-  @JoinColumn(table = "users", name = "user_id", nullable = false)
+  @JoinColumn(name = "author_id", referencedColumnName = "user_id", nullable = false)
   private @Getter UserModel author;
 
   /**
    * Исполнитель задачи.
    */
-  @Column(name = "executor_id")
   @ManyToOne
-  @JoinColumn(table = "users", name = "user_id", nullable = false)
+  @JoinColumn(name = "executor_id", referencedColumnName = "user_id", nullable = false)
   private @Getter UserModel executor;
 
   /**

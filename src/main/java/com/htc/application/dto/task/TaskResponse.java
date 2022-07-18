@@ -1,14 +1,9 @@
 package com.htc.application.dto.task;
 
-import com.htc.application.dto.comment.CommentDto;
-import com.htc.application.dto.content.ContentDto;
 import com.htc.application.dto.content.ContentTypeDto;
-import com.htc.application.dto.file.FileDto;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.stream.Collectors;
 import lombok.Getter;
 
 /**
@@ -43,13 +38,7 @@ public class TaskResponse {
    */
   @SuppressWarnings("JavadocDeclaration")
   private final @Getter String description;
-  /**
-   * Приложеные файлы..
-   *
-   * @return Файлы задачи.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Collection<FileDto> files;
+
   /**
    * Автор задачи.
    *
@@ -78,20 +67,7 @@ public class TaskResponse {
    */
   @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime dateExpired;
-  /**
-   * Контент - результат выполнения задачи.
-   *
-   * @return Контент.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Collection<ContentDto> contents;
-  /**
-   * Коментарии задачи.
-   *
-   * @return Коментарии задачи.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Collection<CommentDto> comments;
+
   /**
    * Статус задачи.
    *
@@ -111,19 +87,10 @@ public class TaskResponse {
     this.name = task.getName().getValue();
     this.contentType = new ContentTypeDto(task.getContentType());
     this.description = task.getDescription().getValue();
-    this.files = task.getFiles().stream()
-            .map(FileDto::new)
-            .collect(Collectors.toList());
     this.author = new UserResponse(task.getAuthor());
     this.executor = new UserResponse(task.getExecutor());
     this.dateCreated = task.getDateCreated();
     this.dateExpired = task.getDateExpired();
-    this.contents = task.getContents().stream()
-            .map(ContentDto::new)
-            .collect(Collectors.toList());
-    this.comments = task.getComments().stream()
-            .map(CommentDto::new)
-            .collect(Collectors.toList());
     this.status = new TaskStatusDto(task.getStatus());
   }
 }
