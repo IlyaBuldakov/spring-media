@@ -1,11 +1,12 @@
 package com.htc.domain.usecases.content;
 
-import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public class GetContentFeed implements UseCase<Void, Iterable<Content>> {
+public final class GetContentFeed implements UseCase<Void, Collection<Content>> {
   private final ContentRepository repository;
 
   @Override
-  public Future<Either<Failure, Iterable<Content>>> execute(Void param) {
+  public CompletableFuture<Either<Failure, Collection<Content>>> execute(Void param) {
     return repository.getContentFeed();
   }
 }
