@@ -1,16 +1,13 @@
 package com.htc.infrastructure.repositories;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.comments.Comment;
 import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.infrastructure.models.TaskModel;
+import com.htc.infrastructure.models.UserModel;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,21 +25,34 @@ public class TaskRepositoryImpl implements TaskRepository {
   @Autowired
   Tasks tasks;
 
+  UserRepositoryImpl userRepository;
+
   @Override
   public CompletableFuture<Either<Failure, Task>> create(
           Task.Name name,
-          ContentType contentType,
+          Content.Type contentType,
           Task.Description description,
-          Collection<File> files,
-          User author,
-          User executor,
-          LocalDateTime dateCreated,
-          LocalDateTime dateExpired,
-          Collection<Content> contents,
-          Collection<Comment> comments,
-          Task.TaskStatus taskStatus) {
-    var task = new TaskModel(name, contentType, description, files, author, executor,
-            dateCreated, dateExpired, contents, comments, taskStatus);
+          Id authorId,
+          Id executorId,
+          LocalDateTime dateExpired) {
+
+    var author = userRepository.get(authorId).join();
+    var executor = userRepository.get(executorId).join();
+    if (author.isLeft()) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+    }
+    if (executor.isLeft()) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+    }
+    var task = new TaskModel(
+            name,
+            contentType,
+            description,
+            (UserModel) author.get(),
+            (UserModel) executor.get(),
+            LocalDateTime.now(),
+            dateExpired,
+            Task.Status.IN_WORK);
     return CompletableFuture.completedFuture(Either.right(tasks.save(task)));
   }
 
@@ -50,18 +60,30 @@ public class TaskRepositoryImpl implements TaskRepository {
   public CompletableFuture<Either<Failure, Task>> update(
           Id id,
           Task.Name name,
-          ContentType contentType,
+          Content.Type contentType,
           Task.Description description,
-          Collection<File> files,
-          User author,
-          User executor,
-          LocalDateTime dateCreated,
-          LocalDateTime dateExpired,
-          Collection<Content> contents,
-          Collection<Comment> comments,
-          Task.TaskStatus taskStatus) {
-    var task = new TaskModel(id, name, contentType, description, files, author, executor,
-            dateCreated, dateExpired, contents, comments, taskStatus);
+          Id authorId,
+          Id executorId,
+          LocalDateTime dateExpired) {
+    var author = userRepository.get(authorId).join();
+    var executor = userRepository.get(executorId).join();
+    if (author.isLeft()) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+    }
+    if (executor.isLeft()) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+    }
+
+    var task = new TaskModel(
+            id,
+            name,
+            contentType,
+            description,
+            (UserModel) author.get(),
+            (UserModel) executor.get(),
+            LocalDateTime.now(),
+            dateExpired,
+            Task.Status.IN_WORK);
     return CompletableFuture.completedFuture(Either.right(tasks.save(task)));
   }
 

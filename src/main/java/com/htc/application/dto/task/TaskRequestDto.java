@@ -1,7 +1,6 @@
 package com.htc.application.dto.task;
 
-import com.htc.application.dto.content.ContentTypeDto;
-import com.htc.domain.entities.content.ContentType;
+import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -23,7 +22,7 @@ public class TaskRequestDto {
    * @return Тип контента.
    */
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter ContentType contentType;
+  private @Getter Content.Type contentType;
   /**
    * Описание задачи.
    *
