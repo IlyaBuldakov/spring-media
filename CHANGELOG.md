@@ -4,6 +4,19 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [v0.12.0] - 2022-07-18
+### Добавлено
+- Модель пользователя для Spring Data.
+- Модель задачи для Spring Data.
+- Зависимости для работы со Spring Data.
+- Реализация репозитория пользователей.
+- Реализация репозитория задач.
+### Изменено
+- В файл конфигрурации проекта добавлены настройки для Spring Data.
+- Рефакторинг классов связаных с задачами.
+### Удалено
+- Удален класс `UserValidator` использовавшийся ранее для проверки данных пользователя.
+
 ## [v0.11.0] - 2022-07-12
 ### Добавлено
 - Представления связаное с задачами.
@@ -132,3 +145,4 @@
 [v0.9.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.8.0...aleksandr.aziatcev-v0.9.0
 [v0.10.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.9.0...aleksandr.aziatcev-v0.10.0
 [v0.11.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.10.0...aleksandr.aziatcev-v0.11.0
+[v0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.11.0...aleksandr.aziatcev-v0.12.0
