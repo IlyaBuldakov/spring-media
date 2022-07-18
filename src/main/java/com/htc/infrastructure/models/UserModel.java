@@ -2,8 +2,9 @@ package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.user.User;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -70,6 +71,7 @@ public class UserModel implements User {
   /**
    * Роль пользователя, см. {@link Role}.
    */
+  @Enumerated(EnumType.STRING)
   private Role role;
 
   @Override
