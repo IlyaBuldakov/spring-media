@@ -1,9 +1,13 @@
 package com.htc.domain.repositories;
 
+import com.htc.domain.entities.Content;
+import com.htc.domain.entities.Task;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.task.Task;
 import io.vavr.control.Either;
-import java.util.concurrent.Future;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий задач.
@@ -12,23 +16,69 @@ public interface TaskRepository {
   /**
    * Создаёт задачу.
    *
-   * @param task Задача.
+   * @param name Название задачи.
+   * @param type Тип контента в задаче.
+   * @param description Описание задачи.
+   * @param fileId Прикрепленные к задаче файлы.
+   * @param authorId Идентификатор автора задачи.
+   * @param executorId Идентификатор испольнителя задачи.
+   * @param dateCreated Дата создания задачи.
+   * @param dateExpired Дата окончания задачи.
+   * @param contentsId Прикрепленный контент.
+   * @param commentsId Прикрепленные комментарии к задаче.
+   * @param status Статус задачи.
+   * @return Задача или ошибка.
    */
-  Future<Either<Failure, Task>> create(Task task);
+  CompletableFuture<Either<Failure, Task>> create(
+      String name,
+      Content.Type type,
+      String description,
+      int[] fileId,
+      int authorId,
+      int executorId,
+      LocalDateTime dateCreated,
+      LocalDateTime dateExpired,
+      int[] contentsId,
+      int[] commentsId,
+      Task.Status status
+  );
 
   /**
    * Обновляет данные задачи.
    *
-   * @param task Задача.
+   * @param id Идентификатор задачи.
+   * @param name Название задачи.
+   * @param type Тип контента в задаче.
+   * @param description Описание задачи.
+   * @param fileId Прикрепленные к задаче файлы.
+   * @param authorId Идентификатор автора задачи.
+   * @param executorId Идентификатор испольнителя задачи.
+   * @param dateExpired Дата окончания задачи.
+   * @param contentsId Прикрепленный контент.
+   * @param commentsId Прикрепленные комментарии к задаче.
+   * @param status Статус задачи.
+   * @return Задача или ошибка.
    */
-  Future<Either<Failure, Task>> update(Task task);
+  CompletableFuture<Either<Failure, Task>> update(
+      Id id,
+      String name,
+      Content.Type type,
+      String description,
+      int[] fileId,
+      int authorId,
+      int executorId,
+      LocalDateTime dateExpired,
+      int[] contentsId,
+      int[] commentsId,
+      Task.Status status
+  );
 
   /**
    * Удаляет задачу.
    *
    * @param id Идентификатор задачи.
    */
-  Future<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 
   /**
    * Получает задачу.
@@ -36,12 +86,12 @@ public interface TaskRepository {
    * @param id Идентификатор задачи.
    * @return Задача.
    */
-  Future<Either<Failure, Task>> get(int id);
+  CompletableFuture<Either<Failure, Task>> get(Id id);
 
   /**
    * Получает список всех задач.
    *
    * @return Список всех задач.
    */
-  Future<Either<Failure, Iterable<Task>>> getAll();
+  CompletableFuture<Either<Failure, Collection<Task>>> getAll();
 }
