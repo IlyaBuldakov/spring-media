@@ -1,10 +1,9 @@
 package com.htc.application.controllers;
 
-import com.htc.domain.entities.files.File;
+import com.htc.domain.entities.File;
 import com.htc.domain.usecases.file.DeleteFileById;
 import com.htc.domain.usecases.file.GetFilesByTaskId;
 import com.htc.domain.usecases.file.UploadFile;
-import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,11 +46,8 @@ public class FileController {
    * @return Файлы по идентификатору задачи.
    */
   @GetMapping(path = "/{taskId}")
-  public Iterable<File> getFilesByTaskId(@PathVariable int taskId)
-      throws ExecutionException, InterruptedException {
-    return getFilesByTaskId.execute(taskId)
-        .get()
-        .get();
+  public Iterable<File> getFilesByTaskId(@PathVariable int taskId) {
+    throw new UnsupportedOperationException("Метод не реализован");
   }
 
 }
