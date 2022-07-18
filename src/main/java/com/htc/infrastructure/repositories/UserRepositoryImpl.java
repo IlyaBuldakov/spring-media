@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -69,7 +68,5 @@ public class UserRepositoryImpl implements UserRepository {
    * ORM для доступа к данным пользователей в СУБД.
    */
   public interface Users extends JpaRepository<UserModel, Integer> {
-    @Async
-    CompletableFuture<UserModel> findOneById(int id);
   }
 }
