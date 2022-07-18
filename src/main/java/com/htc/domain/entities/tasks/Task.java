@@ -2,14 +2,11 @@ package com.htc.domain.entities.tasks;
 
 import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.comments.Comment;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.InvalidValue;
-import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import lombok.Getter;
 
 /**
@@ -45,13 +42,6 @@ public interface Task {
   Description getDescription();
 
   /**
-   * Приложеные файлы..
-   *
-   * @return Файлы задачи.
-   */
-  Collection<File> getFiles();
-
-  /**
    * Автор задачи.
    *
    * @return Позьзователя - автора задачи.
@@ -78,21 +68,6 @@ public interface Task {
    * @return Срок выполнения задачи.
    */
   LocalDateTime getDateExpired();
-
-  /**
-   * Контент - результат выполнения задачи.
-   *
-   * @return Контент.
-   */
-
-  Collection<Content> getContents();
-
-  /**
-   * Коментарии задачи.
-   *
-   * @return Коментарии задачи.
-   */
-  Collection<Comment> getComments();
 
   /**
    * Статус задачи.
