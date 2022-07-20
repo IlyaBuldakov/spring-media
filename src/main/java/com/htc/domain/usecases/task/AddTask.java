@@ -1,5 +1,6 @@
 package com.htc.domain.usecases.task;
 
+import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValueParam;
 import com.htc.domain.entities.failures.InvalidValues;
@@ -28,6 +29,7 @@ public final class AddTask implements UseCase<AddTask.Params, Task> {
    * Параметры сценария добавления задачи.
    */
   public record Params(String name, String nameKey,
+                       Type type, String typeKey,
                        String description, String descriptionKey,
                        Long authorId, String authorKey,
                        Long executorId, String executorKey,
@@ -65,7 +67,7 @@ public final class AddTask implements UseCase<AddTask.Params, Task> {
     }
     //TODO description - тип данных / проверка на null и empty
     return failure.getValues().size() == 0
-            ? repository.add(name.get(), params.description(), author, executor,
+            ? repository.add(name.get(), params.type(), params.description(), author, executor,
                           dateCreated.get(), dateExpired.get())
             : EitherHelper.badLeft(failure);
   }
