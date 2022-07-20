@@ -52,6 +52,7 @@ public class FileController {
    * Получение файла.
    *
    * @param id идентификатор
+   *
    * @return file файл
    */
   @GetMapping(path = "/{id}")
