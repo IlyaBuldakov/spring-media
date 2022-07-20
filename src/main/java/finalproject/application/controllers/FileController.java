@@ -33,7 +33,7 @@ public class FileController {
 
   @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
   @PostMapping("/api/files")
-  public String uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+  public String uploadFile(@RequestPart("file") MultipartFile file, @RequestPart("task") int task_id, HttpServletRequest request){
     String filename =  StringUtils.cleanPath(file.getOriginalFilename());
     String type = file.getContentType();
     Path path = Paths.get("./src/main/resources/static/files");
