@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AnotherErrorController implements ErrorController {
+public class NotFoundController implements ErrorController {
   @GetMapping("/error")
   public ResponseEntity<FailureDto> anotherError () {
     FailureDto fail = new NotFoundDto(new Failure(Failure.Messages.NOT_FOUND));

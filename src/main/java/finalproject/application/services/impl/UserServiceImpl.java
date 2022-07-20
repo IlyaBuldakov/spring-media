@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public CompletableFuture<Either<Failure, User>> editUser(User user, int id) {
     List<String> problems = new ArrayList<>();
-    if (id <= 1) {
+    if (id < 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.INVALID_VALUES, problems)));
     }
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USERS_EMAIL_IS_ALREADY_EXISTS, problems)));
     }
     if (!repository.existsById(id)) {
-      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USER_NOT_FOUND)));
+      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
     }
     return CompletableFuture.completedFuture(Either.right(repository.save(user)));
   }
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.INVALID_VALUES, problems)));
     }
-    return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USER_NOT_FOUND)));
+    return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
   }
 
   @Async
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
     if (user.isPresent()) {
     return CompletableFuture.completedFuture(Either.right(user.get()));
     }
-    return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USER_NOT_FOUND)));
+    return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
 
   }
 
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
         return CompletableFuture.completedFuture(Either.right(user));
       }
     }
-      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USER_NOT_FOUND)));
+      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
   }
 
   public boolean isEmailExists (String email) {

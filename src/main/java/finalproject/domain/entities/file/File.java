@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.net.URL;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -42,7 +43,7 @@ public class File {
      * Возвращает @return строку пути к файлу.
      */
     @Column
-    private String url;
+    private URL url;
 
   /**
      * Возвращает @return task идентификатор задачи.

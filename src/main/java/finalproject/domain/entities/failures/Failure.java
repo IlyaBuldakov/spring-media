@@ -8,11 +8,14 @@ import java.util.List;
 public class Failure {
   public enum Messages {
     INVALID_VALUES("Введенные данные некорректны"),
-    USER_NOT_FOUND("Пользователь не найден"),
+    ENTITY_NOT_FOUND("Сущность не найдена"),
     INTERNAL_SERVER_ERROR("Ошибка сервера"),
     USERS_EMAIL_IS_ALREADY_EXISTS("Пользователь с таким e-mail уже существует"),
     AUTHORIZATION_FAILURE("Ошибка авторизации"),
-    NOT_FOUND("Страница не найдена");
+    NOT_FOUND("Страница не найдена"),
+    UNACCEPTABLE_FILE_FORMAT("Страница не найдена");
+
+
     final String stringMessage;
     Messages(String stringMessage) {
       this.stringMessage = stringMessage;

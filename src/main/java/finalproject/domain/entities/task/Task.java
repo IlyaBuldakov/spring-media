@@ -12,7 +12,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 @Entity
 @Table(name = "tasks")
@@ -68,13 +68,6 @@ public class Task implements Serializable {
   @Setter
   private User contentMaker;
 
-  /**
-   * Возвращает @return менеджера задачи.
-   */
-  @Column
-  @Getter
-  @Setter
-  private User manager;
 
   /**
    * Возвращает @return LocalDateTime дату создания задачи.

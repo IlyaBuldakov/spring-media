@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 
 @Service
 @AllArgsConstructor
@@ -43,7 +42,12 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public CompletableFuture<Either<Failure, Task>> getTaskById(int id) {
-    return null;
+    if(!taskRepository.existsById(id)) {
+      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+    }
+    if (taskRepository.findById(id).isPresent()) {
+    return CompletableFuture.completedFuture(Either.right(taskRepository.findById(id).get()));}
+    else return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.INTERNAL_SERVER_ERROR)));
   }
 
   @Override
@@ -51,9 +55,6 @@ public class TaskServiceImpl implements TaskService {
     return null;
   }
 
-  @Override
-  public CompletableFuture<Either<Failure, Task>> approveTask(Task task) {
-    return null;
-  }
+
 }
 

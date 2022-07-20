@@ -3,7 +3,7 @@ package finalproject.domain.entities.content;
 /**
  * Форматы контента.
  */
-public enum Format {
+public enum ContentFormat {
   JPG,
   PNG,
   MP3,

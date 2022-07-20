@@ -1,6 +1,6 @@
 package finalproject.domain.entities.content;
 
-import finalproject.domain.entities.user.Role;
+
 import lombok.Getter;
 
 import java.util.HashMap;
