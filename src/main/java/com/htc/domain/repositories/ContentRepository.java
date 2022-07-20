@@ -4,6 +4,8 @@ import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.file.File;
+import com.htc.domain.entities.file.Format;
+import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.file.FileName;
@@ -24,13 +26,15 @@ public interface ContentRepository {
    * @param author автор контента
    * @param previewPath превью контента
    * @param file файл, относящийся к контенту
+   * @param task задача, относящаяся к контенту
    *
    * @return content новый контент, подробнее {@link Content}
    */
   CompletableFuture<Either<Failure, Content>> add(FileName name, Type type, User author,
-                                                  FileUrlPath previewPath, File file);
+                                                  Format format, FileUrlPath previewPath,
+                                                  File file, Task task);
 
-  // +addFile отдельно
+  //TODO +addFile отдельно??
 
   /**
    * Получение контента по идентификатору.
@@ -56,11 +60,13 @@ public interface ContentRepository {
    * @param author автор контента
    * @param previewPath превью контента
    * @param file файл, относящийся к контенту
+   * @param task задача, относящаяся к контенту
    *
-   * @return content новый контент, подробнее {@link Content}
+   * @return content измененный контент, подробнее {@link Content}
    */
   CompletableFuture<Either<Failure, Content>> change(Id id, FileName name, Type type, User author,
-                                                     FileUrlPath previewPath, File file);
+                                                     Format format, FileUrlPath previewPath,
+                                                     File file, Task task);
 
   /**
    * Удаление контента по идентификатору.
