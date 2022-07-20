@@ -7,39 +7,34 @@ import lombok.Getter;
  * Класс, описывающий тип контента.
  */
 @AllArgsConstructor
-public class ContentType {
+public enum ContentType {
 
-    /**
-     * Перечисление типов контента.
-     */
-    public enum Type {
         /**
          * Видео-контент.
          */
-        VIDEO,
+        VIDEO(1, "Видео"),
 
         /**
          * Аудио-контент.
          */
-        AUDIO,
+        AUDIO(2, "Аудио"),
 
         /**
          * Фото-контент.
          */
-        PHOTO
-    }
+        PHOTO(3, "Фото");
 
     /**
      * Идентификатор типа контента.
      *
      * @return Идентификатор типа контента.
      */
-    private @Getter int id;
+    private final @Getter int id;
 
     /**
-     * Наименование (тип) контента.
+     * Наименование контента.
      *
      * @return Наименование контента.
      */
-    private @Getter Type name;
+    private final @Getter String name;
 }

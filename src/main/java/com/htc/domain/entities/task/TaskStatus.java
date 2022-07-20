@@ -7,39 +7,34 @@ import lombok.Getter;
  * Класс, описывающий статус задачи.
  */
 @AllArgsConstructor
-public class TaskStatus {
+public enum TaskStatus {
 
-    /**
-     * Перечисление возможных статусов задачи.
-     */
-    public enum Status {
         /**
          * В работе.
          */
-        IN_WORK,
+        IN_WORK(1, "В работе"),
 
         /**
          * Ожидает согласования.
          */
-        FEEDBACK,
+        FEEDBACK(2, "Ожидает согласования"),
 
         /**
          * Выполнено.
          */
-        APPROVED
-    }
+        APPROVED(3, "Выполнено");
 
     /**
      * Идентификатор статуса задачи.
      *
      * @return Идентификатор статуса задачи.
      */
-    private @Getter int id;
+    private final @Getter int id;
 
     /**
      * Название статуса задачи.
      *
      * @return Название статуса задачи.
      */
-    private @Getter Status name;
+    private final @Getter String name;
 }
