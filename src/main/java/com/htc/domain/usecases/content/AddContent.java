@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий добавления нового контента.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class AddContent implements UseCase<AddContent.Params, Content> {
   /**

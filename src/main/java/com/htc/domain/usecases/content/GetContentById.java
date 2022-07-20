@@ -10,11 +10,12 @@ import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения контента по его идентификатору.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class GetContentById implements UseCase<GetContentById.Params, Content> {
   /**
