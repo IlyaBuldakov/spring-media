@@ -7,6 +7,7 @@ import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.file.Format;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
@@ -23,6 +24,7 @@ public interface ContentRepository {
    *
    * @param name наименование контента
    * @param type тип контента
+   * @param dateCreated дата создания
    * @param author автор контента
    * @param previewPath превью контента
    * @param file файл, относящийся к контенту
@@ -30,7 +32,8 @@ public interface ContentRepository {
    *
    * @return content новый контент, подробнее {@link Content}
    */
-  CompletableFuture<Either<Failure, Content>> add(FileName name, Type type, User author,
+  CompletableFuture<Either<Failure, Content>> add(FileName name, Type type,
+                                                  DateCreated dateCreated, User author,
                                                   Format format, FileUrlPath previewPath,
                                                   File file, Task task);
 
@@ -57,6 +60,7 @@ public interface ContentRepository {
    * @param id идентификатор контента
    * @param name наименование контента
    * @param type тип контента
+   * @param dateCreated дата создания
    * @param author автор контента
    * @param previewPath превью контента
    * @param file файл, относящийся к контенту
@@ -64,7 +68,8 @@ public interface ContentRepository {
    *
    * @return content измененный контент, подробнее {@link Content}
    */
-  CompletableFuture<Either<Failure, Content>> change(Id id, FileName name, Type type, User author,
+  CompletableFuture<Either<Failure, Content>> change(Id id, FileName name, Type type,
+                                                     DateCreated dateCreated, User author,
                                                      Format format, FileUrlPath previewPath,
                                                      File file, Task task);
 

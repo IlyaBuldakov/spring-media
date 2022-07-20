@@ -6,6 +6,7 @@ import com.htc.domain.entities.failures.InvalidValueParam;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.task.Task;
+import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.repositories.FileRepository;
@@ -55,9 +56,13 @@ public final class AddContent implements UseCase<AddContent.Params, Content> {
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "file not found");
     }
+    var dateCreated = DateCreated.create();
+    if (dateCreated.isLeft()) {
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date created");
+    }
     //TODO проверять на null??
     return failure.getValues().size() == 0
-            ? repository.add(task.getName(), task.getType(), task.getAuthor(),
+            ? repository.add(task.getName(), task.getType(), dateCreated.get(), task.getAuthor(),
             file.getFormat(), file.getFileUrlPath(), file, task)
             : EitherHelper.badLeft(failure);
   }
