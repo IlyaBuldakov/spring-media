@@ -7,6 +7,7 @@ import lombok.Getter;
  */
 public enum InvalidValue implements Failure {
 
+    // Пользователь
     INCORRECT_ID("id", "Некорректное значение идентификатора"),
 
     NEGATIVE_ID("id", "Идентификатор должен быть больше 0"),
@@ -17,7 +18,12 @@ public enum InvalidValue implements Failure {
 
     INCORRECT_EMAIL("email", "Некорректный почтовый адрес"),
 
-    INCORRECT_AVATAR("avatar", "Некорректный аватар");
+    INCORRECT_AVATAR("avatar", "Некорректный аватар"),
+
+    // Задачи
+    INCORRECT_TASKNAME("name", "Некорректное имя задачи"),
+
+    INCORRECT_TASK_DESCRIPTION("description", "Некорректное описание задачи");
 
     InvalidValue(String field, String message) {
         this.field = field;
