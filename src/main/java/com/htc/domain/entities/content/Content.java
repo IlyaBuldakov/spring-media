@@ -1,6 +1,8 @@
 package com.htc.domain.entities.content;
 
 import com.htc.domain.entities.file.File;
+import com.htc.domain.entities.file.Format;
+import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
@@ -44,11 +46,18 @@ public interface Content {
   DateCreated getDateCreated();
 
   /**
-   * Идентификатор {@link com.htc.domain.entities.user.User автора контента}.
+   * Идентификатор {@link User автора контента}.
    *
    * @return id идентификатор автора
    */
   User getAuthor();
+
+  /**
+   * Формат {@link Format контента}.
+   *
+   * @return format формат
+   */
+  Format getFormat();
 
   /**
    * Путь к превью.
@@ -60,9 +69,16 @@ public interface Content {
   FileUrlPath getPreviewPath();
 
   /**
-   * Идентификатор {@link com.htc.domain.entities.file.File файла}.
+   * Идентификатор {@link File файла}.
    *
    * @return id идентификатор файла
    */
   File getFile();
+
+  /**
+   * Идентификатор {@link Task задачи}.
+   *
+   * @return id идентификатор задачи
+   */
+  Task getTask();
 }
