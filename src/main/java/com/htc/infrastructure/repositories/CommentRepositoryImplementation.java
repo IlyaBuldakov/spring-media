@@ -23,8 +23,6 @@ import org.springframework.stereotype.Repository;
 public class CommentRepositoryImplementation implements CommentRepository {
   Comments comments;
 
-  Users  users;
-
   @Override
   public CompletableFuture<Either<Failure, Comment>> add(DateCreated dateCreated,
                                                          User author,
