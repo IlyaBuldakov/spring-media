@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий получения задачи по идентификатору.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class GetTaskById implements UseCase<GetTaskById.Params, Task> {
   /**

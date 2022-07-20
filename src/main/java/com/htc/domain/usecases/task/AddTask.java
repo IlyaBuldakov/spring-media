@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий добавления новой задачи.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class AddTask implements UseCase<AddTask.Params, Task> {
   /**

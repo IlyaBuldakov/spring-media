@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий удаления задачи по идентификатору.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class DeleteTaskById implements UseCase<DeleteTaskById.Params, Void> {
   //TODO каскадное удаление компонентов

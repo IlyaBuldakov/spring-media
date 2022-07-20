@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий получения списка задач.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class GetAllTasks implements UseCase<Void, List<Task>> {
   private final TaskRepository repository;
