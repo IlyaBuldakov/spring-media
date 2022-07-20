@@ -4,12 +4,15 @@ import finalproject.application.services.auth.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 
 @Configuration
@@ -28,14 +31,23 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeHttpRequests(
-                    authz -> authz
-                            .antMatchers("/api/auth/login", "/api/auth/token", "/api/auth/refresh-token",
-                                    "/grade/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
-                            .antMatchers("/content/*", "/files/*").hasAnyAuthority("ADMIN", "CONTENT_MAKER", "MANAGER")
-                            .anyRequest().authenticated()
-                            .and()
-                            .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-            ).build();
+                    authz -> {
+                      authz
+                                .antMatchers("/api/auth/login", "/api/auth/token", "/api/auth/refresh-token",
+                                        "/grade/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
+                                .antMatchers("/content/*", "/files/*").hasAnyAuthority("ADMIN", "CONTENT_MAKER", "MANAGER")
+                                .anyRequest().authenticated()
+                                .and()
+                                .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                    }
+
+            )
+            .authorizeRequests().and().logout()
+              .logoutUrl("/api/auth/logout")
+              .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+              .permitAll()
+            .and()
+            .build();
   }
 
 }
