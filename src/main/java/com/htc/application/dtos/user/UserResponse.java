@@ -14,7 +14,7 @@ public class UserResponse {
    * @return id идентификатор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter long id;
+  private final @Getter Long id;
 
   /**
    * Полное имя.
