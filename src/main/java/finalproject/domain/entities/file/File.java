@@ -1,38 +1,52 @@
 package finalproject.domain.entities.file;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@Entity
+@Getter
+@Setter
 public class File {
 
     /**
      * Возвращает @return id.
      */
-    private @Getter int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     /**
      * Возвращает @return String name название документа.
      */
-    private @Getter String name;
+    @Column
+    private String name;
 
     /**
      * Возвращает @return LocalDateTime dateCreated дату создания документа.
      */
-    private @Getter LocalDateTime dateCreated;
+    @Column
+    private LocalDateTime dateCreated;
 
     /**
      * Возвращает @return Format формат документа.
      */
-    private @Getter Format format;
+    @Column
+    private Format format;
 
     /**
      * Возвращает @return строку пути к файлу.
      */
-    private @Getter String url;
+    @Column
+    private String url;
 
   /**
      * Возвращает @return task идентификатор задачи.
      */
-    private @Getter int taskId;
+    @Column
+    private int taskId;
 }
