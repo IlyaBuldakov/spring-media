@@ -15,7 +15,13 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class GetTaskById implements UseCase<GetTaskById.Params, Task> {
-  public record Params(int id, String key) {}
+  /**
+   * Параметры сценария поиска задачи по идентификатору.
+   *
+   * @param id Идентификатор задачи.
+   * @param idKey Ключ идентификатора задачи.
+   */
+  public record Params(int id, String idKey) {}
 
   private final TaskRepository repository;
 

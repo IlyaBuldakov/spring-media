@@ -14,7 +14,13 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class DeleteTaskById implements UseCase<DeleteTaskById.Params, Void> {
-  public record Params(int id, String key) {}
+  /**
+   * Параметры сценария удаления задачи.
+   *
+   * @param id Идентификатор задачи.
+   * @param idKey Ключ идентификатора задачи.
+   */
+  public record Params(int id, String idKey) {}
 
   private final TaskRepository repository;
 

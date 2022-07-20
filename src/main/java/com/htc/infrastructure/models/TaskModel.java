@@ -144,8 +144,7 @@ public class TaskModel implements Task {
       String name, Content.Type contentType, String description, int[] fileId,
       int authorId, int executorId, LocalDateTime dateCreated, LocalDateTime dateExpired,
       int[] contentsId, int[] commentsId, Status status) {
-    this(
-        Id.create(0).get(), name, contentType, description, fileId, authorId,
+    this(Id.create(0).get(), name, contentType, description, fileId, authorId,
         executorId, dateCreated, dateExpired, contentsId, commentsId, status);
   }
 

@@ -14,6 +14,7 @@ public class ContentsResponse {
    *
    * @return contents Лента контента.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter Collection<Content> contents;
 
   /**
@@ -21,6 +22,7 @@ public class ContentsResponse {
    *
    * @return Количество контента в ленте.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int total;
 
   public ContentsResponse(Collection<Content> contents) {

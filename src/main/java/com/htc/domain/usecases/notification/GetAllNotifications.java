@@ -10,7 +10,6 @@ import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-// TODO Нужно ли делать вывод уведомлений по id пользователя?
 /**
  * Сценарий получения списка всех уведомлений.
  */

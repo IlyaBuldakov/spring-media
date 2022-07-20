@@ -17,6 +17,32 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class UpdateTaskById implements UseCase<UpdateTaskById.Params, Task> {
+  /**
+   * Параметры сценария создания задачи.
+   *
+   * @param name Название задачи.
+   * @param nameKey Ключ названия задачи.
+   * @param type Тип контента.
+   * @param typeKey Ключ типа контента.
+   * @param description Описание задачи.
+   * @param descriptionKey Ключ описания задачи.
+   * @param fileId Идентификаторы файлов.
+   * @param fileIdKey Ключ идентификаторов файлов.
+   * @param authorId Идентификатор автора задачи.
+   * @param authorIdKey Ключ идентификатора автора задачи.
+   * @param executorId Идентификатор исполнителя задачи.
+   * @param executorIdKey Ключ идентификатора исполнителя задачи.
+   * @param dateCreated Дата создания задачи.
+   * @param dateCreatedKey Ключ даты создания задачи.
+   * @param dateExpired Дата окончания задачи.
+   * @param dateExpiredKey Ключ даты окончания задачи.
+   * @param contentsId Идентификаторы контента.
+   * @param contentsIdKey Ключ идентификаторов контента.
+   * @param commentsId Идентификаторы комментариев.
+   * @param commentsIdKey Ключи идентификаторов комментариев.
+   * @param status Статус задачи.
+   * @param statusKey Ключ статуса задачи.
+   */
   public record Params(
       String name, String nameKey,
       Content.Type type, String typeKey,

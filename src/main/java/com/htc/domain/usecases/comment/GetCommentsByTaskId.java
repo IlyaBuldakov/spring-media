@@ -10,9 +10,6 @@ import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-// TODO Реализовать механизм получения комментариев по id задачи
-//  – сейчас все существующие комментарии.
-// TODO Реализовать сортировку комментариев по дате создания.
 /**
  * Сценарий получения комментариев по идентификатору задачи.
  */

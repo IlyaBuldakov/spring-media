@@ -13,6 +13,7 @@ public class CommentResponse {
    *
    * @return id Идентификатор комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -20,6 +21,7 @@ public class CommentResponse {
    *
    * @return dateCreateComment Дата создания комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter LocalDateTime dateCreateComment;
 
   /**
@@ -27,6 +29,7 @@ public class CommentResponse {
    *
    * @return userId Идентификатор пользователя создавшего комментарий.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int userId;
 
   /**
@@ -34,6 +37,7 @@ public class CommentResponse {
    *
    * @return Сообщение комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String message;
 
   /**

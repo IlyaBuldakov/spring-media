@@ -7,22 +7,19 @@ public class CommentRequest {
 
   /**
    * Идентификатор пользователя создавшего комментарий.
-   *
-   * @return Идентификатор пользователя создавшего комментарий.
    */
+  @SuppressWarnings("JavadocDeclaration")
   public int userId;
 
   /**
    * Идентификатор задачи содержащей комментарий.
-   *
-   * @return Идентификатор задачи содержащей комментарий.
    */
+  @SuppressWarnings("JavadocDeclaration")
   public int taskId;
 
   /**
    * Сообщение комментария.
-   *
-   * @return commentMessage Сообщение комментария.
    */
+  @SuppressWarnings("JavadocDeclaration")
   public String commentMessage;
 }
