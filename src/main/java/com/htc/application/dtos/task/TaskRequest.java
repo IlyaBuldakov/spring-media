@@ -1,5 +1,6 @@
 package com.htc.application.dtos.task;
 
+import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.user.User;
 import lombok.Getter;
 
@@ -14,6 +15,16 @@ public class TaskRequest {
    */
   @SuppressWarnings("JavadocDeclaration")
   private @Getter String name;
+
+  /**
+   * Тип.
+   *
+   * @see Type
+   *
+   * @return type тип
+   */
+  @SuppressWarnings("JavadocDeclaration")
+  private @Getter Type type;
 
   /**
    * Описание задачи.
