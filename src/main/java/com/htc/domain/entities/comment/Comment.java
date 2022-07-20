@@ -1,42 +1,39 @@
 package com.htc.domain.entities.comment;
 
 import com.htc.domain.entities.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.time.LocalDate;
 
 /**
- * Класс, описывающий сущность комментария.
+ * Интерфейс, описывающий сущность комментария.
  */
-@AllArgsConstructor
-public class Comment {
+public interface Comment {
 
     /**
      * Идентификатор комментария.
      *
      * @return Идентификатор комментария.
      */
-    private @Getter int id;
+    Integer getId();
 
     /**
      * Дата создания комментария.
      *
      * @return Дата создания.
      */
-    private @Getter LocalDate date;
+    LocalDate getDateCreated();
 
     /**
      * Автор комментария.
      *
      * @return Автор комментария.
      */
-    private @Getter User user;
+    User getAuthor();
 
     /**
      * Содержимое комментария.
      *
      * @return Сообщение комментария.
      */
-    private @Getter String message;
+    String getMessage();
 }

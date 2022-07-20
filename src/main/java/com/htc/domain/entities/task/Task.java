@@ -3,101 +3,98 @@ package com.htc.domain.entities.task;
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
+import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Класс, описывающий задачу.
+ * Интерфейс, описывающий задачу.
  */
-@AllArgsConstructor
-public class Task {
+public interface Task {
 
     /**
      * Идентификатор задачи.
      *
      * @return Идентификатор задачи.
      */
-    private @Getter int id;
+    Integer getId();
 
     /**
      * Название задачи.
      *
      * @return Название задачи.
      */
-    private @Getter String name;
+    String getName();
 
     /**
      * Тип задачи.
      *
      * @return Тип задачи.
      */
-    private @Getter ContentType type;
+    ContentType getType();
 
     /**
      * Описание задачи.
      *
      * @return Описание задачи.
      */
-    private @Getter String description;
+    String getDescription();
 
     /**
      * Приложенные файлы.
      *
      * @return Приложенные файлы.
      */
-    private @Getter File[] files;
+    List<? extends File> getFiles();
 
     /**
      * Автор задачи.
      *
      * @return Автор задачи.
      */
-    private @Getter User author;
+    User getAuthor();
 
     /**
      * Исполнитель задачи.
      *
      * @return Исполнитель задачи.
      */
-    private @Getter User executor;
+    User getExecutor();
 
     /**
      * Дата создания.
      *
      * @return Дата создания.
      */
-    private @Getter LocalDate dateCreated;
+    LocalDate getDateCreated();
 
     /**
      * Дата выполнения.
      *
      * @return Дата выполнения.
      */
-    private @Getter LocalDate dateExpired;
+    LocalDate getDateExpired();
 
     /**
      * Приложенный контент.
      *
      * @return Список с контентом.
      */
-    private @Getter List<Content> contents;
+    List<? extends Content> getContents();
 
     /**
      * Комментарии.
      *
      * @return Список комментариев.
      */
-    private @Getter List<Comment> comments;
+    List<? extends Comment> getComments();
 
     /**
-     * Статус задачи {@link TaskStatus.Status}.
+     * Статус задачи.
      *
      * @return Статус задачи.
      */
-    private @Getter TaskStatus status;
+    TaskStatus getStatus();
 }

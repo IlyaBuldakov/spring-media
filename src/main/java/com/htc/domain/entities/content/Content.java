@@ -1,21 +1,18 @@
 package com.htc.domain.entities.content;
 
 import com.htc.domain.entities.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.time.LocalDate;
 
 /**
- * Класс, описывающий контент.
+ * Интерфейс, описывающий контент.
  */
-@AllArgsConstructor
-public class Content {
+public interface Content {
 
     /**
      * Перечисление форматов контента.
      */
-    public enum Format {
+    enum Format {
         JPG,
 
         PNG,
@@ -37,54 +34,54 @@ public class Content {
      *
      * @return Идентификатор контента.
      */
-    private @Getter int id;
+    Integer getId();
 
     /**
      * Тип контента.
      *
      * @return Тип контента.
      */
-    private @Getter ContentType type;
+    ContentType getType();
 
     /**
      * Название контента.
      *
      * @return Название контента.
      */
-    private @Getter String name;
+    String getName();
 
     /**
      * Дата создания.
      *
      * @return Дата создания.
      */
-    private @Getter LocalDate dateCreated;
+    LocalDate getDateCreated();
 
     /**
      * Автор контента.
      *
      * @return Автор контента.
      */
-    private @Getter User author;
+    User getAuthor();
 
     /**
      * Формат контента {@link Format}.
      *
      * @return Формат контента.
      */
-    private @Getter Format format;
+    Format getFormat();
 
     /**
      * Путь к файлу.
      *
      * @return Путь к файлу.
      */
-    private @Getter String url;
+    String getUrl();
 
     /**
      * Путь к превью.
      *
      * @return Путь к превью.
      */
-    private @Getter String preview;
+    String getPreview();
 }
