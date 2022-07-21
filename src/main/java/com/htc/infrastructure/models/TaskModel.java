@@ -4,6 +4,7 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,6 +27,7 @@ public class TaskModel implements Task {
    */
   @javax.persistence.Id
   @GeneratedValue
+  @Column(name = "task_id")
   private Integer taskId;
 
   @Override
@@ -86,11 +88,25 @@ public class TaskModel implements Task {
   /**
    * Статус задачи.
    */
+  @Enumerated(EnumType.STRING)
   private @Getter Status status;
 
   protected TaskModel() {
   }
 
+  /**
+   * Создает модель задачи.
+   *
+   * @param id Индентификатор задачи.
+   * @param name Название задачи.
+   * @param contentType Тип контента.
+   * @param description Описание задачи.
+   * @param author Пользователь - автор задачи.
+   * @param executor Пользователь - исполнитель задачи.
+   * @param dateCreated Дата создания задачи.
+   * @param dateExpired Дата окончания срока выполнеия задачи.
+   * @param status Статус задачи.
+   */
   public TaskModel(Id id, Name name, Content.Type contentType, Description description,
                    UserModel author, UserModel executor,
                    LocalDateTime dateCreated, LocalDateTime dateExpired,
