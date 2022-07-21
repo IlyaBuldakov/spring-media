@@ -1,7 +1,6 @@
 package com.htc.domain.usecases.notification;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.notifications.Notification;
 import com.htc.domain.repositories.NotificationRepository;
@@ -9,7 +8,6 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
-import javax.persistence.Column;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -42,14 +40,14 @@ public class CreateNotification implements UseCase<CreateNotification.Params, No
   @Override
   public CompletableFuture<Either<Failure, Notification>> execute(
           CreateNotification.Params params) {
-    var messeage = Notification.Message.create(params.message);
+    var message = Notification.Message.create(params.message);
 
     var userId = Id.create(params.userId);
     var taskId = Id.create(params.taskId);
     return repository.create(
             params.type,
             params.date,
-            messeage.get(),
+            message.get(),
             userId.get(),
             taskId.get());
   }
