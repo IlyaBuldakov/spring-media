@@ -1,21 +1,28 @@
 package com.htc.domain.repositories;
 
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.comments.Comment;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.tasks.Task;
 import io.vavr.control.Either;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий комментариев.
  */
 public interface CommentRepository {
+
   /**
    * Созает комментарий.
    *
-   * @param comment Комментарий.
+   * @param user    Пользователь - автор комментария.
+   * @param task    Задача связаня с комментарием.
+   * @param message Собщение комментария.
+   * @return Ошибка или комментарий.
    */
-
-  CompletableFuture<Either<Failure, Comment>> create(Comment comment);
+  CompletableFuture<Either<Failure, Comment>> create(
+          Id user, Id task, Comment.Message message);
 
   /**
    * Обновляет комментарий.
@@ -29,20 +36,12 @@ public interface CommentRepository {
    *
    * @param id Идентификатор контента.
    */
-  CompletableFuture<Either<Failure, Void>> delete(int id);
-
-  /**
-   * Получает комментарий.
-   *
-   * @param id Идентификатор комментария.
-   * @return Комментарий.
-   */
-  CompletableFuture<Either<Failure, Comment>> get(int id);
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 
   /**
    * Получает список всего комментариев.
    *
    * @return Список комментарев.
    */
-  CompletableFuture<Either<Failure, Iterable<Comment>>> getAll();
+  CompletableFuture<Either<Failure, Collection<Comment>>> getAllByTask(Task task);
 }
