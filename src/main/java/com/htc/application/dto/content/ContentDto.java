@@ -75,11 +75,11 @@ public class ContentDto {
   public ContentDto(Content content) {
     this.id = content.getId().getValue();
     this.type = new ContentTypeDto(content.getType());
-    this.name = content.getName();
+    this.name = content.getName().getValue();
     this.dateCreated = content.getDateCreated();
     this.author = new UserShortResponse(content.getAuthor());
     this.format = content.getFormat().name();
     this.url = content.getUrl().getValue();
-    this.preview = content.getPreview();
+    this.preview = content.getPreview().getValue();
   }
 }

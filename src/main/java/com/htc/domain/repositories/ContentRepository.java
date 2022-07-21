@@ -1,8 +1,10 @@
 package com.htc.domain.repositories;
 
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -29,7 +31,7 @@ public interface ContentRepository {
    *
    * @param id Идентификатор контента.
    */
-  CompletableFuture<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 
   /**
    * Получает контент.
@@ -37,12 +39,12 @@ public interface ContentRepository {
    * @param id Идентификатор контента.
    * @return Контент.
    */
-  CompletableFuture<Either<Failure, Content>> get(int id);
+  CompletableFuture<Either<Failure, Content>> get(Id id);
 
   /**
    * Получает список всего контента.
    *
    * @return Список контента.
    */
-  CompletableFuture<Either<Failure, Iterable<Content>>> getAll();
+  CompletableFuture<Either<Failure, Collection<Content>>> getAll();
 }
