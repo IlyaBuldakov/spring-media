@@ -1,20 +1,34 @@
 package com.htc.domain.repositories;
 
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.notifications.Notification;
 import io.vavr.control.Either;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий уведомление.
  */
 public interface NotificationRepository {
+
   /**
-   * Созает уведомление.
+   * Создает уведомление.
    *
-   * @param notification Уведомление.
+   * @param type Тип уведомления.
+   * @param date Дата создания уведомления.
+   * @param message Сообщение уведомления
+   * @param userId Пользователь связаный с уведомлением.
+   * @param taskId Задача связанная с уведомлением
+   * @return Ошибку или уведомление.
    */
-  CompletableFuture<Either<Failure, Notification>> create(Notification notification);
+  CompletableFuture<Either<Failure, Notification>> create(
+          Notification.Type type,
+          LocalDateTime date,
+          Notification.Message message,
+          Id userId,
+          Id taskId);
 
   /**
    * Обновляет уведомление.
@@ -28,7 +42,7 @@ public interface NotificationRepository {
    *
    * @param id Идентификатор Уведомления.
    */
-  CompletableFuture<Either<Failure, Void>> delete(int id);
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 
   /**
    * Получает уведомление.
@@ -36,12 +50,12 @@ public interface NotificationRepository {
    * @param id Идентификатор уведомления.
    * @return Уведомление.
    */
-  CompletableFuture<Either<Failure, Notification>> get(int id);
+  CompletableFuture<Either<Failure, Notification>> get(Id id);
 
   /**
    * Получает список всех уведомлений.
    *
    * @return Список уведомлений.
    */
-  CompletableFuture<Either<Failure, Iterable<Notification>>> getAll();
+  CompletableFuture<Either<Failure, Collection<Notification>>> getAllByUser();
 }
