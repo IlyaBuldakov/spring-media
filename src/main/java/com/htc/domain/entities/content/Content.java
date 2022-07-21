@@ -3,76 +3,74 @@ package com.htc.domain.entities.content;
 import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.InvalidValue;
-import com.htc.domain.entities.files.File;
 import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
-import java.net.URL;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
 /**
- * Контент.
+ * Медиаконтент.
  */
 public interface Content {
 
   /**
-   * Индентификатор контента.
+   * Индентификатор медиаконтента.
    *
-   * @return Индентификатор контента.
+   * @return Индентификатор медиаконтента.
    */
   Id getId();
 
   /**
-   * Тип контента.
+   * Тип медиаконтента.
    *
-   * @return Тип контента.
+   * @return Тип медиаконтента.
    */
   Type getType();
 
   /**
-   * Наименование контента.
+   * Наименование медиаконтента.
    *
-   * @return Наименование контента.
+   * @return Наименование медиаконтента.
    */
-  String getName();
+  Name getName();
 
   /**
-   * Дата загрузки контента.
+   * Дата загрузки медиаконтента.
    *
-   * @return Дата загрузки контента.
+   * @return Дата загрузки медиаконтента.
    */
   LocalDateTime getDateCreated();
 
   /**
-   * Пользователь - автор контента.
+   * Пользователь - автор медиаконтента.
    *
-   * @return Пользователь - автор контента.
+   * @return Пользователь - автор медиаконтента.
    */
   User getAuthor();
 
   /**
-   * Формат контента.
+   * Формат медиаконтента.
    *
-   * @return Формат контента.
+   * @return Формат медиаконтента.
    */
   Format getFormat();
 
   /**
-   * Адресс контента.
+   * Адресс медиаконтента.
    *
-   * @return Адресс контента.
+   * @return Адресс медиаконтента.
    */
   Url getUrl();
 
   /**
-   * Превью контента.
+   * Адрес ревью медиаконтента.
    *
-   * @return Превью контента.
+   * @return Адрес превью медиаконтента.
    */
-  String getPreview();
+  Url getPreview();
 
   /**
-   * Расширение файла контента.
+   * Расширение файла медиаконтента.
    */
   enum Format {
     JPG,
@@ -85,7 +83,7 @@ public interface Content {
   }
 
   /**
-   * Тип контента.
+   * Тип медиаконтента.
    */
 
   enum Type {
@@ -102,17 +100,17 @@ public interface Content {
      */
     AUDIO(3, "Аудио");
     /**
-     * Идентификатор типа контента.
+     * Идентификатор типа медиаконтента.
      *
-     * @return id Идентификатор типа контента.
+     * @return id Идентификатор типа медиаконтента.
      */
     @SuppressWarnings("JavadocDeclaration")
     private final @Getter int id;
 
     /**
-     * Наименование типа контента.
+     * Наименование типа медиаконтента.
      *
-     * @return Наименование типа контента.
+     * @return Наименование типа медиаконтента.
      */
     @SuppressWarnings("JavadocDeclaration")
     private final @Getter String name;
@@ -123,6 +121,25 @@ public interface Content {
     }
   }
 
+  /**
+   * Имя файла.
+   */
+  final class Name extends Attribute<String> {
+    /**
+     * Создаёт имя файла.
+     *
+     * @param value Входные данные.
+     * @return Имя файла или ошибка.
+     */
+    public static Either<InvalidValue, Content.Name> create(String value) {
+      var contentName = new Content.Name(value);
+      return Either.right(contentName);
+    }
+
+    private Name(String value) {
+      super(value);
+    }
+  }
 
   /**
    * Адресс файла.
@@ -132,7 +149,7 @@ public interface Content {
      * Создаёт адресс файла.
      *
      * @param value Входные данные.
-     * @return адресс файла или ошибка.
+     * @return Адресс файла или ошибка.
      */
     public static Either<InvalidValue, Content.Url> create(String value) {
       var contentUrl = new Content.Url(value);
