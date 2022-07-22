@@ -30,6 +30,11 @@ public class UserDto extends UserBasicDto {
    */
   private final @Getter RoleDto role;
 
+  /**
+   * Конструктор представления пользователя.
+   *
+   * @param user - пользователь.
+   */
   public UserDto(User user) {
     super(user.getId(), user.getName());
     this.email = user.getEmail();

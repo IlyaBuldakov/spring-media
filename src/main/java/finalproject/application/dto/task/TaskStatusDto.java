@@ -3,6 +3,9 @@ package finalproject.application.dto.task;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * DTO-представление статуса задачи.
+ */
 @AllArgsConstructor
 public class TaskStatusDto {
   /**

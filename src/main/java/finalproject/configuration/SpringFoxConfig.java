@@ -36,8 +36,6 @@ public class SpringFoxConfig {
   private ApiInfo apiInform() {
     return new ApiInfoBuilder()
             .title("Система создания медиаконтента")
-            .description("work in progress")
-            .termsOfServiceUrl("https://miro.medium.com/max/1400/1*ovB7iwrwZL8gqVzW0E1kNQ.jpeg")
             .version("1.0")
             .build();
   }

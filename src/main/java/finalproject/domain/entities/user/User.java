@@ -5,12 +5,15 @@ package finalproject.domain.entities.user;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.utils.Validators;
 import io.vavr.control.Either;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 
 
@@ -23,7 +26,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
   @Id
-  @GeneratedValue (strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
   @Setter
   int id;
@@ -31,7 +34,7 @@ public class User implements Serializable {
   /**
    * Электронная почта пользователя.
    *
-   * @return id Электронная почта пользователя.
+   * @return email Электронная почта пользователя.
    */
   @Setter
   @Getter
@@ -78,7 +81,19 @@ public class User implements Serializable {
   private Role role;
 
   public User() {}
-  public static Either<Failure, User> create(String email, String name, String avatar, String password, Role role) {
+
+  /**
+   * Конструктор Пользователя.
+   *
+   * @param email email пользователя
+   * @param name Имя пользователя
+   * @param avatar Изображение пользователя
+   * @param password Пароль пользователя
+   * @param role Роль пользователя
+   * @return User Пользователя
+   */
+  public static Either<Failure, User> create(String email, String name,
+                                             String avatar, String password, Role role) {
     User user = new User();
     Validators validators = new Validators();
     validators.validateEmail(email);
@@ -93,23 +108,11 @@ public class User implements Serializable {
       user.role = role;
       return Either.right(user);
     }
-      return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.problems));
-    }
+    return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.problems));
   }
-
-
-   // Validate.isTrue(Base64.isBase64(avatar), "Invalid avatar");
+}
 
 
 
-//  public static Either<Failure, User> createRandomFakeUser() {
-//
-//    String email = faker.internet().emailAddress();
-//    String password = faker.lorem().characters(5, 17) + "1Aa";
-//    String name = faker.name().fullName();
-//    Role role = Role.values()[(int) (Math.random() * 3)];
-//    String avatar = faker.lorem().fixedString(64);
-//    return create(email, name, avatar, password, role);
-//  }
 
 

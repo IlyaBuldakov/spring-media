@@ -10,15 +10,22 @@ import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
-import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер для операций с Пользователями.
+ */
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/users")
@@ -28,25 +35,35 @@ public class UserController {
   AuthService authService;
 
 
-  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping("/hello")
   public String helloAdmin() throws ExecutionException, InterruptedException {
-    return userService.getUserById(authService.getId()).thenApply(either -> either.get()).get().getName();
+    return userService.getUserById(authService.getId())
+            .thenApply(either -> either.get()).get().getName();
   }
-  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
   @GetMapping
   public CompletableFuture<List<UserDto>> getUsers() {
-    return userService.getAllUsers().thenApply(either -> either.get().stream().map(UserDto::new).toList());
+    return userService.getAllUsers()
+            .thenApply(either -> either.get().stream().map(UserDto::new).toList());
   }
 
-  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  /**Оработка запроса на создание пользователя..
+   *
+   * @param userdata представление запроса создания пользователя.
+   *
+   */
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping
-  public CompletableFuture<UserDto> createUser(@RequestBody UserRequestDto userdata) {
+  public CompletableFuture<UserDto> createUser(
+          @RequestBody UserRequestDto userdata) {
     User user = User
-            .create(userdata.getEmail(), userdata.getName(), userdata.getAvatar(), userdata.getPassword(),
+            .create(userdata.getEmail(), userdata.getName(),
+                    userdata.getAvatar(), userdata.getPassword(),
                     Role.getRoleByName(userdata.getRole()))
             .getOrElseThrow(failure -> new BadRequestDto(failure));
     return userService
@@ -55,13 +72,20 @@ public class UserController {
             .thenApply(UserDto::new);
   }
 
-  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  /**Обработка запроса на изменение данных пользователя.
+   *
+   * @param id - id пользователя
+   * @param userdata - представление запроса пользователя
+   */
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("/{id}")
-  public CompletableFuture<UserDto> editUser(@PathVariable int id, @RequestBody UserRequestDto userdata) {
+  public CompletableFuture<UserDto> editUser(@PathVariable int id,
+                                             @RequestBody UserRequestDto userdata) {
 
     User updatedUser = User
-            .create(userdata.getEmail(), userdata.getName(), userdata.getAvatar(), userdata.getPassword(),
+            .create(userdata.getEmail(), userdata.getName(),
+                    userdata.getAvatar(), userdata.getPassword(),
                     Role.getRoleByName(userdata.getRole()))
             .getOrElseThrow(failure -> new BadRequestDto(failure));
     updatedUser.setId(id);
@@ -74,7 +98,12 @@ public class UserController {
             })).thenApply(UserDto::new);
   }
 
-  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  /**Получение пользователя.
+   *
+   * @param id - id пользователя
+   * @return userDro представление пользователя
+   */
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping("/{id}")
   public CompletableFuture<UserDto> getUser(@PathVariable int id) {
@@ -88,7 +117,11 @@ public class UserController {
       .thenApply(UserDto::new);
   }
 
-  @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+  /**Обработка запроса на удаление пользователя.
+   *
+   * @param id - id пользователя
+   */
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {

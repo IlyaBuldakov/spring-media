@@ -10,7 +10,6 @@ import io.jsonwebtoken.Claims;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,8 @@ public final class AuthorizeService {
    */
 
 
-  public AuthLoginResponseDto login(@NonNull AuthLoginRequestDto authRequest) throws ExecutionException, InterruptedException {
+  public AuthLoginResponseDto login(@NonNull AuthLoginRequestDto authRequest)
+          throws ExecutionException, InterruptedException {
     final User user = userService.getUserByEmail(authRequest.getEmail()).thenApply(either ->
             either.getOrElseThrow(NotAuthorizedDto::new)).get();
     if (user.getPassword().equals(authRequest.getPassword())) {
@@ -54,7 +54,8 @@ public final class AuthorizeService {
    * @param refreshToken - refresh токен
    * @return access token, refresh token
    */
-  public AuthLoginResponseDto refresh(@NonNull String refreshToken) throws ExecutionException, InterruptedException {
+  public AuthLoginResponseDto refresh(@NonNull String refreshToken)
+          throws ExecutionException, InterruptedException {
     if (jwtProvider.validateRefreshToken(refreshToken)) {
       final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
       final String email = claims.getSubject();

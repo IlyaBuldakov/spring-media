@@ -2,12 +2,14 @@ package finalproject.application.dto.task;
 
 import finalproject.application.dto.content.ContentTypeDto;
 import finalproject.application.dto.user.UserDto;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
+/**
+ * Представление задачи для списка задач.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskListDto extends TaskBasicDto {
@@ -32,6 +34,16 @@ public class TaskListDto extends TaskBasicDto {
    */
   private @Getter TaskStatusDto status;
 
+  /**
+   * Конструктор представления задачи для списка задач.
+   *
+   * @param id идентификатор
+   * @param name имя
+   * @param type тип контента
+   * @param executor исполнитель / контент-менеджер
+   * @param dateExpired дата выполнения
+   * @param status статус задачи
+   */
   public TaskListDto(int id, String name, ContentTypeDto type, UserDto executor,
                      LocalDateTime dateExpired, TaskStatusDto status) {
     super(id, name);

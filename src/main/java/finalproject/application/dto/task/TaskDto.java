@@ -5,9 +5,7 @@ import finalproject.application.dto.content.ContentDto;
 import finalproject.application.dto.content.ContentTypeDto;
 import finalproject.application.dto.file.FileDto;
 import finalproject.application.dto.user.UserDto;
-
 import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,8 +49,26 @@ public class TaskDto extends TaskListDto {
    */
   private @Getter CommentDto[] comments;
 
-  public TaskDto(int id, String name, ContentTypeDto type, UserDto executor, LocalDateTime dateExpired,
-                 TaskStatusDto status, String description, FileDto[] files, UserDto author, LocalDateTime dateCreated,
+  /**
+   * DTO задачи.
+   *
+   * @param id Идентификатор задачи
+   * @param name Имя
+   * @param type Тип контента
+   * @param executor Исполнитель / контент/менеджер
+   * @param dateExpired Дата выполнения
+   * @param status Статус задачи
+   * @param description Описание задачи
+   * @param files Файлы задачи
+   * @param author Инициатор / менеджер задачи
+   * @param dateCreated Дата создания задачи
+   * @param contents Контент
+   * @param comments Комментарии к задаче
+   */
+  public TaskDto(int id, String name, ContentTypeDto type, UserDto executor,
+                 LocalDateTime dateExpired,
+                 TaskStatusDto status, String description, FileDto[] files, UserDto author,
+                 LocalDateTime dateCreated,
                  ContentDto[] contents, CommentDto[] comments) {
     super(id, name, type, executor, dateExpired, status);
     this.description = description;

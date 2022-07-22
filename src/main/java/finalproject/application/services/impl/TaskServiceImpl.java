@@ -5,13 +5,15 @@ import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.task.Task;
 import finalproject.infrastructure.repositories.TaskRepository;
 import io.vavr.control.Either;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
+/**
+ * Реализация сервиса для работы с задачами.
+ */
 @Service
 @AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
@@ -25,8 +27,6 @@ public class TaskServiceImpl implements TaskService {
   @Async
   @Override
   public CompletableFuture<Either<Failure, Task>> createNewTask(Task task) {
-
-
     return CompletableFuture.completedFuture(Either.right(taskRepository.save(task)));
   }
 
@@ -42,12 +42,16 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public CompletableFuture<Either<Failure, Task>> getTaskById(int id) {
-    if(!taskRepository.existsById(id)) {
-      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+    if (!taskRepository.existsById(id)) {
+      return CompletableFuture.completedFuture(
+              Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
     }
     if (taskRepository.findById(id).isPresent()) {
-    return CompletableFuture.completedFuture(Either.right(taskRepository.findById(id).get()));}
-    else return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.INTERNAL_SERVER_ERROR)));
+      return CompletableFuture.completedFuture(Either.right(taskRepository.findById(id).get()));
+    } else {
+      return CompletableFuture.completedFuture(
+              Either.left(new Failure(Failure.Messages.INTERNAL_SERVER_ERROR)));
+    }
   }
 
   @Override
