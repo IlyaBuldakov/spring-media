@@ -1,4 +1,4 @@
-package com.htc.application.controllers.user;
+package com.htc.application.controllers;
 
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;

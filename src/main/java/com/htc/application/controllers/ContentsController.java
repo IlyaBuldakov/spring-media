@@ -1,4 +1,4 @@
-package com.htc.application.controllers.contents;
+package com.htc.application.controllers;
 
 import com.htc.application.dto.content.ContentResponse;
 import com.htc.application.services.ContentsService;

@@ -1,4 +1,4 @@
-package com.htc.application.controllers.task;
+package com.htc.application.controllers;
 
 import com.htc.application.dto.task.TaskRequest;
 import com.htc.application.dto.task.TaskResponse;

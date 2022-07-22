@@ -1,4 +1,4 @@
-package com.htc.application.controllers.file;
+package com.htc.application.controllers;
 
 import com.htc.application.services.FilesService;
 import lombok.AllArgsConstructor;
