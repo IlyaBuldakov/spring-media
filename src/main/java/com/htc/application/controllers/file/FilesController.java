@@ -27,6 +27,7 @@ public class FilesController {
     }
 
     @DeleteMapping("/{id}")
+    @Async
     public CompletableFuture<Void> deleteFile(@PathVariable("id") String fileId) {
         return filesService.deleteFile(fileId);
     }
