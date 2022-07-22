@@ -5,6 +5,7 @@ import finalproject.domain.entities.user.Role;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -23,7 +24,6 @@ import java.util.Collections;
   @RequiredArgsConstructor
   public class JwtFilter extends GenericFilterBean {
 
-    private static final String AUTHORIZATION = "Authorization";
 
     private final JwtProvider jwtProvider;
 
@@ -44,7 +44,7 @@ import java.util.Collections;
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
-      final String bearer = request.getHeader(AUTHORIZATION);
+      final String bearer = request.getHeader(HttpHeaders.AUTHORIZATION);
       if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
         return bearer.substring(7);
       }
