@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-
+/**
+ * Ошбий класс DTO исключений, возвращающихся при перехвате Runtime Exception.
+ */
 @JsonIgnoreProperties(value = {"cause", "stackTrace", "suppressed", "localizedMessage" })
 public class FailureDto extends RuntimeException {
 
@@ -19,7 +21,12 @@ public class FailureDto extends RuntimeException {
   @Getter
   String message;
 
-
+  /**
+   * Конструктор DTO.
+   *
+   * @param status - HTTP статус ошибки
+   * @param failure - Ошибки, из-за которых выбрасывается исключение.
+   */
   public FailureDto(HttpStatus status, Failure failure) {
     this.status = status;
     this.message = failure.getMessage();

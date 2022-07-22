@@ -7,7 +7,7 @@ import finalproject.application.services.FileStorageService;
 import finalproject.domain.entities.content.ContentFormat;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.file.File;
-import finalproject.domain.repositories.TaskRepository;
+import finalproject.infrastructure.repositories.TaskRepository;
 import io.vavr.control.Either;
 import java.nio.file.Path;
 import java.nio.file.Paths;

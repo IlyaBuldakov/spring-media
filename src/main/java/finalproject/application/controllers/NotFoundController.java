@@ -8,10 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Контроллер для страницы 404.
+ */
 @Controller
 public class NotFoundController implements ErrorController {
   @GetMapping("/error")
-  public ResponseEntity<FailureDto> anotherError () {
+  public ResponseEntity<FailureDto> notFoundError() {
     FailureDto fail = new NotFoundDto(new Failure(Failure.Messages.NOT_FOUND));
     return new ResponseEntity<>(fail, fail.getStatus());
   }

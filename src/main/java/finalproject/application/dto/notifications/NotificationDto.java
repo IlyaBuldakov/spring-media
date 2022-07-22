@@ -2,9 +2,7 @@ package finalproject.application.dto.notifications;
 
 import finalproject.application.dto.task.TaskBasicDto;
 import finalproject.application.dto.user.UserBasicDto;
-
 import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

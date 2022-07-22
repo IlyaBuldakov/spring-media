@@ -11,7 +11,7 @@ public class NotFoundDto extends FailureDto {
 
 
   public NotFoundDto(Failure failure) {
-    super (HttpStatus.NOT_FOUND, failure);
+    super(HttpStatus.NOT_FOUND, failure);
 
   }
 

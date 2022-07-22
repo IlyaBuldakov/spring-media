@@ -2,13 +2,16 @@ package finalproject.application.services.impl;
 
 
 import finalproject.application.services.FileStorageService;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
+/**
+ * Сервис для хранения Файлов и Контента.
+ */
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
 
@@ -22,13 +25,13 @@ public class FileStorageServiceImpl implements FileStorageService {
 
 
     try {
-    if (!Files.exists(path)) {
-      Files.createDirectory(path);
+      if (!Files.exists(path)) {
+        Files.createDirectory(path);
       }
-    Files.copy(file.getInputStream(), path.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
-    return true;
-    }
-    catch (Exception e) {
+      Files.copy(file.getInputStream(), path.resolve(filename),
+              StandardCopyOption.REPLACE_EXISTING);
+      return true;
+    } catch (Exception e) {
       return false;
     }
 

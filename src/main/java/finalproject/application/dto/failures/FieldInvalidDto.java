@@ -15,6 +15,11 @@ public class FieldInvalidDto {
   @Getter
   String message;
 
+  /**
+   * Конструктор ошибки некорректного заполнения поля запроса.
+   *
+   * @param field Поле, содержащее некорректное значение.
+   */
   public FieldInvalidDto(String field) {
     this.field = field;
     this.message = switch (field) {

@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 
 public class InternalServerErrorDto extends FailureDto {
 
-  public InternalServerErrorDto (Failure failure) {
-    super (HttpStatus.INTERNAL_SERVER_ERROR, failure);
+  public InternalServerErrorDto(Failure failure) {
+    super(HttpStatus.INTERNAL_SERVER_ERROR, failure);
   }
 
 }

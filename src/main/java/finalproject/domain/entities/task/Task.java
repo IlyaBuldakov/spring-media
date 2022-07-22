@@ -6,38 +6,43 @@ import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.User;
 import finalproject.utils.Validators;
 import io.vavr.control.Either;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-
+/**
+ * Возвращает @return id идентификатор задачи.
+ */
 @Entity
 @Table(name = "tasks")
 public class Task implements Serializable {
-  /**
-   * Возвращает @return id идентификатор задачи.
-   */
 
 
   @Id
-  @GeneratedValue (strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
   @Setter
   int id;
 
-  /**
-   * Возвращает @return name название задачи.
+  /** Название задачи.
+   *
+   * @return name название задачи.
    */
   @Column
   @Getter
   @Setter
   private String name;
 
-  /**
-   * Возвращает @return type тип контента.
+  /**Тип контента.
+   *
+   * @return type тип контента.
    */
   @Column
   @Getter
@@ -52,16 +57,18 @@ public class Task implements Serializable {
   @Setter
   private String description;
 
-  /**
-   * Возвращает @return автора задачи.
+  /** Автор / инициатор / менеджер задачи.
+   *
+   * @return author автор задачи
    */
   @Column
   @Getter
   @Setter
   private User author;
 
-  /**
-   * Возвращает @return исполнителя задачи.
+  /** Исполнитель задачи / контентмейкер.
+   *
+   * @return contentMaker исполнитель задачи.
    */
   @Column
   @Getter
@@ -69,16 +76,18 @@ public class Task implements Serializable {
   private User contentMaker;
 
 
-  /**
-   * Возвращает @return LocalDateTime дату создания задачи.
+  /**Дата создания задачи.
+   *
+   * @return dateCreated LocalDateTime дату создания задачи.
    */
   @Column
   @Getter
   @Setter
   private LocalDateTime dateCreated;
 
-  /**
-   * Возвращает @return LocalDateTime дату выполнения задачи.
+  /**Дата выполнения задачи.
+   *
+   * @return dateExpired - LocalDateTime дату выполнения задачи.
    */
   @Column
   @Getter
@@ -87,8 +96,9 @@ public class Task implements Serializable {
 
 
 
-  /**
-   * Возвращает @return TaskStatusDto status статус задачи.
+  /**Статус задачи.
+   *
+   * @return taskStatus статус задачи.
    */
   @Column
   @Getter
@@ -97,15 +107,27 @@ public class Task implements Serializable {
 
   public Task() {}
 
-  public static Either<Failure, Task> create (String name, ContentType type, String description, User author,
-                                       User contentMaker, String stingDate) {
-    Task task = new Task();
+  /**
+   * Конструктор сущности "Задача".
+   *
+   * @param name наименование
+   * @param type тип контента
+   * @param description описание
+   * @param author автор / инициатор
+   * @param contentMaker исполнитель
+   * @param stringDate дата завершения задачи
+   * @return task задачу
+   */
+  public static Either<Failure, Task> create(String name, ContentType type,
+                                              String description, User author,
+                                       User contentMaker, String stringDate) {
     Validators validators = new Validators();
     validators.validateNonNullString(name, "name");
     validators.validateNotNull(type, "contentType");
     validators.validateNonNullString(description, "description");
     validators.validateNotNull(contentMaker, "contentMaker");
-    task.dateExpired = validators.validateDateTime(stingDate);
+    Task task = new Task();
+    task.dateExpired = validators.validateDateTime(stringDate);
 
 
     if (validators.problems.size() == 0) {

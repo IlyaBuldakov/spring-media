@@ -12,9 +12,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-
+/**
+ * Конфигурация Spring Security.
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -23,6 +24,12 @@ public class SecurityConfig {
 
   private final JwtFilter jwtFilter;
 
+  /** Настройка цепи фильтров безопасности.
+   *
+   * @param http объект HttpSecurty
+   * @return  SecurityFilterChain цепь фильтров безопасности
+   * @throws Exception Возникающее исключение
+   */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
@@ -31,14 +38,18 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeHttpRequests(
-                    authz -> {
-                      authz
-                                .antMatchers("/api/auth/login", "/api/auth/token", "/api/auth/refresh-token",
-                                        "/grade/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
-                                .antMatchers("/content/*", "/files/*").hasAnyAuthority("ADMIN", "CONTENT_MAKER", "MANAGER")
-                                .anyRequest().authenticated()
+                    auth -> {
+                      auth
+                                .antMatchers("/api/auth/**", "/swagger-ui/**",
+                                        "/v2/api-docs", "/swagger-resources/**")
+                                  .permitAll()
+                                .antMatchers("/content/*", "/files/*")
+                                  .hasAnyAuthority("ADMIN", "CONTENT_MAKER", "MANAGER")
+                                .anyRequest()
+                                  .authenticated()
                                 .and()
-                                .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                                .addFilterAfter(jwtFilter,
+                                        UsernamePasswordAuthenticationFilter.class);
                     }
 
             )

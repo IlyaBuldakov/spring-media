@@ -3,7 +3,7 @@ package finalproject.application.services.impl;
 import finalproject.application.services.TaskService;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.task.Task;
-import finalproject.domain.repositories.*;
+import finalproject.infrastructure.repositories.TaskRepository;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;

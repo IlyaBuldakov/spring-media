@@ -5,7 +5,14 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Общий класс всех ошибок.
+ *
+ */
 public class Failure {
+
+  /**
+   * Перечисление возможных ошибок.
+   */
   public enum Messages {
     INVALID_VALUES("Введенные данные некорректны"),
     ENTITY_NOT_FOUND("Сущность не найдена"),
@@ -17,6 +24,7 @@ public class Failure {
 
 
     final String stringMessage;
+
     Messages(String stringMessage) {
       this.stringMessage = stringMessage;
     }
@@ -38,6 +46,7 @@ public class Failure {
   public Failure(Messages message) {
     this.message = message;
   }
+
   public Failure(Messages message, String[] problems) {
     this.message = message;
     this.problems = problems;

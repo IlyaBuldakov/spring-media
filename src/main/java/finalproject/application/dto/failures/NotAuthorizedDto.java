@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 
 public class NotAuthorizedDto extends FailureDto {
 
-  public NotAuthorizedDto (Failure failure) {
-    super (HttpStatus.UNAUTHORIZED, failure);
+  public NotAuthorizedDto(Failure failure) {
+    super(HttpStatus.UNAUTHORIZED, failure);
   }
 
 }

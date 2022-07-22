@@ -1,4 +1,4 @@
-package finalproject.domain.repositories;
+package finalproject.infrastructure.repositories;
 
 import finalproject.domain.entities.content.Content;
 import org.springframework.data.repository.CrudRepository;

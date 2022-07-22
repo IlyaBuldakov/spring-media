@@ -1,7 +1,7 @@
 //package finalproject.infrastructure;
 //
 //import finalproject.domain.entities.user.User;
-//import finalproject.domain.repositories.UserRepository;
+//import UserRepository;
 //import org.apache.commons.lang3.SerializationUtils;
 //import org.springframework.stereotype.Component;
 //
