@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public final class UploadFile implements UseCase<UploadFile.Params, File> {
+
   /**
    * Параметры сценария загрузки файла.
    *
