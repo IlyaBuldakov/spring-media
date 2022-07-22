@@ -12,7 +12,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -42,5 +44,11 @@ public class FilesRepositoryImpl implements FilesRepository {
             return Either.right(file.get().getUrl());
         }
         return Either.left(NotFound.FILE);
+    }
+
+    @Override
+    public Set<String> findRelevantToTaskFiles(int taskId) {
+        return filesJpaRepository.findFileMappersByTaskId(taskId)
+                .parallelStream().map(FileMapper::getUrl).collect(Collectors.toSet());
     }
 }
