@@ -34,7 +34,7 @@ public class FilesRepositoryImpl implements FilesRepository {
         } catch (EmptyResultDataAccessException exception) {
             return CompletableFuture.completedFuture(Either.left(NotFound.FILE));
         }
-        return null;
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 
     @Override
