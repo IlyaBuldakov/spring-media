@@ -3,7 +3,7 @@ package finalproject.application.controllers;
 import finalproject.application.dto.auth.AuthLoginRequestDto;
 import finalproject.application.dto.auth.AuthLoginResponseDto;
 import finalproject.application.dto.auth.AuthRefreshTokenDto;
-import finalproject.application.services.auth.AuthService;
+import finalproject.application.services.auth.AuthorizeService;
 import java.util.concurrent.ExecutionException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-  private final AuthService authService;
+  private final AuthorizeService authService;
 
   @PostMapping("/login")
   public ResponseEntity<AuthLoginResponseDto> login(@RequestBody AuthLoginRequestDto authRequest)

@@ -16,7 +16,7 @@ public interface UserService {
   CompletableFuture<Either<Failure, Void>> deleteUserById(int id);
   CompletableFuture<Either<Failure, User>> getUserById(int id);
   CompletableFuture<Either<Failure, List<User>>> getAllUsers();
-  Either<Failure, User> getUserByEmail(String email);
+  CompletableFuture<Either<Failure, User>> getUserByEmail(String email);
   boolean isEmailExists (String email);
   boolean anotherUserHasUpdatedEmail (String email, int id);
 

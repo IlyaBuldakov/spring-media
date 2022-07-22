@@ -86,12 +86,13 @@ public class UserServiceImpl implements UserService {
 
   @Async
   @Override
-  public Either<Failure, User> getUserByEmail(String email) {
-
+  public CompletableFuture<Either<Failure, User>> getUserByEmail(String email) {
     if (isEmailExists(email)) {
-    return Either.right(repository.findOneByEmail(email).get());
-    }
-    else return Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND));
+    return CompletableFuture.completedFuture(Either.right(repository.findOneByEmail(email).get()));}
+    else return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+
+
+
   }
 
   public boolean isEmailExists (String email) {
