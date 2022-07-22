@@ -14,15 +14,21 @@
 5. `javax.persistence:javax.persistence-api` - API для работы с JPA. 
 
 Плагины:
-1. `maven-checkstyle-plugin` - проверка кода на соответствие [Google Java Code Style](https://google.github.io/styleguide/javaguide.html).
-2. `maven-compiler-plugin`, `maven-surefire-plugin` и `maven-failsafe-plugin` - запуск тестов на JUnit 5.
-3. `spring-boot-maven-plugin` - плагин фреймворка.
+1. `maven-compiler-plugin`, `maven-surefire-plugin` и `maven-failsafe-plugin` - запуск тестов на JUnit 5.
+2. `spring-boot-maven-plugin` - плагин фреймворка.
 
 Фреймворки:
 1. `spring-boot-starter-web` - REST-контроллеры.
-2. `spring-data-jpa`- пакет для работы с JPA.
+2. `spring-boot-starter-data-jpa`- пакет для работы с JPA.
+3. `spring-boot-starter-data-jpa`- пакет для работы с JPA.
+4. `spring-boot-starter-security`- пакет настроек безопасности. 
+5. `io.jsonwebtoken` - пакеты для работы с jwt-токенами
 
 # Инструкции
+1. Установить переменные окружения DB_login, DB_pass - логин и пароль БД; jwt.secret - 
+строку, зашифрованную с помощью Base64
+2. Запустить docker-compose.yaml
+3. Создать настоящего пользователя и удалить дефолтного
 # Java
 
 ## Сборка проекта
