@@ -18,6 +18,26 @@ public class ValuesValidator {
     private static final String BASE64_REGEX = "^([A-Za-z\\d+/]{4})*([A-Za-z\\d+/]{4}|[A-Za-z\\d+/]{3}=|[A-Za-z\\d+/]{2}==)?$";
 
     /**
+     * Метод валидации идентификатора типа String.
+     *
+     * @param id Идентификатор.
+     * @return {@link InvalidValuesContainer} - контейнер с ошибками {@link InvalidValue}.
+     */
+    public static InvalidValuesContainer validateStringId(String id) {
+        InvalidValuesContainer invalidValues = new InvalidValuesContainer();
+        IntegerValidator integerValidator = IntegerValidator.getInstance();
+        if (!integerValidator.isValid(id)) {
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_ID);
+            return invalidValues;
+        }
+        int paramToInt = Integer.parseInt(id);
+        if (!integerValidator.minValue(paramToInt, 1)) {
+            invalidValues.addInvalidValue(InvalidValue.NEGATIVE_ID);
+        }
+        return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
+    }
+
+    /**
      * Метод валидации всех полей пользователя.
      *
      * @param id       Идентификатор.
@@ -71,22 +91,21 @@ public class ValuesValidator {
         return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
     }
 
-    /**
-     * Метод валидации идентификатора типа String.
-     *
-     * @param id Идентификатор.
-     * @return {@link InvalidValuesContainer} - контейнер с ошибками {@link InvalidValue}.
-     */
-    public static InvalidValuesContainer validateStringId(String id) {
+    public static InvalidValuesContainer checkTaskFields(String name, String description, String authorId, String executorId) {
         InvalidValuesContainer invalidValues = new InvalidValuesContainer();
-        IntegerValidator integerValidator = IntegerValidator.getInstance();
-        if (!integerValidator.isValid(id)) {
-            invalidValues.addInvalidValue(InvalidValue.INCORRECT_ID);
-            return invalidValues;
+        var validateAuthor = validateStringId(authorId);
+        var validateExecutor = validateStringId(executorId);
+        if (validateAuthor != null) {
+            invalidValues.merge(validateAuthor);
         }
-        int paramToInt = Integer.parseInt(id);
-        if (!integerValidator.minValue(paramToInt, 1)) {
-            invalidValues.addInvalidValue(InvalidValue.NEGATIVE_ID);
+        if (validateExecutor != null) {
+            invalidValues.merge(validateExecutor);
+        }
+        if (name.length() <= 0 || name.length() > 255) {
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_TASKNAME);
+        }
+        if (description.length() <= 10) {
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_TASK_DESCRIPTION);
         }
         return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
     }
