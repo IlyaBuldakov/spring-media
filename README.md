@@ -16,6 +16,8 @@ Swagger
 
 Работа с данными:
 1. `org.postgresql:postgresql` – драйвер PostgreSQL для Spring Data.
+2. `org.apache.tika:tika-core` – библиотека для работы с файлами Apache Tika.
+3. `org.apache.tika:tika-parsers` – модуль парсинга для Apache Tika.
 
 Разное:
 1. `org.projectlombok:lombok` – полезные аннотации.

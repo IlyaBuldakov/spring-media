@@ -4,6 +4,12 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/spec/v2.0.0.html).
 
+## [v0.15.0] - 2022-07-22
+
+### Добавлено
+1. Библиотека для работы с файлами Apache Tika.
+
+
 ## [v0.14.0] - 2022-07-18
 
 ### Добавлено
@@ -227,3 +233,4 @@
 [v0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.11.0...yaroslav.tarakanov-v0.12.0
 [v0.13.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.12.0...yaroslav.tarakanov-v0.13.0
 [v0.14.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.13.0...yaroslav.tarakanov-v0.14.0
+[v0.15.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yaroslav.tarakanov-v0.14.0...yaroslav.tarakanov-v0.15.0
