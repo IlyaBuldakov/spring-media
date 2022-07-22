@@ -10,8 +10,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Представление контента (ответ).
+ */
 public class ContentResponse {
 
+    /**
+     * Конструктор из соответствующей сущности.
+     *
+     * @param content Сущность {@link Content контента}.
+     */
     public ContentResponse(Content content) {
         this.id = content.getId();
         this.type = content.getType();
@@ -22,6 +30,13 @@ public class ContentResponse {
         this.preview = content.getPreview();
     }
 
+    /**
+     * Создание списка представления контента
+     * из списка соответствующих сущностей.
+     *
+     * @param list Список сущностей {@link Content}.
+     * @return Список представлений (DTO) {@link ContentResponse}.
+     */
     public static List<ContentResponse> createFromEntityList(List<? extends Content> list) {
         List<ContentResponse> resultList = new ArrayList<>();
         for (Content content : list) {
@@ -30,17 +45,38 @@ public class ContentResponse {
         return resultList;
     }
 
+    /**
+     * Идентификатор контента.
+     */
     private final @Getter int id;
 
+    /**
+     * Тип контента.
+     */
     private final @Getter ContentType type;
 
+    /**
+     * Дата создания контента.
+     */
     private final @Getter LocalDate dateCreated;
 
+    /**
+     * Автор контента.
+     */
     private final @Getter UserShortResponse author;
 
+    /**
+     * Формат контента.
+     */
     private final @Getter Format format;
 
+    /**
+     * URL контента на сервере.
+     */
     private final @Getter String url;
 
+    /**
+     * Preview контента на сервере.
+     */
     private final @Getter String preview;
 }

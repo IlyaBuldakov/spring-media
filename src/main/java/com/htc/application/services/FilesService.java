@@ -4,6 +4,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Интерфейс, описывающий базовые операции для взаимодействия с файлами.
+ * Слой преобразования DTO <---> Domain entity.
+ */
 public interface FilesService {
 
     /**

@@ -26,15 +26,11 @@ public enum ContentType {
 
     /**
      * Идентификатор типа контента.
-     *
-     * @return Идентификатор типа контента.
      */
     private final @Getter int id;
 
     /**
      * Наименование контента.
-     *
-     * @return Наименование контента.
      */
     private final @Getter String name;
 }

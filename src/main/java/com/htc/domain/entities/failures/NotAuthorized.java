@@ -15,8 +15,6 @@ public enum NotAuthorized implements Failure {
 
     /**
      * Сообщение об ошибке.
-     *
-     * @return Сообщение об ошибке.
      */
     private final @Getter String message;
 }

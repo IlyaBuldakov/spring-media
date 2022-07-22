@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация {@link ContentsService}.
+ */
 @Service
 @AllArgsConstructor
 public class ContentsServiceImpl implements ContentsService {
@@ -23,6 +26,11 @@ public class ContentsServiceImpl implements ContentsService {
     CreateContent createContent;
     DeleteContentById deleteContentById;
 
+    /**
+     * Получение списка всего контента.
+     *
+     * @return Список контента.
+     */
     public CompletableFuture<List<ContentResponse>> getAll() {
         return getAllContent.execute()
                 .thenApply(either -> either.map(
@@ -32,6 +40,13 @@ public class ContentsServiceImpl implements ContentsService {
                 ).getOrElseThrow(ExceptionDtoResolver::resolve));
     }
 
+    /**
+     * Создание контента.
+     *
+     * @param file Файл.
+     * @param taskId Идентификатор задачи.
+     * @return void.
+     */
     @Override
     public CompletableFuture<Void> create(MultipartFile file, String taskId) {
         return createContent.execute(file.getOriginalFilename(), ContentType.PHOTO, Format.AVI, taskId)
@@ -43,6 +58,12 @@ public class ContentsServiceImpl implements ContentsService {
                 });
     }
 
+    /**
+     * Удаление контента по идентификатору.
+     *
+     * @param id Идентификатор контента.
+     * @return void.
+     */
     public CompletableFuture<Void> delete(String id) {
         return deleteContentById.execute(id)
                 .thenApply(either -> {

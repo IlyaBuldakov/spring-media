@@ -12,22 +12,18 @@ public class InvalidValueResponse {
 
     /**
      * Поле, в котором обнаружена ошибка.
-     *
-     * @return Невалидное поле.
      */
     private final @Getter String field;
 
     /**
      * Сообщение ошибки.
-     *
-     * @return Сообщение ошибки.
      */
     private final @Getter String message;
 
     /**
      * Конструктор из {@link InvalidValue соответствующей сущности}
      *
-     * @param invalidValue Сущность ошибки невалидного поля.
+     * @param invalidValue Сущность {@link InvalidValue ошибки} невалидного поля.
      */
     public InvalidValueResponse(InvalidValue invalidValue) {
         this.field = invalidValue.getField();

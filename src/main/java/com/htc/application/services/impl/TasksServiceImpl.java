@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация {@link TasksService}.
+ */
 @AllArgsConstructor
 @Service
 public class TasksServiceImpl implements TasksService {
@@ -25,6 +28,11 @@ public class TasksServiceImpl implements TasksService {
     UpdateTask updateTask;
     DeleteTask deleteTask;
 
+    /**
+     * Получение всех задач.
+     *
+     * @return Список {@link TaskResponse представления} задач.
+     */
     @Override
     public CompletableFuture<List<TaskResponse>> getAll() {
         return getAllTasks.execute()
@@ -35,6 +43,12 @@ public class TasksServiceImpl implements TasksService {
                                 .getOrElseThrow(ExceptionDtoResolver::resolve));
     }
 
+    /**
+     * Получение задачи по идентификатору.
+     *
+     * @param id Идентификатор задачи.
+     * @return {@link TaskResponse Представление} задачи.
+     */
     @Override
     public CompletableFuture<TaskResponse> getById(String id) {
         return getTaskById.execute(id)
@@ -42,6 +56,11 @@ public class TasksServiceImpl implements TasksService {
                         either.map(TaskResponse::new).getOrElseThrow(ExceptionDtoResolver::resolve));
     }
 
+    /**
+     * Создание задачи.
+     *
+     * @param task {@link TaskRequest Представление} задачи (запрос).
+     */
     @Override
     public CompletableFuture<Void> create(TaskRequest task) {
         return createTask.execute(
@@ -55,6 +74,12 @@ public class TasksServiceImpl implements TasksService {
                 });
     }
 
+    /**
+     * Обновление задачи.
+     *
+     * @param user {@link TaskRequest Представление} задачи (запрос).
+     * @param id Идентификатор задачи.
+     */
     @Override
     public CompletableFuture<Void> update(TaskRequest user, String id) {
         return updateTask.execute(id, user.getName(), user.getType(), user.getDescription(),
@@ -67,6 +92,11 @@ public class TasksServiceImpl implements TasksService {
                 });
     }
 
+    /**
+     * Удаление задачи по идентификатору.
+     *
+     * @param id Идентификатор задачи.
+     */
     @Override
     public CompletableFuture<Void> delete(String id) {
         return deleteTask.execute(id)

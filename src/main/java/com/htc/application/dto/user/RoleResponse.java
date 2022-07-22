@@ -15,10 +15,11 @@ public class RoleResponse {
 
     /**
      * Идентификатор роли.
-     *
-     * @return Идентификатор роли.
      */
     private final @Getter int id;
 
+    /**
+     * Имя роли.
+     */
     private final @Getter String name;
 }

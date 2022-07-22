@@ -16,25 +16,22 @@ public class BadRequestResponse extends AbstractDtoError {
 
     /**
      * HTTP статус ошибки.
-     *
-     * @return {@link HttpStatus HTTP статус}.
      */
     private final @Getter HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
 
     /**
      * Код HTTP статуса для сериализации ошибки.
-     *
-     * @return Код HTTP статуса.
      */
     private final @Getter int statusCode = httpStatus.value();
 
     /**
      * Список ошибок {@link InvalidValueResponse}, вызвавших BadRequest.
-     *
-     * @return Список ошибок.
      */
     private final @Getter List<InvalidValueResponse> problems;
 
+    /**
+     * Стандартное сообщение ошибки.
+     */
     private final static String DEFAULT_MESSAGE = "Невалидный запрос";
 
     /**
@@ -51,6 +48,11 @@ public class BadRequestResponse extends AbstractDtoError {
                 .toList();
     }
 
+    /**
+     * Конструктор из единственной ошибки InvalidValue (невалидного поля).
+     *
+     * @param invalidValue {@link InvalidValue Ошибка невалидного поля}.
+     */
     public BadRequestResponse(InvalidValue invalidValue) {
         super(DEFAULT_MESSAGE);
         this.problems = List.of(new InvalidValueResponse(invalidValue));

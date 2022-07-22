@@ -26,15 +26,11 @@ public enum TaskStatus {
 
     /**
      * Идентификатор статуса задачи.
-     *
-     * @return Идентификатор статуса задачи.
      */
     private final @Getter int id;
 
     /**
      * Название статуса задачи.
-     *
-     * @return Название статуса задачи.
      */
     private final @Getter String name;
 }

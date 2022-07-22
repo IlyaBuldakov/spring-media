@@ -8,6 +8,11 @@ import lombok.Getter;
  */
 public class UserShortResponse {
 
+    /**
+     * Конструктор из соответствующей сущности.
+     *
+     * @param user Сущность {@link User пользователя}.
+     */
     public UserShortResponse(User user) {
         this.id = user.getId();
         this.name = user.getName();
@@ -15,15 +20,11 @@ public class UserShortResponse {
 
     /**
      * Идентификатор пользователя.
-     *
-     * @return Идентификатор пользователя.
      */
     private final @Getter int id;
 
     /**
      * Имя пользователя.
-     *
-     * @return Имя пользователя.
      */
     private final @Getter String name;
 }

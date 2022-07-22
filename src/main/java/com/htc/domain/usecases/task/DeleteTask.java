@@ -11,14 +11,29 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация сценария удаления задачи по идентификатору.
+ */
 @Component
 @AllArgsConstructor
 public class DeleteTask {
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     TasksRepository tasksRepository;
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     FilesRepository filesRepository;
 
+    /**
+     * Метод сценария.
+     *
+     * @param id Идентификатор задачи.
+     * @return void
+     */
     public CompletableFuture<Either<Failure, Void>> execute(String id) {
         var expectedFailure = ValuesValidator.validateStringId(id);
         if (expectedFailure != null) {

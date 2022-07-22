@@ -11,12 +11,30 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация сценария обновления задачи.
+ */
 @Component
 @AllArgsConstructor
 public class UpdateTask {
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     TasksRepository tasksRepository;
 
+    /**
+     * Метод сценария.
+     *
+     * @param id Идентификатор задачи.
+     * @param name Имя задачи.
+     * @param type Тип задачи.
+     * @param description Описание задачи.
+     * @param author Автор задачи.
+     * @param executor Исполнитель задачи.
+     * @param dateExpired Дата выполнения задачи (срок выполнения).
+     * @return void.
+     */
     public CompletableFuture<Either<Failure, Void>> execute(String id, String name, ContentType type, String description,
                                                             String author, String executor, LocalDate dateExpired) {
         var expectedFailure = ValuesValidator.checkTaskFields(id, name, description, author, executor);

@@ -12,7 +12,19 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface UsersService {
 
+    /**
+     * Получение списка пользователей.
+     *
+     * @return Список пользователей.
+     */
     CompletableFuture<List<UserResponse>> getAll();
+
+    /**
+     * Получение пользователя по идентификатору.
+     *
+     * @param id Идентификатор пользователя.
+     * @return {@link UserResponse Представление} пользователя.
+     */
     CompletableFuture<UserResponse> getById(String id);
 
     /**

@@ -13,12 +13,28 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация сценария загрузки файла в базу данных.
+ */
 @Component
 @AllArgsConstructor
 public class UploadFile {
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     FilesRepository filesRepository;
 
+    /**
+     * Метод сценария.
+     *
+     * @param fileName Имя файла.
+     * @param composedUrl Составной URL.
+     * @param dateCreated Дата создания файла.
+     * @param taskId Идентификатор задачи.
+     * @param fileBinary Файл.
+     * @return void;
+     */
     public CompletableFuture<Either<Failure, Void>> execute(String fileName, String composedUrl, LocalDate dateCreated, String taskId, byte[] fileBinary) {
         var expectedFailure = ValuesValidator.validateStringId(taskId);
         if (expectedFailure != null) {

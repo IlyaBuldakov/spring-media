@@ -15,8 +15,6 @@ public class UserRequest {
 
     /**
      * Имя пользователя.
-     *
-     * @return Имя пользователя.
      */
     private @Getter String name;
 
@@ -24,29 +22,21 @@ public class UserRequest {
      * Пароль пользователя.
      *
      * {@link User#getPassword() Требования к паролю}.
-     *
-     * @return Пароль пользователя.
      */
     private @Getter String password;
 
     /**
      * E-mail пользователя.
-     *
-     * @return E-mail пользователя.
      */
     private @Getter String email;
 
     /**
      * Аватар пользователя.
-     *
-     * @return Аватар пользователя.
      */
     private @Getter String avatar;
 
     /**
      * Роль пользователя.
-     *
-     * @return Роль пользователя.
      */
     private @Getter Role role;
 }

@@ -8,11 +8,10 @@ import java.util.LinkedList;
  * Класс, содержащий связку InvalidValue.
  */
 public class InvalidValuesContainer implements Failure {
+
     /**
      * Список ошибок для использования в BadRequest
      * (см. спецификацию).
-     *
-     * @return Список ошибок.
      */
     private final @Getter LinkedList<InvalidValue> invalidValues = new LinkedList<>();
 

@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация {@link FilesService}.
+ */
 @Service
 @AllArgsConstructor
 public class FilesServiceImpl implements FilesService {
@@ -22,10 +25,26 @@ public class FilesServiceImpl implements FilesService {
     SaveFile saveFile;
     DeleteFile deleteFile;
 
+    /**
+     * Уточняющий элемент для формирования
+     * URL файла и последующего доступа к нему
+     * как к статическому ресурсу на сервере.
+     */
     private final String URL_QUALIFIER = "uploads/files/";
-    private final String DIRECTORY_MAIN_QUALIFIER = "src/main/webapp/";
-    private final String DIRECTORY_SAVE_QUALIFIER = DIRECTORY_MAIN_QUALIFIER + URL_QUALIFIER;
 
+    /**
+     * Уточняющий элемент для формирования пути
+     * к файлу в файловой системе (в директории статических ресурсов).
+     */
+    private final String DIRECTORY_MAIN_QUALIFIER = "src/main/webapp/";
+
+    /**
+     * Загрузка файла в базу данных.
+     *
+     * @param file Файл.
+     * @param taskId Идентификатор задачи, к которой загружается файл.
+     * @return void.
+     */
     @Override
     public CompletableFuture<Void> uploadFile(MultipartFile file, String taskId) {
         String fileName = file.getOriginalFilename();
@@ -44,17 +63,33 @@ public class FilesServiceImpl implements FilesService {
         }
     }
 
+    /**
+     * Сохранение файла в файловой системе
+     * (в директории статических ресурсов).
+     *
+     * @param file Файл.
+     * @param composedUrl Составной url из директории и последовательности
+     *                    случайных символов для уникальности.
+     */
     @Override
     public void saveFile(MultipartFile file, String composedUrl) {
         if (!file.isEmpty()) {
             try {
-                saveFile.execute(file.getBytes(), DIRECTORY_SAVE_QUALIFIER + composedUrl);
+                String directorySaveQualifier = DIRECTORY_MAIN_QUALIFIER + URL_QUALIFIER;
+                saveFile.execute(file.getBytes(), directorySaveQualifier + composedUrl);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
+    /**
+     * Удаление файла из файловой системы
+     * (из директории статических ресурсов).
+     *
+     * @param fileId Идентификатор файла.
+     * @return void.
+     */
     @Override
     public CompletableFuture<Void> deleteFile(String fileId) {
         return deleteFile.execute(DIRECTORY_MAIN_QUALIFIER, fileId)
@@ -66,6 +101,15 @@ public class FilesServiceImpl implements FilesService {
                 });
     }
 
+    /**
+     * Генерация составного URL, состоящего из
+     * случайной строки (для уникальности),
+     * имени файла и идентификатора задачи.
+     *
+     * @param fileName Имя файла.
+     * @param taskId Идентификатор задачи.
+     * @return Составной URL.
+     */
     private String composeUrl(String fileName, String taskId) {
         return FileHelper.getRandomString() +
                 "-uploaded_task-" +

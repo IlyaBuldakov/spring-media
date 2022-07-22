@@ -35,15 +35,11 @@ public enum InvalidValue implements Failure {
 
     /**
      * Поле, в котором обнаружена ошибка.
-     *
-     * @return Поле с ошибкой.
      */
     private final @Getter String field;
 
     /**
      * Сообщение об ошибке.
-     *
-     * @return Сообщение об ошибке.
      */
     private final @Getter String message;
 }

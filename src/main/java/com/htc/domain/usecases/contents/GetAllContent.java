@@ -10,12 +10,23 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация сценария получения всего контента.
+ */
 @Component
 @AllArgsConstructor
 public class GetAllContent {
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     ContentsRepository contentsRepository;
 
+    /**
+     * Метод сценария
+     *
+     * @return void.
+     */
     public CompletableFuture<Either<Failure, List<Content>>> execute() {
         return contentsRepository.getAll();
     }

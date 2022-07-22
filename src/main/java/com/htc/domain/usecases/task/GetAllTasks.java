@@ -10,12 +10,23 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация сценария получения всех задач.
+ */
 @Component
 @AllArgsConstructor
 public class GetAllTasks {
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     private TasksRepository tasksRepository;
 
+    /**
+     * Метод сценария.
+     *
+     * @return Список задач.
+     */
     public CompletableFuture<Either<Failure, List<Task>>> execute() {
         return tasksRepository.getAll();
     }

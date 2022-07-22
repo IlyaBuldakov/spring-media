@@ -10,12 +10,25 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация сценария удаления файла.
+ */
 @Component
 @AllArgsConstructor
 public class DeleteFile {
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     FilesRepository filesRepository;
 
+    /**
+     * Метод сценария.
+     *
+     * @param directoryQualifier Уточняющий элемент URL.
+     * @param fileId Идентификатор файла.
+     * @return void
+     */
     public CompletableFuture<Either<Failure, Void>> execute(String directoryQualifier, String fileId) {
         var expectedFailure = ValuesValidator.validateStringId(fileId);
         if (expectedFailure != null) {

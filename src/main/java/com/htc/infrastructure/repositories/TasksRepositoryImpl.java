@@ -17,18 +17,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация репозитория для работы с задачами.
+ */
 @Component
 @AllArgsConstructor
 public class TasksRepositoryImpl implements TasksRepository {
 
+    /**
+     * JPA-репозиторий.
+     */
     TasksJpaRepository tasksJpaRepository;
 
+    /**
+     * Создание задачи.
+     *
+     * @param name Имя задачи.
+     * @param type Тип задачи.
+     * @param description Описание задачи.
+     * @param author Автор задачи.
+     * @param executor Исполнитель задачи.
+     * @param dateExpired Дата выполнения задачи (срок выполнения).
+     * @return void.
+     */
     @Override
     public CompletableFuture<Either<Failure, Void>> create(String name, ContentType type, String description, int author, int executor, LocalDate dateExpired) {
         tasksJpaRepository.save(new TaskMapper(name, type, description, author, executor, dateExpired));
         return null;
     }
 
+    /**
+     * Получение задачи по идентификатору.
+     *
+     * @param id Идентификатор задачи.
+     * @return Задача.
+     */
     @Override
     public CompletableFuture<Either<Failure, Task>> getById(int id) {
         var task = tasksJpaRepository.findById(id);
@@ -38,6 +61,11 @@ public class TasksRepositoryImpl implements TasksRepository {
         return CompletableFuture.completedFuture(Either.left(NotFound.TASK));
     }
 
+    /**
+     * Получение списка всех задач.
+     *
+     * @return Список задач.
+     */
     @Override
     public CompletableFuture<Either<Failure, List<Task>>> getAll() {
         return CompletableFuture.completedFuture(Either.right(
@@ -45,12 +73,30 @@ public class TasksRepositoryImpl implements TasksRepository {
         ));
     }
 
+    /**
+     * Обновление задачи.
+     *
+     * @param id Идентификатор задачи.
+     * @param name Имя задачи.
+     * @param type Тип задачи.
+     * @param description Описание задачи.
+     * @param author Автор задачи.
+     * @param executor Исполнитель задачи
+     * @param dateExpired Дата выполнения задачи (срок выполнения).
+     * @return void.
+     */
     @Override
     public CompletableFuture<Either<Failure, Void>> update(int id, String name, ContentType type, String description, int author, int executor, LocalDate dateExpired) {
         tasksJpaRepository.save(new TaskMapper(id, name, type, description, author, executor, dateExpired));
         return null;
     }
 
+    /**
+     * Удаление задачи по идентификатору.
+     *
+     * @param id Идентификатор задачи.
+     * @return void.
+     */
     @Override
     public CompletableFuture<Either<Failure, Void>> deleteById(int id) {
         try {

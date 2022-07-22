@@ -13,12 +13,21 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация сценария создания задачи.
+ */
 @AllArgsConstructor
 @Component
 public class CreateTask {
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     TasksRepository tasksRepository;
 
+    /**
+     * Поле для внедрения реализации из infrastructure layer.
+     */
     UsersRepository usersRepository;
 
     /**

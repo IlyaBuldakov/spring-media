@@ -16,12 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Реализация репозитория для работы с контентом.
+ */
 @Component
 @AllArgsConstructor
 public class ContentsRepositoryImpl implements ContentsRepository {
 
+    /**
+     * JPA-репозиторий.
+     */
     ContentsJpaRepository contentsJpaRepository;
 
+    /**
+     * Получение списка контента.
+     *
+     * @return Список контента.
+     */
     @Override
     public CompletableFuture<Either<Failure, List<Content>>> getAll() {
         return CompletableFuture.completedFuture(Either.right(
@@ -29,12 +40,27 @@ public class ContentsRepositoryImpl implements ContentsRepository {
         ));
     }
 
+    /**
+     * Создание контента.
+     *
+     * @param name Имя контента.
+     * @param type Тип контента.
+     * @param format Формат контента.
+     * @param taskId Идентификатор задачи.
+     * @return void.
+     */
     @Override
     public CompletableFuture<Either<Failure, Void>> create(String name, ContentType type, Content.Format format, int taskId) {
         contentsJpaRepository.save(new ContentMapper(name, type, format, taskId));
         return null;
     }
 
+    /**
+     * Удаление контента по идентификатору.
+     *
+     * @param id Идентификатор контента.
+     * @return void.
+     */
     @Override
     public CompletableFuture<Either<Failure, Void>> deleteById(int id) {
         try {

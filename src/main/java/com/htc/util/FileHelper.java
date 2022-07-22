@@ -7,8 +7,16 @@ import io.vavr.control.Either;
 import org.apache.tika.Tika;
 import java.util.Random;
 
+/**
+ * Вспомогательный утилитный класс для работы с файлами.
+ */
 public class FileHelper {
 
+    /**
+     * Получение случайной строки для
+     * уникального имени файла.
+     * @return Случайная строка.
+     */
     public static String getRandomString() {
         int leftLimit = 97; // 'a'
         int rightLimit = 122; // 'z'
@@ -30,6 +38,13 @@ public class FileHelper {
         return buffer.toString();
     }
 
+    /**
+     * Получение формата входящего файла.
+     *
+     * @param fileBinary Файл.
+     * @param fileName Имя файла.
+     * @return Формат файла.
+     */
     public static Either<Failure, Format> getFormat(byte[] fileBinary, String fileName) {
         var expectedFailure = checkFileExtension(fileName);
         if (expectedFailure != null) {
@@ -48,6 +63,12 @@ public class FileHelper {
                 : Either.right(format);
     }
 
+    /**
+     * Определение расширения файла по его имени.
+     *
+     * @param fileName Имя файла.
+     * @return Ошибка валидации или null.
+     */
     private static InvalidValue checkFileExtension(String fileName) {
         String[] tmp = fileName.split("\\.");
         try {

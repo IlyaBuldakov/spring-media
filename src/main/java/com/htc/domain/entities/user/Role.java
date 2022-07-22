@@ -18,7 +18,13 @@ public enum Role {
         this.name = name;
     }
 
+    /**
+     * Идентификатор роли.
+     */
     private final @Getter int id;
 
+    /**
+     * Имя роли.
+     */
     private final @Getter String name;
 }
