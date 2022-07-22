@@ -9,12 +9,13 @@ import java.util.Locale;
 
 /**
  * Класс для валидации различных данных.
- *
- * Возвращает Failure - в случае провала
- * и null - в случае успешной валидации.
  */
 public class ValuesValidator {
 
+    /**
+     * Регулярное выражение для проверки аватара
+     * на соответствие Base64.
+     */
     private static final String BASE64_REGEX = "^([A-Za-z\\d+/]{4})*([A-Za-z\\d+/]{4}|[A-Za-z\\d+/]{3}=|[A-Za-z\\d+/]{2}==)?$";
 
     /**
@@ -91,6 +92,39 @@ public class ValuesValidator {
         return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
     }
 
+    /**
+     * Метод валидации полей задачи.
+     *
+     * @param id Идентификатор задачи.
+     * @param name Имя задачи.
+     * @param description Описание задачи.
+     * @param authorId Идентификатор автора задачи.
+     * @param executorId Идентификатор исполнителя задачи.
+     * @return Контейнер ошибок или null;
+     */
+    public static InvalidValuesContainer checkTaskFields(
+            String id, String name, String description, String authorId, String executorId) {
+        InvalidValuesContainer invalidValues = new InvalidValuesContainer();
+        var validateId = validateStringId(id);
+        if (validateId != null) {
+            invalidValues = validateId;
+        }
+        var anotherFields = checkTaskFields(name, description, authorId, executorId);
+        if (anotherFields != null) {
+            invalidValues.merge(anotherFields);
+        }
+        return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
+    }
+
+    /**
+     * Метод валидации полей задачи, кроме идентификатора.
+     *
+     * @param name Имя задачи.
+     * @param description Описание задачи.
+     * @param authorId Идентификатор автора задачи.
+     * @param executorId Идентификатор исполнителя задачи.
+     * @return Контейнер ошибок или null;
+     */
     public static InvalidValuesContainer checkTaskFields(String name, String description, String authorId, String executorId) {
         InvalidValuesContainer invalidValues = new InvalidValuesContainer();
         var validateAuthor = validateStringId(authorId);
