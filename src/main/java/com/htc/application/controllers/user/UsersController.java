@@ -54,7 +54,7 @@ public class UsersController {
 
     @DeleteMapping("/{id}")
     @Async
-    public void deleteUser(@PathVariable("id") String id) {
-        usersService.delete(id);
+    public CompletableFuture<Void> deleteUser(@PathVariable("id") String id) {
+        return usersService.delete(id);
     }
 }

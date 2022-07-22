@@ -110,6 +110,6 @@ public class UsersRepositoryImpl implements UsersRepository {
         } catch (EmptyResultDataAccessException exception) {
             return CompletableFuture.completedFuture(Either.left(NotFound.USER));
         }
-        return null;
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 }

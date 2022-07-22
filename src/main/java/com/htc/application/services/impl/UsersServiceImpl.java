@@ -98,7 +98,13 @@ public class UsersServiceImpl implements UsersService {
      * @return Представление удалённого пользователя {@link UserResponse}.
      */
     @Override
-    public void delete(String id) {
-        deleteUserById.execute(id);
+    public CompletableFuture<Void> delete(String id) {
+        return deleteUserById.execute(id)
+                .thenApply(either -> {
+                    if (either.isLeft()) {
+                        throw ExceptionDtoResolver.resolve(either.getLeft());
+                    }
+                    return null;
+                });
     }
 }
