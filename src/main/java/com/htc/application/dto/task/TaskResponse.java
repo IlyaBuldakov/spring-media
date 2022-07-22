@@ -2,9 +2,9 @@ package com.htc.application.dto.task;
 
 import com.htc.application.dto.comment.CommentResponse;
 import com.htc.application.dto.content.ContentResponse;
+import com.htc.application.dto.file.FileResponse;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.entities.content.ContentType;
-import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.task.TaskStatus;
 import lombok.Getter;
@@ -19,6 +19,7 @@ public class TaskResponse {
         this.name = task.getName();
         this.type = task.getType();
         this.description = task.getDescription();
+        this.files = FileResponse.createFromEntityList(task.getFiles());
         this.author = new UserResponse(task.getAuthor());
         this.executor = new UserResponse(task.getExecutor());
         this.dateCreated = task.getDateCreated();
@@ -36,7 +37,7 @@ public class TaskResponse {
 
     private final @Getter String description;
 
-    private @Getter List<File> files;
+    private final @Getter List<FileResponse> files;
 
     private final @Getter UserResponse author;
 
