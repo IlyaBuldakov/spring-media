@@ -100,5 +100,11 @@
             <version>42.4.0</version>
         </dependency>
 
+        <!-- Apache Tika (file format validation) -->
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>2.4.1</version>
+        </dependency>
     </dependencies>
 </project>
