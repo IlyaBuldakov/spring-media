@@ -1,4 +1,4 @@
-package com.htc.infrastructure.repositories;
+package com.htc.infrastructure.jpa;
 
 import com.htc.infrastructure.mappers.FileMapper;
 import org.springframework.data.jpa.repository.JpaRepository;

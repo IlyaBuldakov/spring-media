@@ -1,11 +1,11 @@
-package com.htc.infrastructure.jpa;
+package com.htc.infrastructure.repositories;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.file.File;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.infrastructure.mappers.FileMapper;
-import com.htc.infrastructure.repositories.FilesJpaRepository;
+import com.htc.infrastructure.jpa.FilesJpaRepository;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;

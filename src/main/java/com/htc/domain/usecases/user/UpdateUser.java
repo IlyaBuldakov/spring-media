@@ -4,7 +4,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
-import com.htc.infrastructure.jpa.UsersRepositoryImpl;
+import com.htc.infrastructure.repositories.UsersRepositoryImpl;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.htc.infrastructure.jpa;
+package com.htc.infrastructure.repositories;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
@@ -6,7 +6,7 @@ import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.infrastructure.mappers.UserMapper;
-import com.htc.infrastructure.repositories.UsersJpaRepository;
+import com.htc.infrastructure.jpa.UsersJpaRepository;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
