@@ -20,7 +20,7 @@ public class RunAfterStartup {
 
   @EventListener(ApplicationReadyEvent.class)
   public void runAfterStartup() throws ExecutionException, InterruptedException {
-    if (!userService.isEmailExists(INIT_ADMIN_LOGIN))
+    if (userService.getAllUsers().get().get().size() == 0)
       {
       User user = User.create(INIT_ADMIN_LOGIN, "admin", "", INIT_ADMIN_PASSWORD, Role.ADMIN).get();
       userService.createNewUser(user);
