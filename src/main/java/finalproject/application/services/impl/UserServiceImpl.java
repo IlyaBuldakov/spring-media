@@ -2,7 +2,7 @@ package finalproject.application.services.impl;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.User;
-import finalproject.domain.repositories.UserRepository;
+import finalproject.infrastructure.repositories.UserRepository;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USERS_EMAIL_IS_ALREADY_EXISTS, problems)));
     }
     return CompletableFuture.completedFuture(Either.right(repository.save(user)));
+
   }
 
   @Async
@@ -79,35 +80,27 @@ public class UserServiceImpl implements UserService {
   @Async
   @Override
   public CompletableFuture<Either<Failure, List<User>>> getAllUsers() {
-    return CompletableFuture.completedFuture(Either.right((List<User>) repository.findAll()));
+    return CompletableFuture.completedFuture(Either.right(repository.findAll()));
 
   }
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, User>> getUserByEmail(String email) {
-    for (User user : repository.findAll()) {
-      if (user.getEmail().equals(email)) {
-        return CompletableFuture.completedFuture(Either.right(user));
-      }
+  public Either<Failure, User> getUserByEmail(String email) {
+
+    if (isEmailExists(email)) {
+    return Either.right(repository.findOneByEmail(email).get());
     }
-      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+    else return Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND));
   }
 
   public boolean isEmailExists (String email) {
-    for (User user : repository.findAll()) {
-      if (user.getEmail().equals(email)) {
-        return true;
-      }
-    }
-    return false;
+    return repository.findOneByEmail(email).isPresent();
   }
 
   public boolean anotherUserHasUpdatedEmail (String email, int id) {
-    for (User user : repository.findAll()) {
-      if (user.getEmail().equals(email) && user.getId() != id) {
-        return true;
-      }
+    if (isEmailExists(email)) {
+      return repository.findOneByEmail(email).get().getId() == id;
     }
     return false;
   }
