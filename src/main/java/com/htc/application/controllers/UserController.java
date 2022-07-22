@@ -10,6 +10,8 @@ import com.htc.domain.usecases.user.UpdateUserById;
 import com.htc.utility.Controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "api/users")
 @SecurityRequirement(name = "JWT")
 @AllArgsConstructor
+@Tags(@Tag(name = "Пользователи"))
 public class UserController {
   private CreateUser createUser;
   private UpdateUserById updateUserById;
