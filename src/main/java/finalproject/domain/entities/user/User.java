@@ -18,7 +18,7 @@ import lombok.Setter;
 
 
 /**
- * Пользователь. Центр всей модели.
+ * Пользователь.
  */
 
 @Entity
@@ -41,8 +41,9 @@ public class User implements Serializable {
   @Column
   private String email;
 
-  /**
-   * Возвращает @return name имя пользователя.
+  /**Имя пользователя.
+   *
+   * @return name name имя пользователя.
    */
   @Setter
   @Getter
