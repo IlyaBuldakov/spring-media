@@ -39,12 +39,12 @@ public class UserServiceImpl implements UserService {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.INVALID_VALUES, problems)));
     }
-    if (isEmailExists(user.getEmail())) {
-      problems.add("email");
-      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USERS_EMAIL_IS_ALREADY_EXISTS, problems)));
-    }
     if (!repository.existsById(id)) {
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+    }
+    if (anotherUserHasUpdatedEmail(user.getEmail(), id)) {
+      problems.add("email");
+      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USERS_EMAIL_IS_ALREADY_EXISTS, problems)));
     }
     return CompletableFuture.completedFuture(Either.right(repository.save(user)));
   }
@@ -103,6 +103,14 @@ public class UserServiceImpl implements UserService {
     return false;
   }
 
+  public boolean anotherUserHasUpdatedEmail (String email, int id) {
+    for (User user : repository.findAll()) {
+      if (user.getEmail().equals(email) && user.getId() != id) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 
 }
