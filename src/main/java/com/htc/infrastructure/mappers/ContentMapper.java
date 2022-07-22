@@ -14,7 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
@@ -36,8 +36,8 @@ public class ContentMapper implements Content {
 
     private @Getter LocalDate dateCreated;
 
-    @OneToOne
-    @JoinColumn(name = "id", table = "users")
+    @ManyToOne
+    @JoinColumn(name = "author",insertable = false, updatable = false)
     private @Getter UserMapper author;
 
     @Enumerated(EnumType.STRING)
