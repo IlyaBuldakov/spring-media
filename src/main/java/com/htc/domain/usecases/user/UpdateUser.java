@@ -30,7 +30,7 @@ public class UpdateUser {
      *
      * @return Пользователь.
      */
-    public CompletableFuture<Either<Failure, User>> execute(String id, String name, String password,
+    public CompletableFuture<Either<Failure, Void>> execute(String id, String name, String password,
                                                             String email, String avatar, Role role) {
         var expectedFailure
                 = ValuesValidator.checkUserFields(id, name, password, email, avatar);

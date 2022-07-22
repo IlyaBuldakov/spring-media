@@ -43,20 +43,38 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public void create(TaskRequest task) {
-        createTask.execute(
+    public CompletableFuture<Void> create(TaskRequest task) {
+        return createTask.execute(
                 task.getName(), task.getType(), task.getDescription(),
-                task.getAuthor(), task.getExecutor(), task.getDateExpired());
+                task.getAuthor(), task.getExecutor(), task.getDateExpired())
+                .thenApply(either -> {
+                    if (either.isLeft()) {
+                        throw ExceptionDtoResolver.resolve(either.getLeft());
+                    }
+                    return null;
+                });
     }
 
     @Override
-    public void update(TaskRequest user, String id) {
-        updateTask.execute(id, user.getName(), user.getType(), user.getDescription(),
-                           user.getAuthor(), user.getExecutor(), user.getDateExpired());
+    public CompletableFuture<Void> update(TaskRequest user, String id) {
+        return updateTask.execute(id, user.getName(), user.getType(), user.getDescription(),
+                           user.getAuthor(), user.getExecutor(), user.getDateExpired())
+                .thenApply(either -> {
+                    if (either.isLeft()) {
+                        throw ExceptionDtoResolver.resolve(either.getLeft());
+                    }
+                    return null;
+                });
     }
 
     @Override
-    public void delete(String id) {
-        deleteTask.execute(id);
+    public CompletableFuture<Void> delete(String id) {
+        return deleteTask.execute(id)
+                .thenApply(either -> {
+                    if (either.isLeft()) {
+                        throw ExceptionDtoResolver.resolve(either.getLeft());
+                    }
+                    return null;
+                });
     }
 }

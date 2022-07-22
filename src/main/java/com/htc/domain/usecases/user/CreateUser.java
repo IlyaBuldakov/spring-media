@@ -30,7 +30,7 @@ public class CreateUser {
      *
      * @return Пользователь.
      */
-    public CompletableFuture<Either<Failure, User>> execute(String name, String password,
+    public CompletableFuture<Either<Failure, Void>> execute(String name, String password,
                                                             String email, String avatar, Role role) {
         var expectedFailure = ValuesValidator.checkUserFields(
                 name, password, email, avatar

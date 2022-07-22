@@ -14,7 +14,29 @@ public interface UsersService {
 
     CompletableFuture<List<UserResponse>> getAll();
     CompletableFuture<UserResponse> getById(String id);
-    CompletableFuture<UserResponse> create(UserRequest user);
-    CompletableFuture<UserResponse> update(UserRequest user, String id);
+
+    /**
+     * Создание пользователя.
+     *
+     * @param user {@link UserRequest Представление} пользователя (запрос).
+     * @return void.
+     */
+    CompletableFuture<Void> create(UserRequest user);
+
+    /**
+     * Обновление пользователя.
+     *
+     * @param user {@link UserRequest Представление} пользователя (запрос).
+     * @param id Идентификатор пользователя.
+     * @return void.
+     */
+    CompletableFuture<Void> update(UserRequest user, String id);
+
+    /**
+     * Удаление пользователя по идентификатору.
+     *
+     * @param id Идентификатор пользователя.
+     * @return void.
+     */
     CompletableFuture<Void> delete(String id);
 }

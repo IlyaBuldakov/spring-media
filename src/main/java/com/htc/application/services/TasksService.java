@@ -10,7 +10,29 @@ public interface TasksService {
 
     CompletableFuture<List<TaskResponse>> getAll();
     CompletableFuture<TaskResponse> getById(String id);
-    void create(TaskRequest task);
-    void update(TaskRequest task, String id);
-    void delete(String id);
+
+    /**
+     * Создание задачи.
+     *
+     * @param task {@link TaskRequest Представление} задачи (запрос).
+     * @return void.
+     */
+    CompletableFuture<Void> create(TaskRequest task);
+
+    /**
+     * Обновление задачи.
+     *
+     * @param task {@link TaskRequest Представление} задачи (запрос).
+     * @param id Идентификатор задачи.
+     * @return void.
+     */
+    CompletableFuture<Void> update(TaskRequest task, String id);
+
+    /**
+     * Удаление задачи по идентификатору.
+     *
+     * @param id Идентификатор задачи.
+     * @return void.
+     */
+    CompletableFuture<Void> delete(String id);
 }

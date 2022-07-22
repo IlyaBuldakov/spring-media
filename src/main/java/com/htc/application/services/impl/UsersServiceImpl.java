@@ -62,14 +62,17 @@ public class UsersServiceImpl implements UsersService {
      * @return Представление созданного пользователя {@link UserResponse}.
      */
     @Override
-    public CompletableFuture<UserResponse> create(UserRequest userRequest) {
+    public CompletableFuture<Void> create(UserRequest userRequest) {
         return createUser.execute(
                         userRequest.getName(), userRequest.getPassword(),
                         userRequest.getEmail(), userRequest.getAvatar(), userRequest.getRole()
                 )
-                .thenApply(either ->
-                        either.map(UserResponse::new)
-                                .getOrElseThrow(ExceptionDtoResolver::resolve));
+                .thenApply(either -> {
+                    if (either.isLeft()) {
+                        throw ExceptionDtoResolver.resolve(either.getLeft());
+                    }
+                    return null;
+                });
     }
 
     /**
@@ -81,13 +84,16 @@ public class UsersServiceImpl implements UsersService {
      * @return Представление обновлённого пользователя {@link UserResponse}.
      */
     @Override
-    public CompletableFuture<UserResponse> update(UserRequest userRequest, String id) {
+    public CompletableFuture<Void> update(UserRequest userRequest, String id) {
         return updateUser.execute(
                         id, userRequest.getName(), userRequest.getPassword(),
                         userRequest.getEmail(), userRequest.getAvatar(), userRequest.getRole())
-                .thenApply(either ->
-                        either.map(UserResponse::new)
-                                .getOrElseThrow(ExceptionDtoResolver::resolve));
+                .thenApply(either -> {
+                    if (either.isLeft()) {
+                        throw ExceptionDtoResolver.resolve(either.getLeft());
+                    }
+                    return null;
+                });
     }
 
 

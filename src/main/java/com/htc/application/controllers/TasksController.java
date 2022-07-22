@@ -38,19 +38,19 @@ public class TasksController {
 
     @PostMapping
     @Async
-    public void create(@RequestBody TaskRequest taskRequest) {
-        tasksService.create(taskRequest);
+    public CompletableFuture<Void> create(@RequestBody TaskRequest taskRequest) {
+        return tasksService.create(taskRequest);
     }
 
     @PutMapping("/{id}")
     @Async
-    public void update(@RequestBody TaskRequest taskRequest, @PathVariable String id) {
-        tasksService.update(taskRequest, id);
+    public CompletableFuture<Void> update(@RequestBody TaskRequest taskRequest, @PathVariable String id) {
+        return tasksService.update(taskRequest, id);
     }
 
     @DeleteMapping("/{id}")
     @Async
-    public void delete(@PathVariable("id") String id) {
-        tasksService.delete(id);
+    public CompletableFuture<Void> delete(@PathVariable("id") String id) {
+        return tasksService.delete(id);
     }
 }

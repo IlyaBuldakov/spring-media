@@ -36,16 +36,13 @@ public class UsersRepositoryImpl implements UsersRepository {
      * @return Пользователь.
      */
     @Override
-    public CompletableFuture<Either<Failure, User>> create(String name,
+    public CompletableFuture<Either<Failure, Void>> create(String name,
                                                            String password,
                                                            String email,
                                                            String avatar,
                                                            Role role) {
-        return CompletableFuture.completedFuture(
-                Either.right(
-                        usersJpaRepository.save(
-                                new UserMapper(name, password, email, avatar, role))
-                ));
+        usersJpaRepository.save(new UserMapper(name, password, email, avatar, role));
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 
     /**
@@ -86,15 +83,14 @@ public class UsersRepositoryImpl implements UsersRepository {
      * @return Обновлённый пользователь.
      */
     @Override
-    public CompletableFuture<Either<Failure, User>> update(int id,
+    public CompletableFuture<Either<Failure, Void>> update(int id,
                                                            String name,
                                                            String password,
                                                            String email,
                                                            String avatar,
                                                            Role role) {
-        return CompletableFuture.completedFuture(Either.right(
-                usersJpaRepository.save(new UserMapper(id, name, password, email, avatar, role))
-        ));
+        usersJpaRepository.save(new UserMapper(id, name, password, email, avatar, role));
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 
     /**

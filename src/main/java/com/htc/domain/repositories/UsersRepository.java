@@ -23,7 +23,7 @@ public interface UsersRepository {
      * @param role Роль пользователя.
      * @return Пользователь.
      */
-    CompletableFuture<Either<Failure, User>> create(String name,
+    CompletableFuture<Either<Failure, Void>> create(String name,
                                                     String password,
                                                     String email,
                                                     String avatar,
@@ -55,7 +55,7 @@ public interface UsersRepository {
      * @param role Роль пользователя.
      * @return Пользователь.
      */
-    CompletableFuture<Either<Failure, User>> update(int id,
+    CompletableFuture<Either<Failure, Void>> update(int id,
                                                     String name,
                                                     String password,
                                                     String email,

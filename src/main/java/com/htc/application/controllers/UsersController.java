@@ -41,13 +41,13 @@ public class UsersController {
 
     @PostMapping
     @Async
-    public CompletableFuture<UserResponse> createUser(@RequestBody UserRequest user) {
+    public CompletableFuture<Void> createUser(@RequestBody UserRequest user) {
         return usersService.create(user);
     }
 
     @PutMapping("/{id}")
     @Async
-    public CompletableFuture<UserResponse> updateUser(@RequestBody UserRequest user,
+    public CompletableFuture<Void> updateUser(@RequestBody UserRequest user,
                                                       @PathVariable("id") String id) {
         return usersService.update(user, id);
     }

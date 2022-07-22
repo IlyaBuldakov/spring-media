@@ -26,12 +26,12 @@ public class DeleteTask {
         }
         clearRelevantStaticResources(Integer.parseInt(id));
         tasksRepository.deleteById(Integer.parseInt(id));
-        return null;
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 
     private void clearRelevantStaticResources(int id) {
         String pathQualifier = "src/main/webapp/";
-        var fileUrls = filesRepository.findRelevantToTaskFiles(id);
+        var fileUrls = filesRepository.findRelevantToTaskFilesUrl(id);
         if (!fileUrls.isEmpty()) {
             for (String url : fileUrls) {
                 new File(pathQualifier + url).delete();
