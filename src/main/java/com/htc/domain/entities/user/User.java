@@ -1,7 +1,7 @@
 package com.htc.domain.entities.user;
 
 /**
- * Класс, описывающий пользователя.
+ * Интерфейс, описывающий пользователя.
  */
 public interface User {
 

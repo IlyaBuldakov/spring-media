@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ApplicationExceptionHandler {
 
     @ExceptionHandler(AbstractDtoError.class)
-    public ResponseEntity<AbstractDtoError> handleBadRequest(AbstractDtoError exception) {
+    public ResponseEntity<AbstractDtoError> handleApplicationException(AbstractDtoError exception) {
         return new ResponseEntity<>(exception, exception.getHttpStatus());
     }
 }
