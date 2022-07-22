@@ -24,6 +24,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ContentMapper implements Content {
 
+    public ContentMapper(String name, ContentType type, Format format, int taskId ) {
+        this.type = type;
+        this.name = name;
+        this.dateCreated = LocalDate.now();
+        this.format = format;
+        this.taskId = taskId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
