@@ -1,18 +1,15 @@
 package com.htc.application.controllers;
 
 import com.htc.application.dto.comment.CommentRequest;
-import com.htc.application.dto.comment.CommentResponse;
 import com.htc.domain.usecases.comment.CreateComment;
-import com.htc.domain.usecases.comment.GetCommentsByTaskId;
 import com.htc.utility.Controllers;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,17 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/comments")
 @AllArgsConstructor
+@Tags(@Tag(name = "Комментарии"))
 public class CommentController {
   private CreateComment createComment;
-  private GetCommentsByTaskId getCommentsByTaskId;
 
   /**
    * Создаёт новый комментарий.
    */
   @PostMapping
-  @Operation(summary = "Создать новый комментарий.")
+  @Operation(summary = "Добавить новый комментарий в задачу.")
   @Async
-  public void create(@RequestBody CommentRequest commentRequest) {
+  public void create(@RequestBody CommentRequest commentRequest) throws IOException {
     Controllers.handleRequest(
         createComment,
         new CreateComment.Params(
@@ -43,23 +40,5 @@ public class CommentController {
             commentRequest.taskId,
             commentRequest.commentMessage),
         null);
-  }
-
-  /**
-   * Получает комментарии по идентификатору задачи.
-   *
-   * @param taskId Идентификатор задачи.
-   * @return Комментарии по идентификатору задачи.
-   */
-  @GetMapping(path = "/{taskId}")
-  @Operation(summary = "Получить список комментариев по идентификатору задачи.")
-  @Async
-  public CompletableFuture<Iterable<CommentResponse>> getAll(@PathVariable int taskId) {
-    return Controllers.handleRequest(
-        getCommentsByTaskId,
-        new GetCommentsByTaskId.Params(taskId, "taskId"),
-        comments -> comments.stream()
-            .map(CommentResponse::new)
-            .collect(Collectors.toList()));
   }
 }
