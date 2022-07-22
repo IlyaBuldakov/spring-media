@@ -5,11 +5,22 @@ import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.User;
 import io.vavr.control.Either;
-
 import java.util.List;
 import java.util.concurrent.Future;
 
+/**
+ * Сервис комментариев.
+ */
 public interface CommentService {
-  Future<Either<Failure, Integer>> PostCommentToTask (Content content, User user);
-  Future<Either<Failure, List<Comment>>> getAllCommentsRelatedToTask (int taskId);
+
+  /**
+   * Публикация комментария.
+   *
+   * @param comment комментарий
+   *
+   * @return id комментария.
+   */
+  Future<Either<Failure, Integer>> postCommentToTask(Comment comment);
+
+  Future<Either<Failure, List<Comment>>> getAllCommentsRelatedToTask(int taskId);
 }

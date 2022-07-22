@@ -1,10 +1,12 @@
 package finalproject.domain.entities;
 
 import finalproject.domain.entities.user.User;
+import java.time.LocalDateTime;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
+/**
+ * Сущность - комментарий.
+ */
 public class Comment {
 
   /**

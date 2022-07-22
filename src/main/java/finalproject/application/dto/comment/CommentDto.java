@@ -1,9 +1,7 @@
 package finalproject.application.dto.comment;
 
 import finalproject.application.dto.user.UserBasicDto;
-
 import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

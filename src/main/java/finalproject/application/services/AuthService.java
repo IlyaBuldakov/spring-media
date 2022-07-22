@@ -1,7 +1,11 @@
 package finalproject.application.services;
 
-import finalproject.domain.entities.user.User;
-
+/**
+ * Получение id пользователя из контекста spring security.
+ *
+ * @return id пользователя
+ */
 public interface AuthService {
+
   int getId();
 }

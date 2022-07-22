@@ -1,10 +1,12 @@
 package finalproject.domain.entities.content;
 
 
+import java.util.HashMap;
 import lombok.Getter;
 
-import java.util.HashMap;
-
+/**
+ * Типы контента.
+ */
 public enum ContentType {
   VIDEO(0, "video"),
   AUDIO(1, "audio"),
@@ -16,12 +18,15 @@ public enum ContentType {
     this.id = id;
     this.name = name;
   }
+
   static final HashMap<String, ContentType> map = new HashMap<>();
+
   static {
     for (ContentType contentType : ContentType.values()) {
       map.put(contentType.getName(), contentType);
     }
   }
+
   public static ContentType getContentTypeByName(String name) {
     return map.get(name);
   }

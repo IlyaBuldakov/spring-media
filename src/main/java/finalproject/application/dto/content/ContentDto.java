@@ -1,15 +1,13 @@
 package finalproject.application.dto.content;
 
 import finalproject.application.dto.user.UserBasicDto;
-
 import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
 /**
- * Контент.
+ * DTO контента.
  */
 @AllArgsConstructor
 public class ContentDto {

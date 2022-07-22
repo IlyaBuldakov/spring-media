@@ -1,9 +1,9 @@
 package finalproject.domain.entities.failures;
 
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
 
 public class Failure {
   public enum Messages {

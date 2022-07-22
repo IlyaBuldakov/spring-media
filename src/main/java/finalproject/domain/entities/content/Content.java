@@ -1,13 +1,19 @@
 package finalproject.domain.entities.content;
 
 import finalproject.domain.entities.user.User;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-
+/**
+ * Сущность - единица контента.
+ */
 @Getter
 @Setter
 @Entity

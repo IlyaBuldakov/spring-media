@@ -3,16 +3,18 @@ package finalproject.application.services;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.file.File;
 import io.vavr.control.Either;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.URL;
-import java.util.List;
-import java.util.concurrent.Future;
-
+/**
+ * Сервис контента.
+ */
 public interface ContentService {
-  Future<Either<Failure, String>> attachFileToTask (MultipartFile file, int taskId);
-  Future<Either<Failure, Void>> deleteFileById (int id);
+  CompletableFuture<Either<Failure, String>> attachFileToTask(MultipartFile file, int taskId);
 
-  Future<Either<Failure, List<File>>> getAllFilesRelatedToTask (int taskId);
+  CompletableFuture<Either<Failure, Void>> deleteFileById(int id);
+
+  CompletableFuture<Either<Failure, List<File>>> getAllFilesRelatedToTask(int taskId);
 
 }
