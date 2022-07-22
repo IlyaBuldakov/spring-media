@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-
+import java.util.concurrent.ExecutionException;
 
 
 @Service
@@ -33,18 +33,18 @@ public class UserServiceImpl implements UserService {
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, User>> editUser(User user, int id) {
+  public CompletableFuture<Either<Failure, User>> editUser(User user, int id) throws ExecutionException, InterruptedException {
     List<String> problems = new ArrayList<>();
     if (id < 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.INVALID_VALUES, problems)));
     }
-    if (isEmailExists(user.getEmail())) {
-      problems.add("email");
-      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USERS_EMAIL_IS_ALREADY_EXISTS, problems)));
-    }
     if (!repository.existsById(id)) {
       return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+    }
+    if (getUserByEmail(user.getEmail()).get().get().getId() != id) {
+      problems.add("email");
+      return CompletableFuture.completedFuture(Either.left(new Failure(Failure.Messages.USERS_EMAIL_IS_ALREADY_EXISTS, problems)));
     }
     return CompletableFuture.completedFuture(Either.right(repository.save(user)));
   }

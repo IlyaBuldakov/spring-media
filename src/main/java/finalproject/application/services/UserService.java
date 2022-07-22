@@ -6,12 +6,13 @@ import io.vavr.control.Either;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 public interface UserService {
 
   CompletableFuture<Either<Failure, User>> createNewUser(User user);
-  CompletableFuture<Either<Failure, User>> editUser(User user, int id);
+  CompletableFuture<Either<Failure, User>> editUser(User user, int id) throws ExecutionException, InterruptedException;
   CompletableFuture<Either<Failure, Void>> deleteUserById(int id);
   CompletableFuture<Either<Failure, User>> getUserById(int id);
   CompletableFuture<Either<Failure, List<User>>> getAllUsers();
