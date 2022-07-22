@@ -1,6 +1,7 @@
 package com.htc.application.dto.errors;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.failures.InvalidValuesContainer;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -48,5 +49,10 @@ public class BadRequestResponse extends AbstractDtoError {
                 .stream()
                 .map(InvalidValueResponse::new)
                 .toList();
+    }
+
+    public BadRequestResponse(InvalidValue invalidValue) {
+        super(DEFAULT_MESSAGE);
+        this.problems = List.of(new InvalidValueResponse(invalidValue));
     }
 }
