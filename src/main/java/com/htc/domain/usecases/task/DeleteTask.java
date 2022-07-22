@@ -31,9 +31,11 @@ public class DeleteTask {
 
     private void clearRelevantStaticResources(int id) {
         String pathQualifier = "src/main/webapp/";
-        var fileIds = filesRepository.findRelevantToTaskFiles(id);
-        for (String url : fileIds) {
-            new File(pathQualifier + url).delete();
+        var fileUrls = filesRepository.findRelevantToTaskFiles(id);
+        if (!fileUrls.isEmpty()) {
+            for (String url : fileUrls) {
+                new File(pathQualifier + url).delete();
+            }
         }
     }
 }
