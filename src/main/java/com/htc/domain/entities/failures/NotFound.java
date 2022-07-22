@@ -9,7 +9,9 @@ public enum NotFound implements Failure {
 
     USER("Пользователь не найден"),
 
-    TASK("Задача не найдена");
+    TASK("Задача не найдена"),
+
+    FILE("Файл не найден");
 
     NotFound(String message) {
         this.message = message;
