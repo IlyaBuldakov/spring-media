@@ -5,6 +5,8 @@ import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 
@@ -50,6 +52,7 @@ public class FileModel implements File {
   /**
    * Формат файла.
    */
+  @Enumerated(EnumType.STRING)
   private Format format;
 
   @Override
