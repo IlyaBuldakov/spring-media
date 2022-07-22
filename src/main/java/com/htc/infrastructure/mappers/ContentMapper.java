@@ -46,4 +46,7 @@ public class ContentMapper implements Content {
     private @Getter String url;
 
     private @Getter String preview;
+
+    @Column(name = "task_id")
+    private @Getter Integer taskId;
 }
