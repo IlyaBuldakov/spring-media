@@ -13,10 +13,8 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * Реализация репозитория уведомлений.
@@ -25,13 +23,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @AllArgsConstructor
 public class NotificationRepositoryImpl implements NotificationRepository {
 
-  //  @Autowired
   Notifications notifications;
 
-  //  @Autowired
   UserRepositoryImpl userRepository;
 
-  //  @Autowired
   TaskRepositoryImpl taskRepository;
 
   @Override

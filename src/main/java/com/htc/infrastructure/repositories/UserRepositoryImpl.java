@@ -10,7 +10,7 @@ import io.vavr.control.Either;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,8 +18,9 @@ import org.springframework.stereotype.Repository;
  * Реализация репозитория пользователей.
  */
 @Repository
+@AllArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
-  @Autowired
+
   Users users;
 
   @Override

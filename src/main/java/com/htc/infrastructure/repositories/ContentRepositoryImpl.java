@@ -4,17 +4,18 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.infrastructure.models.ContentModel;
 import io.vavr.control.Either;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -25,11 +26,17 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 public class ContentRepositoryImpl implements ContentRepository {
 
-  @Autowired
   Contents contents;
 
   @Override
-  public CompletableFuture<Either<Failure, Content>> create(Content content) {
+  public CompletableFuture<Either<Failure, Content>> create(
+          Content.Type type,
+          Content.Name name,
+          LocalDateTime dateCreated,
+          User author,
+          Content.Format format,
+          Content.Url url,
+          Content.Url preview) {
     return null;
   }
 
