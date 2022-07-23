@@ -5,6 +5,8 @@ import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 
@@ -30,6 +32,7 @@ public class ContentModel implements Content {
   /**
    * Тип контента.
    */
+  @Enumerated(EnumType.STRING)
   private Type type;
 
   @Override
@@ -70,6 +73,7 @@ public class ContentModel implements Content {
   /**
    * Формат контента.
    */
+  @Enumerated(EnumType.STRING)
   private Format format;
 
   @Override
@@ -105,5 +109,51 @@ public class ContentModel implements Content {
   @Override
   public int getTaskId() {
     return this.taskId;
+  }
+
+  /**
+   * Подтверждение добавления контента в ленту.
+   */
+  private boolean approve;
+
+  @Override
+  public boolean getApprove() {
+    return this.approve;
+  }
+
+  protected ContentModel() {}
+
+  public ContentModel(Content.Type type, String name, LocalDateTime dateCreated,
+                   int authorId, Content.Format format, String urlContent,
+                   String urlPreview, int taskId) {
+    this(Id.create(0).get(), type, name, dateCreated,
+        authorId, format, urlContent, urlPreview, taskId);
+  }
+
+  /**
+   * Создает экземпляр класса {@Link ContentModel}.
+   *
+   * @param id Идентификатор контента.
+   * @param type Тип контента.
+   * @param name Название контента.
+   * @param dateCreated Дата создания контента.
+   * @param authorId Идентификатор автора контента.
+   * @param format Формат контента.
+   * @param urlContent Путь контента.
+   * @param urlPreview Путь превью контента.
+   * @param taskId Идентификатор задачи содержащей контент.
+   */
+  public ContentModel(Id id, Content.Type type, String name,
+                      LocalDateTime dateCreated, int authorId,
+                      Content.Format format, String urlContent,
+                      String urlPreview, int taskId) {
+    this.type = type;
+    this.name = name;
+    this.dateCreated = dateCreated;
+    this.authorId = authorId;
+    this.format = format;
+    this.urlContent = urlContent;
+    this.urlPreview = urlPreview;
+    this.taskId = taskId;
   }
 }

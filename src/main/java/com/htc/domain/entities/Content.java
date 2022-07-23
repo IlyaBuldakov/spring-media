@@ -74,6 +74,13 @@ public interface Content {
   int getTaskId();
 
   /**
+   * Подтверждение добавления контента в ленту.
+   *
+   * @return approve Подтверждение добавления контента в ленту.
+   */
+  boolean getApprove();
+
+  /**
    * Тип контента.
    */
   enum Type {
@@ -107,8 +114,7 @@ public interface Content {
      * @return name Название типа контента.
      */
     @SuppressWarnings("JavadocDeclaration")
-    private final @Getter
-    String name;
+    private final @Getter String name;
 
     Type(int id, String name) {
       this.id = id;

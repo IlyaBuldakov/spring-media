@@ -4,6 +4,7 @@ import com.htc.domain.entities.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.infrastructure.models.ContentModel;
+import com.htc.utility.Results;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -24,13 +25,17 @@ public class ContentRepositoryImpl implements ContentRepository {
   public CompletableFuture<Either<Failure, Content>> upload(
       Content.Type type,
       String name,
-      LocalDateTime dateCreate,
+      LocalDateTime dateCreated,
       int authorId,
       Content.Format format,
       String urlContent,
       String urlPreview,
       int taskId) {
-    return null;
+    var content = new ContentModel(
+        type, name, dateCreated,
+        authorId, format, urlContent,
+        urlPreview, taskId);
+    return Results.succeed(contents.save(content));
   }
 
   @Override
