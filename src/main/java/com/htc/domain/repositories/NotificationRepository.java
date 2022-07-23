@@ -5,6 +5,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.notification.Notification;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
 import io.vavr.control.Either;
 import java.util.List;
@@ -18,14 +19,15 @@ public interface NotificationRepository {
    * Добавление нового уведомления.
    *
    * @param type тип
+   * @param dateNotification дата уведомления
    * @param message сообщение
    * @param user пользователь
    * @param task задача
    *
    * @return notification новое уведомление, подробнее {@link Notification}
    */
-  CompletableFuture<Either<Failure, Notification>> add(Type type, String message,
-                                               User user, Task task);
+  CompletableFuture<Either<Failure, Notification>> add(Type type, DateCreated dateNotification,
+                                                       String message, User user, Task task);
 
   /**
    * Получение списка уведомлений.

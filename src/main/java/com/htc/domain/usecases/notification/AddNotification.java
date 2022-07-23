@@ -7,6 +7,7 @@ import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.notification.Notification;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.repositories.NotificationRepository;
 import com.htc.domain.repositories.TaskRepository;
@@ -28,6 +29,8 @@ public final class AddNotification implements UseCase<AddNotification.Params, No
    *
    * @param type тип уведомления
    * @param typeKey ключ типа уведомления
+   * @param dateNotification дата уведомления
+   * @param dateNotificationKey ключ даты уведомления
    * @param message сообщение уведомления
    * @param messageKey ключ сообщения уведомления
    * @param userId идентификатор пользователя
@@ -36,6 +39,7 @@ public final class AddNotification implements UseCase<AddNotification.Params, No
    * @param taskIdKey ключ идентификатора задачи
    */
   public record Params(Type type, String typeKey,
+                       String dateNotification, String dateNotificationKey,
                        String message, String messageKey,
                        Long userId, String userIdKey,
                        Long taskId, String taskIdKey) {}
@@ -48,6 +52,11 @@ public final class AddNotification implements UseCase<AddNotification.Params, No
   @Override
   public CompletableFuture<Either<Failure, Notification>> execute(Params params) {
     var failure = new InvalidValues();
+    var dateNotification = DateCreated.create(params.dateNotification());
+    if (dateNotification.isLeft()) {
+      failure.getValues().put(
+              InvalidValueParam.INVALID_ENTITY_DATE_CREATED, params.dateNotificationKey);
+    }
     User user = null;
     try {
       user = userRepository.get(Id.create(params.userId()).get()).get().get();
@@ -61,7 +70,7 @@ public final class AddNotification implements UseCase<AddNotification.Params, No
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.taskIdKey);
     }
     return failure.getValues().size() == 0
-            ? repository.add(params.type(), params.message(), user, task)
+            ? repository.add(params.type(), dateNotification.get(), params.message(), user, task)
             : EitherHelper.badLeft(failure);
   }
 }
