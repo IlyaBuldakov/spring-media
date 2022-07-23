@@ -5,6 +5,7 @@ import com.htc.domain.entities.notification.Notification;
 import com.htc.domain.repositories.NotificationRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,11 +15,11 @@ import org.springframework.stereotype.Component;
  */
 //@Component
 @AllArgsConstructor
-public final class GetAllNotifications implements UseCase<Void, Iterable<Notification>> {
+public final class GetAllNotifications implements UseCase<Void, List<Notification>> {
   private final NotificationRepository repository;
 
   @Override
-  public CompletableFuture<Either<Failure, Iterable<Notification>>> execute(Void param) {
+  public CompletableFuture<Either<Failure, List<Notification>>> execute(Void param) {
     return repository.getAll();
   }
 }
