@@ -8,7 +8,7 @@ import io.vavr.control.Either;
 import java.time.LocalDateTime;
 
 /**
- * Файл. Используется как прилежение к задаче.
+ * Файл. Используется как приложение к задаче.
  */
 public interface File {
 
@@ -53,13 +53,6 @@ public interface File {
    * @return задачу.
    */
   Task getTask();
-
-  /**
-   * Содержане файл.
-   *
-   * @return файл.
-   */
-  FileContent getFile();
 
   /**
    * Формат файла.
@@ -107,7 +100,7 @@ public interface File {
      * Создаёт адресс файла.
      *
      * @param value Входные данные.
-     * @return адресс файла или ошибка.
+     * @return Адресс файла или ошибка.
      */
     public static Either<InvalidValue, File.Url> create(String value) {
       var fileUrl = new File.Url(value);
@@ -115,27 +108,6 @@ public interface File {
     }
 
     private Url(String value) {
-      super(value);
-    }
-  }
-
-  //TODO: требуется рефаторинг огранизации хранеия содержимого файла.
-  /**
-   * Содержание файла.
-   */
-  final class FileContent extends Attribute<String> {
-    /**
-     * Создаёт содержание файла.
-     *
-     * @param value Входные данные.
-     * @return адресс файла или ошибка.
-     */
-    public static Either<InvalidValue, File.FileContent> create(String value) {
-      var fileFileContent = new File.FileContent(value);
-      return Either.right(fileFileContent);
-    }
-
-    private FileContent(String value) {
       super(value);
     }
   }

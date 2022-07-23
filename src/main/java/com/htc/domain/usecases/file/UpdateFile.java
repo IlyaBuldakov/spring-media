@@ -7,10 +7,12 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Сценарий обновления файла.
  */
+@Component
 @AllArgsConstructor
 public final class UpdateFile implements UseCase<File, File> {
   private final FileRepository repository;
