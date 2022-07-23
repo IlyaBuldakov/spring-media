@@ -9,6 +9,7 @@ import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.UpdateUserById;
 import com.htc.utility.ControllerHelper;
 import io.swagger.v3.oas.annotations.Operation;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -79,7 +80,7 @@ public class UserController {
    */
   @GetMapping
   @Async
-  public CompletableFuture<Iterable<UserResponse>> getAll() {
+  public CompletableFuture<List<UserResponse>> getAll() {
     return ControllerHelper.customRequest(
       getAllUsers,
       null,

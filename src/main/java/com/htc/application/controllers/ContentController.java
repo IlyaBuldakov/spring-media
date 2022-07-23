@@ -9,6 +9,7 @@ import com.htc.domain.usecases.content.GetAllContent;
 import com.htc.domain.usecases.content.GetContentById;
 import com.htc.utility.ControllerHelper;
 import io.swagger.v3.oas.annotations.Operation;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -77,7 +78,7 @@ public class ContentController {
    */
   @GetMapping
   @Async
-  public CompletableFuture<Iterable<ContentResponse>> getAll() {
+  public CompletableFuture<List<ContentResponse>> getAll() {
     return ControllerHelper.customRequest(
             getAllContent,
             null,
