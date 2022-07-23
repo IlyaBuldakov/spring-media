@@ -23,7 +23,7 @@ public final class UploadContent implements UseCase<UploadContent.Params, Conten
    *
    * @param type Тип контента.
    * @param name Название контента.
-   * @param dateCreate Дата создания контента.
+   * @param dateCreated Дата создания контента.
    * @param authorId Идентификатор автора контента.
    * @param format Формат контента.
    * @param urlContent Путь к контенту.
@@ -33,13 +33,12 @@ public final class UploadContent implements UseCase<UploadContent.Params, Conten
   public record Params(
       Content.Type type, String typeKey,
       String name, String nameKey,
-      LocalDateTime dateCreate, String dateCreateKey,
+      LocalDateTime dateCreated, String dateCreatedKey,
       int authorId, String authorIdKey,
       Content.Format format, String formatKey,
       String urlContent, String urlContentKey,
       String urlPreview, String urlPreviewKey,
-      int taskId, String taskIdKey
-  ) {}
+      int taskId, String taskIdKey) {}
 
   private final ContentRepository repository;
 
@@ -51,7 +50,7 @@ public final class UploadContent implements UseCase<UploadContent.Params, Conten
         ? repository.upload(
         params.type,
         params.name,
-        params.dateCreate,
+        params.dateCreated,
         params.authorId,
         params.format,
         params.urlContent,
