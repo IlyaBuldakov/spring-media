@@ -43,7 +43,7 @@ public class TasksRepositoryImpl implements TasksRepository {
     @Override
     public CompletableFuture<Either<Failure, Void>> create(String name, ContentType type, String description, int author, int executor, LocalDate dateExpired) {
         tasksJpaRepository.save(new TaskMapper(name, type, description, author, executor, dateExpired));
-        return null;
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 
     /**
@@ -88,7 +88,7 @@ public class TasksRepositoryImpl implements TasksRepository {
     @Override
     public CompletableFuture<Either<Failure, Void>> update(int id, String name, ContentType type, String description, int author, int executor, LocalDate dateExpired) {
         tasksJpaRepository.save(new TaskMapper(id, name, type, description, author, executor, dateExpired));
-        return null;
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 
     /**
@@ -104,6 +104,6 @@ public class TasksRepositoryImpl implements TasksRepository {
         } catch (EmptyResultDataAccessException exception) {
             return CompletableFuture.completedFuture(Either.left(NotFound.TASK));
         }
-        return null;
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 }

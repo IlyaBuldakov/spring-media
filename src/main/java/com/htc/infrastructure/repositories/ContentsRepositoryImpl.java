@@ -52,7 +52,7 @@ public class ContentsRepositoryImpl implements ContentsRepository {
     @Override
     public CompletableFuture<Either<Failure, Void>> create(String name, ContentType type, Content.Format format, int taskId) {
         contentsJpaRepository.save(new ContentMapper(name, type, format, taskId));
-        return null;
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 
     /**

@@ -38,8 +38,9 @@ public class FilesRepositoryImpl implements FilesRepository {
      * @param taskId Идентификатор задачи.
      */
     @Override
-    public void uploadFile(String name, LocalDate dateCreated, File.Format format, String url, int taskId) {
+    public CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, File.Format format, String url, int taskId) {
         filesJpaRepository.save(new FileMapper(name, dateCreated, format, url, taskId));
+        return CompletableFuture.completedFuture(Either.right(null));
     }
 
     /**

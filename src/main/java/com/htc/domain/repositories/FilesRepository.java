@@ -22,7 +22,7 @@ public interface FilesRepository {
      * @param url URL файла.
      * @param taskId Идентификатор задачи.
      */
-    void uploadFile(String name, LocalDate dateCreated, Format format, String url, int taskId);
+    CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, Format format, String url, int taskId);
 
     /**
      * Удаление файла из базы данных и файловой системы
