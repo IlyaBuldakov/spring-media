@@ -40,10 +40,15 @@ public class DeleteTask {
             return CompletableFuture.completedFuture(Either.left(expectedFailure));
         }
         clearRelevantStaticResources(Integer.parseInt(id));
-        tasksRepository.deleteById(Integer.parseInt(id));
-        return CompletableFuture.completedFuture(Either.right(null));
+        return tasksRepository.deleteById(Integer.parseInt(id));
     }
 
+    /**
+     * Отчистка статических ресурсов,
+     * прикрепленных к задаче, при её удалении.
+     *
+     * @param id Идентификатор задачи.
+     */
     private void clearRelevantStaticResources(int id) {
         String pathQualifier = "src/main/webapp/";
         var fileUrls = filesRepository.findRelevantToTaskFilesUrl(id);

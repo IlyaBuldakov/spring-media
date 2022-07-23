@@ -23,15 +23,15 @@ public class SaveFile {
      * @param composedUrl Составной url.
      */
     public void execute(byte[] fileBinary, String composedUrl) {
-            try {
-                var path = Files.createDirectories(Paths.get("src/main/webapp/uploads/files"));
-                new File(path + composedUrl);
-                BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(composedUrl));
-                stream.write(fileBinary);
-                stream.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            var path = Files.createDirectories(Paths.get("src/main/webapp/uploads/files"));
+            new File(path + composedUrl);
+            BufferedOutputStream stream =
+                    new BufferedOutputStream(new FileOutputStream(composedUrl));
+            stream.write(fileBinary);
+            stream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
 }

@@ -31,8 +31,7 @@ public class UpdateUser {
      */
     public CompletableFuture<Either<Failure, Void>> execute(String id, String name, String password,
                                                             String email, String avatar, Role role) {
-        var expectedFailure
-                = ValuesValidator.checkUserFields(id, name, password, email, avatar);
+        var expectedFailure = ValuesValidator.checkUserFields(id, name, password, email, avatar);
         return expectedFailure == null ?
                 usersRepository.update(Integer.parseInt(id), name, password, email, avatar, role)
                 : CompletableFuture.completedFuture(Either.left(expectedFailure));

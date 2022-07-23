@@ -41,10 +41,7 @@ public class UploadFile {
             return CompletableFuture.completedFuture(Either.left(expectedFailure));
         }
         var format = FileHelper.getFormat(fileBinary, fileName);
-        if (format.isLeft()) {
-            return CompletableFuture.completedFuture(Either.left(format.getLeft()));
-        }
-        filesRepository.uploadFile(fileName, dateCreated, format.get(), composedUrl, Integer.parseInt(taskId));
-        return CompletableFuture.completedFuture(Either.right(null));
+        return format.isLeft() ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
+                : filesRepository.uploadFile(fileName, dateCreated, format.get(), composedUrl, Integer.parseInt(taskId));
     }
 }

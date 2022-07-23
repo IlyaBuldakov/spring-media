@@ -27,18 +27,15 @@ public class CreateContent {
     /**
      * Метод сценария.
      *
-     * @param name Имя контента.
-     * @param type Тип контента.
+     * @param name   Имя контента.
+     * @param type   Тип контента.
      * @param format Формат контента.
      * @param taskId Идентификатор задачи.
      * @return void.
      */
     public CompletableFuture<Either<Failure, Void>> execute(String name, ContentType type, Content.Format format, String taskId) {
         var expectedFailure = ValuesValidator.validateStringId(taskId);
-        if (expectedFailure != null) {
-            return CompletableFuture.completedFuture(Either.left(expectedFailure));
-        }
-        contentsRepository.create(name, type, format, Integer.parseInt(taskId));
-        return CompletableFuture.completedFuture(Either.right(null));
+        return expectedFailure == null ? contentsRepository.create(name, type, format, Integer.parseInt(taskId))
+                : CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
 }

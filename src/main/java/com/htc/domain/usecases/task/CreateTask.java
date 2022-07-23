@@ -2,7 +2,6 @@ package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.task.Task;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.util.ValuesValidator;
@@ -45,10 +44,8 @@ public class CreateTask {
                                                             String description, String author,
                                                             String executor, LocalDate dateExpired) {
         var expectedFailure = ValuesValidator.checkTaskFields(name, description, author, executor);
-        if (expectedFailure != null) {
-            return CompletableFuture.completedFuture(Either.left(expectedFailure));
-        }
-        tasksRepository.create(name, type, description, Integer.parseInt(author), Integer.parseInt(executor), dateExpired);
-        return CompletableFuture.completedFuture(Either.right(null));
+        return expectedFailure == null ?
+                tasksRepository.create(name, type, description, Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
+                : CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
 }

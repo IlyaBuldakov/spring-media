@@ -34,11 +34,25 @@ public class DeleteFile {
         if (expectedFailure != null) {
             return CompletableFuture.completedFuture(Either.left(expectedFailure));
         }
+        var removeFile = removeFile(directoryQualifier, fileId);
+        return (removeFile != null && removeFile.isLeft())
+                ? CompletableFuture.completedFuture(Either.left(removeFile.getLeft()))
+                : filesRepository.deleteFile(Integer.parseInt(fileId));
+    }
+
+    /**
+     * Метод удаления файла из файловой системы по идентификатору.
+     *
+     * @param directoryQualifier Уточняющий элемент пути.
+     * @param fileId Идентификатор файла.
+     * @return void.
+     */
+    private Either<Failure, Void> removeFile(String directoryQualifier, String fileId) {
         var file = filesRepository.findFileUrlById(Integer.parseInt(fileId));
         if (file.isLeft()) {
-            return CompletableFuture.completedFuture(Either.left(file.getLeft()));
+            return Either.left(file.getLeft());
         }
         new File(directoryQualifier + file.get()).delete();
-        return filesRepository.deleteFile(Integer.parseInt(fileId));
+        return null;
     }
 }
