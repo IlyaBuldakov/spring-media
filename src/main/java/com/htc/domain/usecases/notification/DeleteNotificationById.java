@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 /**
  * Сценарий удаления уведомления по его идентификатору.
  */
-//@Component
+@Component
 @AllArgsConstructor
 public final class DeleteNotificationById implements UseCase<DeleteNotificationById.Params, Void> {
   /**

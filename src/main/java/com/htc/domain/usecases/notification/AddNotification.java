@@ -21,7 +21,6 @@ import lombok.AllArgsConstructor;
 /**
  * Сценарий добавления уведомления.
  */
-//@Component
 @AllArgsConstructor
 public final class AddNotification implements UseCase<AddNotification.Params, Notification> {
   /**
