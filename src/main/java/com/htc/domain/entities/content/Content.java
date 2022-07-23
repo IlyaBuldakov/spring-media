@@ -90,19 +90,19 @@ public interface Content {
     /**
      * Фото.
      */
-    PHOTO(1, "Фото"),
+    PHOTO(0, "Фото"),
     /**
      * Видео.
      */
-    VIDEO(2, "Видео"),
+    VIDEO(1, "Видео"),
     /**
      * Аудио.
      */
-    AUDIO(3, "Аудио");
+    AUDIO(2, "Аудио");
     /**
      * Идентификатор типа медиаконтента.
      *
-     * @return id Идентификатор типа медиаконтента.
+     * @return Идентификатор типа медиаконтента.
      */
     @SuppressWarnings("JavadocDeclaration")
     private final @Getter int id;

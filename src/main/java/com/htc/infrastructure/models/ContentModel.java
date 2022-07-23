@@ -32,6 +32,13 @@ public class ContentModel implements Content {
   }
 
   /**
+   * Задача изменение которой отображается в уведомлении.
+   */
+  @ManyToOne
+  @JoinColumn(name = "parent_task_id", referencedColumnName = "task_id", nullable = false)
+  private TaskModel parentTask;
+
+  /**
    * Тип медиаконтента.
    */
   private @Getter Type type;
