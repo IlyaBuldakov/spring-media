@@ -6,6 +6,7 @@
 ## [0.15.0] - 2022-07-23
 ### Изменено
 - Типы полей сущности уведомления представляют соответствующие классы.
+- Сущность уведомлений теперь интерфейс.
 
 ## [0.14.0] - 2022-07-20
 ### Добавлено
@@ -260,6 +261,7 @@
 [0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
 -->
 
+[0.15.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.14.0...yuriy.krasnoperov-v0.15.0
 [0.14.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.13.0...yuriy.krasnoperov-v0.14.0
 [0.13.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.12.0...yuriy.krasnoperov-v0.13.0
 [0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.11.0...yuriy.krasnoperov-v0.12.0
