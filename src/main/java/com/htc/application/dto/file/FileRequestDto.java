@@ -1,19 +1,19 @@
 package com.htc.application.dto.file;
 
-import com.htc.domain.entities.files.File;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * представление запроса файла.
  */
-public class FileRequestDto {
+public class  FileRequestDto {
   /**
-   * Формат файла.
+   * Файл.
    *
-   * @return Формат файла.
+   * @return Файл.
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String file;
+  private final @Getter MultipartFile file;
   /**
    * URL файла.
    *
@@ -26,9 +26,10 @@ public class FileRequestDto {
    * Создаёт экземпляр класса {@link FileRequestDto}.
    *
    * @param file Файл.
+   * @param task Индентфикатор задачи.
    */
-  public FileRequestDto(File file) {
-    this.file = file.getFile().getValue();
-    this.task = file.getTask().getId().getValue();
+  public FileRequestDto(MultipartFile file, int task) {
+    this.file = file;
+    this.task = task;
   }
 }
