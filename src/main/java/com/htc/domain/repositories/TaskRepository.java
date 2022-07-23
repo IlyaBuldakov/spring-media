@@ -4,7 +4,6 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -37,12 +36,12 @@ public interface TaskRepository {
   /**
    * Обновляет данные задачи.
    *
-   * @param id          Идентификатор задачи.
-   * @param name        Название задачи.
+   * @param id Идентификатор задачи.
+   * @param name Название задачи.
    * @param contentType Тип медиаконтекта.
    * @param description Описание задачи
-   * @param authorId    Автор задачи.
-   * @param executorId  Исполнитель задачи.
+   * @param authorId Автор задачи.
+   * @param executorId Исполнитель задачи.
    * @param dateExpired Срок задачи.
    * @return Задача или ошибка
    */
@@ -76,7 +75,6 @@ public interface TaskRepository {
    * @return Список задач.
    */
   CompletableFuture<Either<Failure, Collection<Task>>> getAll();
-
 
 
 }

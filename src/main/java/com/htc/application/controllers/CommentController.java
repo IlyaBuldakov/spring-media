@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Контроллер для работы с пользователями.
+ * Контроллер для работы с комментариями.
  */
 @RestController
 @RequestMapping(path = "api/comments")
@@ -20,7 +20,7 @@ public class CommentController {
   private CreateComment createComment;
 
   /**
-   * Создаёт пользователя.
+   * Создаёт комментарий.
    */
   @PostMapping
   @Async

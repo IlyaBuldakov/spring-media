@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Контроллер для работы с пользователями.
+ * Контроллер для работы с уведомлениями.
  */
 @RestController
 @RequestMapping(path = "api/notification")
@@ -30,10 +30,10 @@ public class NotificationController {
   private GetAllNotificationsByUser getAllNotifications;
 
   /**
-   * Возвращает пользователя.
+   * Возвращает уведомление.
    *
-   * @param id Идентификатор пользователя.
-   * @return Пользователь.
+   * @param id Идентификатор уведомления.
+   * @return Уведомление.
    */
   @GetMapping(path = "/{id}")
   @Async
@@ -45,9 +45,9 @@ public class NotificationController {
   }
 
   /**
-   * Возвращает список всех пользователей.
+   * Возвращает список всех уведомлений.
    *
-   * @return Список пользователей.
+   * @return Список уведомлений.
    */
   @GetMapping
   public CompletableFuture<Collection<NotificationDto>> getAll() {
@@ -60,9 +60,9 @@ public class NotificationController {
   }
 
   /**
-   * Удаляет пользователя.
+   * Удаляет уведомление.
    *
-   * @param id Идентификатор пользователя.
+   * @param id Идентификатор уведомления.
    */
   @DeleteMapping(path = "/{id}")
   public void delete(@PathVariable Integer id) {

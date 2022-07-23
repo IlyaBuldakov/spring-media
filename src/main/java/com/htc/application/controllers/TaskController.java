@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Контроллер для работы с пользователями.
+ * Контроллер для работы с задачами.
  */
 @RestController
 @RequestMapping(path = "api/tasks")
@@ -36,7 +36,7 @@ public class TaskController {
   private GetAllTasks getAllTasks;
 
   /**
-   * Создаёт пользователя.
+   * Создаёт задачу.
    */
   @PostMapping
   @Async
@@ -55,10 +55,10 @@ public class TaskController {
   }
 
   /**
-   * Возвращает пользователя.
+   * Возвращает задачу.
    *
-   * @param id Идентификатор пользователя.
-   * @return Пользователь.
+   * @param id Идентификатор задачи.
+   * @return Задача.
    */
   @GetMapping(path = "/{id}")
   @Async
@@ -70,9 +70,9 @@ public class TaskController {
   }
 
   /**
-   * Возвращает список всех пользователей.
+   * Возвращает список всех задач.
    *
-   * @return Список пользователей.
+   * @return Список задач.
    */
   @GetMapping
   public CompletableFuture<Collection<TaskResponse>> getAll() {
@@ -85,9 +85,9 @@ public class TaskController {
   }
 
   /**
-   * Обновляет данные пользователя.
+   * Обновляет данные задачи.
    *
-   * @param id Идентификатор пользователя.
+   * @param id Идентификатор задачи.
    */
   @PutMapping(path = "/{id}")
   public void update(@PathVariable int id,
@@ -107,9 +107,9 @@ public class TaskController {
   }
 
   /**
-   * Удаляет пользователя.
+   * Удаляет задачу.
    *
-   * @param id Идентификатор пользователя.
+   * @param id Идентификатор задачи.
    */
   @DeleteMapping(path = "/{id}")
   public void delete(@PathVariable Integer id) {

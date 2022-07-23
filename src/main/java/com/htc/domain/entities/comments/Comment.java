@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 public interface Comment {
   /**
-   * Идентификатор Комментария.
+   * Идентификатор комментария.
    *
    * @return Идентификатор комментария.
    */
@@ -22,14 +22,14 @@ public interface Comment {
   /**
    * Дата создания комментария.
    *
-   * @return дату создания комментария.
+   * @return Дата создания комментария.
    */
   LocalDateTime getDate();
 
   /**
    * Автор комментария.
    *
-   * @return user - автора комментария.
+   * @return Пользователь - автора комментария.
    */
   User getUser();
 
@@ -43,12 +43,12 @@ public interface Comment {
   /**
    * Текст комментария.
    *
-   * @return текст комментария.
+   * @return Текст комментария.
    */
   Message getMessage();
 
   /**
-   * Сообщение уведомления.
+   * Текст уведомления.
    */
   class Message extends Attribute<String> {
     /**

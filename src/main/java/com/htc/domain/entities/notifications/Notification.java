@@ -48,9 +48,9 @@ public interface Notification {
   User getUser();
 
   /**
-   * Задача. Задача связанная с уведомлнием.
+   * Задача связанная с уведомлнием.
    *
-   * @return Задача.
+   * @return Задача связанная с уведомлнием.
    */
   Task getTask();
 

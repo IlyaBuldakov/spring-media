@@ -12,6 +12,7 @@ public class RoleResponse {
    *
    * @return id Идентификатор роли.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;
 
   /**
@@ -19,6 +20,7 @@ public class RoleResponse {
    *
    * @return name Название роли.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private final @Getter String name;
 
   /**

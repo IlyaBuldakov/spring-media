@@ -21,7 +21,7 @@ public interface NotificationRepository {
    * @param message Сообщение уведомления
    * @param userId Пользователь связаный с уведомлением.
    * @param taskId Задача связанная с уведомлением
-   * @return Ошибку или уведомление.
+   * @return Уведомление или ошибку.
    */
   CompletableFuture<Either<Failure, Notification>> create(
           Notification.Type type,
@@ -40,7 +40,7 @@ public interface NotificationRepository {
   /**
    * Удаляет уведомление.
    *
-   * @param id Идентификатор Уведомления.
+   * @param id Идентификатор уведомления.
    */
   CompletableFuture<Either<Failure, Void>> delete(Id id);
 

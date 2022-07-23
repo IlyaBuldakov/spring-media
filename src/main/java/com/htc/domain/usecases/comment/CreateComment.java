@@ -22,8 +22,8 @@ public class CreateComment implements UseCase<CreateComment.Params, Comment> {
   /**
    * Параметры выполнения сценария создания комментария.
    *
-   * @param user    Пользователь - автор комментария.
-   * @param task    Задача под которой остален комментарий.
+   * @param user Пользователь - автор комментария.
+   * @param task Задача под которой остален комментарий.
    * @param message Тест комментария.
    */
   public record Params(

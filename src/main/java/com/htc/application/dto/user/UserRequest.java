@@ -12,6 +12,7 @@ public class UserRequest {
    *
    * @return Имя пользователя.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String name;
 
   /**
@@ -19,6 +20,7 @@ public class UserRequest {
    *
    * @return Электронная почта пользователя.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String email;
 
   /**
@@ -26,6 +28,7 @@ public class UserRequest {
    *
    * @return Пароль пользователя.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter String password;
 
   /**
@@ -33,13 +36,15 @@ public class UserRequest {
    *
    * @return Изображение пользователя.
    */
-  private  @Getter String image;
+  @SuppressWarnings("JavadocDeclaration")
+  private @Getter String image;
 
   /**
    * Роль пользователя, см. {@link User.Role}.
    *
    * @return Роль пользователя.
    */
+  @SuppressWarnings("JavadocDeclaration")
   private @Getter User.Role role;
 
   /**
