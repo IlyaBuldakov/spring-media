@@ -8,10 +8,12 @@ import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Сценарий удаления контента по его идентификатору.
  */
+@Component
 @AllArgsConstructor
 public final class DeleteContentById implements UseCase<Integer, Void> {
   private final ContentRepository repository;

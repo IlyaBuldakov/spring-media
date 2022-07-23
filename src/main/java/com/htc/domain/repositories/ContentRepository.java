@@ -4,47 +4,51 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Репозиторий контента.
+ * Репозиторий медиаконтента.
  */
 public interface ContentRepository {
   /**
-   * Созает контент.
+   * Созает медиаконтент.
    *
-   * @param content Контент.
+   * @param content Медиаконтент.
    */
 
   CompletableFuture<Either<Failure, Content>> create(Content content);
 
   /**
-   * Обновляет контент.
+   * Удаляет медиаконтент.
    *
-   * @param content Контент.
-   */
-  CompletableFuture<Either<Failure, Content>> update(Content content);
-
-  /**
-   * Удаляет контент.
-   *
-   * @param id Идентификатор контента.
+   * @param id Идентификатор медиаконтент.
    */
   CompletableFuture<Either<Failure, Void>> delete(Id id);
 
   /**
-   * Получает контент.
+   * Получает содержимое ленты медиаконтента по запросу.
    *
-   * @param id Идентификатор контента.
-   * @return Контент.
+   * @param page   Номер страницы.
+   * @param count  Количество медиаконтента на страницу.
+   * @param author Имя автора медиаконтента (запрос).
+   * @param date   Дата публикации медиаконтента (запрос).
+   * @param typeId Идентификатор тип медиаконтента (запрос).
+   * @return Список медиаконтента или ошибку.
    */
-  CompletableFuture<Either<Failure, Content>> get(Id id);
+  CompletableFuture<Either<Failure, Collection<Content>>> findByQuery(
+          Integer page,
+          Integer count,
+          String author,
+          LocalDate date,
+          Integer typeId);
 
   /**
-   * Получает список всего контента.
+   * Получает список медиакнтета относящегося к одной задаче.
    *
-   * @return Список контента.
+   * @param taskId Идентификатор задачи.
+   * @return Список контента или ошибку.
    */
-  CompletableFuture<Either<Failure, Collection<Content>>> getAll();
+  CompletableFuture<Either<Failure, Collection<Content>>> findByTask(Id taskId);
 }
