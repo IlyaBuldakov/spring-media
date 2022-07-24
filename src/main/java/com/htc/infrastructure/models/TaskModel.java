@@ -30,20 +30,10 @@ public class TaskModel implements Task {
   @Column(name = "task_id")
   private Integer taskId;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.taskId).get();
-  }
-
   /**
    * Название задачи.
    */
   private String name;
-
-  @Override
-  public Name getName() {
-    return Task.Name.create(this.name).get();
-  }
 
   /**
    * Требуемый задачей тип медиаконтента.
@@ -55,11 +45,6 @@ public class TaskModel implements Task {
    * Описание задачи.
    */
   private String description;
-
-  @Override
-  public Description getDescription() {
-    return Task.Description.create(this.description).get();
-  }
 
   /**
    * Автор задачи.
@@ -90,6 +75,21 @@ public class TaskModel implements Task {
    */
   @Enumerated(EnumType.STRING)
   private @Getter Status status;
+
+  @Override
+  public Id getId() {
+    return Id.create(this.taskId).get();
+  }
+
+  @Override
+  public Name getName() {
+    return Task.Name.create(this.name).get();
+  }
+
+  @Override
+  public Description getDescription() {
+    return Task.Description.create(this.description).get();
+  }
 
   protected TaskModel() {
   }

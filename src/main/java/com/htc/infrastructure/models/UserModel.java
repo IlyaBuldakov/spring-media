@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * Модель пользователя для СУБД.
@@ -25,60 +26,55 @@ public class UserModel implements User {
   @Column(name = "user_id")
   private Integer userId;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.userId).get();
-  }
-
   /**
    * Имя пользователя.
    */
   private String name;
-
-  @Override
-  public Name getName() {
-    return Name.create(this.name).get();
-  }
 
   /**
    * Электронная почта пользователя.
    */
   private String email;
 
-  @Override
-  public Email getEmail() {
-    return Email.create(this.email).get();
-  }
-
   /**
    * Пароль пользователя.
    */
   private String password;
-
-  @Override
-  public Password getPassword() {
-    return Password.create(this.password).get();
-  }
 
   /**
    * Изображение пользователя.
    */
   private String image;
 
-  @Override
-  public Image getImage() {
-    return Image.create(this.image).get();
-  }
-
   /**
    * Роль пользователя, см. {@link Role}.
    */
   @Enumerated(EnumType.STRING)
-  private Role role;
+  private @Getter Role role;
 
   @Override
-  public Role getRole() {
-    return this.role;
+  public Id getId() {
+    return Id.create(this.userId).get();
+  }
+
+  @Override
+  public Name getName() {
+    return Name.create(this.name).get();
+  }
+
+  @Override
+  public Email getEmail() {
+    return Email.create(this.email).get();
+  }
+
+  @Override
+  public Password getPassword() {
+    return Password.create(this.password).get();
+  }
+
+  @Override
+  public Image getImage() {
+    return Image.create(this.image).get();
   }
 
   protected UserModel() {

@@ -2,8 +2,6 @@ package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.comments.Comment;
-import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.user.User;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,11 +27,6 @@ public class CommentModel implements Comment {
   @GeneratedValue
   private Integer commentId;
 
-  @Override
-  public Id getId() {
-    return Id.create(commentId).get();
-  }
-
   /**
    * Дата создания комментария.
    */
@@ -48,6 +41,11 @@ public class CommentModel implements Comment {
   private @Getter TaskModel task;
 
   private String message;
+
+  @Override
+  public Id getId() {
+    return Id.create(commentId).get();
+  }
 
   @Override
   public Message getMessage() {

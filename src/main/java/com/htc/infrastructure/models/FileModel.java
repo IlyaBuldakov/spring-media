@@ -2,7 +2,6 @@ package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.files.File;
-import com.htc.domain.entities.tasks.Task;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,20 +26,10 @@ public class FileModel implements File {
   @GeneratedValue
   private Integer fileId;
 
-  @Override
-  public Id getId() {
-    return Id.create(fileId).get();
-  }
-
   /**
    * Имя файла.
    */
   private String name;
-
-  @Override
-  public Name getName() {
-    return File.Name.create(name).get();
-  }
 
   /**
    * Дата загрузки файла.
@@ -57,11 +46,6 @@ public class FileModel implements File {
    */
   private String url;
 
-  @Override
-  public Url getUrl() {
-    return Url.create(url).get();
-  }
-
   /**
    * Родительская задача файла.
    */
@@ -69,6 +53,20 @@ public class FileModel implements File {
   @JoinColumn(name = "file_parent_task", referencedColumnName = "task_id", nullable = false)
   public @Getter TaskModel task;
 
+  @Override
+  public Id getId() {
+    return Id.create(fileId).get();
+  }
+
+  @Override
+  public Name getName() {
+    return File.Name.create(name).get();
+  }
+
+  @Override
+  public Url getUrl() {
+    return Url.create(url).get();
+  }
 
   protected FileModel() {
   }

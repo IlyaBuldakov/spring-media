@@ -26,11 +26,6 @@ public class ContentModel implements Content {
   @GeneratedValue
   private Integer contentId;
 
-  @Override
-  public Id getId() {
-    return Id.create(contentId).get();
-  }
-
   /**
    * Задача изменение которой отображается в уведомлении.
    */
@@ -47,10 +42,6 @@ public class ContentModel implements Content {
    * Название медиаконтента.
    */
   private String name;
-
-  public Content.Name getName() {
-    return Content.Name.create(this.name).get();
-  }
 
   /**
    * Дата согдания медиаконтента.
@@ -74,15 +65,24 @@ public class ContentModel implements Content {
    */
   private String url;
 
-  @Override
-  public Url getUrl() {
-    return Content.Url.create(this.url).get();
-  }
-
   /**
    * Адрес превью медиаконтента.
    */
   private String preview;
+
+  @Override
+  public Id getId() {
+    return Id.create(contentId).get();
+  }
+
+  public Content.Name getName() {
+    return Content.Name.create(this.name).get();
+  }
+
+  @Override
+  public Url getUrl() {
+    return Content.Url.create(this.url).get();
+  }
 
   @Override
   public Url getPreview() {

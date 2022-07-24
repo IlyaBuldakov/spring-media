@@ -32,11 +32,6 @@ public class NotificationModel implements Notification {
   @Column(name = "notification_id")
   private Integer notificationId;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.notificationId).get();
-  }
-
   /**
    * Тип уведомления.
    */
@@ -53,15 +48,6 @@ public class NotificationModel implements Notification {
    */
   private String message;
 
-  @Override
-  public Message getMessage() {
-    return Notification.Message.create(this.message).get();
-  }
-
-
-
-
-
   /**
    * Пользователь чье действие отображается в уведомлении.
    */
@@ -69,17 +55,27 @@ public class NotificationModel implements Notification {
   @JoinColumn(name = "parent_user_id", referencedColumnName = "user_id", nullable = false)
   private UserModel parentUser;
 
-  @Override
-  public User getUser() {
-    return parentUser;
-  }
-
   /**
    * Задача изменение которой отображается в уведомлении.
    */
   @ManyToOne
   @JoinColumn(name = "parent_task_id", referencedColumnName = "task_id", nullable = false)
   private TaskModel parentTask;
+
+  @Override
+  public Id getId() {
+    return Id.create(this.notificationId).get();
+  }
+
+  @Override
+  public Message getMessage() {
+    return Notification.Message.create(this.message).get();
+  }
+
+  @Override
+  public User getUser() {
+    return parentUser;
+  }
 
   @Override
   public Task getTask() {
