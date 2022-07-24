@@ -54,7 +54,7 @@ class UpdateUserByIdTest {
 
   @Test
   void usersExist_ShouldUpdateUser() throws ExecutionException, InterruptedException {
-    var userm = new UserModel(
+    var userModel = new UserModel(
             params.id(),
             params.name(),
             params.password(),
@@ -68,9 +68,9 @@ class UpdateUserByIdTest {
                     UserPassword.create(params.password()).get(),
                     UserImage.create(params.image()).get(),
                     params.role()))
-            .thenReturn(EitherHelper.goodRight(userm));
+            .thenReturn(EitherHelper.goodRight(userModel));
     var result = useCase.execute(params).get().get();
-    assertThat(result).isEqualTo(userm);
+    assertThat(result).isEqualTo(userModel);
   }
 
   @Test
