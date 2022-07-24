@@ -58,7 +58,6 @@ public class ContentController {
    * Получение контента.
    *
    * @param id идентификатор
-   *
    * @return comment контент
    */
   @GetMapping(path = "/{id}")

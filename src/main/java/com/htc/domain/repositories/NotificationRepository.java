@@ -23,7 +23,6 @@ public interface NotificationRepository {
    * @param message сообщение
    * @param user пользователь
    * @param task задача
-   *
    * @return notification новое уведомление, подробнее {@link Notification}
    */
   CompletableFuture<Either<Failure, Notification>> add(Type type, DateCreated dateNotification,

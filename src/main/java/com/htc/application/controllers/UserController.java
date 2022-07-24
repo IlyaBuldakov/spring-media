@@ -60,7 +60,6 @@ public class UserController {
    * Получение пользователя.
    *
    * @param id идентификатор
-   *
    * @return user пользователь
    */
   @GetMapping(path = "/{id}")

@@ -62,7 +62,6 @@ public class TaskController {
    * Получение задачи.
    *
    * @param id идентификатор
-   *
    * @return task задача
    */
   @GetMapping(path = "/{id}")

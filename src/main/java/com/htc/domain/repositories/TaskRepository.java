@@ -40,7 +40,6 @@ public interface TaskRepository {
    * Получение задачи по идентификатору.
    *
    * @param id идентификатор задачи
-   *
    * @return task задача, подробнее {@link Task}
    */
   CompletableFuture<Either<Failure, Task>> get(Id id);

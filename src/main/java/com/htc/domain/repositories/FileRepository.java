@@ -35,7 +35,6 @@ public interface FileRepository {
    * Получение файла.
    *
    * @param fileId идентификатор файла
-   *
    * @return file файл, подробнее {@link File}
    */
   CompletableFuture<Either<Failure, File>> get(Id fileId);

@@ -51,7 +51,6 @@ public class CommentController {
    * Получение комментария.
    *
    * @param id идентификатор
-   *
    * @return comment комментарий
    */
   @GetMapping(path = "/{id}")

@@ -29,7 +29,6 @@ public interface ContentRepository {
    * @param previewPath превью контента
    * @param file файл, относящийся к контенту
    * @param task задача, относящаяся к контенту
-   *
    * @return content новый контент, подробнее {@link Content}
    */
   CompletableFuture<Either<Failure, Content>> add(FileName name, Type type,
@@ -65,7 +64,6 @@ public interface ContentRepository {
    * @param previewPath превью контента
    * @param file файл, относящийся к контенту
    * @param task задача, относящаяся к контенту
-   *
    * @return content измененный контент, подробнее {@link Content}
    */
   CompletableFuture<Either<Failure, Content>> change(Id id, FileName name, Type type,

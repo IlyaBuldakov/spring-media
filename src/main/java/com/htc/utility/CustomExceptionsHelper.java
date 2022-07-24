@@ -21,7 +21,6 @@ public final class CustomExceptionsHelper {
    *
    * @param result передаваемый тип
    * @param <R> type тип параметра правой части
-   *
    * @return exceptionResponse представление ошибки
    */
   public static <R> RuntimeException getExceptionFromLeft(Either<Failure, R> result) {
