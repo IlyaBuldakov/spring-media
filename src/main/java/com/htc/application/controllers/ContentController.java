@@ -5,10 +5,8 @@ import com.htc.application.dto.content.ContentsResponseDto;
 import com.htc.application.dto.responsestatus.BadRequestResponse;
 import com.htc.application.dto.responsestatus.InternalServerErrorResponse;
 import com.htc.application.dto.responsestatus.NotFoundResponse;
-import com.htc.application.dto.responsestatus.UnauthorizedResponse;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.failures.Unauthorized;
 import com.htc.domain.usecases.content.CreateContent;
 import com.htc.domain.usecases.content.DeleteContentById;
 import com.htc.domain.usecases.content.GetContentByQuery;
@@ -85,7 +83,6 @@ public class ContentController {
             typeId)).thenApply(either -> (either
             .getOrElseThrow(failure -> switch (failure) {
               case InvalidValues invalidValues -> new BadRequestResponse(invalidValues);
-              case Unauthorized ignored -> new UnauthorizedResponse(failure);
               case NotFound ignored -> new NotFoundResponse(failure);
               default -> new InternalServerErrorResponse(failure);
             }))).thenApply(ContentsResponseDto::new);

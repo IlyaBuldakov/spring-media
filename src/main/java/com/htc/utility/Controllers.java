@@ -3,10 +3,8 @@ package com.htc.utility;
 import com.htc.application.dto.responsestatus.BadRequestResponse;
 import com.htc.application.dto.responsestatus.InternalServerErrorResponse;
 import com.htc.application.dto.responsestatus.NotFoundResponse;
-import com.htc.application.dto.responsestatus.UnauthorizedResponse;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.failures.Unauthorized;
 import com.htc.domain.usecases.UseCase;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -35,7 +33,6 @@ public class Controllers {
                     .map(entityToDtoConverter)
                     .getOrElseThrow(failure -> switch (failure) {
                       case InvalidValues invalidValues -> new BadRequestResponse(invalidValues);
-                      case Unauthorized ignored -> new UnauthorizedResponse(failure);
                       case NotFound ignored -> new NotFoundResponse(failure);
                       default -> new InternalServerErrorResponse(failure);
                     }));
