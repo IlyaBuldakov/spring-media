@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -31,26 +31,32 @@ public class FileModel implements File {
   /**
    * Имя файла.
    */
+  @NotNull
   private String name;
 
   /**
    * Дата загрузки файла.
    */
+  @NotNull
   private @Getter LocalDateTime dateCreated;
 
   /**
    * Формат файла.
    */
+  @NotNull
   private @Getter File.Format format;
 
   /**
    * Путь к файлу.
    */
+  @NotNull
+  @Column(unique = true)
   private String url;
 
   /**
    * Родительская задача файла.
    */
+  @NotNull
   @ManyToOne
   public @Getter TaskModel task;
 

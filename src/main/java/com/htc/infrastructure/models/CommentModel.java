@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -32,14 +32,18 @@ public class CommentModel implements Comment {
   /**
    * Дата создания комментария.
    */
+  @NotNull
   private @Getter LocalDateTime date;
 
   @ManyToOne
+  @NotNull
   private @Getter UserModel user;
 
   @ManyToOne
+  @NotNull
   private @Getter TaskModel task;
 
+  @NotNull
   private String message;
 
   @Override

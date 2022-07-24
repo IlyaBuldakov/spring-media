@@ -9,9 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -33,44 +33,52 @@ public class TaskModel implements Task {
   /**
    * Название задачи.
    */
+  @NotNull
   private String name;
 
   /**
    * Требуемый задачей тип медиаконтента.
    */
+  @NotNull
   @Enumerated(EnumType.STRING)
   private @Getter Content.Type contentType;
 
   /**
    * Описание задачи.
    */
+  @NotNull
   private String description;
 
   /**
    * Автор задачи.
    */
+  @NotNull
   @ManyToOne
   private @Getter UserModel author;
 
   /**
    * Исполнитель задачи.
    */
+  @NotNull
   @ManyToOne
   private @Getter UserModel executor;
 
   /**
    * Дата создания задачи.
    */
+  @NotNull
   private @Getter LocalDateTime dateCreated;
 
   /**
    * Дата окончания срока задачи.
    */
+  @NotNull
   private @Getter LocalDateTime dateExpired;
 
   /**
    * Статус задачи.
    */
+  @NotNull
   @Enumerated(EnumType.STRING)
   private @Getter Status status;
 

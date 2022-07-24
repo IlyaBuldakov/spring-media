@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -32,42 +32,51 @@ public class ContentModel implements Content {
    * Задача изменение которой отображается в уведомлении.
    */
   @ManyToOne
+  @NotNull
   private TaskModel parentTask;
 
   /**
    * Тип медиаконтента.
    */
+  @NotNull
   private @Getter Type type;
 
   /**
    * Название медиаконтента.
    */
+  @NotNull
   private String name;
 
   /**
    * Дата согдания медиаконтента.
    */
+  @NotNull
   private @Getter LocalDateTime dateCreated;
 
   /**
    * Автор медиаконтента.
    */
+  @NotNull
   @ManyToOne
   private @Getter UserModel author;
 
   /**
    * Формат медиаконтента.
    */
+  @NotNull
   private @Getter Format format;
 
   /**
    * Адрес медиаконтента.
    */
+  @NotNull
+  @Column(unique = true)
   private String url;
 
   /**
    * Адрес превью медиаконтента.
    */
+  @NotNull
   private String preview;
 
   @Override

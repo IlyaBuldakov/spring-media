@@ -8,6 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -29,16 +30,20 @@ public class UserModel implements User {
   /**
    * Имя пользователя.
    */
+  @NotNull
   private String name;
 
   /**
    * Электронная почта пользователя.
    */
+  @NotNull
+  @Column(unique = true)
   private String email;
 
   /**
    * Пароль пользователя.
    */
+  @NotNull
   private String password;
 
   /**
@@ -49,6 +54,7 @@ public class UserModel implements User {
   /**
    * Роль пользователя, см. {@link Role}.
    */
+  @NotNull
   @Enumerated(EnumType.STRING)
   private @Getter Role role;
 
