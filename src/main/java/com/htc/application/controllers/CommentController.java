@@ -35,9 +35,9 @@ public class CommentController {
     Controllers.handleRequest(
             createComment,
             new CreateComment.Params(
-                    commentRequestDto.getUser(),
-                    commentRequestDto.getTask(),
-                    commentRequestDto.getMessage()),
+                    commentRequestDto.user(),
+                    commentRequestDto.task(),
+                    commentRequestDto.message()),
             null);
   }
 }
