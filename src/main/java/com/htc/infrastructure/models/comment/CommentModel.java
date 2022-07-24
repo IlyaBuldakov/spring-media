@@ -25,17 +25,15 @@ public class CommentModel implements Comment {
   @Column(name = "id", unique = true, nullable = false)
   Long commentId;
 
-  @Column(name = "dateCreated", nullable = false)
+  @Column(nullable = false)
   String dateCreated;
 
   @ManyToOne
   @JoinColumn(name = "authorId", nullable = false)
   UserModel author;
 
-  @Column(name = "message")
   String message;
 
-  @Column(name = "contents")
   //TODO hibernate custom type [] // org.hibernate.mapping?
   String contents;
 

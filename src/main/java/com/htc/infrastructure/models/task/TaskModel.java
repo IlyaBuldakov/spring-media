@@ -34,17 +34,16 @@ public class TaskModel implements Task {
   @Column(name = "id", unique = true, nullable = false)
   Long taskId;
 
-  @Column(name = "name", nullable = false)
+  @Column(nullable = false)
   String name;
 
-  @Column(name = "type", nullable = false)
+  @Column(nullable = false)
   String type;
 
-  @Column(name = "description")
   String description;
 
   @ManyToOne
-  @JoinColumn(name = "fileId", nullable = false)
+  @JoinColumn(nullable = false)
   FileModel file;
 
   @ManyToOne
@@ -55,10 +54,10 @@ public class TaskModel implements Task {
   @JoinColumn(name = "executorId", nullable = false)
   UserModel executor;
 
-  @Column(name = "dateCreated", nullable = false)
+  @Column(nullable = false)
   String dateCreated;
 
-  @Column(name = "dateExpired", nullable = false)
+  @Column(nullable = false)
   String dateExpired;
 
   @ManyToOne
@@ -69,7 +68,7 @@ public class TaskModel implements Task {
   @JoinColumn(name = "commentId", nullable = false)
   CommentModel comment;
 
-  @Column(name = "status", nullable = false)
+  @Column(nullable = false)
   String status;
 
   @Override

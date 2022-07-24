@@ -25,19 +25,18 @@ public class FileModel implements File {
   @Column(name = "id", unique = true, nullable = false)
   Long fileId;
 
-  @Column(name = "name", nullable = false)
+  @Column(nullable = false)
   String name;
 
-  @Column(name = "dateCreated", nullable = false)
+  @Column(nullable = false)
   String dateCreated;
 
-  @Column(name = "format", nullable = false)
+  @Column(nullable = false)
   String format;
 
-  @Column(name = "fileurl", nullable = false)
+  @Column(nullable = false)
   String fileUrl;
 
-  @Column(name = "file")
   String file;
 
   public Id getId() {

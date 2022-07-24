@@ -33,23 +33,22 @@ public class ContentModel implements Content {
   @Column(name = "id", unique = true, nullable = false)
   Long contentId;
 
-  @Column(name = "type", nullable = false)
+  @Column(nullable = false)
   String type;
 
-  @Column(name = "name", nullable = false)
+  @Column(nullable = false)
   String name;
 
-  @Column(name = "dateCreated", nullable = false)
+  @Column(nullable = false)
   String dateCreated;
 
   @ManyToOne
   @JoinColumn(name = "authorId", nullable = false)
   UserModel author;
 
-  @Column(name = "format", nullable = false)
+  @Column(nullable = false)
   String format;
 
-  @Column(name = "previewPath")
   String previewPath;
 
   @ManyToOne

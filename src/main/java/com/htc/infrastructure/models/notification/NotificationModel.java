@@ -28,13 +28,12 @@ public class NotificationModel implements Notification {
   @Column(name = "id", unique = true, nullable = false)
   Long notificationId;
 
-  @Column(name = "type", nullable = false)
+  @Column(nullable = false)
   String type;
 
-  @Column(name = "dateNotification", nullable = false)
+  @Column(nullable = false)
   String dateNotification;
 
-  @Column(name = "message")
   String message;
 
   @ManyToOne

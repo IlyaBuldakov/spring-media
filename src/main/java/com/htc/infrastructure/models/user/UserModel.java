@@ -25,19 +25,18 @@ public class UserModel implements User {
   @Column(name = "id", unique = true, nullable = false)
   Long userId;
 
-  @Column(name = "name", nullable = false)
+  @Column(nullable = false)
   String name;
 
-  @Column(name = "password", nullable = false)
+  @Column(nullable = false)
   String password;
 
-  @Column(name = "email", nullable = false)
+  @Column(nullable = false)
   String email;
 
-  @Column(name = "image")
   String image;
 
-  @Column(name = "role", nullable = false)
+  @Column(nullable = false)
   String role;
 
   @Override
