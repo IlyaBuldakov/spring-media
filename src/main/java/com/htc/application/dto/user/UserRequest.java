@@ -1,51 +1,21 @@
 package com.htc.application.dto.user;
 
 import com.htc.domain.entities.user.User;
-import lombok.Getter;
 
 /**
- * Представление сущности пользователя (запрос).
+ *  Представление сущности пользователя (запрос).
+ * @param name Имя пользователя.
+ * @param email Электронная почта пользователя.
+ * @param password Пароль пользователя.
+ * @param image Изображение пользователя.
+ * @param role Роль пользователя, см. {@link User.Role}.
  */
-public class UserRequest {
-  /**
-   * Имя пользователя.
-   *
-   * @return Имя пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String name;
-
-  /**
-   * Электронная почта пользователя.
-   *
-   * @return Электронная почта пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String email;
-
-  /**
-   * Пароль пользователя.
-   *
-   * @return Пароль пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String password;
-
-  /**
-   * Изображение пользователя.
-   *
-   * @return Изображение пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter String image;
-
-  /**
-   * Роль пользователя, см. {@link User.Role}.
-   *
-   * @return Роль пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private @Getter User.Role role;
+public record UserRequest(
+        String name,
+        String email,
+        String password,
+        String image,
+        User.Role role) {
 
   /**
    * Создаёт экземпляр класса {@link UserRequest}.
@@ -53,13 +23,10 @@ public class UserRequest {
    * @param user Сущность пользователя.
    */
   public UserRequest(User user) {
-    this.name = user.getName().getValue();
-    this.email = user.getEmail().getValue();
-    this.password = user.getPassword().getValue();
-    this.image = user.getImage().getValue();
-    this.role = user.getRole();
-  }
-
-  public UserRequest() {
+    this(user.getName().getValue(),
+        user.getEmail().getValue(),
+        user.getPassword().getValue(),
+        user.getImage().getValue(),
+        user.getRole());
   }
 }

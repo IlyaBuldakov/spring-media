@@ -1,65 +1,27 @@
 package com.htc.application.dto.user;
 
 import com.htc.domain.entities.user.User;
-import lombok.Getter;
 
 /**
  * Представление сущности пользователя (ответ на запрос).
+ *
+ * @param id Идентификатор пользователя.
+ * @param name Имя пользователя.
+ * @param email Электронная почта пользователя.
+ * @param image Изображение пользователя.
+ * @param role Роль пользователя, см. {@link User.Role}.
  */
-public class UserResponse {
+public record UserResponse(int id, String name, String email, String image, User.Role role) {
   /**
-   * Идентификатор пользователя.
-   *
-   * @return id Идентификатор пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int id;
-
-  /**
-   * Имя пользователя.
-   *
-   * @return id Имя пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String name;
-
-  /**
-   * Электронная почта пользователя.
-   *
-   * @return id Электронная почта пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String email;
-
-  /**
-   * Изображение пользователя.
-   *
-   * @return id Изображение пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String image;
-
-  /**
-   * Роль пользователя, см. {@link User.Role}.
-   *
-   * @return id Роль пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter User.Role role;
-
-  /**
-   * Создаёт экземпляр класса {@link UserResponse}.
+   * Создаёт экземпляр {@link UserResponse}.
    *
    * @param user Сущность пользователя.
    */
   public UserResponse(User user) {
-    this.id = user.getId().getValue();
-    this.name = user.getName().getValue();
-    this.email = user.getEmail().getValue();
-    this.image = user.getImage().getValue();
-    this.role = user.getRole();
+    this(user.getId().getValue(),
+            user.getName().getValue(),
+            user.getEmail().getValue(),
+            user.getImage().getValue(),
+            user.getRole());
   }
-
-
-
 }

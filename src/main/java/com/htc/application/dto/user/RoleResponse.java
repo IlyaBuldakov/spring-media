@@ -1,35 +1,20 @@
 package com.htc.application.dto.user;
 
 import com.htc.domain.entities.user.User;
-import lombok.Getter;
 
 /**
  * Представление роли пользователя (ответ на запрос).
+ * @param id Идентификатор роли.
+ * @param name Название роли.
  */
-public class RoleResponse {
-  /**
-   * Идентификатор роли.
-   *
-   * @return id Идентификатор роли.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int id;
+public record RoleResponse(int id, String name) {
 
   /**
-   * Название роли.
-   *
-   * @return name Название роли.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String name;
-
-  /**
-   * Создаёт экземпляр класса {@link RoleResponse}.
+   * Создаёт экземпляр {@link RoleResponse}.
    *
    * @param role Роль пользователя.
    */
   public RoleResponse(User.Role role) {
-    this.id = role.getId();
-    this.name = role.getName();
+    this(role.getId(), role.getName());
   }
 }

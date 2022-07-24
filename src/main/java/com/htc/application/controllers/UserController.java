@@ -51,11 +51,11 @@ public class UserController {
     Controllers.handleRequest(
             createUser,
             new CreateUser.Params(
-                    userRequest.getName(),
-                    userRequest.getEmail(),
-                    userRequest.getPassword(),
-                    userRequest.getImage(),
-                    userRequest.getRole()),
+                    userRequest.name(),
+                    userRequest.email(),
+                    userRequest.password(),
+                    userRequest.image(),
+                    userRequest.role()),
             null);
   }
 
@@ -106,11 +106,11 @@ public class UserController {
             updateUser,
             new UpdateUser.Params(
                     id,
-                    userRequest.getName(),
-                    userRequest.getEmail(),
-                    userRequest.getPassword(),
-                    userRequest.getImage(),
-                    userRequest.getRole()),
+                    userRequest.name(),
+                    userRequest.email(),
+                    userRequest.password(),
+                    userRequest.image(),
+                    userRequest.role()),
             null);
   }
 

@@ -1,27 +1,13 @@
 package com.htc.application.dto.user;
 
 import com.htc.domain.entities.user.User;
-import lombok.Getter;
 
 /**
  * Краткое представление сущности пользователя (ответ на запрос).
+ * @param id Идентификатор пользователя.
+ * @param name Имя пользователя.
  */
-public class UserShortResponse {
-  /**
-   * Идентификатор пользователя.
-   *
-   * @return id Идентификатор пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int id;
-
-  /**
-   * Имя пользователя.
-   *
-   * @return id Имя пользователя.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String name;
+public record UserShortResponse(int id, String name) {
 
   /**
    * Создаёт экземпляр класса {@link UserShortResponse}.
@@ -29,7 +15,6 @@ public class UserShortResponse {
    * @param user Сущность пользователя.
    */
   public UserShortResponse(User user) {
-    this.id = user.getId().getValue();
-    this.name = user.getName().getValue();
+    this(user.getId().getValue(), user.getName().getValue());
   }
 }
