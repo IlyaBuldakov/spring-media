@@ -33,9 +33,17 @@ public interface UserRepositories {
      * Получает пользователя.
      *
      * @param id Идентификатор пользователь.
-     * @return Пользователь.
+     * @return Пользователь найденный по идентификатору.
      */
     CompletableFuture<Either<Failure, User>> get(Integer id);
+
+    /**
+     * Получает пользователя.
+     *
+     * @param email электронная почта пользователя.
+     * @return Пользователь найденный по электронной почте.
+     */
+    CompletableFuture<Either<Failure, Integer>> getUserByEmail(String email);
 
     /**
      * Получает список всех пользователей.
