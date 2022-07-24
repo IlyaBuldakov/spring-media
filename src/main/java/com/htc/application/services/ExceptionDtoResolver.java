@@ -3,10 +3,12 @@ package com.htc.application.services;
 import com.htc.application.dto.errors.BadRequestResponse;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.dto.errors.NotFoundResponse;
+import com.htc.application.dto.errors.UnauthorizedResponse;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.failures.InvalidValuesContainer;
 import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.failures.Unauthorized;
 
 /**
  * Класс, объединяющий в себе логику преобразования
@@ -25,6 +27,8 @@ public class ExceptionDtoResolver {
         switch (failure) {
             case InvalidValuesContainer invalidValues ->
                     exception = new BadRequestResponse(invalidValues);
+            case Unauthorized unauthorized ->
+                    exception = new UnauthorizedResponse(unauthorized.getMessage());
             case InvalidValue invalidValue ->
                     exception = new BadRequestResponse(invalidValue);
             case NotFound notFound ->
