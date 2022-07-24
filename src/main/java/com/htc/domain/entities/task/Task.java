@@ -46,7 +46,7 @@ public interface Task {
    *
    * @return file файл
    */
-  //TODO files[]
+  //TODO реализовать список files
   File getFile();
 
   /**
@@ -68,7 +68,7 @@ public interface Task {
    *
    * @return dateCreated дата создания
    */
-  //TODO DateCreated заменить на DateField?
+  //TODO наименование DateCreated заменить на DateField
   DateCreated getDateCreated();
 
   /**
@@ -83,7 +83,7 @@ public interface Task {
    *
    * @return content контент
    */
-  //TODO contents[]
+  //TODO реализовать список contents
   Content getContent();
 
   /**
@@ -91,7 +91,7 @@ public interface Task {
    *
    * @return comment коммент
    */
-  //TODO comments[]
+  //TODO реализовать список comments
   Comment getComment();
 
   /**

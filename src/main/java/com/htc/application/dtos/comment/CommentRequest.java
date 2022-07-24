@@ -34,7 +34,7 @@ public class CommentRequest {
    *
    * @return content формат
    */
-  //TODO Content
+  //TODO реализовать список идентификаторов Content
   @SuppressWarnings("JavadocDeclaration")
   private @Getter int[] content;
 

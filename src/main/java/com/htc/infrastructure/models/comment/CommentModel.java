@@ -34,7 +34,6 @@ public class CommentModel implements Comment {
 
   String message;
 
-  //TODO hibernate custom type [] // org.hibernate.mapping?
   String contents;
 
   @Override

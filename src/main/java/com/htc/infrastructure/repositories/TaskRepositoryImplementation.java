@@ -55,7 +55,7 @@ public class TaskRepositoryImplementation implements TaskRepository {
 
   @Override
   public CompletableFuture<Either<Failure, Task>> get(Id id) {
-    //TODO проверка на наличие в базе записи
+    //TODO реализовать проверку на наличие в базе записи
     return tasks.findById((long) id.getValue()).thenApplyAsync(Either::right);
   }
 

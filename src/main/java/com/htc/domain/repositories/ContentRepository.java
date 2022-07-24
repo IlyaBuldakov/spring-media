@@ -36,8 +36,6 @@ public interface ContentRepository {
                                                   Format format, FileUrlPath previewPath,
                                                   File file, Task task);
 
-  //TODO +addFile отдельно??
-
   /**
    * Получение контента по идентификатору.
    *

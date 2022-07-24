@@ -43,7 +43,7 @@ public final class AddContent implements UseCase<AddContent.Params, Content> {
   @Override
   public CompletableFuture<Either<Failure, Content>> execute(Params params) {
     var failure = new InvalidValues();
-    //TODO возможно filename переименовать в EntityName
+    //TODO filename переименовать в EntityName
     Task task = null;
     try {
       task = taskRepository.get(Id.create(params.taskId()).get()).get().get();
@@ -60,7 +60,7 @@ public final class AddContent implements UseCase<AddContent.Params, Content> {
     if (dateCreated.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date created");
     }
-    //TODO проверять на null??
+    //TODO реализовать проверку на null в getName и getFormat
     return failure.getValues().size() == 0
             ? repository.add(task.getName(), task.getType(), dateCreated.get(), task.getAuthor(),
             file.getFormat(), file.getFileUrlPath(), file, task)

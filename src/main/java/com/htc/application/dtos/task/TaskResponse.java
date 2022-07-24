@@ -50,7 +50,7 @@ public class TaskResponse {
    *
    * @return file файл
    */
-  //TODO files[]
+  //TODO реализовать список files
   @SuppressWarnings("JavadocDeclaration")
   private final @Getter File file;
 
@@ -75,7 +75,7 @@ public class TaskResponse {
    *
    * @return dateCreated дата создания
    */
-  //TODO DateCreated заменить на DateField?
+  //TODO наименование DateCreated заменить на DateField
   @SuppressWarnings("JavadocDeclaration")
   private final @Getter String dateCreated;
 
@@ -92,7 +92,7 @@ public class TaskResponse {
    *
    * @return content контент
    */
-  //TODO contents[]
+  //TODO реализовать список contents
   @SuppressWarnings("JavadocDeclaration")
   private final @Getter Content content;
 
@@ -101,7 +101,7 @@ public class TaskResponse {
    *
    * @return comment коммент
    */
-  //TODO comments[]
+  //TODO реализовать список comments
   @SuppressWarnings("JavadocDeclaration")
   private final @Getter Comment comment;
 

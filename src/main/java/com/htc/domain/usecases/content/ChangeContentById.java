@@ -67,7 +67,7 @@ public final class ChangeContentById implements UseCase<ChangeContentById.Params
     if (dateCreated.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date created");
     }
-    //TODO проверять на null??
+    //TODO реализовать проверку на null в getName и getFormat
     return failure.getValues().size() == 0
             ? repository.change(id.get(), task.getName(), task.getType(), dateCreated.get(),
             task.getAuthor(), file.getFormat(), file.getFileUrlPath(), file, task)

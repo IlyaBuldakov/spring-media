@@ -45,6 +45,6 @@ public interface Comment {
    *
    * @return content контент (набор)
    */
-  //TODO заменить на экземпляр массива контента (list?)
+  //TODO реализовать список контента
   int[] getContents();
 }

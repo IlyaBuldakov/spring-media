@@ -21,7 +21,7 @@ public interface CommentRepository {
    * @param content контент (набор)
    * @return comment новый комментарий, подробнее {@link Comment}
    */
-  //TODO Content
+  //TODO реализовать список Content
   CompletableFuture<Either<Failure, Comment>> add(DateCreated dateCreated,
                                                   User author,
                                                   String message,
