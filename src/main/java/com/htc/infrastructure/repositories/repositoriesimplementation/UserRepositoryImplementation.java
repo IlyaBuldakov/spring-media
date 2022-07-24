@@ -1,4 +1,4 @@
-package com.htc.infrastructure.repositories;
+package com.htc.infrastructure.repositories.repositoriesimplementation;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.Role;
@@ -10,6 +10,7 @@ import com.htc.domain.entities.utility.parameters.user.UserName;
 import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.infrastructure.models.user.UserModel;
+import com.htc.infrastructure.repositories.Users;
 import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.List;

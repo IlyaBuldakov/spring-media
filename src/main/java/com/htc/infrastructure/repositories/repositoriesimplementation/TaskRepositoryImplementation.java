@@ -1,4 +1,4 @@
-package com.htc.infrastructure.repositories;
+package com.htc.infrastructure.repositories.repositoriesimplementation;
 
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.content.Content;
@@ -17,6 +17,7 @@ import com.htc.infrastructure.models.content.ContentModel;
 import com.htc.infrastructure.models.file.FileModel;
 import com.htc.infrastructure.models.task.TaskModel;
 import com.htc.infrastructure.models.user.UserModel;
+import com.htc.infrastructure.repositories.Tasks;
 import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.List;

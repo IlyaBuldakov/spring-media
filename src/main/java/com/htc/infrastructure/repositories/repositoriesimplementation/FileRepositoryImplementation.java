@@ -1,4 +1,4 @@
-package com.htc.infrastructure.repositories;
+package com.htc.infrastructure.repositories.repositoriesimplementation;
 
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.file.File;
@@ -10,6 +10,7 @@ import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
 import com.htc.domain.repositories.FileRepository;
 import com.htc.infrastructure.models.file.FileModel;
+import com.htc.infrastructure.repositories.Files;
 import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;

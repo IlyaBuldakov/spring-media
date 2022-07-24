@@ -1,4 +1,4 @@
-package com.htc.infrastructure.repositories;
+package com.htc.infrastructure.repositories.repositoriesimplementation;
 
 import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.failures.Failure;
@@ -11,6 +11,7 @@ import com.htc.domain.repositories.NotificationRepository;
 import com.htc.infrastructure.models.notification.NotificationModel;
 import com.htc.infrastructure.models.task.TaskModel;
 import com.htc.infrastructure.models.user.UserModel;
+import com.htc.infrastructure.repositories.Notifications;
 import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.List;

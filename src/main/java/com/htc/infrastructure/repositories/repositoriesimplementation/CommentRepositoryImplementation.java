@@ -1,4 +1,4 @@
-package com.htc.infrastructure.repositories;
+package com.htc.infrastructure.repositories.repositoriesimplementation;
 
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.failures.Failure;
@@ -8,6 +8,7 @@ import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.infrastructure.models.comment.CommentModel;
 import com.htc.infrastructure.models.user.UserModel;
+import com.htc.infrastructure.repositories.Comments;
 import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.Arrays;
