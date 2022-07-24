@@ -1,15 +1,25 @@
 package ru.kiryanovid.domain.entity.errors;
 
+/**
+ * Сущность уже существует.
+ */
 public enum AlreadyExists implements Failure{
-    ALREADY_EXISTS("Уже существует");
-    private String message;
+    /**
+     * Сообщение по умолчанию.
+     */
+    DEFAULT_MESSAGE("Сущность уже существует."),
+
+    // Пользователи
+    USER_WITH_EMAIL("Пользователь с данным адресом электронной почты уже существует.");
 
     AlreadyExists(String message) {
         this.message = message;
     }
 
+    private final String message;
+
     @Override
     public String getMessage() {
-        return null;
+        return message;
     }
 }
