@@ -1,28 +1,17 @@
 package com.htc.config;
 
-import org.springframework.context.annotation.Bean;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * Конфигурация для Springfox (Swagger UI).
+ * Конфигурация для Swagger UI.
  */
 @Configuration
-public class SpringfoxConfig {
-  /**
-   * Создать генератор документации Swagger UI.
-   *
-   * @return Генератор документации.
-   */
-  @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.OAS_30)
-            .select()
-            .apis(RequestHandlerSelectors.any())
-            .paths(PathSelectors.any())
-            .build();
-  }
-}
+@SecurityScheme(
+        name = "JWT",
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
+public class SpringfoxConfig {}
