@@ -49,12 +49,12 @@ public class ContentController {
   public void upload(@RequestBody ContentCreateRequestDto contentCreateRequestDto) {
     createContent.execute(
             new CreateContent.Params(
-                    contentCreateRequestDto.getFile(),
-                    contentCreateRequestDto.getTaskId())
+                    contentCreateRequestDto.file(),
+                    contentCreateRequestDto.taskId())
     );
   }
 
-  //TODO: Вытащить функцию со свичом в метод класса Controllers.
+  //TODO: Вытащить функцию со свичом в метод другого класса.
 
   /**
    * Получить содержимое ленты медиаконтента.

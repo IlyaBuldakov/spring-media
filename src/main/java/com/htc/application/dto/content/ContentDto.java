@@ -3,69 +3,27 @@ package com.htc.application.dto.content;
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.content.Content;
 import java.time.LocalDateTime;
-import lombok.Getter;
 
 /**
  * Представление сущности медиаконтента.
+ *
+ * @param id Индентификатор медиаконтента.
+ * @param type Тип медиаконтента.
+ * @param name Наименование медиаконтента.
+ * @param dateCreated Дата загрузки контента.
+ * @param author Пользователь - автор контента.
+ * @param format Формат контента.
+ * @param url Адресс контента.
+ * @param preview Превью контента.
  */
-public class ContentDto {
-
-  /**
-   * Индентификатор медиаконтента.
-   *
-   * @return Индентификатор медиаконтента.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int id;
-  /**
-   * Тип медиаконтента.
-   *
-   * @return Тип медиаконтента.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter ContentTypeDto type;
-  /**
-   * Наименование медиаконтента.
-   *
-   * @return Наименование медиаконтента.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String name;
-  /**
-   * Дата загрузки контента.
-   *
-   * @return Дата загрузки контента.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter LocalDateTime dateCreated;
-  /**
-   * Пользователь - автор контента.
-   *
-   * @return Пользователь - автор контента.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter UserShortResponse author;
-  /**
-   * Формат контента.
-   *
-   * @return Формат контента.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String format;
-  /**
-   * Адресс контента.
-   *
-   * @return Адресс контента.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String url;
-  /**
-   * Превью контента.
-   *
-   * @return Превью контента.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String preview;
+public record ContentDto(int id,
+                         ContentTypeDto type,
+                         String name,
+                         LocalDateTime dateCreated,
+                         UserShortResponse author,
+                         String format,
+                         String url,
+                         String preview) {
 
   /**
    * Создаёт экземпляр класса {@link ContentDto}.
@@ -73,13 +31,13 @@ public class ContentDto {
    * @param content Сущность медиаконтента.
    */
   public ContentDto(Content content) {
-    this.id = content.getId().getValue();
-    this.type = new ContentTypeDto(content.getType());
-    this.name = content.getName().getValue();
-    this.dateCreated = content.getDateCreated();
-    this.author = new UserShortResponse(content.getAuthor());
-    this.format = content.getFormat().name();
-    this.url = content.getUrl().getValue();
-    this.preview = content.getPreview().getValue();
+    this(content.getId().getValue(),
+            new ContentTypeDto(content.getType()),
+            content.getName().getValue(),
+            content.getDateCreated(),
+            new UserShortResponse(content.getAuthor()),
+            content.getFormat().name(),
+            content.getUrl().getValue(),
+            content.getPreview().getValue());
   }
 }
