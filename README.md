@@ -32,29 +32,11 @@ Swagger
 ## Сборка проекта
 
 ## Установка проекта
+
+## Настройка проекта
 - В [application.yml](\src\main\resources\application.yml) установить:
   - 'spring.datasource.url' - ссылка на СУБД.
   - 'spring.datasource.username' - имя пользователя СУБД.
   - 'spring.datasource.password' - пароль пользователя СУБД.
 
 ## Запуск проекта
-
-<!--
-проверять доступность порта 8080
-прописать требования на имя пользователя (User), см. Viki
-<p> javadoc
-на все failure прописать те два теста
-описание, что id не может быть меньше нуля
-написать тесты что ошибки реализуют Failure
-на тесты ошибок добавить уникальность статуса
-функция нахождения файлов, не прикрепленных файлов
-протестить на непредвиденное разрастание списка ошибок в invalidvalues
-возможно ли снова сделать имплементацию Failure на InvalidValueParam
-fakeuserrepository - var usersResult = users.stream().filter(us -> us.getId().getValue() == id.getValue()).toList(); написать свой equals
-тест на id = 234234ыва (public CompletableFuture<UserResponse> get(@PathVariable int id))
-
-поискать везде 'new InvalidValues()' и обработать 
-ошибки не дублировать, создавать и прокидывать наверх
-файл - соответствие формата в имени и указанного формата
-
--->
