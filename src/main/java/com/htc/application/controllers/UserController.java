@@ -88,7 +88,7 @@ public class UserController {
    * @param id Идентификатор пользователя.
    */
   @DeleteMapping(path = "/{id}")
-  @Operation(summary = "Удалить пользователя по идентификатору.")
+  @Operation(summary = "Удалить пользователя по идентификатору")
   @Async
   public void delete(@PathVariable int id) {
     Controllers.handleRequest(

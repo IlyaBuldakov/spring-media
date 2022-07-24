@@ -72,7 +72,6 @@ public class UserRepositoryImpl implements UserRepository {
   @Override
   public CompletableFuture<Either<Failure, User>> get(Id id) {
     var user = users.findById(id.getValue());
-
     return user.isPresent()
         ? Results.succeed(user.get())
         : Results.fail(NotFound.DEFAULT_MESSAGE);
