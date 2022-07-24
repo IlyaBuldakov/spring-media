@@ -33,7 +33,7 @@ public class ContentModel implements Content {
    */
   @ManyToOne
   @NotNull
-  private TaskModel parentTask;
+  private @Getter TaskModel parentTask;
 
   /**
    * Тип медиаконтента.
@@ -105,6 +105,7 @@ public class ContentModel implements Content {
    * Создает модель медиаконтента.
    *
    * @param id Индентификатор медиаконтента.
+   * @param parentTask Задача к которой относится данный медиаконтент.
    * @param type Тип медиаконтента.
    * @param name Наименование медиаконтента.
    * @param dateCreated Дата загрузки.
@@ -113,9 +114,10 @@ public class ContentModel implements Content {
    * @param url Адрес медиаконтента.
    * @param preview Адрес превью.
    */
-  public ContentModel(Id id, Type type, Name name, LocalDateTime dateCreated, UserModel author,
+  public ContentModel(Id id, TaskModel parentTask, Type type, Name name, LocalDateTime dateCreated, UserModel author,
                       Format format, Url url, Url preview) {
     this.contentId = id.getValue();
+    this.parentTask = parentTask;
     this.type = type;
     this.name = name.getValue();
     this.dateCreated = dateCreated;
