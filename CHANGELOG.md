@@ -11,9 +11,16 @@
 - Представление запроса на вход в систему.
 - Представление Access- и Refresh-токенов (ответ на запрос).
 - Контроллер для работы с аутентификацией.
-
 ### Изменено
 - Для генерации Swagger UI теперь используется `springdoc-openapi` вместо `springfox`.
+- Классы `DTO` преобразованы в записи.
+### Удалено
+- Методы контроллера уведомлений, отсутствуюшие в спецификации.
+- Тесты.
+- Неиспользуемые ошибки `Unauthorized` `RepositoryFailure` `UnauthorizedResponse`
+### Исправлено
+- Первичный ключ во всех таблицах теперь `id`.
+- Исправлены предупреждения в проекте.
 
 ## [v0.13.0] - 2022-07-24
 ### Добавлено
@@ -174,3 +181,4 @@
 [v0.11.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.10.0...aleksandr.aziatcev-v0.11.0
 [v0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.11.0...aleksandr.aziatcev-v0.12.0
 [v0.13.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.12.0...aleksandr.aziatcev-v0.13.0
+[v0.14.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.13.0...aleksandr.aziatcev-v0.14.0
