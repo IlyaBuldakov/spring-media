@@ -18,6 +18,14 @@ public enum Role {
         this.name = name;
     }
 
+    public static Role lookup(String roleName) {
+        try {
+            return Role.valueOf(roleName.toUpperCase());
+        } catch (IllegalArgumentException exception) {
+            return null;
+        }
+    }
+
     /**
      * Идентификатор роли.
      */
