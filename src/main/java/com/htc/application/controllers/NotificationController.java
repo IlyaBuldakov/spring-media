@@ -31,24 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SecurityRequirement(name = "JWT")
 @Tags(@Tag(name = "Уведомления"))
 public class NotificationController {
-  private DeleteNotificationById deleteNotificationById;
-  private GetNotificationById getNotificationById;
   private GetAllNotificationsByUser getAllNotifications;
-
-  /**
-   * Возвращает уведомление.
-   *
-   * @param id Идентификатор уведомления.
-   * @return Уведомление.
-   */
-  @GetMapping(path = "/{id}")
-  @Async
-  public CompletableFuture<NotificationDto> get(@PathVariable Integer id) {
-    return Controllers.handleRequest(
-            getNotificationById,
-            id,
-            NotificationDto::new);
-  }
 
   /**
    * Возвращает список всех уведомлений.
@@ -64,18 +47,5 @@ public class NotificationController {
             notification -> notification.stream()
                     .map(NotificationDto::new)
                     .collect(Collectors.toList()));
-  }
-
-  /**
-   * Удаляет уведомление.
-   *
-   * @param id Идентификатор уведомления.
-   */
-  @DeleteMapping(path = "/{id}")
-  public void delete(@PathVariable Integer id) {
-    Controllers.handleRequest(
-            deleteNotificationById,
-            id,
-            null);
   }
 }
