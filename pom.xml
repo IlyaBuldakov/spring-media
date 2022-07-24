@@ -6,7 +6,8 @@
 
     <groupId>com.htc</groupId>
     <artifactId>yur-project</artifactId>
-    <version>0.10.0</version>
+    <packaging>jar</packaging>
+    <version>0.15.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>18</maven.compiler.source>
