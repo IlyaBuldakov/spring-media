@@ -8,6 +8,10 @@ import com.htc.domain.usecases.user.GetAllUsers;
 import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.UpdateUser;
 import com.htc.utility.Controllers;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -28,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/users")
 @AllArgsConstructor
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Пользователи"))
 public class UserController {
   private CreateUser createUser;
   private UpdateUser updateUser;
@@ -40,6 +46,7 @@ public class UserController {
    */
   @PostMapping
   @Async
+  @Operation(summary = "Создать нового пользователя")
   public void create(@RequestBody UserRequest userRequest) {
     Controllers.handleRequest(
             createUser,
@@ -60,6 +67,7 @@ public class UserController {
    */
   @GetMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Получить пользователя по идентификатору")
   public CompletableFuture<UserResponse> get(@PathVariable Integer id) {
     return Controllers.handleRequest(
             getUserById,
@@ -74,6 +82,7 @@ public class UserController {
    */
   @GetMapping
   @Async
+  @Operation(summary = "Получить список пользователей")
   public CompletableFuture<Collection<UserResponse>> getAll() {
     return Controllers.handleRequest(
             getAllUsers,
@@ -91,6 +100,7 @@ public class UserController {
    */
   @PutMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Изменить пользователя по идентификатору")
   public void update(@PathVariable int id, @RequestBody UserRequest userRequest) {
     Controllers.handleRequest(
             updateUser,
@@ -111,6 +121,7 @@ public class UserController {
    */
   @DeleteMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Удалить пользователя по идентификатору")
   public void delete(@PathVariable int id) {
     Controllers.handleRequest(
             deleteUserById,

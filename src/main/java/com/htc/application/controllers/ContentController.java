@@ -13,6 +13,10 @@ import com.htc.domain.usecases.content.CreateContent;
 import com.htc.domain.usecases.content.DeleteContentById;
 import com.htc.domain.usecases.content.GetContentByQuery;
 import com.htc.utility.Controllers;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
@@ -31,6 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/contents")
 @AllArgsConstructor
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Медиаконтент"))
 public class ContentController {
   private DeleteContentById deleteContentById;
   private GetContentByQuery getContentByQuery;
@@ -41,6 +47,7 @@ public class ContentController {
    */
   @PostMapping
   @Async
+  @Operation(summary = "Загрузить новый контент в задачу")
   public void upload(@RequestBody ContentCreateRequestDto contentCreateRequestDto) {
     createContent.execute(
             new CreateContent.Params(
@@ -63,6 +70,7 @@ public class ContentController {
    */
   @GetMapping
   @Async
+  @Operation(summary = "Получить содержимое ленты контента")
   public CompletableFuture<ContentsResponseDto> getContentList(
           Integer page,
           Integer count,
@@ -92,6 +100,7 @@ public class ContentController {
    */
   @DeleteMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Удалить контент по идентификатору")
   public void delete(@PathVariable int id) {
     Controllers.handleRequest(
             deleteContentById,

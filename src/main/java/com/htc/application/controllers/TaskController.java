@@ -8,6 +8,10 @@ import com.htc.domain.usecases.task.GetAllTasks;
 import com.htc.domain.usecases.task.GetTaskById;
 import com.htc.domain.usecases.task.UpdateTask;
 import com.htc.utility.Controllers;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -28,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/tasks")
 @AllArgsConstructor
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Задачи"))
 public class TaskController {
   private CreateTask createTask;
   private UpdateTask updateTask;
@@ -40,6 +46,7 @@ public class TaskController {
    */
   @PostMapping
   @Async
+  @Operation(summary = "Создать новую задачу")
   public void create(@RequestBody TaskRequestDto taskRequestDto) {
     Controllers.handleRequest(
             createTask,
@@ -62,6 +69,7 @@ public class TaskController {
    */
   @GetMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Получить задачу по идентификатору")
   public CompletableFuture<TaskResponse> get(@PathVariable Integer id) {
     return Controllers.handleRequest(
             getTaskById,
@@ -75,6 +83,7 @@ public class TaskController {
    * @return Список задач.
    */
   @GetMapping
+  @Operation(summary = "Получить список задач")
   public CompletableFuture<Collection<TaskResponse>> getAll() {
     return Controllers.handleRequest(
             getAllTasks,
@@ -90,6 +99,7 @@ public class TaskController {
    * @param id Идентификатор задачи.
    */
   @PutMapping(path = "/{id}")
+  @Operation(summary = "Изменить задачу по идентификатору")
   public void update(@PathVariable int id,
                      @RequestBody TaskRequestDto taskRequestDto) {
     Controllers.handleRequest(
@@ -112,6 +122,7 @@ public class TaskController {
    * @param id Идентификатор задачи.
    */
   @DeleteMapping(path = "/{id}")
+  @Operation(summary = "Удалить задачу по идентификатор")
   public void delete(@PathVariable Integer id) {
     Controllers.handleRequest(
             deleteTaskById,

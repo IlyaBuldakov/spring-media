@@ -7,6 +7,10 @@ import com.htc.domain.usecases.notification.GetAllNotificationsByUser;
 import com.htc.domain.usecases.notification.GetNotificationById;
 import com.htc.domain.usecases.notification.UpdateNotification;
 import com.htc.utility.Controllers;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -24,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/notification")
 @AllArgsConstructor
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Уведомления"))
 public class NotificationController {
   private DeleteNotificationById deleteNotificationById;
   private GetNotificationById getNotificationById;
@@ -50,6 +56,7 @@ public class NotificationController {
    * @return Список уведомлений.
    */
   @GetMapping
+  @Operation(summary = "Получить список уведомлений")
   public CompletableFuture<Collection<NotificationDto>> getAll() {
     return Controllers.handleRequest(
             getAllNotifications,
