@@ -1,6 +1,7 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.Content;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
@@ -34,6 +35,14 @@ public interface ContentRepository {
       String urlPreview,
       int taskId
   );
+
+  /**
+   * Получает контент.
+   *
+   * @param id Идентификатор контента.
+   * @return Контент.
+   */
+  CompletableFuture<Either<Failure, Content>> get(Id id);
 
   /**
    * Удаляет контент.
