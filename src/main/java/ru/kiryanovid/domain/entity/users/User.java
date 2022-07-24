@@ -87,7 +87,6 @@ public class User {
             return Either.left(InvalidValue.INVALID_ENTITY_ID);
         }
 
-        /*
         // Проверка имени.
         if (name.length() == 0) {
             return Either.left(InvalidValue.INVALID_USER_NAME);
@@ -109,13 +108,16 @@ public class User {
         // Проверка изображения.
         if (image.length() == 0 || !Base64.isBase64(image)) {
             return Either.left(InvalidValue.INVALID_USER_IMAGE);
-        }*/
+        }
+
+        // Кодирование пароля
+        var encodedPassword = java.util.Base64.getEncoder().encodeToString(password.getBytes());
 
         var user = new User();
         user.id = id;
         user.name = name;
         user.email = email;
-        user.password = password;
+        user.password = encodedPassword;
         user.image = image;
         user.role = role;
         return Either.right(user);
