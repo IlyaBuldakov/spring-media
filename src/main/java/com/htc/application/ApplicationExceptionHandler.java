@@ -1,4 +1,4 @@
-package com.htc.application.controllers;
+package com.htc.application;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.htc.application.dto.responsestatus.ApplicationFailureException;
