@@ -143,4 +143,12 @@ public class ValuesValidator {
         }
         return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
     }
+
+    public static InvalidValuesContainer validateEmail(String email) {
+        InvalidValuesContainer invalidValues = new InvalidValuesContainer();
+        if (!EmailValidator.getInstance().isValid(email)) {
+            invalidValues.addInvalidValue(InvalidValue.INCORRECT_EMAIL);
+        }
+        return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
+    }
 }
