@@ -19,6 +19,7 @@
 - В контроллерах и представлениях Iterable заменен на List.
 - Добавлено поле дата уведомления в сценарий добавления уведомления.
 - Реструктурирован файл pom.xml.
+- Текст в CHANGELOG.md.
 
 ## [0.14.0] - 2022-07-20
 ### Добавлено
@@ -262,16 +263,6 @@
 ### Добавлено
 - Заготовка проекта.
 - Плагин Checkstyle с правилами Google.
-
-<!--
-## [0.z.q] - yyyy-mm-dd
-### Добавлено
-### Изменено
-### Удалено
-### Исправлено
-
-[0.X.Y]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.X_old.Y_old...yuriy.krasnoperov-v0.X.Y
--->
 
 [0.15.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.14.0...yuriy.krasnoperov-v0.15.0
 [0.14.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.13.0...yuriy.krasnoperov-v0.14.0
