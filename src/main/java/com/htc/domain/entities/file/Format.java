@@ -17,7 +17,7 @@ public enum Format {
   M4A(9, "m4a"),
   FLAC(10, "flac"),
   AVI(11, "avi"),
-  mp4(12, "mp4");
+  MP4(12, "mp4");
 
   /**
    * Идентификатор формата.
