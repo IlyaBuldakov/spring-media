@@ -3,8 +3,10 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
@@ -15,10 +17,24 @@ public interface ContentRepository {
   /**
    * Созает медиаконтент.
    *
-   * @param content Медиаконтент.
+   * @param type Тип медиаконтента.
+   * @param name Наимнование медиаконтента.
+   * @param dateCreated Дата публикации
+   * @param author Пльзователь - автор медиаконтента.
+   * @param format Формат медиаконтента.
+   * @param url Адрес медиаконтента.
+   * @param preview Адрес миниатюры медиаконтента.
+   * @return Медиаконтент или ошибка.
    */
 
-  CompletableFuture<Either<Failure, Content>> create(Content content);
+  CompletableFuture<Either<Failure, Content>> create(
+          Content.Type type,
+          Content.Name name,
+          LocalDateTime dateCreated,
+          User author,
+          Content.Format format,
+          Content.Url url,
+          Content.Url preview);
 
   /**
    * Удаляет медиаконтент.

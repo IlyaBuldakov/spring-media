@@ -1,10 +1,8 @@
 package com.htc.application.dto.content;
 
-import com.htc.application.dto.file.FileDto;
-import com.htc.application.dto.task.TaskResponse;
-import com.htc.domain.entities.files.File;
-import com.htc.domain.entities.tasks.Task;
+import com.htc.domain.entities.attributes.Id;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Представление запроса создания медиаконтента.
@@ -16,23 +14,23 @@ public class ContentCreateRequestDto {
    * @return Файл медиаконтента.
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter FileDto file;
+  private final @Getter MultipartFile file;
   /**
    * Задача связаная с создаваемым медиаконтента.
    *
    * @return Задача.
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int task;
+  private final @Getter Id taskId;
 
   /**
    * Создаёт экземпляр класса {@link ContentDto}.
    *
    * @param file Файл медиаконтента.
-   * @param task Задача.
+   * @param taskId Задача.
    */
-  public ContentCreateRequestDto(File file, Task task) {
-    this.file = new FileDto(file);
-    this.task = task.getId().getValue();
+  public ContentCreateRequestDto(MultipartFile file, Id taskId) {
+    this.file = file;
+    this.taskId = taskId;
   }
 }

@@ -1,14 +1,15 @@
 package com.htc.application.controllers;
 
+import com.htc.application.dto.content.ContentCreateRequestDto;
 import com.htc.application.dto.content.ContentsResponseDto;
 import com.htc.application.dto.responsestatus.BadRequestResponse;
 import com.htc.application.dto.responsestatus.InternalServerErrorResponse;
 import com.htc.application.dto.responsestatus.NotFoundResponse;
 import com.htc.application.dto.responsestatus.UnauthorizedResponse;
-import com.htc.application.service.FileUploadService;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.Unauthorized;
+import com.htc.domain.usecases.content.CreateContent;
 import com.htc.domain.usecases.content.DeleteContentById;
 import com.htc.domain.usecases.content.GetContentByQuery;
 import com.htc.utility.Controllers;
@@ -20,10 +21,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Контроллер для работы с медиаконтеном.
@@ -34,19 +34,19 @@ import org.springframework.web.multipart.MultipartFile;
 public class ContentController {
   private DeleteContentById deleteContentById;
   private GetContentByQuery getContentByQuery;
-  private FileUploadService fileUploadService;
+  private CreateContent createContent;
 
   /**
    * Загрузить новый медиаконтент в задачу.
-   *
-   * @param file Загружаемый файл
-   * @param taskId Индентификатор родительской задачи.
    */
   @PostMapping
   @Async
-  public void upload(@RequestParam("file") MultipartFile file, int taskId) {
-
-    fileUploadService.uploadFile(file);
+  public void upload(@RequestBody ContentCreateRequestDto contentCreateRequestDto) {
+    createContent.execute(
+            new CreateContent.Params(
+                    contentCreateRequestDto.getFile(),
+                    contentCreateRequestDto.getTaskId())
+    );
   }
 
   //TODO: Вытащить функцию со свичом в метод класса Controllers.

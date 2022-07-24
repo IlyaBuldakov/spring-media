@@ -25,7 +25,11 @@ public enum InvalidValue {
 
   //Сообщения для задач.
   INVALID_TASK_NAME("Некорректное назване задачи", "name"),
-  INVALID_TASK_DESCRIPTION("Некорректное описание задачи", "description");
+  INVALID_TASK_DESCRIPTION("Некорректное описание задачи", "description"),
+
+  //Сообщения для контента.
+  INVALID_FORMAT("Формат не поддерживается", null),
+  INVALID_CONTENT_TYPE("Тип файла не поддерживается", null);
 
   InvalidValue(String message, String field) {
     this.message = message;
