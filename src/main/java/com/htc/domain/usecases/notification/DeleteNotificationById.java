@@ -9,12 +9,10 @@ import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий удаления уведомления по его идентификатору.
  */
-@Component
 @AllArgsConstructor
 public final class DeleteNotificationById implements UseCase<DeleteNotificationById.Params, Void> {
   /**

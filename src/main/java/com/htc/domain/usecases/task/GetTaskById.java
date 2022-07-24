@@ -10,12 +10,10 @@ import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения задачи по идентификатору.
  */
-@Component
 @AllArgsConstructor
 public final class GetTaskById implements UseCase<GetTaskById.Params, Task> {
   /**

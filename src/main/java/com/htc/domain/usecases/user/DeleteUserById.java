@@ -9,12 +9,11 @@ import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий удаления пользователя по его идентификатору.
  */
-@Component
+
 @AllArgsConstructor
 public final class DeleteUserById implements UseCase<DeleteUserById.Params, Void> {
   /**

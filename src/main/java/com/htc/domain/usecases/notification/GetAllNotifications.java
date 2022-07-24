@@ -8,12 +8,10 @@ import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения списка уведомлений.
  */
-@Component
 @AllArgsConstructor
 public final class GetAllNotifications implements UseCase<Void, List<Notification>> {
   private final NotificationRepository repository;

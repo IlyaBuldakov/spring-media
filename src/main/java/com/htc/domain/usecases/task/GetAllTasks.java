@@ -8,12 +8,10 @@ import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения списка задач.
  */
-@Component
 @AllArgsConstructor
 public final class GetAllTasks implements UseCase<Void, List<Task>> {
   private final TaskRepository repository;

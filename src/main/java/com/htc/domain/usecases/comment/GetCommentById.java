@@ -10,12 +10,10 @@ import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения комментария по идентификатору.
  */
-@Component
 @AllArgsConstructor
 public final class GetCommentById implements UseCase<GetCommentById.Params, Comment> {
   /**

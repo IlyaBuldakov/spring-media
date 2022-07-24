@@ -8,12 +8,10 @@ import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения ленты контента.
  */
-@Component
 @AllArgsConstructor
 public final class GetAllContent implements UseCase<Void, List<Content>> {
   private final ContentRepository repository;

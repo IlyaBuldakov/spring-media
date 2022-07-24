@@ -15,12 +15,11 @@ import com.htc.utility.EitherHelper;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий добавления пользователя.
  */
-@Component
+
 @AllArgsConstructor
 public final class AddUser implements UseCase<AddUser.Params, User> {
   /**

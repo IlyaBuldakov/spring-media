@@ -24,12 +24,10 @@ import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий изменения задачи.
  */
-@Component
 @AllArgsConstructor
 public final class UpdateTaskById implements UseCase<UpdateTaskById.Params, Task> {
   /**

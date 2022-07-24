@@ -8,12 +8,10 @@ import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
 /**
  * Сценарий получения списка всех пользователей.
  */
-@Component
 @AllArgsConstructor
 public final class GetAllUsers implements UseCase<Void, List<User>> {
   private final UserRepository repository;
