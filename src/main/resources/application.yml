@@ -2,9 +2,9 @@ spring:
   liquibase:
     enabled: false
   datasource:
-      url: jdbc:postgresql://localhost:5432/test
-      username: postgres
-      password: postgres
+      url: # Указать ссылку на источник данных.
+      username: # Указать имя пользователя СУБД
+      password: # Указать пароль пользователя СУБД
       driverClassName: org.postgresql.Driver
   jpa:
     database: POSTGRESQL
