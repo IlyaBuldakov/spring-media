@@ -1,6 +1,7 @@
 package com.htc.infrastructure.repositories;
 
 import com.htc.domain.entities.Content;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.infrastructure.models.ContentModel;
@@ -39,8 +40,15 @@ public class ContentRepositoryImpl implements ContentRepository {
   }
 
   @Override
+  public CompletableFuture<Either<Failure, Content>> get(Id id) {
+    var content = contents.getById(id.getValue());
+    return Results.succeed(content);
+  }
+
+  @Override
   public CompletableFuture<Either<Failure, Void>> delete(int id) {
-    return null;
+    contents.deleteById(id);
+    return Results.succeed(null);
   }
 
   @Override

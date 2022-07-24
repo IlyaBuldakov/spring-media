@@ -1,6 +1,5 @@
 package com.htc.application.controllers;
 
-import com.htc.domain.entities.Content;
 import com.htc.domain.usecases.content.DeleteContentById;
 import com.htc.domain.usecases.content.GetContentFeed;
 import com.htc.domain.usecases.content.UploadContent;
@@ -62,20 +61,13 @@ public class ContentController {
   /**
    * Удаляет контент.
    */
-  @DeleteMapping
-  public void delete(int id) {
-    throw new UnsupportedOperationException("Метод не реализован");
-  }
-
-  /**
-   * Возвращает контент по идентификатору задачи.
-   *
-   * @param taskId Идентификатор задачи.
-   * @return Комментарии по идентификатору задачи.
-   */
-  @GetMapping(path = "/{taskId}")
-  public Iterable<Content> getContentsByTaskId(@PathVariable int taskId) {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @DeleteMapping(path = "/{id}")
+  @Operation(summary = "Удалить контент по идентификатору")
+  public void delete(@PathVariable int id) {
+    Controllers.handleRequest(
+        deleteContentById,
+        new DeleteContentById.Params(id, "id"),
+        null);
   }
 
   /**

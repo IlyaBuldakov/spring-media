@@ -7,6 +7,7 @@ import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.utility.Results;
 import io.vavr.control.Either;
+import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,12 @@ public final class DeleteContentById implements UseCase<DeleteContentById.Params
   public CompletableFuture<Either<Failure, Void>> execute(Params params) {
     var id = Id.create(params.id);
     if (id.isRight()) {
+      repository.get(id.get()).thenApply(content -> {
+        var urlContent = content.get().getUrlContent();
+        var fileName = content.get().getName();
+        File file = new File(urlContent + "/" + fileName);
+        return file.delete();
+      });
       return repository.delete(id.get().getValue());
     }
 
