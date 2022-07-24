@@ -1,30 +1,30 @@
 package ru.kiryanovid.domain.entity.comment;
 
+import java.time.LocalDateTime;
 import lombok.Getter;
 import ru.kiryanovid.application.dto.users.UserBasicDto;
 
-import java.time.LocalDateTime;
-
+/**
+ * Комментарий.
+ */
 public class Comment {
-    /**
-     *
-     */
-    @Getter
-    private Integer id;
+  /**
+  * Идентификатор комментария.
+  */
+  @Getter private Integer id;
 
-    /**
-     *
-     */
-    @Getter private LocalDateTime date;
+  /**
+  * Дата создания комментария.
+  */
+  @Getter private LocalDateTime date;
 
-    /**
-     *
-     */
-    @Getter private UserBasicDto user;
+  /**
+  * Начальные данные пользователя.
+  */
+  @Getter private UserBasicDto user;
 
-    /**
-     *
-     */
-    @Getter
-    private String message;
+  /**
+  * Сообщение.
+  */
+  @Getter private String message;
 }

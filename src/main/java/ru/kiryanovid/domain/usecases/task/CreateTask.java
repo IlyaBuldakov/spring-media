@@ -1,29 +1,27 @@
 package ru.kiryanovid.domain.usecases.task;
 
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.stereotype.Component;
 import ru.kiryanovid.domain.entity.errors.Failure;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.repositories.TaskRepositories;
 import ru.kiryanovid.domain.usecases.UseCase;
 
-import java.util.concurrent.CompletableFuture;
 
 /**
- * Создать задачу
+ * Создать задачу.
  */
 @Component
-@AllArgsConstructor
 public final class CreateTask implements UseCase<Task, Task> {
+  private final TaskRepositories repositories;
 
-    @Autowired
-    private final TaskRepositories repositories;
+  public CreateTask(TaskRepositories repositories) {
+    this.repositories = repositories;
+  }
 
-
-    @Override
-    public CompletableFuture<Either<Failure, Task>> execute(Task task) {
-        return repositories.create(task);
-    }
+  @Override
+  public CompletableFuture<Either<Failure, Task>> execute(Task task) {
+    return repositories.create(task);
+  }
 }

@@ -1,55 +1,55 @@
 package ru.kiryanovid.application.dto.content;
 
-import ru.kiryanovid.domain.entity.content.ContentFormat;
-import ru.kiryanovid.application.dto.users.UserBasicDto;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.kiryanovid.application.dto.users.UserBasicDto;
+import ru.kiryanovid.domain.entity.content.ContentFormat;
 
-import java.time.LocalDateTime;
 
 /**
- *
+ * Представление сущности контента.
  */
 @AllArgsConstructor
 public class ContentDto {
-    /**
-     * Идентификатор контента
-     */
-    @Getter private Integer id;
+  /**
+  * Идентификатор контента.
+  */
+  @Getter private Integer id;
 
-    /**
-     * Тип контента
-     */
-    @Getter private ContentTypeDto type;
+  /**
+  * Тип контента.
+  */
+  @Getter private ContentTypeDto type;
 
-    /**
-     * Название контента
-     */
-    @Getter private String name;
+  /**
+  * Название контента.
+  */
+  @Getter private String name;
 
-    /**
-     * Дата создание контента
-     */
-    @Getter private LocalDateTime dateCreated;
+  /**
+  * Дата создание контента.
+  */
+  @Getter private LocalDateTime dateCreated;
 
-    /**
-     * Автор контента
-     */
+  /**
+  * Автор контента.
+  */
 
-    @Getter private UserBasicDto author;
+  @Getter private UserBasicDto author;
 
-    /**
-     * Формат контента
-     */
-    @Getter private ContentFormat format;
+  /**
+  * Формат контента.
+  */
+  @Getter private ContentFormat format;
 
-    /**
-     *  Путь к файлу
-     */
-    @Getter private String url;
+  /**
+  *  Путь к файлу.
+  */
+  @Getter private String url;
 
-    /**
-     * Путь к превью
-     */
-    @Getter private String preview;
+  /**
+  * Путь к превью.
+  */
+  @Getter private String preview;
 }

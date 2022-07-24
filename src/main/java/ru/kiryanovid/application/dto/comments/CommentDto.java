@@ -1,33 +1,32 @@
 package ru.kiryanovid.application.dto.comments;
 
-import ru.kiryanovid.application.dto.users.UserBasicDto;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
+import ru.kiryanovid.application.dto.users.UserBasicDto;
 
 /**
- *
+ * Представление сущности комментария.
  */
 @AllArgsConstructor
 public class CommentDto {
-    /**
-     *
-     */
-    @Getter private Integer id;
+  /**
+  * Идентификатор.
+  */
+  @Getter private Integer id;
 
-    /**
-     *
-     */
-    @Getter private LocalDateTime date;
+  /**
+   * Дата.
+   */
+  @Getter private LocalDateTime date;
 
-    /**
-     *
-     */
-    @Getter private UserBasicDto user;
+  /**
+   * Пользователь.
+   */
+  @Getter private UserBasicDto user;
 
-    /**
-     *
-     */
-    @Getter private String message;
+  /**
+   * Сообщение.
+   */
+  @Getter private String message;
 }

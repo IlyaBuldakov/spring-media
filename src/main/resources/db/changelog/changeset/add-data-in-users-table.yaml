@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert to status
+      author: Igor Kiryanov
+      changes:
+        - insert:
+          tableName: users
+          columns:
+            - column:
+               name: id
+               value: 1
+            - column:
+               name: email
+               value: admin@mail.com
+            - column:
+                name: image
+                value: sddzgfdsgfssfhsh
+            - column:
+                name: name
+                value: admin
+            - column:
+                name: password
+                value: P@ssW0rD1
+            - column:
+                name: role
+                value: ADMIN

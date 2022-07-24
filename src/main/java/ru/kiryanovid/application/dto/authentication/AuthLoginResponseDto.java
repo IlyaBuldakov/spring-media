@@ -4,17 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- *
+ * Представление Access- и Refresh-токенов (ответ на запрос).
  */
 @AllArgsConstructor
 public class AuthLoginResponseDto {
-    /**
-     * Токен доступа
-     */
-    @Getter private String accessToken;
-
-    /**
-     *  Токен обновления
-     */
-    @Getter private String refreshToken;
+  @Getter private String accessToken;
+  @Getter private String refreshToken;
 }

@@ -1,22 +1,22 @@
 package ru.kiryanovid.application.dto.content;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
 
 /**
- *
+ * Представление сущности контента (запрос).
  */
 @AllArgsConstructor
 public class ContentsResponseDto {
-    /**
-     * Список контента в ответе
-     */
-    @Getter private List<ContentDto> contents;
+  /**
+  * Список контента в ответе.
+  */
+  @Getter private List<ContentDto> contents;
 
-    /**
-     * Количество контента в ответе
-     */
-    @Getter private Integer total;
+  /**
+  * Количество контента в ответе.
+  */
+  @Getter private Integer total;
 }
