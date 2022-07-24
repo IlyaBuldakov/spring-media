@@ -25,24 +25,24 @@ import lombok.AllArgsConstructor;
 public class NotificationModel implements Notification {
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id")
+  @Column(name = "id", unique = true, nullable = false)
   Long notificationId;
 
-  @Column(name = "type")
+  @Column(name = "type", nullable = false)
   String type;
 
-  @Column(name = "dateNotification")
+  @Column(name = "dateNotification", nullable = false)
   String dateNotification;
 
   @Column(name = "message")
   String message;
 
   @ManyToOne
-  @JoinColumn(name = "userId")
+  @JoinColumn(name = "userId", nullable = false)
   UserModel user;
 
   @ManyToOne
-  @JoinColumn(name = "taskId")
+  @JoinColumn(name = "taskId", nullable = false)
   TaskModel task;
 
   @Override

@@ -22,19 +22,19 @@ import lombok.AllArgsConstructor;
 public class FileModel implements File {
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id")
+  @Column(name = "id", unique = true, nullable = false)
   Long fileId;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   String name;
 
-  @Column(name = "dateCreated")
+  @Column(name = "dateCreated", nullable = false)
   String dateCreated;
 
-  @Column(name = "format")
+  @Column(name = "format", nullable = false)
   String format;
 
-  @Column(name = "fileurl")
+  @Column(name = "fileurl", nullable = false)
   String fileUrl;
 
   @Column(name = "file")

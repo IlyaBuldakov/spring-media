@@ -22,14 +22,14 @@ import lombok.AllArgsConstructor;
 public class CommentModel implements Comment {
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id")
+  @Column(name = "id", unique = true, nullable = false)
   Long commentId;
 
-  @Column(name = "dateCreated")
+  @Column(name = "dateCreated", nullable = false)
   String dateCreated;
 
   @ManyToOne
-  @JoinColumn(name = "authorId")
+  @JoinColumn(name = "authorId", nullable = false)
   UserModel author;
 
   @Column(name = "message")

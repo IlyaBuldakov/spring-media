@@ -31,45 +31,45 @@ import lombok.AllArgsConstructor;
 public class TaskModel implements Task {
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id")
+  @Column(name = "id", unique = true, nullable = false)
   Long taskId;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   String name;
 
-  @Column(name = "type")
+  @Column(name = "type", nullable = false)
   String type;
 
   @Column(name = "description")
   String description;
 
   @ManyToOne
-  @JoinColumn(name = "fileId")
+  @JoinColumn(name = "fileId", nullable = false)
   FileModel file;
 
   @ManyToOne
-  @JoinColumn(name = "authorId")
+  @JoinColumn(name = "authorId", nullable = false)
   UserModel author;
 
   @ManyToOne
-  @JoinColumn(name = "executorId")
+  @JoinColumn(name = "executorId", nullable = false)
   UserModel executor;
 
-  @Column(name = "dateCreated")
+  @Column(name = "dateCreated", nullable = false)
   String dateCreated;
 
-  @Column(name = "dateExpired")
+  @Column(name = "dateExpired", nullable = false)
   String dateExpired;
 
   @ManyToOne
-  @JoinColumn(name = "contentId")
+  @JoinColumn(name = "contentId", nullable = false)
   ContentModel content;
 
   @ManyToOne
-  @JoinColumn(name = "commentId")
+  @JoinColumn(name = "commentId", nullable = false)
   CommentModel comment;
 
-  @Column(name = "status")
+  @Column(name = "status", nullable = false)
   String status;
 
   @Override

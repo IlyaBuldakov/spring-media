@@ -22,22 +22,22 @@ import lombok.AllArgsConstructor;
 public class UserModel implements User {
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id")
+  @Column(name = "id", unique = true, nullable = false)
   Long userId;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   String name;
 
-  @Column(name = "password")
+  @Column(name = "password", nullable = false)
   String password;
 
-  @Column(name = "email")
+  @Column(name = "email", nullable = false)
   String email;
 
   @Column(name = "image")
   String image;
 
-  @Column(name = "role")
+  @Column(name = "role", nullable = false)
   String role;
 
   @Override

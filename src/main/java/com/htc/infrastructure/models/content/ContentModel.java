@@ -30,34 +30,34 @@ import lombok.AllArgsConstructor;
 public class ContentModel implements Content {
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id")
+  @Column(name = "id", unique = true, nullable = false)
   Long contentId;
 
-  @Column(name = "type")
+  @Column(name = "type", nullable = false)
   String type;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   String name;
 
-  @Column(name = "dateCreated")
+  @Column(name = "dateCreated", nullable = false)
   String dateCreated;
 
   @ManyToOne
-  @JoinColumn(name = "authorId")
+  @JoinColumn(name = "authorId", nullable = false)
   UserModel author;
 
-  @Column(name = "format")
+  @Column(name = "format", nullable = false)
   String format;
 
   @Column(name = "previewPath")
   String previewPath;
 
   @ManyToOne
-  @JoinColumn(name = "fileId")
+  @JoinColumn(name = "fileId", nullable = false)
   FileModel file;
 
   @ManyToOne
-  @JoinColumn(name = "taskId")
+  @JoinColumn(name = "taskId", nullable = false)
   TaskModel task;
 
   @Override
