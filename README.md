@@ -29,14 +29,13 @@ Swagger
 
 # Инструкции
 
-## Сборка проекта
-
-## Установка проекта
-
 ## Настройка проекта
 - В [application.yml](\src\main\resources\application.yml) установить:
   - 'spring.datasource.url' - ссылка на СУБД.
   - 'spring.datasource.username' - имя пользователя СУБД.
   - 'spring.datasource.password' - пароль пользователя СУБД.
+
+## Установка проекта
+- выполнить команду mvn clean install в корневой папке проекта с содержанием pom.xml файла
 
 ## Запуск проекта
