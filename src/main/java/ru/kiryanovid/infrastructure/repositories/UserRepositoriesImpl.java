@@ -9,8 +9,8 @@ import ru.kiryanovid.domain.entity.users.User;
 import ru.kiryanovid.domain.repositories.UserRepositories;
 import ru.kiryanovid.infrastructure.models.UserModel;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 
 @Repository
 public class UserRepositoriesImpl implements UserRepositories {
@@ -65,6 +65,12 @@ public class UserRepositoriesImpl implements UserRepositories {
     }
 
     @Override
+    public CompletableFuture<Either<Failure, Integer>> getUserByEmail(String email) {
+        var countOfFound = users.countAllByEmail(email).get();
+        return CompletableFuture.completedFuture(Either.right(countOfFound));
+    }
+
+    @Override
     public CompletableFuture<Either<Failure, Iterable<User>>> getAll() {
         var userList = users.findAll().stream().map(userModel -> User.create(userModel.getId(),
                 userModel.getName(),
@@ -76,5 +82,7 @@ public class UserRepositoriesImpl implements UserRepositories {
         return CompletableFuture.completedFuture(Either.right(userList));
     }
 
-    public interface Users extends JpaRepository<UserModel, Integer>{}
+    public interface Users extends JpaRepository<UserModel, Integer>{
+        Optional<Integer> countAllByEmail(String email);
+    }
 }
