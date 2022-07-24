@@ -5,11 +5,13 @@ import lombok.Getter;
 /**
  * Ошибка авторизации.
  */
-public enum NotAuthorized implements Failure {
+public enum Unauthorized implements Failure {
 
-    DEFAULT_MESSAGE("Ошибка авторизации");
+    DEFAULT_MESSAGE("Вы не авторизованы"),
 
-    NotAuthorized(String message) {
+    FORBIDDEN("У вас нет доступа");
+
+    Unauthorized(String message) {
         this.message = message;
     }
 
