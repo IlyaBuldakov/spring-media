@@ -19,9 +19,6 @@ public final class CustomExceptionsHelper {
   /**
    * Возвращает нужный тип представления ошибки.
    *
-   *<p>Убран pattern matching instanceof от
-   *Revision number 5b0ff70bf0229a1be1ab4992434609a9156d516d<p/>
-   *
    * @param result передаваемый тип
    * @param <R> type тип параметра правой части
    *
