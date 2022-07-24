@@ -51,12 +51,12 @@ public class TaskController {
     Controllers.handleRequest(
             createTask,
             new CreateTask.Params(
-                    taskRequestDto.getName(),
-                    taskRequestDto.getContentType(),
-                    taskRequestDto.getDescription(),
-                    taskRequestDto.getAuthor(),
-                    taskRequestDto.getExecutor(),
-                    taskRequestDto.getDateExpired()
+                    taskRequestDto.name(),
+                    taskRequestDto.contentType(),
+                    taskRequestDto.description(),
+                    taskRequestDto.author(),
+                    taskRequestDto.executor(),
+                    taskRequestDto.dateExpired()
             ),
             null);
   }
@@ -106,12 +106,12 @@ public class TaskController {
             updateTask,
             new UpdateTask.Params(
                     id,
-                    taskRequestDto.getName(),
-                    taskRequestDto.getContentType(),
-                    taskRequestDto.getDescription(),
-                    taskRequestDto.getAuthor(),
-                    taskRequestDto.getExecutor(),
-                    taskRequestDto.getDateExpired()
+                    taskRequestDto.name(),
+                    taskRequestDto.contentType(),
+                    taskRequestDto.description(),
+                    taskRequestDto.author(),
+                    taskRequestDto.executor(),
+                    taskRequestDto.dateExpired()
             ),
             null);
   }

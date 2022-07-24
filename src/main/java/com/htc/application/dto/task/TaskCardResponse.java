@@ -5,31 +5,17 @@ import lombok.Getter;
 
 /**
  * Краткое представление сущности задачи.
+ *
+ * @param id Идентификатор задачи.
+ * @param name Имя задачи.
  */
-public class TaskCardResponse {
-  /**
-   * Идентификатор задачи.
-   *
-   * @return id Идентификатор задачи.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int id;
-
-  /**
-   * Имя задачи.
-   *
-   * @return name Имя задачи.
-   */
-  @SuppressWarnings("JavadocDeclaration")
-  private final @Getter String name;
-
-  /**
+public record TaskCardResponse(int id, String name) {
+    /**
    * Создаёт экземпляр класса {@link TaskCardResponse}.
    *
    * @param task Сущность пользователя.
    */
   public TaskCardResponse(Task task) {
-    this.id = task.getId().getValue();
-    this.name = task.getName().getValue();
+    this(task.getId().getValue(), task.getName().getValue());
   }
 }
