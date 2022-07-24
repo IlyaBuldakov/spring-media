@@ -9,3 +9,4 @@ checkstyle-idea.xml
 # Extends
 /jpa-buddy.xml
 /dbnavigator.xml
+/inspectionProfiles/Project_Default.xml
