@@ -14,28 +14,28 @@ import com.htc.domain.entities.utility.parameters.file.FileName;
  */
 public interface Task {
   /**
-   * Идентификатор задачи.
+   * Получить идентификатор задачи.
    *
    * @return id идентификатор
    */
   Id getId();
 
   /**
-   * Наименование задачи.
+   * Получить наименование задачи.
    *
    * @return name наименование
    */
   FileName getName();
 
   /**
-   * {@link Type Тип} контента.
+   * Получить {@link Type тип} контента.
    *
    * @return type тип
    */
   Type getType();
 
   /**
-   * Описание задачи.
+   * Получить описание задачи.
    *
    * @return description описание
    */
@@ -50,21 +50,21 @@ public interface Task {
   File getFile();
 
   /**
-   * {@link User Автор задачи}.
+   * Получить {@link User автора задачи}.
    *
    * @return author автор задачи
    */
   User getAuthor();
 
   /**
-   * {@link User Исполнитель задачи}.
+   * Получить {@link User исполнителя задачи}.
    *
    * @return executor исполнитель задачи
    */
   User getExecutor();
 
   /**
-   * Дата создания.
+   * Получить дату создания.
    *
    * @return dateCreated дата создания
    */
@@ -72,14 +72,14 @@ public interface Task {
   DateCreated getDateCreated();
 
   /**
-   * Дата выполнения.
+   * Получить дату выполнения.
    *
    * @return dateExpired дата выполнения
    */
   DateCreated getDateExpired();
 
   /**
-   * {@link Content Контент}.
+   * Получить {@link Content контент}.
    *
    * @return content контент
    */
@@ -87,7 +87,7 @@ public interface Task {
   Content getContent();
 
   /**
-   * {@link Comment Коммент}.
+   * Получить {@link Comment коммент}.
    *
    * @return comment коммент
    */
@@ -95,7 +95,7 @@ public interface Task {
   Comment getComment();
 
   /**
-   * {@link Status Статус} задачи.
+   * Получить {@link Status статус} задачи.
    *
    * @return status статус задачи
    */

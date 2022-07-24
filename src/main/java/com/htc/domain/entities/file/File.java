@@ -11,7 +11,7 @@ import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
  */
 public interface File {
   /**
-   * Идентификатор.
+   * Получить идентификатор файла.
    *
    * @see Id#create(Long)
    *
@@ -20,7 +20,7 @@ public interface File {
   Id getId();
 
   /**
-   * Имя файла.
+   * Получить имя файла.
    *
    * @see FileName#create(String)
    *
@@ -29,7 +29,7 @@ public interface File {
   FileName getName();
 
   /**
-   * Дата создания.
+   * Получить дату создания.
    *
    * @see DateCreated#create()
    *
@@ -38,7 +38,7 @@ public interface File {
   DateCreated getDateCreated();
 
   /**
-   * Format файла.
+   * Получить формат файла.
    *
    * @see Format
    *
@@ -47,7 +47,7 @@ public interface File {
   Format getFormat();
 
   /**
-   * Путь до файла.
+   * Получить путь до файла.
    *
    * @see FileUrlPath#create(String)
    *
@@ -56,7 +56,7 @@ public interface File {
   FileUrlPath getFileUrlPath();
 
   /**
-   * Cодержимое файла в base64.
+   * Получить содержимое файла в base64.
    *
    * @see FileBody#create(String)
    *

@@ -9,7 +9,7 @@ import com.htc.domain.entities.utility.parameters.Id;
  */
 public interface Comment {
   /**
-   * Идентификатор комментария.
+   * Получить идентификатор комментария.
    *
    * @see Id#create(Long)
    *
@@ -18,7 +18,7 @@ public interface Comment {
   Id getId();
 
   /**
-   * Дата создания.
+   * Получить дату создания.
    *
    * @see DateCreated#create()
    *
@@ -27,21 +27,21 @@ public interface Comment {
   DateCreated getDateCreated();
 
   /**
-   * {@link User Автор}.
+   * Получить {@link User автора}.
    *
    * @return user автор
    */
   User getAuthor();
 
   /**
-   * Текст комментария.
+   * Получить текст комментария.
    *
    * @return message текст комментария
    */
   String getMessage();
 
   /**
-   * {@link com.htc.domain.entities.content.Content Контент}.
+   * Получить {@link com.htc.domain.entities.content.Content контент}.
    *
    * @return content контент (набор)
    */

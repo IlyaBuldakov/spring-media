@@ -14,7 +14,7 @@ import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
  */
 public interface Content {
   /**
-   * Идентификатор.
+   * Получить идентификатор контента.
    *
    * @see Id#create(Long)
    *
@@ -23,21 +23,21 @@ public interface Content {
   Id getId();
 
   /**
-   * {@link Type Тип} контента.
+   * Получить {@link Type тип} контента.
    *
    * @return type тип
    */
   Type getType();
 
   /**
-   * Наименование контента.
+   * Получить наименование контента.
    *
    * @return name наименование
    */
   FileName getName();
 
   /**
-   * Дата создания.
+   * Получить дату создания.
    *
    * @see DateCreated#create()
    *
@@ -46,21 +46,21 @@ public interface Content {
   DateCreated getDateCreated();
 
   /**
-   * Идентификатор {@link User автора контента}.
+   * Получить идентификатор {@link User автора контента}.
    *
    * @return id идентификатор автора
    */
   User getAuthor();
 
   /**
-   * Формат {@link Format контента}.
+   * Получить формат {@link Format контента}.
    *
    * @return format формат
    */
   Format getFormat();
 
   /**
-   * Путь к превью.
+   * Получить путь к превью.
    *
    * @see FileUrlPath#create(String)
    *
@@ -69,14 +69,14 @@ public interface Content {
   FileUrlPath getPreviewPath();
 
   /**
-   * Идентификатор {@link File файла}.
+   * Получить идентификатор {@link File файла}.
    *
    * @return id идентификатор файла
    */
   File getFile();
 
   /**
-   * Идентификатор {@link Task задачи}.
+   * Получить идентификатор {@link Task задачи}.
    *
    * @return id идентификатор задачи
    */

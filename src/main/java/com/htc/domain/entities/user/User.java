@@ -11,7 +11,7 @@ import com.htc.domain.entities.utility.parameters.user.UserPassword;
  */
 public interface User {
   /**
-   * Идентификатор.
+   * Получить идентификатор пользователя.
    *
    * @see Id#create(Long)
    *
@@ -20,7 +20,7 @@ public interface User {
   Id getId();
 
   /**
-   * Полное имя пользователя.
+   * Получить полное имя пользователя.
    *
    * @see UserName#create(String)
    *
@@ -29,7 +29,7 @@ public interface User {
   UserName getName();
 
   /**
-   * Пароль.
+   * Получить пароль.
    *
    * @see UserPassword#create(String)
    *
@@ -38,7 +38,7 @@ public interface User {
   UserPassword getPassword();
 
   /**
-   * Электронная почта.
+   * Получить электронную почту.
    *
    * @see UserEmail#create(String)
    *
@@ -47,7 +47,7 @@ public interface User {
   UserEmail getEmail();
 
   /**
-   * Аватар в base64.
+   * Получить аватар в base64.
    *
    * @see UserImage#create(String)
    *
@@ -56,7 +56,7 @@ public interface User {
   UserImage getAvatar();
 
   /**
-   * Роль пользователя.
+   * Получить роль пользователя.
    *
    * @see Role
    *

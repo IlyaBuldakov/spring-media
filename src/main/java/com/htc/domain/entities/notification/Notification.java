@@ -11,42 +11,42 @@ import com.htc.domain.entities.utility.parameters.Id;
  */
 public interface Notification {
   /**
-   * Идентификатор уведомления.
+   * Получить идентификатор уведомления.
    *
    * @return id идентификатор
    */
   Id getId();
 
   /**
-   * {@link Type Тип} контента уведомления.
+   * Получить {@link Type тип} контента уведомления.
    *
    * @return type тип контента
    */
   Type getType();
 
   /**
-   * Дата уведомления.
+   * Получить дату уведомления.
    *
    * @return dateNotification дата уведомления
    */
   DateCreated getDateNotification();
 
   /**
-   * Текст уведомления.
+   * Получить текст уведомления.
    *
    * @return message текст уведомления
    */
   String getMessage();
 
   /**
-   * Идентификатор {@link User пользователя}.
+   * Получить идентификатор {@link User пользователя}.
    *
    * @return id идентификатор пользователя
    */
   User getUser();
 
   /**
-   * Идентификатор {@link Task задачи}.
+   * Получить идентификатор {@link Task задачи}.
    *
    * @return id идентификатор задачи
    */
