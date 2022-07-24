@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
  * Представление сущности комментария в СУБД.
  */
 @Entity
-@Table(name = "COMMENTS")
+@Table(name = "comments")
 @AllArgsConstructor
 public class CommentModel implements Comment {
   @javax.persistence.Id

@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
  * Представление сущности пользователя в СУБД.
  */
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 @AllArgsConstructor
 public class UserModel implements User {
   @javax.persistence.Id

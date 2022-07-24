@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
  * Представление сущности уведомления в СУБД.
  */
 @Entity
-@Table(name = "NOTIFICATIONS")
+@Table(name = "notifications")
 @AllArgsConstructor
 public class NotificationModel implements Notification {
   @javax.persistence.Id

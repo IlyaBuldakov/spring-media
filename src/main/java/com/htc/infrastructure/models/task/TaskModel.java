@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
  * Представление сущности задачи в СУБД.
  */
 @Entity
-@Table(name = "TASKS")
+@Table(name = "tasks")
 @AllArgsConstructor
 public class TaskModel implements Task {
   @javax.persistence.Id

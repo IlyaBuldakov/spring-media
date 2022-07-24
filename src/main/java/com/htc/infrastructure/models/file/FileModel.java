@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
  * Представление сущности файла в СУБД.
  */
 @Entity
-@Table(name = "FILES")
+@Table(name = "files")
 @AllArgsConstructor
 public class FileModel implements File {
   @javax.persistence.Id

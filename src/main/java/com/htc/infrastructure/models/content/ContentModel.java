@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
  * Представление сущности контента в СУБД.
  */
 @Entity
-@Table(name = "CONTENTS")
+@Table(name = "contents")
 @AllArgsConstructor
 public class ContentModel implements Content {
   @javax.persistence.Id
