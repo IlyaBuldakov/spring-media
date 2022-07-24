@@ -10,7 +10,7 @@ public class RoleResponse {
 
     public RoleResponse(Role role) {
         this.id = role.getId();
-        this.name = role.getName();
+        this.role = role;
     }
 
     /**
@@ -21,5 +21,5 @@ public class RoleResponse {
     /**
      * Имя роли.
      */
-    private final @Getter String name;
+    private final @Getter Role role;
 }
