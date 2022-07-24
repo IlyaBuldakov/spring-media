@@ -1,7 +1,12 @@
 package ru.kiryanovid.application.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +22,6 @@ import ru.kiryanovid.application.dto.errors.NotFoundDto;
 import ru.kiryanovid.application.dto.task.TaskDto;
 import ru.kiryanovid.application.dto.task.TaskListDto;
 import ru.kiryanovid.application.dto.task.TaskRequestDto;
-import ru.kiryanovid.domain.entity.errors.AlreadyExists;
 import ru.kiryanovid.domain.entity.errors.InvalidValue;
 import ru.kiryanovid.domain.entity.errors.NotAuthorized;
 import ru.kiryanovid.domain.entity.task.Task;
@@ -30,8 +34,13 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Контроллер задач
+ */
 @RestController
 @RequestMapping(path = "api/tasks")
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Задачи"))
 @RequiredArgsConstructor
 public class TaskController {
     private final GetAllTasks getAllTasks;
@@ -43,6 +52,8 @@ public class TaskController {
 
 
     @PostMapping
+    @Async
+    @Operation(summary = "Создание новой задачи")
     public void create(@RequestBody TaskRequestDto taskRequestDto) throws ExecutionException, InterruptedException {
         var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
         var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
@@ -67,6 +78,8 @@ public class TaskController {
 
 
     @PutMapping(path = "/{id}")
+    @Async
+    @Operation(summary = "Обновление задачи по идентификатору")
     public void updateTask(@RequestBody TaskRequestDto taskRequestDto, @PathVariable Integer id) throws ExecutionException, InterruptedException {
         var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
         var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
@@ -86,11 +99,15 @@ public class TaskController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @Async
+    @Operation(summary = "Удаление задачи по идентификатору")
     public void deleteTaskById(@PathVariable Integer id) {
         deleteTaskById.execute(id);
     }
 
     @GetMapping(path = "/{id}")
+    @Async
+    @Operation(summary = "Получение задачи по идентификатору")
     public CompletableFuture<TaskDto> getTaskById(@PathVariable Integer id) throws ExecutionException, InterruptedException {
         var result = getTaskById.execute(id);
         if (result.get().isLeft()) {
@@ -100,6 +117,8 @@ public class TaskController {
         return CompletableFuture.completedFuture(new TaskDto(result.get().get()));
     }
     @GetMapping
+    @Async
+    @Operation(summary = "Получение списка всех задач")
     public List<TaskListDto> getAll() throws ExecutionException, InterruptedException {
         var taskList = getAllTasks.execute(null)
                 .get()
