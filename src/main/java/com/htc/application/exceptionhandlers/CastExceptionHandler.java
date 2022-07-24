@@ -7,6 +7,8 @@ import com.htc.domain.entities.failures.InvalidValueParam;
 import com.htc.domain.entities.failures.InvalidValues;
 import java.util.Map;
 import javax.annotation.Priority;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 @Priority(1)
 @ControllerAdvice
-class CastExceptionHandler extends CustomExceptionHandler {
+class CastExceptionHandler {
+  protected final Logger logger = LoggerFactory.getLogger(CastExceptionHandler.class);
+
   @ExceptionHandler({IllegalArgumentException.class, JacksonException.class})
   ResponseEntity<CustomResponseStatusException> illegalArgumentEx(Exception exception) {
     logger.error(this.getClass().getTypeName(), exception);
