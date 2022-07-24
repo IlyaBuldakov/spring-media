@@ -4,7 +4,6 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.notifications.Notification;
-import com.htc.domain.entities.tasks.Task;
 import com.htc.domain.repositories.NotificationRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;

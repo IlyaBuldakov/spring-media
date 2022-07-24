@@ -1,11 +1,7 @@
 package com.htc.application.controllers;
 
 import com.htc.application.dto.notification.NotificationDto;
-import com.htc.domain.usecases.notification.CreateNotification;
-import com.htc.domain.usecases.notification.DeleteNotificationById;
 import com.htc.domain.usecases.notification.GetAllNotificationsByUser;
-import com.htc.domain.usecases.notification.GetNotificationById;
-import com.htc.domain.usecases.notification.UpdateNotification;
 import com.htc.utility.Controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -15,10 +11,7 @@ import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,7 +1,6 @@
 package com.htc.application.dto.task;
 
 import com.htc.domain.entities.tasks.Task;
-import lombok.Getter;
 
 /**
  * Краткое представление сущности задачи.

@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
-  public String uploadDir = "src/main/webapp";
 
   /**
    * Загружает файл в каталог.
@@ -24,6 +23,7 @@ public class FileUploadServiceImpl implements FileUploadService {
    */
   public void uploadFile(MultipartFile file) {
     try {
+      String uploadDir = "src/main/webapp";
       Path copyLocation = Paths
               .get(uploadDir
                       + File.separator

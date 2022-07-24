@@ -15,7 +15,7 @@ public class InvalidValues implements Failure {
   /**
    * Список некорректных значений.
    */
-  private ArrayList<InvalidValue> invalidValues;
+  private final ArrayList<InvalidValue> invalidValues;
 
   @Override
   public String getMessage() {

@@ -3,8 +3,6 @@ package com.htc.application.dto.comment;
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.comments.Comment;
 import java.time.LocalDateTime;
-import lombok.Getter;
-
 /**
  * Представление сущности комментария.
  *

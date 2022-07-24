@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * представление запроса файла.
  */
-public class  FileRequestDto {
+public class FileRequestDto {
   /**
    * Файл.
    *

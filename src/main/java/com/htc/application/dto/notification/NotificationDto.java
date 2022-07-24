@@ -4,7 +4,6 @@ import com.htc.application.dto.task.TaskCardResponse;
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.notifications.Notification;
 import java.time.LocalDateTime;
-import lombok.Getter;
 
 /**
  * Представление сущности уведомления.

@@ -1,7 +1,5 @@
 package com.htc.domain.entities.failures;
 
-import lombok.Getter;
-
 /**
  * Ошибка.
  */

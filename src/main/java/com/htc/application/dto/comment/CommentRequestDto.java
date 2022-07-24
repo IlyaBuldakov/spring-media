@@ -1,7 +1,6 @@
 package com.htc.application.dto.comment;
 
 import com.htc.domain.entities.comments.Comment;
-import lombok.Getter;
 
 /**
  * Представление запрса комментария.
