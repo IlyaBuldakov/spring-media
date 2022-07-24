@@ -2,7 +2,9 @@ package com.htc.application.services;
 
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,7 +19,7 @@ public interface UsersService {
      *
      * @return Список пользователей.
      */
-    CompletableFuture<List<UserResponse>> getAll();
+    CompletableFuture<List<UserResponse>> getAll(Collection<? extends GrantedAuthority> authorities);
 
     /**
      * Получение пользователя по идентификатору.
@@ -42,7 +44,8 @@ public interface UsersService {
      * @param user {@link UserRequest Представление} пользователя (запрос).
      * @return void.
      */
-    CompletableFuture<Void> create(UserRequest user);
+    CompletableFuture<Void> create(Collection<? extends GrantedAuthority> authorities,
+                                   UserRequest user);
 
     /**
      * Обновление пользователя.
@@ -51,7 +54,9 @@ public interface UsersService {
      * @param id Идентификатор пользователя.
      * @return void.
      */
-    CompletableFuture<Void> update(UserRequest user, String id);
+    CompletableFuture<Void> update(Collection<? extends GrantedAuthority> authorities,
+                                   UserRequest user,
+                                   String id);
 
     /**
      * Удаление пользователя по идентификатору.
@@ -59,5 +64,6 @@ public interface UsersService {
      * @param id Идентификатор пользователя.
      * @return void.
      */
-    CompletableFuture<Void> delete(String id);
+    CompletableFuture<Void> delete(Collection<? extends GrantedAuthority> authorities,
+                                   String id);
 }

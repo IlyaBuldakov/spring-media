@@ -3,15 +3,19 @@ package com.htc.application.services.impl;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.application.services.ExceptionDtoResolver;
+import com.htc.application.services.ServiceHelper;
 import com.htc.application.services.UsersService;
 import com.htc.domain.usecases.user.CreateUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
+import com.htc.domain.usecases.user.GetUserByEmail;
 import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.UpdateUser;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -35,11 +39,13 @@ public class UsersServiceImpl implements UsersService {
      * @return Список {@link UserResponse}.
      */
     @Override
-    public CompletableFuture<List<UserResponse>> getAll() {
-        return getAllUsers.execute()
+    public CompletableFuture<List<UserResponse>> getAll(Collection<? extends GrantedAuthority> authorities) {
+        var permissions = ServiceHelper.getPermissions(authorities);
+        return getAllUsers.execute(permissions)
                 .thenApply(either -> either
                         .map(list -> list.parallelStream()
-                                .map(UserResponse::new)).get().toList());
+                                .map(UserResponse::new)).getOrElseThrow(
+                                        ExceptionDtoResolver::resolve).toList());
     }
 
     /**
@@ -72,11 +78,11 @@ public class UsersServiceImpl implements UsersService {
      * @return Представление созданного пользователя {@link UserResponse}.
      */
     @Override
-    public CompletableFuture<Void> create(UserRequest userRequest) {
+    public CompletableFuture<Void> create(Collection<? extends GrantedAuthority> authorities, UserRequest userRequest) {
+        var permissions = ServiceHelper.getPermissions(authorities);
         return createUser.execute(
-                        userRequest.getName(), userRequest.getPassword(),
-                        userRequest.getEmail(), userRequest.getAvatar(), userRequest.getRole()
-                )
+                        permissions, userRequest.getName(), userRequest.getPassword(),
+                        userRequest.getEmail(), userRequest.getAvatar(), userRequest.getRole())
                 .thenApply(either -> {
                     if (either.isLeft()) {
                         throw ExceptionDtoResolver.resolve(either.getLeft());
@@ -94,9 +100,10 @@ public class UsersServiceImpl implements UsersService {
      * @return Представление обновлённого пользователя {@link UserResponse}.
      */
     @Override
-    public CompletableFuture<Void> update(UserRequest userRequest, String id) {
+    public CompletableFuture<Void> update(Collection<? extends GrantedAuthority> authorities, UserRequest userRequest, String id) {
+        var permissions = ServiceHelper.getPermissions(authorities);
         return updateUser.execute(
-                        id, userRequest.getName(), userRequest.getPassword(),
+                        permissions, id, userRequest.getName(), userRequest.getPassword(),
                         userRequest.getEmail(), userRequest.getAvatar(), userRequest.getRole())
                 .thenApply(either -> {
                     if (either.isLeft()) {
@@ -114,8 +121,9 @@ public class UsersServiceImpl implements UsersService {
      * @return Представление удалённого пользователя {@link UserResponse}.
      */
     @Override
-    public CompletableFuture<Void> delete(String id) {
-        return deleteUserById.execute(id)
+    public CompletableFuture<Void> delete(Collection<? extends GrantedAuthority> authorities, String id) {
+        var permissions = ServiceHelper.getPermissions(authorities);
+        return deleteUserById.execute(permissions, id)
                 .thenApply(either -> {
                     if (either.isLeft()) {
                         throw ExceptionDtoResolver.resolve(either.getLeft());

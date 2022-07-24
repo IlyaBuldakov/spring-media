@@ -3,8 +3,9 @@ package com.htc.application.controllers;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.application.services.UsersService;
-import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,40 +22,57 @@ import java.util.concurrent.CompletableFuture;
  * Контроллер для пользователей.
  */
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/users")
 public class UsersController {
+
+    public UsersController(UsersService usersService) {
+        this.usersService = usersService;
+    }
 
     UsersService usersService;
 
     @GetMapping
     @Async
     public CompletableFuture<List<UserResponse>> getAllUsers() {
-        return usersService.getAll();
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return usersService.getAll(securityContext.getAuthentication().getAuthorities());
     }
 
     @GetMapping("/{id}")
     @Async
     public CompletableFuture<UserResponse> getUserById(@PathVariable("id") String id) {
-        return usersService.getById(id);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return usersService.getById(
+                securityContext.getAuthentication().getAuthorities(),
+                id);
     }
 
     @PostMapping
     @Async
     public CompletableFuture<Void> createUser(@RequestBody UserRequest user) {
-        return usersService.create(user);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return usersService.create(
+                securityContext.getAuthentication().getAuthorities(),
+                user);
     }
 
     @PutMapping("/{id}")
     @Async
     public CompletableFuture<Void> updateUser(@RequestBody UserRequest user,
-                                                      @PathVariable("id") String id) {
-        return usersService.update(user, id);
+                                              @PathVariable("id") String id) {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return usersService.update(
+                securityContext.getAuthentication().getAuthorities(),
+                user,
+                id);
     }
 
     @DeleteMapping("/{id}")
     @Async
     public CompletableFuture<Void> deleteUser(@PathVariable("id") String id) {
-        return usersService.delete(id);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return usersService.delete(
+                securityContext.getAuthentication().getAuthorities(),
+                id);
     }
 }
