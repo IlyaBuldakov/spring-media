@@ -61,6 +61,21 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     /**
+     * Получение пользователя по E-mail.
+     *
+     * @param email E-mail пользователя.
+     * @return Пользователь.
+     */
+    @Override
+    public CompletableFuture<Either<Failure, User>> getByEmail(String email) {
+        var user = usersJpaRepository.findUserMapperByEmail(email);
+        if (user.isPresent()) {
+            return CompletableFuture.completedFuture(Either.right(user.get()));
+        }
+        return CompletableFuture.completedFuture(Either.left(NotFound.USER));
+    }
+
+    /**
      * Получение списка всех пользователей.
      *
      * @return Список пользователей.

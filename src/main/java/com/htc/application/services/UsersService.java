@@ -25,7 +25,16 @@ public interface UsersService {
      * @param id Идентификатор пользователя.
      * @return {@link UserResponse Представление} пользователя.
      */
-    CompletableFuture<UserResponse> getById(String id);
+    CompletableFuture<UserResponse> getById(Collection<? extends GrantedAuthority> authorities,
+                                            String id);
+
+    /**
+     * Получение пользователя по E-mail.
+     *
+     * @param email E-mail.
+     * @return {@link UserResponse Представление} пользователя.
+     */
+    CompletableFuture<UserResponse> getByEmail(String email);
 
     /**
      * Создание пользователя.

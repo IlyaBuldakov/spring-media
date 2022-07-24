@@ -25,6 +25,7 @@ public class UsersServiceImpl implements UsersService {
     CreateUser createUser;
     GetUserById getUserById;
     GetAllUsers getAllUsers;
+    GetUserByEmail getUserByEmail;
     UpdateUser updateUser;
     DeleteUserById deleteUserById;
 
@@ -48,8 +49,17 @@ public class UsersServiceImpl implements UsersService {
      * @return Представление пользователя {@link UserResponse}.
      */
     @Override
-    public CompletableFuture<UserResponse> getById(String id) {
-        return getUserById.execute(id)
+    public CompletableFuture<UserResponse> getById(Collection<? extends GrantedAuthority> authorities, String id) {
+        var permissions = ServiceHelper.getPermissions(authorities);
+        return getUserById.execute(permissions, id)
+                .thenApply(either ->
+                        either.map(UserResponse::new)
+                                .getOrElseThrow(ExceptionDtoResolver::resolve));
+    }
+
+    @Override
+    public CompletableFuture<UserResponse> getByEmail(String email) {
+        return getUserByEmail.execute(email)
                 .thenApply(either ->
                         either.map(UserResponse::new)
                                 .getOrElseThrow(ExceptionDtoResolver::resolve));

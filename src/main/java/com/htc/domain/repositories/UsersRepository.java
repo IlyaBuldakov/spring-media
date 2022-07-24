@@ -38,6 +38,14 @@ public interface UsersRepository {
     CompletableFuture<Either<Failure, User>> getById(int id);
 
     /**
+     * Получение пользователя по E-mail.
+     *
+     * @param email E-mail пользователя.
+     * @return Пользователь.
+     */
+    CompletableFuture<Either<Failure, User>> getByEmail(String email);
+
+    /**
      * Получение списка всех пользователей.
      *
      * @return Список пользователей.
