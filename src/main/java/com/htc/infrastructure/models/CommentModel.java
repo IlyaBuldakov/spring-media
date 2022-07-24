@@ -20,40 +20,20 @@ public class CommentModel implements Comment {
   @GeneratedValue
   private Integer id;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.id).get();
-  }
-
   /**
    * Дата создания комментария.
    */
   private LocalDateTime dateCreateComment;
-
-  @Override
-  public LocalDateTime getDateCreateComment() {
-    return dateCreateComment;
-  }
 
   /**
    * Пользователь создавший комментарий.
    */
   private int userId;
 
-  @Override
-  public int getUserId() {
-    return userId;
-  }
-
   /**
    * Сообщение комментария.
    */
   private String commentMessage;
-
-  @Override
-  public String getCommentMessage() {
-    return commentMessage;
-  }
 
   /**
    * Задача в которой создан комментарий.
@@ -61,12 +41,43 @@ public class CommentModel implements Comment {
   private int taskId;
 
   @Override
+  public Id getId() {
+    return Id.create(this.id).get();
+  }
+
+  @Override
+  public LocalDateTime getDateCreateComment() {
+    return dateCreateComment;
+  }
+
+  @Override
+  public int getUserId() {
+    return userId;
+  }
+
+  @Override
+  public String getCommentMessage() {
+    return commentMessage;
+  }
+
+  @Override
   public int taskId() {
     return taskId;
   }
 
+  /**
+   * Создаёт экземпляр класса {@link CommentModel}.
+   */
   protected CommentModel() {}
 
+  /**
+   * Создаёт экземпляр класса {@link CommentModel}.
+   *
+   * @param dateCreateComment Дата создания комментария.
+   * @param userId Пользователь создавший комментарий.
+   * @param taskId Задача в которой создан комментарий.
+   * @param commentMessage Сообщение комментария.
+   */
   public CommentModel(
       LocalDateTime dateCreateComment,
       int userId,

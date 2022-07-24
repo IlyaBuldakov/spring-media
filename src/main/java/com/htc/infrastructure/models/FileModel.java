@@ -24,30 +24,15 @@ public class FileModel implements File {
   @Column(name = "id", unique = true)
   private Integer fileId;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.fileId).get();
-  }
-
   /**
    * Название файла.
    */
   private String name;
 
-  @Override
-  public String getName() {
-    return this.name;
-  }
-
   /**
    * Дата создания файла.
    */
   private LocalDateTime dateCreated;
-
-  @Override
-  public LocalDateTime getDateCreated() {
-    return this.dateCreated;
-  }
 
   /**
    * Формат файла.
@@ -55,20 +40,10 @@ public class FileModel implements File {
   @Enumerated(EnumType.STRING)
   private Format format;
 
-  @Override
-  public Format getFormat() {
-    return this.format;
-  }
-
   /**
    * Путь к файлу.
    */
   private String urlFile;
-
-  @Override
-  public String getUrlFile() {
-    return this.urlFile;
-  }
 
   /**
    * Идентификатор задачи содержащей файл.
@@ -76,19 +51,56 @@ public class FileModel implements File {
   private int taskId;
 
   @Override
+  public Id getId() {
+    return Id.create(this.fileId).get();
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  @Override
+  public LocalDateTime getDateCreated() {
+    return this.dateCreated;
+  }
+
+  @Override
+  public Format getFormat() {
+    return this.format;
+  }
+
+  @Override
+  public String getUrlFile() {
+    return this.urlFile;
+  }
+
+  @Override
   public int getTaskId() {
     return this.taskId;
   }
 
+  /**
+   * Создаёт экземпляр класса {@link FileModel}.
+   */
   protected FileModel() {}
 
+  /**
+   * Создаёт экземпляр класса {@link FileModel}.
+   *
+   * @param name Название файла.
+   * @param dateCreated Дата создания файла.
+   * @param format Формат файла.
+   * @param urlFile Путь к файлу.
+   * @param taskId Идентификатор задачи содержащей файл.
+   */
   public FileModel(String name, LocalDateTime dateCreated,
                    Format format, String urlFile, int taskId) {
     this(Id.create(0).get(), name, dateCreated, format, urlFile, taskId);
   }
 
   /**
-   * Создает экземпляр класса {@Link FileModel}.
+   * Создаёт экземпляр класса {@link FileModel}.
    *
    * @param id Идентификатор файла.
    * @param name Название файла.

@@ -23,110 +23,55 @@ public class TaskModel implements Task {
   @Column(name = "id", unique = true)
   private Integer taskId;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.taskId).get();
-  }
-
   /**
    * Назваие задачи.
    */
   private String name;
-
-  @Override
-  public String getName() {
-    return this.name;
-  }
 
   /**
    * Тип контента.
    */
   private Content.Type contentType;
 
-  @Override
-  public Content.Type getContentType() {
-    return this.contentType;
-  }
-
   /**
    * Описание задачи.
    */
   private String description;
-
-  @Override
-  public String getDescription() {
-    return this.description;
-  }
 
   /**
    * Массив идентификаторов файлов прикрепленных к задаче.
    */
   private int[] fileId;
 
-  @Override
-  public int[] getFileId() {
-    return this.fileId;
-  }
-
   /**
    * Идентификатор автора задачи.
    */
   private int authorId;
-
-  @Override
-  public int getAuthorId() {
-    return this.authorId;
-  }
 
   /**
    * Идентификатор исполнителя задачи.
    */
   private int executorId;
 
-  @Override
-  public int executorId() {
-    return this.executorId;
-  }
-
   /**
    * Дата создания задачи.
    */
   private LocalDateTime dateCreated;
-
-  @Override
-  public LocalDateTime getDateCreated() {
-    return this.dateCreated;
-  }
 
   /**
    * Дата окончания задачи.
    */
   private LocalDateTime dateExpired;
 
-  @Override
-  public LocalDateTime getDateExpired() {
-    return this.dateExpired;
-  }
-
   /**
    * Массив содержащий идентификаторы прикрепленного контента.
    */
   private int[] contentsId;
 
-  @Override
-  public int[] getContentsId() {
-    return this.contentsId;
-  }
-
   /**
    * Массив содержащий идентификаторы комментариев в задаче.
    */
   private int[] commentsId;
-
-  @Override
-  public int[] getCommentsId() {
-    return this.commentsId;
-  }
 
   /**
    * Статус задачи.
@@ -134,12 +79,85 @@ public class TaskModel implements Task {
   private Status status;
 
   @Override
+  public Id getId() {
+    return Id.create(this.taskId).get();
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  @Override
+  public Content.Type getContentType() {
+    return this.contentType;
+  }
+
+  @Override
+  public String getDescription() {
+    return this.description;
+  }
+
+  @Override
+  public int[] getFileId() {
+    return this.fileId;
+  }
+
+  @Override
+  public int getAuthorId() {
+    return this.authorId;
+  }
+
+  @Override
+  public int executorId() {
+    return this.executorId;
+  }
+
+  @Override
+  public LocalDateTime getDateCreated() {
+    return this.dateCreated;
+  }
+
+  @Override
+  public LocalDateTime getDateExpired() {
+    return this.dateExpired;
+  }
+
+  @Override
+  public int[] getContentsId() {
+    return this.contentsId;
+  }
+
+  @Override
+  public int[] getCommentsId() {
+    return this.commentsId;
+  }
+
+  @Override
   public Status getStatus() {
     return this.status;
   }
 
+  /**
+   * Создает экземпляр класса {@link TaskModel}.
+   */
   protected TaskModel() {}
 
+  /**
+   * Создает экземпляр класса {@link TaskModel}.
+   *
+   * @param name Название задачи.
+   * @param contentType Тип контента задачи.
+   * @param description Описание задачи.
+   * @param fileId Идентификаторы прикрепленных файло.
+   * @param authorId Идентификатор автора задачи.
+   * @param executorId Идентификатор исполнителя задачи.
+   * @param dateCreated Дата создания задачи.
+   * @param dateExpired Дата окончания задачи.
+   * @param contentsId Идентификаторы прикрепленного контента к задаче.
+   * @param commentsId Идентификаторы комментариев задачи.
+   * @param status Статус задачи.
+   */
   public TaskModel(
       String name, Content.Type contentType, String description, int[] fileId,
       int authorId, int executorId, LocalDateTime dateCreated, LocalDateTime dateExpired,
@@ -149,7 +167,7 @@ public class TaskModel implements Task {
   }
 
   /**
-   * Создает эклземпляр класса {@Link TaskModel}.
+   * Создает эклземпляр класса {@link TaskModel}.
    *
    * @param id Идентификатор задачи.
    * @param name Название задачи.

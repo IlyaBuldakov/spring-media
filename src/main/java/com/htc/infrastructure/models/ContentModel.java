@@ -24,51 +24,26 @@ public class ContentModel implements Content {
   @Column(name = "id", unique = true)
   private Integer contentId;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.contentId).get();
-  }
-
   /**
    * Тип контента.
    */
   @Enumerated(EnumType.STRING)
   private Type type;
 
-  @Override
-  public Type getType() {
-    return this.type;
-  }
-
   /**
    * Название контента.
    */
   private String name;
-
-  @Override
-  public String getName() {
-    return this.name;
-  }
 
   /**
    * Дата создания контента.
    */
   private LocalDateTime dateCreated;
 
-  @Override
-  public LocalDateTime getDateCreated() {
-    return this.dateCreated;
-  }
-
   /**
    * Идентификатор автора контента.
    */
   private int authorId;
-
-  @Override
-  public int getAuthorId() {
-    return this.authorId;
-  }
 
   /**
    * Формат контента.
@@ -76,40 +51,20 @@ public class ContentModel implements Content {
   @Enumerated(EnumType.STRING)
   private Format format;
 
-  @Override
-  public Format getFormat() {
-    return this.format;
-  }
-
   /**
    * Путь к файлу контента.
    */
   private String urlContent;
-
-  @Override
-  public String getUrlContent() {
-    return this.urlContent;
-  }
 
   /**
    * Путь к файлу превью контента.
    */
   private String urlPreview;
 
-  @Override
-  public String getUrlPreview() {
-    return this.urlPreview;
-  }
-
   /**
    * Идентификатор задачи содержащей контент.
    */
   private int taskId;
-
-  @Override
-  public int getTaskId() {
-    return this.taskId;
-  }
 
   /**
    * Подтверждение добавления контента в ленту.
@@ -117,12 +72,72 @@ public class ContentModel implements Content {
   private boolean approve;
 
   @Override
+  public Id getId() {
+    return Id.create(this.contentId).get();
+  }
+
+  @Override
+  public Type getType() {
+    return this.type;
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  @Override
+  public LocalDateTime getDateCreated() {
+    return this.dateCreated;
+  }
+
+  @Override
+  public int getAuthorId() {
+    return this.authorId;
+  }
+
+  @Override
+  public Format getFormat() {
+    return this.format;
+  }
+
+  @Override
+  public String getUrlContent() {
+    return this.urlContent;
+  }
+
+  @Override
+  public String getUrlPreview() {
+    return this.urlPreview;
+  }
+
+  @Override
+  public int getTaskId() {
+    return this.taskId;
+  }
+
+  @Override
   public boolean getApprove() {
     return this.approve;
   }
 
+  /**
+   * Создаёт экземпляр класса {@link ContentModel}.
+   */
   protected ContentModel() {}
 
+  /**
+   * Создаёт экземпляр класса {@link FileModel}.
+   *
+   * @param type Тип контента.
+   * @param name Название контента.
+   * @param dateCreated Дата создания контента.
+   * @param authorId Идентификатор автора контента.
+   * @param format Формат контента.
+   * @param urlContent Путь контента.
+   * @param urlPreview Путь превью контента.
+   * @param taskId Идентификатор задачи содержащей контент.
+   */
   public ContentModel(Content.Type type, String name, LocalDateTime dateCreated,
                    int authorId, Content.Format format, String urlContent,
                    String urlPreview, int taskId) {

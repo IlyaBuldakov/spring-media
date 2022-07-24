@@ -23,11 +23,30 @@ public class NotificationModel implements Notification {
   @GeneratedValue
   private Integer id;
 
+  /**
+   * Тип уведомления.
+   */
   @Enumerated(EnumType.STRING)
   NotificationType notificationType;
+
+  /**
+   * Дата создания уведомления.
+   */
   LocalDateTime dateCreateNotification;
+
+  /**
+   * Сообщение уведомления.
+   */
   String notificationMessage;
+
+  /**
+   * Идентификатор пользователя для которого уведомление.
+   */
   int userId;
+
+  /**
+   * Идентификатор задачи для которой уведомление.
+   */
   int taskId;
 
   @Override
@@ -60,8 +79,20 @@ public class NotificationModel implements Notification {
     return taskId;
   }
 
+  /**
+   * Создает экземпляр класса {@link NotificationModel}.
+   */
   protected NotificationModel() {}
 
+  /**
+   * Создает экземпляр класса {@link NotificationModel}.
+   *
+   * @param notificationType Тип уведомления.
+   * @param dateCreateNotification Дата создания уведомления.
+   * @param notificationMessage Сообщение уведомления.
+   * @param userId Идентификатор пользователя для которого уведомление.
+   * @param taskId Идентификатор задачи от которой уведомление.
+   */
   public NotificationModel(
       NotificationType notificationType,
       LocalDateTime dateCreateNotification,
@@ -72,7 +103,7 @@ public class NotificationModel implements Notification {
   }
 
   /**
-   * Конструктор для получения сущности уведомлений из базы данных.
+   * Создает экземпляр класса {@link NotificationModel}.
    *
    * @param id Идентификатор уведомления.
    * @param notificationType Тип уведомления.

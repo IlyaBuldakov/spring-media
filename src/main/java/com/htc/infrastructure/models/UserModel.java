@@ -23,50 +23,25 @@ public class UserModel implements User {
   @Column(name = "id", unique = true)
   private Integer userId;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.userId).get();
-  }
-
   /**
    * Имя пользователя.
    */
   private String name;
-
-  @Override
-  public Name getName() {
-    return Name.create(this.name).get();
-  }
 
   /**
    * Электронная почта пользователя.
    */
   private String email;
 
-  @Override
-  public Email getEmail() {
-    return Email.create(this.email).get();
-  }
-
   /**
    * Пароль пользователя.
    */
   private String password;
 
-  @Override
-  public Password getPassword() {
-    return Password.create(this.password).get();
-  }
-
   /**
    * Изображение пользователя.
    */
   private String image;
-
-  @Override
-  public Image getImage() {
-    return Image.create(this.image).get();
-  }
 
   /**
    * Роль пользователя, см. {@link User.Role}.
@@ -75,12 +50,49 @@ public class UserModel implements User {
   private User.Role role;
 
   @Override
+  public Id getId() {
+    return Id.create(this.userId).get();
+  }
+
+  @Override
+  public Name getName() {
+    return Name.create(this.name).get();
+  }
+
+  @Override
+  public Email getEmail() {
+    return Email.create(this.email).get();
+  }
+
+  @Override
+  public Password getPassword() {
+    return Password.create(this.password).get();
+  }
+
+  @Override
+  public Image getImage() {
+    return Image.create(this.image).get();
+  }
+
+  @Override
   public Role getRole() {
     return this.role;
   }
 
+  /**
+   * Создает экземпляр класса {@link UserModel}.
+   */
   protected UserModel() {}
 
+  /**
+   * Создает экземпляр класса {@link UserModel}.
+   *
+   * @param name Имя пользователя.
+   * @param email Электронная почта пользователя.
+   * @param password Пароль пользователя.
+   * @param image Изображение пользователя.
+   * @param role Роль пользователя.
+   */
   public UserModel(Name name, Email email, Password password, Image image, Role role) {
     this(Id.create(0).get(), name, email, password, image, role);
   }
