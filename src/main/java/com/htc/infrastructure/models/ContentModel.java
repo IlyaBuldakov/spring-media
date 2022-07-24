@@ -3,6 +3,7 @@ package com.htc.infrastructure.models;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.content.Content;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.JoinColumn;
@@ -24,13 +25,13 @@ public class ContentModel implements Content {
    */
   @javax.persistence.Id
   @GeneratedValue
+  @Column(name = "id")
   private Integer contentId;
 
   /**
    * Задача изменение которой отображается в уведомлении.
    */
   @ManyToOne
-  @JoinColumn(name = "parent_task_id", referencedColumnName = "task_id", nullable = false)
   private TaskModel parentTask;
 
   /**
@@ -52,7 +53,6 @@ public class ContentModel implements Content {
    * Автор медиаконтента.
    */
   @ManyToOne
-  @JoinColumn(name = "author_id", referencedColumnName = "user_id", nullable = false)
   private @Getter UserModel author;
 
   /**

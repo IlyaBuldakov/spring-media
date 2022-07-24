@@ -3,6 +3,7 @@ package com.htc.infrastructure.models;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.comments.Comment;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.JoinColumn;
@@ -25,6 +26,7 @@ public class CommentModel implements Comment {
    */
   @javax.persistence.Id
   @GeneratedValue
+  @Column(name = "id")
   private Integer commentId;
 
   /**
@@ -33,11 +35,9 @@ public class CommentModel implements Comment {
   private @Getter LocalDateTime date;
 
   @ManyToOne
-  @JoinColumn(name = "comment_parent_user", referencedColumnName = "user_id", nullable = false)
   private @Getter UserModel user;
 
   @ManyToOne
-  @JoinColumn(name = "comment_parent_task", referencedColumnName = "task_id", nullable = false)
   private @Getter TaskModel task;
 
   private String message;

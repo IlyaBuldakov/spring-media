@@ -29,7 +29,7 @@ public class NotificationModel implements Notification {
    */
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "notification_id")
+  @Column(name = "id")
   private Integer notificationId;
 
   /**
@@ -52,14 +52,12 @@ public class NotificationModel implements Notification {
    * Пользователь чье действие отображается в уведомлении.
    */
   @ManyToOne
-  @JoinColumn(name = "parent_user_id", referencedColumnName = "user_id", nullable = false)
   private UserModel parentUser;
 
   /**
    * Задача изменение которой отображается в уведомлении.
    */
   @ManyToOne
-  @JoinColumn(name = "parent_task_id", referencedColumnName = "task_id", nullable = false)
   private TaskModel parentTask;
 
   @Override

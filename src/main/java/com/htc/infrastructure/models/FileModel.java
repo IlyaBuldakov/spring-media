@@ -3,6 +3,7 @@ package com.htc.infrastructure.models;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.files.File;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.JoinColumn;
@@ -24,6 +25,7 @@ public class FileModel implements File {
    */
   @javax.persistence.Id
   @GeneratedValue
+  @Column(name = "id")
   private Integer fileId;
 
   /**
@@ -50,7 +52,6 @@ public class FileModel implements File {
    * Родительская задача файла.
    */
   @ManyToOne
-  @JoinColumn(name = "file_parent_task", referencedColumnName = "task_id", nullable = false)
   public @Getter TaskModel task;
 
   @Override

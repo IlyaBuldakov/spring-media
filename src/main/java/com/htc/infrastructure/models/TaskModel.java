@@ -27,7 +27,7 @@ public class TaskModel implements Task {
    */
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "task_id")
+  @Column(name = "id")
   private Integer taskId;
 
   /**
@@ -50,14 +50,12 @@ public class TaskModel implements Task {
    * Автор задачи.
    */
   @ManyToOne
-  @JoinColumn(name = "author_id", referencedColumnName = "user_id", nullable = false)
   private @Getter UserModel author;
 
   /**
    * Исполнитель задачи.
    */
   @ManyToOne
-  @JoinColumn(name = "executor_id", referencedColumnName = "user_id", nullable = false)
   private @Getter UserModel executor;
 
   /**

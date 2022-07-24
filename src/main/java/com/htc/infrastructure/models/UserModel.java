@@ -23,7 +23,7 @@ public class UserModel implements User {
    */
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "user_id")
+  @Column(name = "id")
   private Integer userId;
 
   /**
