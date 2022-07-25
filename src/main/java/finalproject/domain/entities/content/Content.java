@@ -1,12 +1,10 @@
 package finalproject.domain.entities.content;
 
+import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.User;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,8 +40,9 @@ public class Content {
   @Column
   private String preview;
 
-  @Column
-  private @Getter int task;
+  @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY)
+  @JoinColumn(name = "taskId")
+  private @Getter int taskId;
 
   @Column
   private @Getter String url;

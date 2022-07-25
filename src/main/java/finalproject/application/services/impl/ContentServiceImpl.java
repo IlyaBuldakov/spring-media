@@ -6,6 +6,8 @@ import finalproject.application.services.ContentService;
 import finalproject.application.services.FileStorageService;
 import finalproject.domain.entities.content.ContentFormat;
 import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.filedocuments.FileDocuments;
+import finalproject.infrastructure.repositories.ContentRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
 import io.vavr.control.Either;
 import java.io.IOException;
@@ -34,6 +36,7 @@ public class ContentServiceImpl implements ContentService {
   static final String returnRelativePath = "/content/";
   FileStorageService fileStorageService;
   TaskRepository taskRepository;
+  ContentRepository contentRepository;
   ArrayList<String> problems;
 
 
@@ -75,7 +78,7 @@ public class ContentServiceImpl implements ContentService {
 
 
   @Override
-  public CompletableFuture<Either<Failure, List<finalproject.domain.entities.file.File>>>
+  public CompletableFuture<Either<Failure, List<FileDocuments>>>
       getAllFilesRelatedToTask(int taskId) {
     return null;
   }

@@ -1,4 +1,4 @@
-package finalproject.domain.entities.file;
+package finalproject.domain.entities.filedocuments;
 
 /**
  * Форматы файлов документов.

@@ -1,11 +1,9 @@
-package finalproject.domain.entities.file;
+package finalproject.domain.entities.filedocuments;
 
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import finalproject.domain.entities.task.Task;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +15,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class File {
+public class FileDocuments {
 
   /**
    * Идентификатор сущности. Обычно генерируется репозиторием.
@@ -64,6 +62,7 @@ public class File {
    *
    * @return возвращает task идентификатор задачи.
    */
-  @Column
+  @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY)
+  @JoinColumn(name = "taskId")
   private int taskId;
 }

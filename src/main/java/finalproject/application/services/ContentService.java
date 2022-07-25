@@ -1,7 +1,7 @@
 package finalproject.application.services;
 
 import finalproject.domain.entities.failures.Failure;
-import finalproject.domain.entities.file.File;
+import finalproject.domain.entities.filedocuments.FileDocuments;
 import io.vavr.control.Either;
 import java.io.IOException;
 import java.util.List;
@@ -17,6 +17,6 @@ public interface ContentService {
 
   CompletableFuture<Either<Failure, Void>> deleteFileById(int id);
 
-  CompletableFuture<Either<Failure, List<File>>> getAllFilesRelatedToTask(int taskId);
+  CompletableFuture<Either<Failure, List<FileDocuments>>> getAllFilesRelatedToTask(int taskId);
 
 }

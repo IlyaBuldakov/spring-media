@@ -1,19 +1,18 @@
 package finalproject.domain.entities.task;
 
 
+import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.filedocuments.FileDocuments;
 import finalproject.domain.entities.user.User;
 import finalproject.utils.Validators;
 import io.vavr.control.Either;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -104,6 +103,17 @@ public class Task implements Serializable {
   @Getter
   @Setter
   private TaskStatus taskStatus;
+
+
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "taskId")
+  private List<Content> contents;
+
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "taskId")
+  private List<FileDocuments> files;
 
   public Task() {}
 
