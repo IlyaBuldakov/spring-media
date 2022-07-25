@@ -8,6 +8,7 @@ import com.htc.infrastructure.models.ContentModel;
 import com.htc.utility.Results;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,12 @@ public class ContentRepositoryImpl implements ContentRepository {
       Content.Format format,
       String urlContent,
       String urlPreview,
-      int taskId) {
+      int taskId,
+      boolean approve) {
     var content = new ContentModel(
         type, name, dateCreated,
         authorId, format, urlContent,
-        urlPreview, taskId);
+        urlPreview, taskId, approve);
     return Results.succeed(contents.save(content));
   }
 
@@ -52,14 +54,14 @@ public class ContentRepositoryImpl implements ContentRepository {
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Collection<Content>>> getContentFeed() {
-    return null;
+  public CompletableFuture<Either<Failure, Collection<Content>>> getContentFeed(boolean approve) {
+    return Results.succeed(new ArrayList<>(contents.findAllByApprove(approve)));
   }
 
   /**
    * ORM для доступа к данным контента в СУБД.
    */
   public interface Contents extends JpaRepository<ContentModel, Integer> {
-
+    Collection<Content> findAllByApprove(boolean approve);
   }
 }

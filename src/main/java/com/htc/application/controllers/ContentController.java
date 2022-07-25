@@ -1,5 +1,6 @@
 package com.htc.application.controllers;
 
+import com.htc.application.dto.content.ContentResponse;
 import com.htc.domain.usecases.content.DeleteContentById;
 import com.htc.domain.usecases.content.GetContentFeed;
 import com.htc.domain.usecases.content.UploadContent;
@@ -9,6 +10,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -74,7 +77,14 @@ public class ContentController {
    * Возвращает содержимое ленты контента.
    */
   @GetMapping
-  public void getContentFeed() {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Operation(summary = "Получить содержимое ленты контента")
+  public CompletableFuture<Iterable<ContentResponse>> getContentFeed() {
+    boolean approve = true;
+    return Controllers.handleRequest(
+        getContentFeed,
+        new GetContentFeed.Params(approve, "approve"),
+        contents -> contents.stream()
+            .map(ContentResponse::new)
+            .collect(Collectors.toList()));
   }
 }

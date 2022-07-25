@@ -4,6 +4,7 @@ import com.htc.domain.entities.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.usecases.UseCase;
+import com.htc.domain.usecases.comment.GetCommentsByTaskId;
 import io.vavr.control.Either;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
@@ -15,11 +16,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public final class GetContentFeed implements UseCase<Void, Collection<Content>> {
+public final class GetContentFeed implements UseCase<GetContentFeed.Params, Collection<Content>> {
+  /**
+   * Параметры сценария получения ленты контента.
+   *
+   * @param approve Одобрение контента.
+   * @param key Ключ одобрения контента.
+   */
+  public record Params(boolean approve, String key) {}
+
   private final ContentRepository repository;
 
   @Override
-  public CompletableFuture<Either<Failure, Collection<Content>>> execute(Void param) {
-    return repository.getContentFeed();
+  public CompletableFuture<Either<Failure, Collection<Content>>> execute(Params params) {
+    return repository.getContentFeed(params.approve);
   }
 }
