@@ -32,7 +32,13 @@ Swagger
 # Инструкции
 
 ## Сборка проекта
+Установите параметры подключения к БД в файле [application.yaml](https://gitlab.study.htc-cs.com/root/java/java-22-1/-/blob/yaroslav.tarakanov-project/src/main/resources/application.yaml)
+1. url – ссылка на БД.
+2. username – имя пользователя для подключения к БД.
+3. password – пароль пользователя для подключения к БД.
 
 ## Установка проекта
+1. Провести синхронизацию файла pom.xml.
 
 ## Запуск проекта
+1. Выполнить команду запуска для Application.main().
