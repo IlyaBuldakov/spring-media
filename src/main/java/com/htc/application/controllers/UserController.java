@@ -46,7 +46,7 @@ public class UserController {
    * @param userRequest Представление сущности пользователя.
    */
   @PostMapping
-  @Operation(summary = "Создать нового пользователя.")
+  @Operation(summary = "Создать нового пользователя")
   @Async
   public void create(@RequestBody UserRequest userRequest) {
     Controllers.handleRequest(
@@ -67,7 +67,7 @@ public class UserController {
    * @param userRequest Представление сущности пользователя.
    */
   @PutMapping(path = "/{id}")
-  @Operation(summary = "Изменить пользователя по идентификатору.")
+  @Operation(summary = "Изменить пользователя по идентификатору")
   @Async
   public void update(@PathVariable int id, @RequestBody UserRequest userRequest) {
     Controllers.handleRequest(
@@ -104,7 +104,7 @@ public class UserController {
    * @return Представление сущности пользователя.
    */
   @GetMapping(path = "/{id}")
-  @Operation(summary = "Получить пользователя по идентификатору.")
+  @Operation(summary = "Получить пользователя по идентификатору")
   @Async
   public CompletableFuture<UserResponse> get(@PathVariable int id) {
     return Controllers.handleRequest(
@@ -119,7 +119,7 @@ public class UserController {
    * @return Список представлений сущности пользователя.
    */
   @GetMapping
-  @Operation(summary = "Получить список пользователей.")
+  @Operation(summary = "Получить список пользователей")
   @Async
   public CompletableFuture<Iterable<UserResponse>> getAll() {
     return Controllers.handleRequest(

@@ -29,7 +29,7 @@ public class CommentController {
    * Создаёт новый комментарий.
    */
   @PostMapping
-  @Operation(summary = "Добавить новый комментарий в задачу.")
+  @Operation(summary = "Добавить новый комментарий в задачу")
   @Async
   public void create(@RequestBody CommentRequest commentRequest) throws IOException {
     Controllers.handleRequest(
