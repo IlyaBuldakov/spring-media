@@ -2,16 +2,15 @@ package finalproject.domain.entities.user;
 
 
 
+import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.task.Task;
 import finalproject.utils.Validators;
 import io.vavr.control.Either;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -80,6 +79,16 @@ public class User implements Serializable {
   @Getter
   @Column
   private Role role;
+
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "authorId")
+  private List<Task> tasksAsAuthor;
+
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "contentMakerId")
+  private List<Task> tasksAsContentMaker;
 
   public User() {}
 
