@@ -32,11 +32,12 @@ public interface FileRepository {
   );
 
   /**
-   * Удаляет файл из задачи.
+   * Получает файл.
    *
    * @param id Идентификатор файла.
+   * @return Файл.
    */
-  CompletableFuture<Either<Failure, Void>> delete(Id id);
+  CompletableFuture<Either<Failure, File>> get(Id id);
 
   /**
    * Получает файлы под идентификатору задачи.
@@ -44,4 +45,11 @@ public interface FileRepository {
    * @param taskId Идентификатор задачи.
    */
   CompletableFuture<Either<Failure, Collection<File>>> getFilesByTaskId(int taskId);
+
+  /**
+   * Удаляет файл из задачи.
+   *
+   * @param id Идентификатор файла.
+   */
+  CompletableFuture<Either<Failure, Void>> delete(Id id);
 }
