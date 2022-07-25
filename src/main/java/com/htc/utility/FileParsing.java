@@ -1,10 +1,15 @@
 package com.htc.utility;
 
+import static com.htc.domain.entities.File.Format.DOC;
+import static com.htc.domain.entities.File.Format.DOCX;
+import static com.htc.domain.entities.File.Format.PDF;
+import static com.htc.domain.entities.File.Format.XLS;
+import static com.htc.domain.entities.File.Format.XLSX;
+
 import com.htc.domain.entities.File;
 import com.htc.domain.usecases.file.UploadFile;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import java.util.zip.ZipInputStream;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.tika.Tika;
 import org.apache.tika.io.TemporaryResources;
@@ -22,54 +27,77 @@ public class FileParsing {
    * @param taskId Идентификатор задачи содержащей файл.
    * @param request Тело файла.
    * @return Params Параметры для создания сущности файл.
-   * @throws Exception Может вернуть исключение.
    */
+  @SuppressWarnings("checkstyle:NeedBraces")
   public static UploadFile.Params fileParsing(
       MultipartFile file,
       int taskId,
       HttpServletRequest request) throws Exception {
+    String newFileName = null;
+    String fileType = null;
+    String format = null;
+    File.Format fileFormat = null;
     String originalFileName = file.getOriginalFilename();
-    assert originalFileName != null;
-    String newFileName =
-        UUID.randomUUID()
-            + originalFileName.substring(originalFileName.lastIndexOf("."));
 
-    Tika tika = new Tika();
-    TikaInputStream tikaInputStream =
-        TikaInputStream.get(file.getInputStream(),
-            new TemporaryResources());
-    String fileType = tika.detect(tikaInputStream);
-
-    if (fileType.equals("application/zip")) {
-      fileType = new ZipInputStream(file.getInputStream()).getNextEntry().getName();
+    if (originalFileName != null) {
+      newFileName =
+          UUID.randomUUID()
+              + originalFileName.substring(originalFileName.lastIndexOf("."));
     }
 
-    // TODO Реализовать отличие файла doc от xml.
-    // TODO Реализовать проверку существования параметра.
-    File.Format fileFormat = switch (fileType) {
-      case ("word/numbering.xml") -> File.Format.DOCX;
-      case ("application/msword") -> File.Format.DOC;
-      case ("xl/comments1.xml") -> File.Format.XLSX;
-      case ("application/vnd.ms-exel") -> File.Format.XLS;
-      case ("application/pdf") -> File.Format.PDF;
-      case ("application/x-tika-msoffice") -> File.Format.DOC;
-      default -> null;
-    };
-
-    String realPath = request.getSession().getServletContext().getRealPath("/uploads/");
-    java.io.File folder = new java.io.File(realPath);
-    if (!folder.isDirectory()) {
-      folder.mkdirs();
+    if (newFileName != null) {
+      Tika tika = new Tika();
+      TikaInputStream tikaInputStream =
+          TikaInputStream.get(file.getInputStream(),
+              new TemporaryResources());
+      fileType = tika.detect(tikaInputStream);
     }
 
-    LocalDateTime dateCreated = LocalDateTime.now();
-    // TODO Реализовать вывод ошибки, если не корретный файл.
-    file.transferTo(new java.io.File(folder, newFileName));
-    return new UploadFile.Params(
-        newFileName, "name",
-        dateCreated, "dateCreated",
-        fileFormat, "format",
-        realPath, "urlFile",
-        taskId, "taskId");
+    if (fileType != null) {
+      format = switch (fileType) {
+        case  ("application/zip"),
+              ("text/plain"),
+              ("application/x-tika-msoffice") -> file.getContentType();
+        default -> null;
+      };
+    }
+
+    if (format != null) {
+      fileFormat = switch (format) {
+        case ("application/vnd.openxmlformats-officedocument.wordprocessingml.document") -> DOCX;
+        case ("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") -> XLSX;
+        case ("application/msword") -> DOC;
+        case ("application/vnd.ms-excel") -> XLS;
+        case ("application/pdf") -> PDF;
+        default -> null;
+      };
+    }
+
+    if (fileFormat != null) {
+      String urlFile =
+          request
+          .getSession()
+          .getServletContext()
+          .getRealPath("/uploads/files/" + fileFormat);
+      java.io.File folder = new java.io.File(urlFile);
+      if (!folder.isDirectory()) {
+        folder.mkdirs();
+      }
+
+      LocalDateTime dateCreated = LocalDateTime.now();
+      file.transferTo(new java.io.File(folder, newFileName));
+
+      java.io.File tempFile = new java.io.File(urlFile + "/" + newFileName);
+      if (tempFile.isFile()) {
+        return new UploadFile.Params(
+            newFileName, "name",
+            dateCreated, "dateCreated",
+            fileFormat, "format",
+            urlFile, "urlFile",
+            taskId, "taskId");
+      }
+    }
+    // TODO Реализовать возвращение ошибки.
+    return null;
   }
 }

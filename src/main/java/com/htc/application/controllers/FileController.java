@@ -39,6 +39,7 @@ public class FileController {
       @RequestParam("taskId") int taskId,
       HttpServletRequest request) throws Exception {
     UploadFile.Params params = FileParsing.fileParsing(file, taskId, request);
+    assert params != null;
     Controllers.handleRequest(
         uploadFile,
         new UploadFile.Params(
@@ -54,7 +55,7 @@ public class FileController {
    * Удаляет файл.
    */
   @DeleteMapping(path = "/{id}")
-  @Operation(summary = "Удалить файл по идентификатору.")
+  @Operation(summary = "Удалить файл по идентификатору")
   @Async
   public void delete(@PathVariable int id) {
     Controllers.handleRequest(
