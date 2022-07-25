@@ -4,10 +4,12 @@ import com.htc.domain.entities.Notification;
 import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.validation.constraints.NotNull;
 
 /**
  * Модель уведомлений для СУБД.
@@ -21,32 +23,38 @@ public class NotificationModel implements Notification {
    */
   @javax.persistence.Id
   @GeneratedValue
+  @Column(name = "id", unique = true, nullable = false)
   private Integer id;
 
   /**
    * Тип уведомления.
    */
   @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   NotificationType notificationType;
 
   /**
    * Дата создания уведомления.
    */
+  @Column(nullable = false)
   LocalDateTime dateCreateNotification;
 
   /**
    * Сообщение уведомления.
    */
+  @Column(nullable = false)
   String notificationMessage;
 
   /**
    * Идентификатор пользователя для которого уведомление.
    */
+  @Column(nullable = false)
   int userId;
 
   /**
    * Идентификатор задачи для которой уведомление.
    */
+  @Column(nullable = false)
   int taskId;
 
   @Override

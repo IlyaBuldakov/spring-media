@@ -21,33 +21,38 @@ public class FileModel implements File {
    */
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id", unique = true)
+  @Column(name = "id", unique = true, nullable = false)
   private Integer fileId;
 
   /**
    * Название файла.
    */
+  @Column(nullable = false)
   private String name;
 
   /**
    * Дата создания файла.
    */
+  @Column(nullable = false)
   private LocalDateTime dateCreated;
 
   /**
    * Формат файла.
    */
   @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private Format format;
 
   /**
    * Путь к файлу.
    */
+  @Column(nullable = false)
   private String urlFile;
 
   /**
    * Идентификатор задачи содержащей файл.
    */
+  @Column(nullable = false)
   private int taskId;
 
   @Override

@@ -3,6 +3,7 @@ package com.htc.infrastructure.models;
 import com.htc.domain.entities.Comment;
 import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
@@ -18,26 +19,31 @@ public class CommentModel implements Comment {
    */
   @javax.persistence.Id
   @GeneratedValue
+  @Column(unique = true, nullable = false)
   private Integer id;
 
   /**
    * Дата создания комментария.
    */
+  @Column(nullable = false)
   private LocalDateTime dateCreateComment;
 
   /**
    * Пользователь создавший комментарий.
    */
+  @Column(nullable = false)
   private int userId;
 
   /**
    * Сообщение комментария.
    */
+  @Column(nullable = false)
   private String commentMessage;
 
   /**
    * Задача в которой создан комментарий.
    */
+  @Column(nullable = false)
   private int taskId;
 
   @Override

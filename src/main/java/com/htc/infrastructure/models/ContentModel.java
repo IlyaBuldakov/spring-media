@@ -21,54 +21,63 @@ public class ContentModel implements Content {
    */
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id", unique = true)
+  @Column(name = "id", unique = true, nullable = false)
   private Integer contentId;
 
   /**
    * Тип контента.
    */
   @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private Type type;
 
   /**
    * Название контента.
    */
+  @Column(nullable = false)
   private String name;
 
   /**
    * Дата создания контента.
    */
+  @Column(nullable = false)
   private LocalDateTime dateCreated;
 
   /**
    * Идентификатор автора контента.
    */
+  @Column(nullable = false)
   private int authorId;
 
   /**
    * Формат контента.
    */
   @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private Format format;
 
   /**
    * Путь к файлу контента.
    */
+  @Column(nullable = false)
   private String urlContent;
 
   /**
    * Путь к файлу превью контента.
    */
+  @Column(nullable = false)
   private String urlPreview;
 
   /**
    * Идентификатор задачи содержащей контент.
    */
+  @Column(nullable = false)
   private int taskId;
 
   /**
    * Подтверждение добавления контента в ленту.
    */
+  @Column(nullable = false)
   private boolean approve;
 
   @Override

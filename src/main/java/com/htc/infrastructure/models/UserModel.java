@@ -20,33 +20,38 @@ public class UserModel implements User {
    */
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id", unique = true)
+  @Column(name = "id", unique = true, nullable = false)
   private Integer userId;
 
   /**
    * Имя пользователя.
    */
+  @Column(nullable = false)
   private String name;
 
   /**
    * Электронная почта пользователя.
    */
+  @Column(unique = true, nullable = false)
   private String email;
 
   /**
    * Пароль пользователя.
    */
+  @Column(nullable = false)
   private String password;
 
   /**
    * Изображение пользователя.
    */
+  @Column(nullable = false)
   private String image;
 
   /**
    * Роль пользователя, см. {@link User.Role}.
    */
   @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private User.Role role;
 
   @Override

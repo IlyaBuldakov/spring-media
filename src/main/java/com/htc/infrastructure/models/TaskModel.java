@@ -20,62 +20,73 @@ public class TaskModel implements Task {
    */
   @javax.persistence.Id
   @GeneratedValue
-  @Column(name = "id", unique = true)
+  @Column(name = "id", unique = true, nullable = false)
   private Integer taskId;
 
   /**
    * Назваие задачи.
    */
+  @Column(nullable = false)
   private String name;
 
   /**
    * Тип контента.
    */
+  @Column(nullable = false)
   private Content.Type contentType;
 
   /**
    * Описание задачи.
    */
+  @Column(nullable = false)
   private String description;
 
   /**
    * Массив идентификаторов файлов прикрепленных к задаче.
    */
+  @Column(nullable = false)
   private int[] fileId;
 
   /**
    * Идентификатор автора задачи.
    */
+  @Column(nullable = false)
   private int authorId;
 
   /**
    * Идентификатор исполнителя задачи.
    */
+  @Column(nullable = false)
   private int executorId;
 
   /**
    * Дата создания задачи.
    */
+  @Column(nullable = false)
   private LocalDateTime dateCreated;
 
   /**
    * Дата окончания задачи.
    */
+  @Column(nullable = false)
   private LocalDateTime dateExpired;
 
   /**
    * Массив содержащий идентификаторы прикрепленного контента.
    */
+  @Column(nullable = false)
   private int[] contentsId;
 
   /**
    * Массив содержащий идентификаторы комментариев в задаче.
    */
+  @Column(nullable = false)
   private int[] commentsId;
 
   /**
    * Статус задачи.
    */
+  @Column(nullable = false)
   private Status status;
 
   @Override
