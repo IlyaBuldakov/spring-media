@@ -5,7 +5,6 @@ import com.htc.domain.entities.Content.Format;
 import com.htc.domain.usecases.content.UploadContent;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import java.util.zip.ZipInputStream;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.tika.Tika;
 import org.apache.tika.io.TemporaryResources;
@@ -42,10 +41,6 @@ public class ContentParsing {
         TikaInputStream.get(file.getInputStream(),
             new TemporaryResources());
     String fileType = tika.detect(tikaInputStream);
-
-    if (fileType.equals("application/zip")) {
-      fileType = new ZipInputStream(file.getInputStream()).getNextEntry().getName();
-    }
 
     // TODO Реализовать проверку существования параметра.
     Format format = switch (fileType) {
