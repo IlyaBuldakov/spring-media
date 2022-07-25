@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import ru.kiryanovid.domain.entity.errors.Failure;
 import ru.kiryanovid.domain.entity.task.Task;
 import ru.kiryanovid.domain.repositories.TaskRepositories;
-import ru.kiryanovid.infrastructure.Convert;
 import ru.kiryanovid.infrastructure.models.TaskModel;
 import ru.kiryanovid.infrastructure.models.UserModel;
 
@@ -77,8 +76,8 @@ public class TaskRepositoriesImpl implements TaskRepositories {
                 taskModel.getContentType(),
                 taskModel.getDescription(),
                 null,
-                Convert.convertUserModelToEntityUser(taskModel.getAuthor()),
-                Convert.convertUserModelToEntityUser(taskModel.getExecutor()),
+                UserModel.convertUserModelToEntityUser(taskModel.getAuthor()),
+                UserModel.convertUserModelToEntityUser(taskModel.getExecutor()),
                 taskModel.getDateCreate(),
                 taskModel.getDateExpired(),
                 null,
@@ -95,8 +94,8 @@ public class TaskRepositoriesImpl implements TaskRepositories {
                 taskModel.getContentType(),
                 taskModel.getDescription(),
                 null,
-                Convert.convertUserModelToEntityUser(taskModel.getAuthor()),
-                Convert.convertUserModelToEntityUser(taskModel.getExecutor()),
+                UserModel.convertUserModelToEntityUser(taskModel.getAuthor()),
+                UserModel.convertUserModelToEntityUser(taskModel.getExecutor()),
                 taskModel.getDateCreate(),
                 taskModel.getDateExpired(),
                 null,

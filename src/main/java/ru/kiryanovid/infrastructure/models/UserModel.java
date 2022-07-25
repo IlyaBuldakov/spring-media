@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.kiryanovid.domain.entity.users.Role;
+import ru.kiryanovid.domain.entity.users.User;
 
 /**
  * Модель пользователя для СУБД.
@@ -42,6 +43,22 @@ public class UserModel {
 
   public UserModel(Integer id) {
     this.id = id;
+  }
+
+  /**
+  * Конвертация модели пользователя в сущность пользователя.
+  *
+  * @param userModel Модель пользователя
+  *
+  * @return Пользователь
+  */
+  public static User convertUserModelToEntityUser(UserModel userModel) {
+    return User.create(userModel.getId(),
+                userModel.getName(),
+                userModel.getEmail(),
+                userModel.getPassword(),
+                userModel.getImage(),
+                userModel.getRole()).get();
   }
 }
 
