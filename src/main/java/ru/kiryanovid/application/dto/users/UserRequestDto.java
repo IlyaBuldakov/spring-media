@@ -6,33 +6,33 @@ import lombok.NoArgsConstructor;
 import ru.kiryanovid.domain.entity.users.Role;
 
 /**
- *
+ * Представление пользователя (запрос).
  */
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRequestDto {
-    /**
-     * Имя пользователя
-     */
-    @Getter private String name;
+  /**
+   * Имя пользователя.
+   */
+  @Getter private String name;
 
-    /**
-     * Электронная почта пользователя
-     */
-    @Getter private String email;
+  /**
+   * Электронная почта пользователя.
+   */
+  @Getter private String email;
 
-    /**
-     * Пароль пользователя
-     */
-    @Getter private String password;
+  /**
+   * Пароль пользователя.
+   */
+  @Getter private String password;
 
-    /**
-     * Изображение пользователя
-     */
-    @Getter private String avatar;
+  /**
+   * Изображение пользователя.
+   */
+  @Getter private String avatar;
 
-    /**
-     * Роль пользователя
-     */
-    @Getter private Role role;
+  /**
+   * Роль пользователя.
+   */
+  @Getter private Role role;
 }

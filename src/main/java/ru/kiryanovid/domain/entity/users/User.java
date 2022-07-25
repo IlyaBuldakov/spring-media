@@ -12,114 +12,116 @@ import ru.kiryanovid.domain.entity.errors.InvalidValue;
  * Пользователь.
  */
 public class User {
-    /**
-     * Идентификатор пользователя. Идентификатор - неотрицательное число.
-     *
-     * @return id Идентификатор пользователя.
-     */
-    private @Getter Integer id;
+  /**
+   * Идентификатор пользователя. Идентификатор - неотрицательное число.
+   *
+   * @return id Идентификатор пользователя.
+   *
+   */
+  private @Getter Integer id;
 
-    /**
-     * Имя пользователя. Имя - непустая строка.
-     *
-     * @return id Имя пользователя.
-     */
-    private @Getter String name;
+  /**
+   * Имя пользователя. Имя - непустая строка.
+   *
+   * @return id Имя пользователя.
+   */
+  private @Getter String name;
 
-    /**
-     * Электронная почта пользователя.
-     *
-     * @return id Электронная почта пользователя.
-     */
-    private @Getter String email;
+  /**
+   * Электронная почта пользователя.
+   *
+   * @return id Электронная почта пользователя.
+   */
+  private @Getter String email;
 
-    /**
-     * Пароль пользователя.
-     *
-     * <p>
-     * Корректный пароль:
-     * 1. длина пароля от 8 до 20 символов (включительно),
-     * 2. пароль содержащий символы латинского алфавита обоих регистров,
-     * 3. пароль содержим цифры,
-     * 4. пароль может содержать знак подчёркивания.
-     * </p>
-     *
-     * <p>
-     * Пример корректного пароля: {@code abcdEFG1234}
-     * Пример некорректного пароля: {@code abc}
-     * </p>
-     *
-     * @return id Пароль пользователя.
-     */
-    private @Getter String password;
+  /**
+   * Пароль пользователя.
+   *
+   * <p>
+   * Корректный пароль:
+   * 1. длина пароля от 8 до 20 символов (включительно),
+   * 2. пароль содержащий символы латинского алфавита обоих регистров,
+   * 3. пароль содержим цифры,
+   * 4. пароль может содержать знак подчёркивания.
+   * </p>
+   *
+   * <p>
+   * Пример корректного пароля: {@code abcdEFG1234}
+   * Пример некорректного пароля: {@code abc}
+   * </p>
+   *
+   * @return id Пароль пользователя.
+   */
+  private @Getter String password;
 
-    /**
-     * Изображение пользователя. Изображение представлено в кодировке Base64.
-     *
-     * @return id Изображение пользователя.
-     */
-    private @Getter String image;
+  /**
+   * Изображение пользователя. Изображение представлено в кодировке Base64.
+   *
+   * @return id Изображение пользователя.
+   */
+  private @Getter String image;
 
-    /**
-     * Роль пользователя, см. {@link Role}.
-     *
-     * @return id Роль пользователя.
-     */
-    private @Getter Role role;
+  /**
+   * Роль пользователя, см. {@link Role}.
+   *
+   * @return id Роль пользователя.
+   */
+  private @Getter Role role;
 
-    private User() {}
+  private User() {}
 
-    /**
-     * Создаёт пользователя и проверяет данные на корректность.
-     *
-     * @param id Идентификатор.
-     * @param name Имя.
-     * @param email Электронная почта.
-     * @param password Пароль.
-     * @param image Изображение.
-     * @param role Роль.
-     * @return Пользователь.
-     */
-    public static Either<Failure, User> create(
+  /**
+   * Создаёт пользователя и проверяет данные на корректность.
+   *
+   * @param id Идентификатор.
+   * @param name Имя.
+   * @param email Электронная почта.
+   * @param password Пароль.
+   * @param image Изображение.
+   * @param role Роль.
+   * @return Пользователь.
+   */
+  public static Either<Failure, User> create(
             int id, String name, String email, String password, String image, Role role) {
-        // Проверка идентификатора.
-        if (id < 0) {
-            return Either.left(InvalidValue.INVALID_ENTITY_ID);
-        }
+    // Проверка идентификатора.
+    if (id < 0) {
+      return Either.left(InvalidValue.INVALID_ENTITY_ID);
+    }
 
-        // Проверка имени.
-        if (name.length() == 0) {
-            return Either.left(InvalidValue.INVALID_USER_NAME);
-        }
+    // Проверка имени.
+    if (name.length() == 0) {
+      return Either.left(InvalidValue.INVALID_USER_NAME);
+    }
 
-        // Проверка почты.
-        if (email.length() == 0 || !EmailValidator.getInstance().isValid(email)) {
-            return Either.left(InvalidValue.INVALID_USER_EMAIL);
-        }
+    // Проверка почты.
+    if (email.length() == 0 || !EmailValidator.getInstance().isValid(email)) {
+      return Either.left(InvalidValue.INVALID_USER_EMAIL);
+    }
 
-        // Проверка пароля.
-        if (!password.matches("\\w{8,20}")
+    // Проверка пароля.
+    if (!password.matches("\\w{8,20}")
                 || !password.matches(".*\\d+.*")
                 || password.toLowerCase().equals(password)
                 || password.toUpperCase().equals(password)) {
-            return Either.left(InvalidValue.INVALID_USER_PASSWORD);
-        }
-
-        // Проверка изображения.
-        if (image.length() == 0 || !Base64.isBase64(image)) {
-            return Either.left(InvalidValue.INVALID_USER_IMAGE);
-        }
-
-        // Кодирование пароля
-        var encodedPassword = java.util.Base64.getEncoder().encodeToString(password.getBytes());
-
-        var user = new User();
-        user.id = id;
-        user.name = name;
-        user.email = email;
-        user.password = encodedPassword;
-        user.image = image;
-        user.role = role;
-        return Either.right(user);
+      return Either.left(InvalidValue.INVALID_USER_PASSWORD);
     }
+
+
+    // Проверка изображения.
+    if (image.length() == 0 || !Base64.isBase64(image)) {
+      return Either.left(InvalidValue.INVALID_USER_IMAGE);
+    }
+
+    // Кодирование пароля
+    var encodedPassword = java.util.Base64.getEncoder().encodeToString(password.getBytes());
+
+    var user = new User();
+    user.id = id;
+    user.name = name;
+    user.password = encodedPassword;
+    user.email = email;
+    user.image = image;
+    user.role = role;
+    return Either.right(user);
+  }
 }

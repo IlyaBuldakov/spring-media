@@ -1,51 +1,47 @@
 package ru.kiryanovid.application.dto.task;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import ru.kiryanovid.application.dto.content.ContentsResponseDto;
 import ru.kiryanovid.domain.entity.task.ContentType;
 
-import java.time.LocalDateTime;
-
 /**
- *
+ * Представление задачи (запрос).
  */
 @AllArgsConstructor
 public class TaskRequestDto {
-    /**
-     * Название задачи
-     */
-    @Getter private String name;
+  /**
+   * Название задачи.
+   */
+  @Getter private String name;
 
-    /**
-     * Тип контента
-     */
-    @JsonAlias("type")
-    @Getter private ContentType contentType;
+  /**
+   * Тип контента.
+   */
+  @JsonAlias("type")
+  @Getter private ContentType contentType;
 
-    /**
-     * Описание задачи
-     */
-    @Getter private String description;
+  /**
+  * Описание задачи.
+  */
+  @Getter private String description;
 
-    /**
-     * Идентификатор автора задачи
-     */
-    @Getter private Integer author;
+  /**
+   * Идентификатор автора задачи.
+   */
+  @Getter private Integer author;
 
-    /**
-     * Идентификатор исполнителя задачи
-     */
-    @Getter private Integer executor;
+  /**
+   * Идентификатор исполнителя задачи.
+   */
+  @Getter private Integer executor;
 
-    /**
-     * Дата выполнения
-     */
-    @Getter private LocalDateTime dateExpired;
+  /**
+   * Дата выполнения.
+   */
+  @Getter private LocalDateTime dateExpired;
 
-    public TaskRequestDto() {
-    }
+  public TaskRequestDto() {
+  }
 }
