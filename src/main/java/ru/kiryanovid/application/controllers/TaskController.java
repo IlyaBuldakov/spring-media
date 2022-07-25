@@ -4,6 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
@@ -25,17 +30,16 @@ import ru.kiryanovid.application.dto.task.TaskRequestDto;
 import ru.kiryanovid.domain.entity.errors.InvalidValue;
 import ru.kiryanovid.domain.entity.errors.NotAuthorized;
 import ru.kiryanovid.domain.entity.task.Task;
-import ru.kiryanovid.domain.usecases.task.*;
+import ru.kiryanovid.domain.usecases.task.CreateTask;
+import ru.kiryanovid.domain.usecases.task.DeleteTaskById;
+import ru.kiryanovid.domain.usecases.task.GetAllTasks;
+import ru.kiryanovid.domain.usecases.task.GetTaskById;
+import ru.kiryanovid.domain.usecases.task.UpdateTask;
 import ru.kiryanovid.domain.usecases.user.GetUserById;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
- * Контроллер задач
+ * Контроллер задач.
  */
 @RestController
 @RequestMapping(path = "api/tasks")
@@ -43,21 +47,29 @@ import java.util.concurrent.ExecutionException;
 @Tags(@Tag(name = "Задачи"))
 @RequiredArgsConstructor
 public class TaskController {
-    private final GetAllTasks getAllTasks;
-    private final CreateTask createTask;
-    private final GetTaskById getTaskById;
-    private final UpdateTask updateTask;
-    private final DeleteTaskById deleteTaskById;
-    private final GetUserById getUserById;
+  private final GetAllTasks getAllTasks;
+  private final CreateTask createTask;
+  private final GetTaskById getTaskById;
+  private final UpdateTask updateTask;
+  private final DeleteTaskById deleteTaskById;
+  private final GetUserById getUserById;
 
-
-    @PostMapping
-    @Async
-    @Operation(summary = "Создание новой задачи")
-    public void create(@RequestBody TaskRequestDto taskRequestDto) throws ExecutionException, InterruptedException {
-        var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
-        var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
-        var task = Task.create(0,
+  /**
+  * Создание новой задачи.
+  *
+  * @param taskRequestDto представление задачи.
+  *
+  * @throws ExecutionException Ошибка выполнения
+  * @throws InterruptedException Ошибка прерывания
+  */
+  @PostMapping
+  @Async
+  @Operation(summary = "Создание новой задачи")
+  public void create(@RequestBody TaskRequestDto taskRequestDto)
+          throws ExecutionException, InterruptedException {
+    var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
+    var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
+    var task = Task.create(0,
                 taskRequestDto.getName(),
                 taskRequestDto.getContentType(),
                 taskRequestDto.getDescription(),
@@ -68,22 +80,34 @@ public class TaskController {
                 taskRequestDto.getDateExpired(),
                 null,
                 null,
-                null).getOrElseThrow(failure -> switch (failure){
-            case InvalidValue invalidValue -> new BadRequestDto(HttpStatus.BAD_REQUEST, invalidValue.getMessage());
-            case NotAuthorized notAuthorized -> new NotAuthorizedDto(HttpStatus.NOT_FOUND, notAuthorized.getMessage());
-            default -> new InternalServerErrorDto();
-        });
-        createTask.execute(task);
-    }
+                null).getOrElseThrow(failure -> switch (failure) {
+                  case InvalidValue invalidValue ->
+                          new BadRequestDto(HttpStatus.BAD_REQUEST, invalidValue.getMessage());
+                  case NotAuthorized notAuthorized ->
+                          new NotAuthorizedDto(HttpStatus.NOT_FOUND, notAuthorized.getMessage());
+                  default -> new InternalServerErrorDto();
+                });
+    createTask.execute(task);
+  }
 
+  /**
+  * Обновление задачи.
+  *
+  * @param taskRequestDto представление задачи
+  *
+  * @param id идентификатор
+  * @throws ExecutionException Ошибка выполнения
+  * @throws InterruptedException Ошибка прерывания
+  */
 
-    @PutMapping(path = "/{id}")
-    @Async
-    @Operation(summary = "Обновление задачи по идентификатору")
-    public void updateTask(@RequestBody TaskRequestDto taskRequestDto, @PathVariable Integer id) throws ExecutionException, InterruptedException {
-        var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
-        var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
-        var updatedTask = Task.create(id,
+  @PutMapping(path = "/{id}")
+  @Async
+  @Operation(summary = "Обновление задачи по идентификатору")
+  public void updateTask(@RequestBody TaskRequestDto taskRequestDto, @PathVariable Integer id)
+          throws ExecutionException, InterruptedException {
+    var author = getUserById.execute(taskRequestDto.getAuthor()).get().get();
+    var executor = getUserById.execute(taskRequestDto.getExecutor()).get().get();
+    var updatedTask = Task.create(id,
                 taskRequestDto.getName(),
                 taskRequestDto.getContentType(),
                 taskRequestDto.getDescription(),
@@ -95,42 +119,68 @@ public class TaskController {
                 null,
                 null,
                 null).get();
-        updateTask.execute(updatedTask);
-    }
+    updateTask.execute(updatedTask);
+  }
 
-    @DeleteMapping(path = "/{id}")
-    @Async
-    @Operation(summary = "Удаление задачи по идентификатору")
-    public void deleteTaskById(@PathVariable Integer id) {
-        deleteTaskById.execute(id);
-    }
+  /**
+  * Удаление задачи.
+  *
+  * @param id идентификатор
+  */
 
-    @GetMapping(path = "/{id}")
-    @Async
-    @Operation(summary = "Получение задачи по идентификатору")
-    public CompletableFuture<TaskDto> getTaskById(@PathVariable Integer id) throws ExecutionException, InterruptedException {
-        var result = getTaskById.execute(id);
-        if (result.get().isLeft()) {
-            var temp = result.get().getLeft();
-            throw new NotFoundDto(HttpStatus.NOT_FOUND, temp.getMessage());
-        }
-        return CompletableFuture.completedFuture(new TaskDto(result.get().get()));
+  @DeleteMapping(path = "/{id}")
+  @Async
+  @Operation(summary = "Удаление задачи по идентификатору")
+  public void deleteTaskById(@PathVariable Integer id) {
+    deleteTaskById.execute(id);
+  }
+
+  /**
+  * Получение задачи.
+  *
+  * @param id идентификатор
+  *
+  * @return задача
+  * @throws ExecutionException Ошибка выполнения
+  * @throws InterruptedException Ошибка прерывания
+  */
+  @GetMapping(path = "/{id}")
+  @Async
+  @Operation(summary = "Получение задачи по идентификатору")
+  public CompletableFuture<TaskDto> getTaskById(@PathVariable Integer id)
+          throws ExecutionException, InterruptedException {
+    var result = getTaskById.execute(id);
+    if (result.get().isLeft()) {
+      var temp = result.get().getLeft();
+      throw new NotFoundDto(HttpStatus.NOT_FOUND, temp.getMessage());
     }
-    @GetMapping
-    @Async
-    @Operation(summary = "Получение списка всех задач")
-    public List<TaskListDto> getAll() throws ExecutionException, InterruptedException {
-        var taskList = getAllTasks.execute(null)
+    return CompletableFuture.completedFuture(new TaskDto(result.get().get()));
+  }
+
+  /**
+  * Получение списка задач.
+  *
+  * @return Список задач
+  *
+  * @throws ExecutionException Ошибка выполнения
+  * @throws InterruptedException Ошибка прерывания
+  */
+  @GetMapping
+  @Async
+  @Operation(summary = "Получение списка всех задач")
+  public List<TaskListDto> getAll() throws ExecutionException, InterruptedException {
+    var taskList = getAllTasks.execute(null)
                 .get()
                 .getOrElseThrow(failure -> switch (failure) {
-                    case NotAuthorized notAuthorized -> new NotAuthorizedDto(HttpStatus.UNAUTHORIZED, notAuthorized.getMessage());
-                    default -> new InternalServerErrorDto(failure);
+                  case NotAuthorized notAuthorized ->
+                  new NotAuthorizedDto(HttpStatus.UNAUTHORIZED, notAuthorized.getMessage());
+                  default -> new InternalServerErrorDto(failure);
                 });
-        List<TaskListDto> dtoList = new ArrayList<>();
-        for (Task task : taskList) {
-            dtoList.add(new TaskListDto(task));
-        }
-        return dtoList;
+    List<TaskListDto> dtoList = new ArrayList<>();
+    for (Task task : taskList) {
+      dtoList.add(new TaskListDto(task));
     }
+    return dtoList;
+  }
 }
 

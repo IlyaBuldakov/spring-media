@@ -1,44 +1,43 @@
 package ru.kiryanovid.application.dto.notification;
 
-import ru.kiryanovid.application.dto.task.TaskBasicDto;
-import ru.kiryanovid.application.dto.users.UserBasicDto;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
+import ru.kiryanovid.application.dto.task.TaskBasicDto;
+import ru.kiryanovid.application.dto.users.UserBasicDto;
 
 /**
- *
+ * Представление нотификации.
  */
 @AllArgsConstructor
 public class NotificationDto {
-    /**
-     *
-     */
-    @Getter private Integer id;
+  /**
+  * Идентификатор.
+  */
+  @Getter private Integer id;
 
-    /**
-     *
-     */
-    @Getter private NotificationType type;
+  /**
+  * Тип.
+  */
+  @Getter private NotificationType type;
 
-    /**
-     *
-     */
-    @Getter private LocalDateTime date;
+  /**
+  * Дата.
+  */
+  @Getter private LocalDateTime date;
 
-    /**
-     *
-     */
-    @Getter private String message;
+  /**
+  * Сообщение.
+  */
+  @Getter private String message;
 
-    /**
-     *
-     */
-    @Getter private UserBasicDto user;
+  /**
+  * Пользователь.
+  */
+  @Getter private UserBasicDto user;
 
-    /**
-     *
-     */
-    @Getter private TaskBasicDto task;
+  /**
+  * Задача.
+  */
+  @Getter private TaskBasicDto task;
 }

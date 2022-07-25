@@ -10,11 +10,11 @@ public enum Status {
     FEEDBACK(2, "feedback"),
     APPROVED(3, "approved");
 
-    @Getter private final int id;
-    @Getter private final String name;
+  @Getter private final int id;
+  @Getter private final String name;
 
-    Status(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+  Status(int id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 }

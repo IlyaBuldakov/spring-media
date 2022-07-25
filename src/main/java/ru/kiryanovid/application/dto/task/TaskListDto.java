@@ -1,60 +1,60 @@
 package ru.kiryanovid.application.dto.task;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.kiryanovid.application.dto.content.ContentTypeDto;
 import ru.kiryanovid.application.dto.users.UserBasicDto;
 import ru.kiryanovid.domain.entity.task.Task;
 
-import java.time.LocalDateTime;
 
 /**
- *
- */
+* Представление задачи для списка.
+*/
 @AllArgsConstructor
 public class TaskListDto {
-    /**
-     *
-     */
-    @Getter private Integer id;
+  /**
+  * Идентификатор.
+  */
+  @Getter private Integer id;
 
-    /**
-     *
-     */
-    @Getter private String name;
+  /**
+  * Имя.
+  */
+  @Getter private String name;
 
-    /**
-     *
-     */
-    @Getter private ContentTypeDto type;
+  /**
+  * Тип контента.
+  */
+  @Getter private ContentTypeDto type;
 
-    /**
-     *
-     */
-    @Getter private UserBasicDto executor;
+  /**
+  * Исполнитель.
+  */
+  @Getter private UserBasicDto executor;
 
-    /**
-     *
-     */
-    @Getter private LocalDateTime dateExpired;
+  /**
+  * Дата исполнения.
+  */
+  @Getter private LocalDateTime dateExpired;
 
-    /**
-     *
-     */
-    @Getter private TaskStatusDto status;
+  /**
+  * Статус.
+  */
+  @Getter private TaskStatusDto status;
 
-    public TaskListDto(Task task) {
-        this.id = task.getId();
-        this.name = task.getName();
-        this.type = ContentTypeDto.mapToDto(task);
-        this.executor = new UserBasicDto(task.getExecutor());
-        this.dateExpired = task.getDateExpired();
-        this.status = null;
-    }
-
-    public static TaskListDto mapToDto(Task task){
-        return new TaskListDto(task);
-    }
-
+  /**
+  * Получение представления.
+  *
+  * @param task задача
+  */
+  public TaskListDto(Task task) {
+    this.id = task.getId();
+    this.name = task.getName();
+    this.type = ContentTypeDto.mapToDto(task);
+    this.executor = new UserBasicDto(task.getExecutor());
+    this.dateExpired = task.getDateExpired();
+    this.status = null;
+  }
 }
 

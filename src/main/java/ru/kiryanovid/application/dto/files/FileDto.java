@@ -1,38 +1,37 @@
 package ru.kiryanovid.application.dto.files;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.kiryanovid.domain.entity.file.Format;
 
-import java.time.LocalDateTime;
-
 /**
- *
+ * Представление сущности файл.
  */
 @AllArgsConstructor
 public class FileDto {
-    /**
-     *
-     */
-    @Getter private Integer id;
+  /**
+  * Идентификатор.
+  */
+  @Getter private Integer id;
 
-    /**
-     *
-     */
-    @Getter private String name;
+  /**
+  * Имя.
+  */
+  @Getter private String name;
 
-    /**
-     *
-     */
-    @Getter private LocalDateTime dateCreate;
+  /**
+  * Дата создания.
+  */
+  @Getter private LocalDateTime dateCreate;
 
-    /**
-     *
-     */
-    @Getter private Format format;
+  /**
+  * Формат.
+  */
+  @Getter private Format format;
 
-    /**
-     *
-     */
-    @Getter private String url;
+  /**
+  * Ссылка.
+  */
+  @Getter private String url;
 }
