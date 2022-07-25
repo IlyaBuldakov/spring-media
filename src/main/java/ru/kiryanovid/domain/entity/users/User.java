@@ -18,21 +18,21 @@ public class User {
    * @return id Идентификатор пользователя.
    *
    */
-  private @Getter Integer id;
+  @Getter private Integer id;
 
   /**
    * Имя пользователя. Имя - непустая строка.
    *
    * @return id Имя пользователя.
    */
-  private @Getter String name;
+  @Getter private String name;
 
   /**
    * Электронная почта пользователя.
    *
    * @return id Электронная почта пользователя.
    */
-  private @Getter String email;
+  @Getter private String email;
 
   /**
    * Пароль пользователя.
@@ -52,21 +52,21 @@ public class User {
    *
    * @return id Пароль пользователя.
    */
-  private @Getter String password;
+  @Getter private String password;
 
   /**
    * Изображение пользователя. Изображение представлено в кодировке Base64.
    *
    * @return id Изображение пользователя.
    */
-  private @Getter String image;
+  @Getter private String image;
 
   /**
    * Роль пользователя, см. {@link Role}.
    *
    * @return id Роль пользователя.
    */
-  private @Getter Role role;
+  @Getter private Role role;
 
   private User() {}
 

@@ -44,37 +44,37 @@ public class Task {
   /**
   * Автор задачи.
   */
-  private @Getter User author;
+  @Getter private User author;
 
   /**
   * Исполнитель задачи.
   */
-  private @Getter User executor;
+  @Getter private User executor;
 
   /**
   * Дата создания задачи.
   */
-  private @Getter LocalDateTime dateCreate;
+  @Getter private LocalDateTime dateCreate;
 
   /**
   * Дата выполнения задачи.
   */
-  private @Getter LocalDateTime dateExpired;
+  @Getter private LocalDateTime dateExpired;
 
   /**
   * Контент.
   */
-  private @Getter Content content;
+  @Getter private Content content;
 
   /**
   * Комментарий.
   */
-  private @Getter Comment comment;
+  @Getter private Comment comment;
 
   /**
   * Статус задачи.
   */
-  private @Getter Status status;
+  @Getter private Status status;
 
   /**
   * Создает задачу и проверят на корректность.
