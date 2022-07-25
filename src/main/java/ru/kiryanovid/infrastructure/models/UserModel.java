@@ -1,5 +1,6 @@
 package ru.kiryanovid.infrastructure.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,18 +26,28 @@ public class UserModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private @Getter Integer id;
+  @Column(unique = true, nullable = false)
+  @Getter
+  private Integer id;
 
-  private @Getter String name;
+  @Column(nullable = false)
+  @Getter
+  private String name;
 
-  private @Getter String email;
+  @Column(unique = true, nullable = false)
+  @Getter
+  private String email;
 
-  private @Getter String password;
+  @Column(nullable = false)
+  @Getter
+  private String password;
 
-  private @Getter String image;
+  @Getter
+  private String image;
 
   @Enumerated(EnumType.STRING)
-  private @Getter Role role;
+  @Getter
+  private Role role;
 
   protected UserModel() {
   }

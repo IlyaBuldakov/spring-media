@@ -1,6 +1,7 @@
 package ru.kiryanovid.infrastructure.models;
 
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,68 +33,96 @@ public class TaskModel {
   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Getter @Setter private Integer id;
+  @Column(unique = true, nullable = false)
+  @Getter
+  @Setter
+  private Integer id;
 
   /**
   * Название задачи.
   */
-  @Getter @Setter private String name;
+  @Column(nullable = false)
+  @Getter
+  @Setter
+  private String name;
 
   /**
   * Тип контента в задаче.
   */
   @Enumerated(EnumType.STRING)
-  @Getter @Setter private ContentType contentType;
+  @Getter
+  @Setter
+  private ContentType contentType;
 
   /**
   * Описание задачи.
   */
-  @Getter @Setter private String description;
+  @Getter
+  @Setter
+  private String description;
 
   /**
   * Путь к файлу контента.
   */
   @Transient
-  @Getter @Setter private File file;
+  @Getter
+  @Setter
+  private File file;
 
   /**
   * Автор задачи.
   */
   @ManyToOne
-  private @Getter @Setter UserModel author;
+  @Getter
+  @Setter
+  private UserModel author;
 
   /**
   * Исполнитель задачи.
   */
   @ManyToOne
-  private @Getter @Setter UserModel executor;
+  @Getter
+  @Setter
+  private UserModel executor;
 
   /**
   * Дата создания задачи.
   */
-  private @Getter @Setter LocalDateTime dateCreate;
+  @Column(nullable = false)
+  @Getter
+  @Setter
+  private LocalDateTime dateCreate;
 
   /**
   * Дата выполнения задачи.
   */
-  private @Getter @Setter LocalDateTime dateExpired;
+  @Column(nullable = false)
+  @Getter
+  @Setter
+  private LocalDateTime dateExpired;
 
   /**
   * Контент.
   */
   @Transient
-  private @Getter @Setter Content content;
+  @Getter
+  @Setter
+  private Content content;
 
   /**
   * Комментарий.
   */
   @Transient
-  private @Getter @Setter Comment comment;
+  @Getter
+  @Setter
+  private Comment comment;
 
   /**
   * Статус задачи.
   */
-  private @Getter @Setter Status status;
+  @Getter
+  @Setter
+  private Status status;
 
   protected TaskModel() {
   }
