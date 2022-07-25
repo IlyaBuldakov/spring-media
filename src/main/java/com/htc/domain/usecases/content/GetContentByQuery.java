@@ -1,6 +1,6 @@
 package com.htc.domain.usecases.content;
 
-import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.usecases.UseCase;

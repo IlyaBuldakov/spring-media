@@ -1,6 +1,6 @@
 package com.htc.application.dto.user;
 
-import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.User;
 
 /**
  * Представление роли пользователя (ответ на запрос).

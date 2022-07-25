@@ -1,11 +1,11 @@
 package com.htc.domain.usecases.content;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.failures.InvalidValues;
-import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.User;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.service.FileMetadata;
@@ -77,6 +77,7 @@ public class CreateContent implements UseCase<CreateContent.Params, Content> {
     if (previewUrl.isLeft()) {
       invalidValues.addInvalidValue(previewUrl.getLeft());
     }
+
 
     if (invalidValues.getInvalidValues().isEmpty()) {
       fileUploadService.uploadFile(params.file);

@@ -1,7 +1,7 @@
 package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.comments.Comment;
+import com.htc.domain.entities.Comment;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;

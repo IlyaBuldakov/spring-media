@@ -1,7 +1,7 @@
 package com.htc.service.impl;
 
-import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.files.File;
+import com.htc.domain.entities.Content;
+import com.htc.domain.entities.File;
 import com.htc.service.FileMetadata;
 import java.util.Optional;
 import org.springframework.stereotype.Service;

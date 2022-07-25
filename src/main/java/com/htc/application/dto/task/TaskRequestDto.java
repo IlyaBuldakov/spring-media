@@ -1,7 +1,7 @@
 package com.htc.application.dto.task;
 
-import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.tasks.Task;
+import com.htc.domain.entities.Content;
+import com.htc.domain.entities.Task;
 import java.time.LocalDateTime;
 
 /**

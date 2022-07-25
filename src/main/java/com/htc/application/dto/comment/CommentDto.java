@@ -1,7 +1,7 @@
 package com.htc.application.dto.comment;
 
 import com.htc.application.dto.user.UserShortResponse;
-import com.htc.domain.entities.comments.Comment;
+import com.htc.domain.entities.Comment;
 import java.time.LocalDateTime;
 /**
  * Представление сущности комментария.

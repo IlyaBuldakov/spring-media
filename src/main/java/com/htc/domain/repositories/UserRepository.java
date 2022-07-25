@@ -2,7 +2,7 @@ package com.htc.domain.repositories;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.User;
 import io.vavr.control.Either;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;

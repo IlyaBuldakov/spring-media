@@ -1,10 +1,8 @@
-package com.htc.domain.entities.notifications;
+package com.htc.domain.entities;
 
 import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.InvalidValue;
-import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 

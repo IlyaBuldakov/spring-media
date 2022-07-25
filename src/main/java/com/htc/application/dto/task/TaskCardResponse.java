@@ -1,6 +1,6 @@
 package com.htc.application.dto.task;
 
-import com.htc.domain.entities.tasks.Task;
+import com.htc.domain.entities.Task;
 
 /**
  * Краткое представление сущности задачи.

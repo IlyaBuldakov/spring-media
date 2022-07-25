@@ -2,7 +2,7 @@ package com.htc.domain.usecases.notification;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.notifications.Notification;
+import com.htc.domain.entities.Notification;
 import com.htc.domain.repositories.NotificationRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;

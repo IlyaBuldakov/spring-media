@@ -1,6 +1,6 @@
 package com.htc.domain.usecases.comment;
 
-import com.htc.domain.entities.comments.Comment;
+import com.htc.domain.entities.Comment;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.domain.usecases.UseCase;

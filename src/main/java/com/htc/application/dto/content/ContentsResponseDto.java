@@ -1,6 +1,6 @@
 package com.htc.application.dto.content;
 
-import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.Content;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import lombok.Getter;

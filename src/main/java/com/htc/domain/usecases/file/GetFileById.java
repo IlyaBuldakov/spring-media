@@ -3,7 +3,7 @@ package com.htc.domain.usecases.file;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValues;
-import com.htc.domain.entities.files.File;
+import com.htc.domain.entities.File;
 import com.htc.domain.repositories.FileRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;

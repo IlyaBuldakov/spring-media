@@ -3,7 +3,7 @@ package com.htc.infrastructure.repositories;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.notifications.Notification;
+import com.htc.domain.entities.Notification;
 import com.htc.domain.repositories.NotificationRepository;
 import com.htc.infrastructure.models.NotificationModel;
 import com.htc.infrastructure.models.TaskModel;

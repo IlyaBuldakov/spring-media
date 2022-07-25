@@ -1,6 +1,6 @@
 package com.htc.application.dto.file;
 
-import com.htc.domain.entities.files.File;
+import com.htc.domain.entities.File;
 import java.time.LocalDateTime;
 import lombok.Getter;
 

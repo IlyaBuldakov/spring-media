@@ -2,7 +2,7 @@ package com.htc.application.dto.notification;
 
 import com.htc.application.dto.task.TaskCardResponse;
 import com.htc.application.dto.user.UserShortResponse;
-import com.htc.domain.entities.notifications.Notification;
+import com.htc.domain.entities.Notification;
 import java.time.LocalDateTime;
 
 /**

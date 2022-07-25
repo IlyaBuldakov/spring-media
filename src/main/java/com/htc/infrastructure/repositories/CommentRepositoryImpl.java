@@ -1,10 +1,10 @@
 package com.htc.infrastructure.repositories;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.comments.Comment;
+import com.htc.domain.entities.Comment;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.tasks.Task;
+import com.htc.domain.entities.Task;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.infrastructure.models.CommentModel;
 import com.htc.infrastructure.models.TaskModel;

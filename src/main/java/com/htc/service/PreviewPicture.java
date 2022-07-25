@@ -1,6 +1,6 @@
 package com.htc.service;
 
-import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.Content;
 import java.io.File;
 import org.springframework.web.multipart.MultipartFile;
 

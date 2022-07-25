@@ -3,7 +3,7 @@ package com.htc.infrastructure.repositories;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.User;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.infrastructure.models.UserModel;
 import io.vavr.control.Either;

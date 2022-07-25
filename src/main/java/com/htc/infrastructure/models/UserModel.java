@@ -1,7 +1,7 @@
 package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

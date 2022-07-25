@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.tasks.Task;
+import com.htc.domain.entities.Task;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;

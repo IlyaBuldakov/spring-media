@@ -2,7 +2,7 @@ package com.htc.domain.repositories;
 
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.files.File;
+import com.htc.domain.entities.File;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Collection;

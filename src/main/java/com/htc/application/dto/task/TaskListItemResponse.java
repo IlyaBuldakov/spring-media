@@ -2,7 +2,7 @@ package com.htc.application.dto.task;
 
 import com.htc.application.dto.content.ContentTypeDto;
 import com.htc.application.dto.user.UserShortResponse;
-import com.htc.domain.entities.tasks.Task;
+import com.htc.domain.entities.Task;
 import java.time.LocalDateTime;
 
 /**

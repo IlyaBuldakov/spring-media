@@ -1,9 +1,9 @@
 package com.htc.infrastructure.models;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.notifications.Notification;
-import com.htc.domain.entities.tasks.Task;
-import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.Notification;
+import com.htc.domain.entities.Task;
+import com.htc.domain.entities.User;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,6 +1,6 @@
 package com.htc.service.impl;
 
-import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.Content;
 import com.htc.service.PreviewPicture;
 import java.io.File;
 import org.springframework.stereotype.Service;

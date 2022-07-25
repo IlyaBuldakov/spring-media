@@ -1,9 +1,9 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.content.Content;
+import com.htc.domain.entities.Content;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.tasks.Task;
+import com.htc.domain.entities.Task;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Collection;

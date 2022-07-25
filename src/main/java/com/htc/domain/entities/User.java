@@ -1,4 +1,4 @@
-package com.htc.domain.entities.user;
+package com.htc.domain.entities;
 
 import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
