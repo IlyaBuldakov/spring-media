@@ -7,6 +7,7 @@ import com.htc.domain.repositories.FileRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.utility.Results;
 import io.vavr.control.Either;
+import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,12 @@ public final class DeleteFileById implements UseCase<DeleteFileById.Params, Void
   public CompletableFuture<Either<Failure, Void>> execute(Params params) {
     var id = Id.create(params.id);
     if (id.isRight()) {
+      repository.get(id.get()).thenApply(file -> {
+        var urlFile = file.get().getUrlFile();
+        var fileName = file.get().getName();
+        File realFile = new File(urlFile + "/" + fileName);
+        return realFile.delete();
+      });
       return repository.delete(id.get());
     }
 

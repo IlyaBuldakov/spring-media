@@ -3,6 +3,7 @@ package com.htc.infrastructure.repositories;
 import com.htc.domain.entities.File;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.FileRepository;
 import com.htc.infrastructure.models.FileModel;
 import com.htc.utility.Results;
@@ -31,6 +32,14 @@ public class FileRepositoryImpl implements FileRepository {
       int taskId) {
     var file = new FileModel(name, dateCreated, format, urlFile, taskId);
     return Results.succeed(files.save(file));
+  }
+
+  @Override
+  public CompletableFuture<Either<Failure, File>> get(Id id) {
+    var file = files.findById(id.getValue());
+    return file.isPresent()
+        ? Results.succeed(file.get())
+        : Results.fail(NotFound.DEFAULT_MESSAGE);
   }
 
   @Override
