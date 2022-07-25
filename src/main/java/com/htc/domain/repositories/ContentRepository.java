@@ -33,7 +33,8 @@ public interface ContentRepository {
       Content.Format format,
       String urlContent,
       String urlPreview,
-      int taskId
+      int taskId,
+      boolean approve
   );
 
   /**
@@ -56,5 +57,5 @@ public interface ContentRepository {
    *
    * @return Весь контент.
    */
-  CompletableFuture<Either<Failure, Collection<Content>>> getContentFeed();
+  CompletableFuture<Either<Failure, Collection<Content>>> getContentFeed(boolean approve);
 }

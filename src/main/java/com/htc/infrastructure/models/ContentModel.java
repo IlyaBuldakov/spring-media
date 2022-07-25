@@ -149,9 +149,9 @@ public class ContentModel implements Content {
    */
   public ContentModel(Content.Type type, String name, LocalDateTime dateCreated,
                    int authorId, Content.Format format, String urlContent,
-                   String urlPreview, int taskId) {
+                   String urlPreview, int taskId, boolean approve) {
     this(Id.create(0).get(), type, name, dateCreated,
-        authorId, format, urlContent, urlPreview, taskId);
+        authorId, format, urlContent, urlPreview, taskId, approve);
   }
 
   /**
@@ -170,7 +170,7 @@ public class ContentModel implements Content {
   public ContentModel(Id id, Content.Type type, String name,
                       LocalDateTime dateCreated, int authorId,
                       Content.Format format, String urlContent,
-                      String urlPreview, int taskId) {
+                      String urlPreview, int taskId, boolean approve) {
     this.type = type;
     this.name = name;
     this.dateCreated = dateCreated;
@@ -179,5 +179,6 @@ public class ContentModel implements Content {
     this.urlContent = urlContent;
     this.urlPreview = urlPreview;
     this.taskId = taskId;
+    this.approve = approve;
   }
 }

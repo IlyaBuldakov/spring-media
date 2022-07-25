@@ -45,6 +45,7 @@ public final class UploadContent implements UseCase<UploadContent.Params, Conten
   @Override
   public CompletableFuture<Either<Failure, Content>> execute(Params params) {
     var failure = new InvalidValues();
+    boolean approve = false;
 
     return failure.invalidValues().size() == 0
         ? repository.upload(
@@ -55,7 +56,8 @@ public final class UploadContent implements UseCase<UploadContent.Params, Conten
         params.format,
         params.urlContent,
         params.urlPreview,
-        params.taskId)
+        params.taskId,
+        approve)
         : Results.fail(failure);
   }
 }
