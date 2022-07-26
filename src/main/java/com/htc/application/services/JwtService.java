@@ -1,6 +1,5 @@
 package com.htc.application.services;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.htc.application.dto.login.LoginResponse;
 import com.htc.domain.entities.user.Role;
 import org.springframework.security.core.Authentication;
@@ -35,14 +34,6 @@ public interface JwtService {
      * @return JWT токен.
      */
     String getTokenFromHeader(String header);
-
-    /**
-     * Декодирование JWT токена.
-     *
-     * @param token JWT токен.
-     * @return DecodedJWT.
-     */
-    DecodedJWT decodeToken(String token);
 
     /**
      * Проверка JWT токена.
