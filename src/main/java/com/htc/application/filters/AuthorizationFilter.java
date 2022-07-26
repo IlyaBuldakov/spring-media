@@ -1,9 +1,8 @@
 package com.htc.application.filters;
 
-import com.htc.application.security.RoleGrantedAuthority;
-import com.htc.application.security.UserAuthentication;
+import com.htc.application.dto.errors.UnauthorizedResponse;
 import com.htc.application.services.JwtService;
-import com.htc.domain.entities.user.Role;
+import com.htc.domain.entities.failures.Unauthorized;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -43,15 +42,12 @@ public class AuthorizationFilter extends GenericFilterBean {
         if (authHeader != null) {
             String token = jwtService.getTokenFromHeader(authHeader);
             if (jwtService.isTokenValid(token)) {
-                var decodedToken = jwtService.decodeToken(token);
-                var id = decodedToken.getClaim("id").asInt();
-                var role = decodedToken.getClaim("role").asString();
-                var userRole = Role.valueOf(role);
-                var userAuthentication = new UserAuthentication(id, Set.of(
-                        new RoleGrantedAuthority(userRole)
-                ));
+                var userAuthentication = jwtService.getAuthentication(token);
                 SecurityContextHolder.getContext()
                         .setAuthentication(userAuthentication);
+            } else {
+                SecurityContextHolder.clearContext();
+                throw new UnauthorizedResponse(Unauthorized.DEFAULT_MESSAGE.getMessage());
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
