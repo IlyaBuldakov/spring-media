@@ -17,7 +17,7 @@ public interface JwtService {
      * @param lifeTime Время жизни токена.
      * @return Токен.
      */
-    String createJwtToken(int id, Role role, int lifeTime);
+    String createJwtToken(int id, Role role, String email, int lifeTime);
 
     /**
      * Создание пары токенов (access, refresh).
@@ -26,7 +26,7 @@ public interface JwtService {
      * @param role Роль пользователя.
      * @return LoginResponse.
      */
-    LoginResponse createPairOfTokens(int id, Role role);
+    LoginResponse createPairOfTokens(int id, Role role, String email);
 
     /**
      * Получение токена из Authentication header (без типа аутентификации).

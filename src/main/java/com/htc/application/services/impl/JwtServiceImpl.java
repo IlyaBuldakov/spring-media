@@ -42,10 +42,11 @@ public class JwtServiceImpl implements JwtService {
     private final int REFRESH_TOKEN_LIFETIME_SECONDS = 30 * 24 * 60 * 60;
 
     @Override
-    public String createJwtToken(int id, Role role, int lifeTime) {
+    public String createJwtToken(int id, Role role, String email, int lifeTime) {
         var expiredTime = new Date();
         expiredTime.setTime(expiredTime.getTime() + (lifeTime * 1000L));
         return JWT.create()
+                .withSubject(email)
                 .withClaim("id", id)
                 .withClaim("role", role.toString())
                 .withExpiresAt(expiredTime)
@@ -53,10 +54,10 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public LoginResponse createPairOfTokens(int id, Role role) {
+    public LoginResponse createPairOfTokens(int id, Role role, String email) {
         return new LoginResponse(
-                createJwtToken(id, role, ACCESS_TOKEN_LIFETIME_SECONDS),
-                createJwtToken(id, role, REFRESH_TOKEN_LIFETIME_SECONDS)
+                createJwtToken(id, role, email, ACCESS_TOKEN_LIFETIME_SECONDS),
+                createJwtToken(id, role, email, REFRESH_TOKEN_LIFETIME_SECONDS)
         );
     }
 
