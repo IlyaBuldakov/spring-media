@@ -3,6 +3,10 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [0.16.0] - 2022-07-25
+### Добавлено
+- Конфигурация для swagger UI.
+
 ## [0.15.0] - 2022-07-24
 ### Добавлено
 - Сценарий добавления уведомления.
@@ -287,6 +291,7 @@
 - Заготовка проекта.
 - Плагин Checkstyle с правилами Google.
 
+[0.16.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.15.0...yuriy.krasnoperov-v0.16.0
 [0.15.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.14.0...yuriy.krasnoperov-v0.15.0
 [0.14.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.13.0...yuriy.krasnoperov-v0.14.0
 [0.13.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/yuriy.krasnoperov-v0.12.0...yuriy.krasnoperov-v0.13.0
