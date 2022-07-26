@@ -2,11 +2,7 @@ package com.htc.application.controllers;
 
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
-import com.htc.domain.usecases.user.CreateUser;
-import com.htc.domain.usecases.user.DeleteUserById;
-import com.htc.domain.usecases.user.GetAllUsers;
-import com.htc.domain.usecases.user.GetUserById;
-import com.htc.domain.usecases.user.UpdateUser;
+import com.htc.domain.usecases.UserUseCase;
 import com.htc.utility.Controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -35,11 +31,11 @@ import org.springframework.web.bind.annotation.RestController;
 @SecurityRequirement(name = "JWT")
 @Tags(@Tag(name = "Пользователи"))
 public class UserController {
-  private CreateUser createUser;
-  private UpdateUser updateUser;
-  private DeleteUserById deleteUserById;
-  private GetUserById getUserById;
-  private GetAllUsers getAllUsers;
+  private UserUseCase.Create create;
+  private UserUseCase.UpdateUser updateUser;
+  private UserUseCase.DeleteUserById deleteUserById;
+  private UserUseCase.GetUserById getUserById;
+  private UserUseCase.GetAllUsers getAllUsers;
 
   /**
    * Создаёт пользователя.
@@ -49,8 +45,8 @@ public class UserController {
   @Operation(summary = "Создать нового пользователя")
   public void create(@RequestBody UserRequest userRequest) {
     Controllers.handleRequest(
-            createUser,
-            new CreateUser.Params(
+            create,
+            new UserUseCase.Create.Params(
                     userRequest.name(),
                     userRequest.email(),
                     userRequest.password(),
@@ -104,7 +100,7 @@ public class UserController {
   public void update(@PathVariable int id, @RequestBody UserRequest userRequest) {
     Controllers.handleRequest(
             updateUser,
-            new UpdateUser.Params(
+            new UserUseCase.UpdateUser.Params(
                     id,
                     userRequest.name(),
                     userRequest.email(),

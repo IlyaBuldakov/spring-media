@@ -1,11 +1,9 @@
 package com.htc.domain.repositories;
 
-import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.User;
-import io.vavr.control.Either;
+import com.htc.domain.entities.attributes.Id;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 
 /**
  * Репозиторий пользователей.
@@ -20,15 +18,15 @@ public interface UserRepository {
    * @param password Пароль пользователя.
    * @param image Изображение пользователя.
    * @param role Роль пользователя.
-   * @return Пользователь или ошибка.
+   * @return Созданный пользователь.
    */
-  CompletableFuture<Either<Failure, User>> create(
+  User create(
           User.Name name,
           User.Email email,
           User.Password password,
           User.Image image,
-          User.Role role);
-
+          User.Role role
+  );
 
   /**
    * Обновляет данные пользователя.
@@ -39,36 +37,61 @@ public interface UserRepository {
    * @param password Пароль пользователя.
    * @param image Изображение пользователя.
    * @param role Роль пользователя.
-   * @return Пользователь или ошибка.
+   * @return Обновлённый пользователь.
    */
-  CompletableFuture<Either<Failure, User>> update(
+  User update(
           Id id,
           User.Name name,
           User.Email email,
           User.Password password,
           User.Image image,
-          User.Role role);
+          User.Role role
+  );
 
   /**
-   * Удаляет пользоваетеля.
+   * Удаляет пользователя.
    *
    * @param id Идентификатор пользователя.
    */
-  CompletableFuture<Either<Failure, Void>> delete(Id id);
+  void delete(Id id);
 
   /**
-   * Получает пользователя.
+   * Получает пользователя по его идентификатору.
    *
    * @param id Идентификатор пользователя.
-   * @return Пользователь.
+   * @return Пользователь с запрошенным идентификатором.
    */
-  CompletableFuture<Either<Failure, User>> get(Id id);
+  Optional<User> get(Id id);
+
+  /**
+   * Получает пользователя по его электронной почте.
+   *
+   * @param email Электронная почта пользователя.
+   * @return Пользователь с запрошенной электронной почтой.
+   */
+  Optional<User> get(User.Email email);
 
   /**
    * Получает список всех пользователей.
    *
-   * @return Список пользователей.
+   * @return Список всех пользователей.
    */
-  CompletableFuture<Either<Failure, Collection<User>>> getAll();
+  Collection<User> getAll();
+
+  /**
+   * Проверяет, существует ли пользователь с указанным идентификатором.
+   *
+   * @param id Идентификатор пользователя.
+   * @return Результат проверки.
+   */
+  boolean exists(Id id);
+
+  /**
+   * Проверяет, существует ли пользователь с указанной электронной почтой.
+   *
+   * @param email Электронная почта пользователя.
+   * @return Результат проверки.
+   */
+  boolean exists(User.Email email);
 
 }
