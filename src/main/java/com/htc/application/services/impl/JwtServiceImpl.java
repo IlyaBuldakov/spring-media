@@ -3,11 +3,15 @@ package com.htc.application.services.impl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.htc.application.dto.login.LoginResponse;
 import com.htc.application.services.JwtService;
 import com.htc.domain.entities.user.Role;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -20,7 +24,9 @@ import java.util.regex.Pattern;
 public class JwtServiceImpl implements JwtService {
 
 
-    public JwtServiceImpl(@Value("${authentication.key}") String key) {
+    public JwtServiceImpl(@Value("${authentication.key}") String key,
+                          @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
         this.algorithm = Algorithm.HMAC256(key);
     }
 
@@ -30,6 +36,8 @@ public class JwtServiceImpl implements JwtService {
     private final Algorithm algorithm;
 
     private final Pattern TOKEN_PATTERN = Pattern.compile("Bearer (?<token>[^\\s.]+.[^\\s.]+.[^\\s.]+)");
+
+    private final UserDetailsService userDetailsService;
 
     /**
      * Время жизни Access-токена (10 минут).
