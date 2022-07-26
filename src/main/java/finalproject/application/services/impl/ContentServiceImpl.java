@@ -93,9 +93,20 @@ public class ContentServiceImpl implements ContentService {
       case "avi", "mp4" -> ContentType.VIDEO;
       default -> null;
     };
-
+    File toConvert = new File(path.resolve(filename).toString());
+    BufferedImage preview;
     if (type == ContentType.PHOTO) {
-      BufferedImage preview = ImageIO.read(new File(path.resolve(filename).toString()));
+      preview = ImageIO.read(toConvert);} else
+    if (type == ContentType.VIDEO) {
+      FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(toConvert);
+      grabber.start();
+      Frame frame = grabber.grabImage();
+      Java2DFrameConverter converter = new Java2DFrameConverter();
+      preview = converter.convert(frame);
+    } else {
+      return  "/" + Paths.get(staticPath).toUri().relativize(Paths.get(staticPath, "defaultmusicicon.png")
+              .toUri());
+    }
       Image resultingImage = preview.getScaledInstance(640, 480, Image.SCALE_DEFAULT);
       BufferedImage outputImage = new BufferedImage(640, 480, BufferedImage.TYPE_INT_RGB);
       outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
@@ -106,23 +117,7 @@ public class ContentServiceImpl implements ContentService {
       return "/" + Paths.get(staticPath).toUri().relativize(Paths.get(previewPath).toUri());
     }
 
-    if (type == ContentType.VIDEO) {
-      String previewPath = path.resolve("preview_"
-              + filename.substring(0, filename.lastIndexOf(".")) + ".jpg").toString();
-      File output = new File(previewPath);
-      FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(path.resolve(filename).toString());
-      grabber.start();
-      Frame frame = grabber.grabImage();
-      Java2DFrameConverter converter = new Java2DFrameConverter();
-      BufferedImage bi = converter.convert(frame);
-      Image resultingImage = bi.getScaledInstance(640, 480, Image.SCALE_DEFAULT);
-      BufferedImage outputImage = new BufferedImage(640, 480, BufferedImage.TYPE_INT_RGB);
-      outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
-      ImageIO.write(outputImage, "jpg", output);
-      return "/" + Paths.get(staticPath).toUri().relativize(Paths.get(previewPath).toUri());
-    }
-return null;
-  }
+
 
 
 
