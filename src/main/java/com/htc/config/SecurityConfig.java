@@ -4,11 +4,14 @@ import com.htc.application.filters.AuthorizationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -49,14 +52,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement(config -> config
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests(config -> config
-                        .antMatchers(this.permittedPaths).permitAll()
+                        .antMatchers(permittedPaths).permitAll()
                         .anyRequest().authenticated())
                 .logout(config -> config
-                        .logoutUrl(this.logoutUrl).permitAll()
+                        .logoutUrl(logoutUrl).permitAll()
                         .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()))
-                .addFilterAfter(this.authenticationFilter, BasicAuthenticationFilter.class);
+                .addFilterAfter(authorizationFilter, BasicAuthenticationFilter.class);
     }
 
+    /**
+     * Создание бина Authentication Manager
+     * с конфигурацией по умолчанию
+     *
+     * @return Authentication Manager.
+     * @throws Exception Исключение.
+     */
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    /**
+     * Конфигурация encoder'а паролей.
+     *
+     * @return {@link BCryptPasswordEncoder}.
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
+    }
+
+    /**
+     * Настройка SecurityContextHolder
+     * на размножение по потокам.
+     *
+     * @return InitializingBean.
+     */
     @Bean
     public InitializingBean initializingBean() {
         return () -> SecurityContextHolder.setStrategyName(
