@@ -80,6 +80,10 @@ public class JwtServiceImpl implements JwtService {
         return true;
     }
 
+    public String getEmailFromToken(String token) {
+        return JWT.decode(token).getSubject();
+    }
+
     @Override
     public DecodedJWT decodeToken(String token) {
         return JWT.require(algorithm)
