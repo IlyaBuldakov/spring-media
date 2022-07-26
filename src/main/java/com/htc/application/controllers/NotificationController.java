@@ -4,6 +4,10 @@ import com.htc.application.dtos.notification.NotificationResponse;
 import com.htc.domain.usecases.notification.DeleteNotificationById;
 import com.htc.domain.usecases.notification.GetAllNotifications;
 import com.htc.utility.ControllerHelper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -18,9 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Контроллер уведомления.
  */
-@RestController
-@RequestMapping(path = "api/notifications")
 @AllArgsConstructor
+@RestController
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Уведомления"))
+@RequestMapping(path = "api/notifications")
 public class NotificationController {
   private GetAllNotifications getAllNotifications;
   private DeleteNotificationById deleteNotificationById;
@@ -30,8 +36,9 @@ public class NotificationController {
    *
    * @return list список пользователей
    */
-  @GetMapping
   @Async
+  @Operation(summary = "Получить список уведомлений.")
+  @GetMapping
   public CompletableFuture<List<NotificationResponse>> getAll() {
     return ControllerHelper.customRequest(
             getAllNotifications,
@@ -47,8 +54,9 @@ public class NotificationController {
    *
    * @param id идентификатор
    */
-  @DeleteMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Удалить уведомление по идентификатору.")
+  @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteNotificationById,

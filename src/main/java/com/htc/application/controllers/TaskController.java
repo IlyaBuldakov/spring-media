@@ -10,6 +10,9 @@ import com.htc.domain.usecases.task.GetTaskById;
 import com.htc.domain.usecases.task.UpdateTaskById;
 import com.htc.utility.ControllerHelper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -27,9 +30,11 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Контроллер задачи.
  */
-@RestController
-@RequestMapping(path = "api/tasks")
 @AllArgsConstructor
+@RestController
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Задачи"))
+@RequestMapping(path = "api/tasks")
 public class TaskController {
   private AddTask addTask;
   private UpdateTaskById updateTaskById;
@@ -40,9 +45,9 @@ public class TaskController {
   /**
    * Добавление задачи.
    */
-  @PostMapping
-  @Operation(summary = "Добавить новую задачу.")
   @Async
+  @Operation(summary = "Добавить новую задачу.")
+  @PostMapping
   public void add(@RequestBody TaskRequest taskRequest) {
     ControllerHelper.customRequest(
             addTask,
@@ -64,8 +69,9 @@ public class TaskController {
    * @param id идентификатор
    * @return task задача
    */
-  @GetMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Получить задачу по идентификатору.")
+  @GetMapping(path = "/{id}")
   public CompletableFuture<TaskResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getTaskById,
@@ -79,8 +85,9 @@ public class TaskController {
    *
    * @return list лента задач
    */
-  @GetMapping
   @Async
+  @Operation(summary = "Получить ленту задач.")
+  @GetMapping
   public CompletableFuture<List<TaskResponse>> getAll() {
     return ControllerHelper.customRequest(
             getAllTasks,
@@ -96,8 +103,9 @@ public class TaskController {
    *
    * @param id идентификатор
    */
-  @PutMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Обновить задачу по идентификатору.")
+  @PutMapping(path = "/{id}")
   public void update(@PathVariable Long id, @RequestBody TaskUpdateRequest taskUpdateRequest) {
     ControllerHelper.customRequest(
             updateTaskById,
@@ -124,8 +132,9 @@ public class TaskController {
    *
    * @param id идентификатор
    */
-  @DeleteMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Удалить задачу по идентификатору.")
+  @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteTaskById,

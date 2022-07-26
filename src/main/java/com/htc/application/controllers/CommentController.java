@@ -7,6 +7,9 @@ import com.htc.domain.usecases.comment.DeleteCommentById;
 import com.htc.domain.usecases.comment.GetCommentById;
 import com.htc.utility.ControllerHelper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -21,9 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Контроллер комментария.
  */
-@RestController
-@RequestMapping(path = "api/comments")
 @AllArgsConstructor
+@RestController
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Комментарии"))
+@RequestMapping(path = "api/comments")
 public class CommentController {
   private AddComment addComment;
   private GetCommentById getCommentById;
@@ -32,9 +37,9 @@ public class CommentController {
   /**
    * Добавление комментария.
    */
-  @PostMapping
-  @Operation(summary = "Добавить новый комментарий.")
   @Async
+  @Operation(summary = "Добавить новый комментарий.")
+  @PostMapping
   public void add(@RequestBody CommentRequest commentRequest) {
     ControllerHelper.customRequest(
             addComment,
@@ -53,8 +58,9 @@ public class CommentController {
    * @param id идентификатор
    * @return comment комментарий
    */
-  @GetMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Получить комментарий по идентификатору.")
+  @GetMapping(path = "/{id}")
   public CompletableFuture<CommentResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getCommentById,
@@ -68,8 +74,9 @@ public class CommentController {
    *
    * @param id идентификатор
    */
-  @DeleteMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Удалить комментарий по идентификатору.")
+  @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteCommentById,

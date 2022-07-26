@@ -9,6 +9,9 @@ import com.htc.domain.usecases.content.GetAllContent;
 import com.htc.domain.usecases.content.GetContentById;
 import com.htc.utility.ControllerHelper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -26,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Контроллер контента.
  */
-@RestController
-@RequestMapping(path = "api/contents")
 @AllArgsConstructor
+@RestController
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Медиаконтент"))
+@RequestMapping(path = "api/contents")
 public class ContentController {
   private AddContent addContent;
   private GetContentById getContentById;
@@ -39,9 +44,9 @@ public class ContentController {
   /**
    * Добавление контента.
    */
-  @PostMapping
-  @Operation(summary = "Добавить новый контент.")
   @Async
+  @Operation(summary = "Добавить новый контент.")
+  @PostMapping
   public void add(@RequestBody ContentRequest contentRequest) {
     //TODO Controllers проверить на назначение DTO согласно спецификации
     ControllerHelper.customRequest(
@@ -60,8 +65,9 @@ public class ContentController {
    * @param id идентификатор
    * @return comment контент
    */
-  @GetMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Получить контент по идентификатору.")
+  @GetMapping(path = "/{id}")
   public CompletableFuture<ContentResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getContentById,
@@ -75,8 +81,9 @@ public class ContentController {
    *
    * @return list лента контента
    */
-  @GetMapping
   @Async
+  @Operation(summary = "Получить весь контент.")
+  @GetMapping
   public CompletableFuture<List<ContentResponse>> getAll() {
     return ControllerHelper.customRequest(
             getAllContent,
@@ -92,8 +99,9 @@ public class ContentController {
    *
    * @param id идентификатор
    */
-  @PutMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Обновить контент по идентификатору.")
+  @PutMapping(path = "/{id}")
   public void update(@PathVariable Long id, @RequestBody ContentRequest contentRequest) {
     ControllerHelper.customRequest(
             changeContentById,
@@ -111,8 +119,9 @@ public class ContentController {
    *
    * @param id идентификатор
    */
-  @DeleteMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Удалить контент по идентификатору.")
+  @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteContentById,

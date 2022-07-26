@@ -9,6 +9,9 @@ import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.UpdateUserById;
 import com.htc.utility.ControllerHelper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -26,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Контроллер пользователя.
  */
-@RestController
-@RequestMapping(path = "api/users")
 @AllArgsConstructor
+@RestController
+@SecurityRequirement(name = "JWT")
+@Tags(@Tag(name = "Пользователи"))
+@RequestMapping(path = "api/users")
 public class UserController {
   private AddUser addUser;
   private UpdateUserById updateUserById;
@@ -39,9 +44,9 @@ public class UserController {
   /**
    * Добавление пользователя.
    */
-  @PostMapping
-  @Operation(summary = "Добавить нового пользователя.")
   @Async
+  @Operation(summary = "Добавить нового пользователя.")
+  @PostMapping
   public void add(@RequestBody UserRequest userRequest) {
     ControllerHelper.customRequest(
             addUser,
@@ -62,8 +67,9 @@ public class UserController {
    * @param id идентификатор
    * @return user пользователь
    */
-  @GetMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Получить пользователя по идентификатору.")
+  @GetMapping(path = "/{id}")
   public CompletableFuture<UserResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getUserById,
@@ -77,8 +83,9 @@ public class UserController {
    *
    * @return list список пользователей
    */
-  @GetMapping
   @Async
+  @Operation(summary = "Получить список всех пользователей.")
+  @GetMapping
   public CompletableFuture<List<UserResponse>> getAll() {
     return ControllerHelper.customRequest(
       getAllUsers,
@@ -94,8 +101,9 @@ public class UserController {
    *
    * @param id идентификатор
    */
-  @PutMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Обновить пользователя по идентификатору.")
+  @PutMapping(path = "/{id}")
   public void update(@PathVariable Long id, @RequestBody UserRequest userRequest) {
     ControllerHelper.customRequest(
             updateUserById,
@@ -116,8 +124,9 @@ public class UserController {
    *
    * @param id идентификатор
    */
-  @DeleteMapping(path = "/{id}")
   @Async
+  @Operation(summary = "Удалить пользователя по идентификатору.")
+  @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteUserById,
