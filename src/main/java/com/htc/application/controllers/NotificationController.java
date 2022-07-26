@@ -4,6 +4,8 @@ import com.htc.application.dto.notification.NotificationResponse;
 import com.htc.domain.usecases.notification.GetAllNotifications;
 import com.htc.utility.Controllers;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/notifications")
 @AllArgsConstructor
+@Tags(@Tag(name = "Уведомления"))
 public class NotificationController {
   private GetAllNotifications getAllNotifications;
 
@@ -27,7 +30,7 @@ public class NotificationController {
    * @return Список уведомлений.
    */
   @GetMapping
-  @Operation(summary = "Получить список уведомлений.")
+  @Operation(summary = "Получить список уведомлений")
   @Async
   public CompletableFuture<Iterable<NotificationResponse>> getAll() {
     return Controllers.handleRequest(
