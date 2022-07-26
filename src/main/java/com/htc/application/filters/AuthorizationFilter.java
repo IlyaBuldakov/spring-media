@@ -5,7 +5,6 @@ import com.htc.application.services.JwtService;
 import com.htc.domain.entities.failures.Unauthorized;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -16,8 +15,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Set;
 
+/**
+ * Фильтр авторизации пользователей (прошедших аутентификацию).
+ */
 @Component
 @AllArgsConstructor
 public class AuthorizationFilter extends GenericFilterBean {
@@ -28,11 +29,11 @@ public class AuthorizationFilter extends GenericFilterBean {
     JwtService jwtService;
 
     /**
-     * Проверка Authentication Header.
+     * Проверка Authorization Header.
      *
-     * @param servletRequest Запрос.
+     * @param servletRequest  Запрос.
      * @param servletResponse Ответ.
-     * @param filterChain Цепочка фильтров.
+     * @param filterChain     Цепочка фильтров.
      */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
