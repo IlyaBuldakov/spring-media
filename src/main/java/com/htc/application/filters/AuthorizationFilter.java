@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Component
 @AllArgsConstructor
-public class AuthenticationFilter extends GenericFilterBean {
+public class AuthorizationFilter extends GenericFilterBean {
 
     /**
      * Сервис для работы с JWT токеном.

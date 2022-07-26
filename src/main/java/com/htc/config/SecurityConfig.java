@@ -1,6 +1,6 @@
 package com.htc.config;
 
-import com.htc.application.filters.AuthenticationFilter;
+import com.htc.application.filters.AuthorizationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Фильтр, обрабатывающий Authentication Header запроса
      */
-    private final AuthenticationFilter authenticationFilter;
+    private final AuthorizationFilter authorizationFilter;
 
     /**
      * URL выхода.
