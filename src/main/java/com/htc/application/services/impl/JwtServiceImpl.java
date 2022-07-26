@@ -93,9 +93,9 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public DecodedJWT decodeToken(String token) {
-        return JWT.require(algorithm)
-                .build()
-                .verify(token);
+    public Authentication getAuthentication(String token) {
+        var email = getEmailFromToken(token);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 }
