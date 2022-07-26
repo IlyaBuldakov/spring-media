@@ -33,14 +33,19 @@ Swagger
 
 ## Сборка проекта
 
-1. Установите версию JDK – 17 (Preview).
-2. Установите параметры подключения к БД в файле [application.yaml](https://gitlab.study.htc-cs.com/root/java/java-22-1/-/blob/yaroslav.tarakanov-project/src/main/resources/application.yaml)
-   1. url – ссылка на БД.
-   2. username – имя пользователя для подключения к БД.
-   3. password – пароль пользователя для подключения к БД.
+Сборка проекта производится с помощью IntelliJ IDEA.
 
-## Установка проекта
-1. Провести синхронизацию файла pom.xml.
+## Настройка проекта
+
+1. Установите версию JDK – 17 (Preview).
+2. Установите параметры подключения к БД в файле [application.yaml](src/main/resources/application.yaml)
+   1. `spring.datasource.url` - ссылка базу данных в PostgreSQL.
+   2. `spring.datasource.username` - имя пользователя PostgreSQL.
+   3. `spring.datasource.password` - пароль пользователя PostgreSQL.
 
 ## Запуск проекта
-1. Выполнить команду запуска для Application.main().
+
+Перед запуском проекта необходимо убедиться, что база данных в PostgreSQL доступна по указанной
+ранее ссылке с указанным логином и паролем.
+
+Запуск проекта производится с помощью IntelliJ IDEA.
