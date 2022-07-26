@@ -44,7 +44,6 @@ public class TaskModel implements Task {
   /**
    * Массив идентификаторов файлов прикрепленных к задаче.
    */
-  @Column(nullable = false)
   private int[] fileId;
 
   /**
@@ -74,13 +73,11 @@ public class TaskModel implements Task {
   /**
    * Массив содержащий идентификаторы прикрепленного контента.
    */
-  @Column(nullable = false)
   private int[] contentsId;
 
   /**
    * Массив содержащий идентификаторы комментариев в задаче.
    */
-  @Column(nullable = false)
   private int[] commentsId;
 
   /**
@@ -160,21 +157,18 @@ public class TaskModel implements Task {
    * @param name Название задачи.
    * @param contentType Тип контента задачи.
    * @param description Описание задачи.
-   * @param fileId Идентификаторы прикрепленных файло.
    * @param authorId Идентификатор автора задачи.
    * @param executorId Идентификатор исполнителя задачи.
    * @param dateCreated Дата создания задачи.
    * @param dateExpired Дата окончания задачи.
-   * @param contentsId Идентификаторы прикрепленного контента к задаче.
-   * @param commentsId Идентификаторы комментариев задачи.
    * @param status Статус задачи.
    */
   public TaskModel(
-      String name, Content.Type contentType, String description, int[] fileId,
-      int authorId, int executorId, LocalDateTime dateCreated, LocalDateTime dateExpired,
-      int[] contentsId, int[] commentsId, Status status) {
-    this(Id.create(0).get(), name, contentType, description, fileId, authorId,
-        executorId, dateCreated, dateExpired, contentsId, commentsId, status);
+      String name, Content.Type contentType, String description,
+      int authorId, int executorId, LocalDateTime dateExpired,
+      LocalDateTime dateCreated, Status status) {
+    this(Id.create(0).get(), name, contentType, description, authorId,
+        executorId, dateCreated, dateExpired, status);
   }
 
   /**
@@ -184,32 +178,25 @@ public class TaskModel implements Task {
    * @param name Название задачи.
    * @param contentType Тип контента задачи.
    * @param description Описание задачи.
-   * @param fileId Идентификаторы прикрепленных файло.
    * @param authorId Идентификатор автора задачи.
    * @param executorId Идентификатор исполнителя задачи.
    * @param dateCreated Дата создания задачи.
    * @param dateExpired Дата окончания задачи.
-   * @param contentsId Идентификаторы прикрепленного контента к задаче.
-   * @param commentsId Идентификаторы комментариев задачи.
    * @param status Статус задачи.
    */
   public TaskModel(
       Id id, String name, Content.Type contentType,
-      String description, int[] fileId, int authorId,
+      String description, int authorId,
       int executorId, LocalDateTime dateCreated,
-      LocalDateTime dateExpired, int[] contentsId,
-      int[] commentsId, Status status) {
+      LocalDateTime dateExpired, Status status) {
     this.taskId = id.getValue();
     this.name = name;
     this.contentType = contentType;
     this.description = description;
-    this.fileId = fileId;
     this.authorId = authorId;
     this.executorId = executorId;
     this.dateCreated = dateCreated;
     this.dateExpired = dateExpired;
-    this.contentsId = contentsId;
-    this.commentsId = commentsId;
     this.status = status;
   }
 }

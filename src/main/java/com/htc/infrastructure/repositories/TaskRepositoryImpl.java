@@ -6,6 +6,7 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.infrastructure.models.TaskModel;
+import com.htc.utility.Results;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -25,9 +26,12 @@ public class TaskRepositoryImpl implements TaskRepository {
   @Override
   public CompletableFuture<Either<Failure, Task>> create(
       String name, Content.Type type, String description,
-      int[] fileId, int authorId, int executorId, LocalDateTime dateCreated,
-      LocalDateTime dateExpired, int[] contentsId, int[] commentsId, Task.Status status) {
-    return null;
+      int authorId, int executorId, LocalDateTime dateCreated,
+      LocalDateTime dateExpired, Task.Status status) {
+    var task = new TaskModel(
+        name, type, description, authorId,
+        executorId, dateCreated, dateExpired, status);
+    return Results.succeed(tasks.save(task));
   }
 
   @Override
