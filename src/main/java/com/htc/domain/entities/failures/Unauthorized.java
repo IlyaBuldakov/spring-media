@@ -9,6 +9,8 @@ public enum Unauthorized implements Failure {
 
     DEFAULT_MESSAGE("Вы не авторизованы"),
 
+    BAD_CREDENTIALS("Неверный e-mail ли пароль"),
+
     FORBIDDEN("У вас нет доступа");
 
     Unauthorized(String message) {
