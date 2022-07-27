@@ -27,7 +27,7 @@ public class ControllerHelper {
           Function<EntityT, DtoT> entityToDtoConverter
   ) {
     return useCase.execute(params)
-            .thenApplyAsync(either -> either.map(entityToDtoConverter)
+            .thenApply(either -> either.map(entityToDtoConverter)
                     .getOrElseThrow(() -> CustomExceptionsHelper.getExceptionFromLeft(either)));
   }
 }

@@ -46,12 +46,12 @@ public class UserRepositoryImplementation implements UserRepository {
   @Override
   public CompletableFuture<Either<Failure, User>> get(Id id) {
     // TODO проверка на наличие в базе записи
-    return users.findById((long) id.getValue()).thenApplyAsync(Either::right);
+    return users.findById((long) id.getValue()).thenApply(Either::right);
   }
 
   @Override
   public CompletableFuture<Either<Failure, User>> get(UserEmail email) {
-    return users.findByEmail(email.getValue()).thenApplyAsync(Either::right);
+    return users.findByEmail(email.getValue()).thenApply(Either::right);
   }
 
   @Override

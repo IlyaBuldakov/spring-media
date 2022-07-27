@@ -43,7 +43,7 @@ public class FileRepositoryImplementation implements FileRepository {
 
   @Override
   public CompletableFuture<Either<Failure, File>> get(Id id) {
-    return files.findById((long) id.getValue()).thenApplyAsync(Either::right);
+    return files.findById((long) id.getValue()).thenApply(Either::right);
   }
 
   @Override

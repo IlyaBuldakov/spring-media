@@ -41,7 +41,7 @@ public class CommentRepositoryImplementation implements CommentRepository {
 
   @Override
   public CompletableFuture<Either<Failure, Comment>> get(Id id) {
-    return comments.findById((long) id.getValue()).thenApplyAsync(Either::right);
+    return comments.findById((long) id.getValue()).thenApply(Either::right);
   }
 
   @Override

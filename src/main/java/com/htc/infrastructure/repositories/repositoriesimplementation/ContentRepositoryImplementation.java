@@ -52,7 +52,7 @@ public class ContentRepositoryImplementation implements ContentRepository {
 
   @Override
   public CompletableFuture<Either<Failure, Content>> get(Id id) {
-    return contents.findById((long) id.getValue()).thenApplyAsync(Either::right);
+    return contents.findById((long) id.getValue()).thenApply(Either::right);
   }
 
   @Override
