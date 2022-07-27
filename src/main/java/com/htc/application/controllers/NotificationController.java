@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +35,6 @@ public class NotificationController {
    *
    * @return list список пользователей
    */
-  @Async
   @Operation(summary = "Получить список уведомлений.")
   @GetMapping
   public CompletableFuture<List<NotificationResponse>> getAll() {
@@ -54,7 +52,6 @@ public class NotificationController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Удалить уведомление по идентификатору.")
   @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {

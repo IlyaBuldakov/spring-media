@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +36,6 @@ public class CommentController {
   /**
    * Добавление комментария.
    */
-  @Async
   @Operation(summary = "Добавить новый комментарий.")
   @PostMapping
   public void add(@RequestBody CommentRequest commentRequest) {
@@ -58,7 +56,6 @@ public class CommentController {
    * @param id идентификатор
    * @return comment комментарий
    */
-  @Async
   @Operation(summary = "Получить комментарий по идентификатору.")
   @GetMapping(path = "/{id}")
   public CompletableFuture<CommentResponse> get(@PathVariable Long id) {
@@ -74,7 +71,6 @@ public class CommentController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Удалить комментарий по идентификатору.")
   @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {

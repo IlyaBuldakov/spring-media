@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +44,6 @@ public class TaskController {
   /**
    * Добавление задачи.
    */
-  @Async
   @Operation(summary = "Добавить новую задачу.")
   @PostMapping
   public void add(@RequestBody TaskRequest taskRequest) {
@@ -69,7 +67,6 @@ public class TaskController {
    * @param id идентификатор
    * @return task задача
    */
-  @Async
   @Operation(summary = "Получить задачу по идентификатору.")
   @GetMapping(path = "/{id}")
   public CompletableFuture<TaskResponse> get(@PathVariable Long id) {
@@ -85,7 +82,6 @@ public class TaskController {
    *
    * @return list лента задач
    */
-  @Async
   @Operation(summary = "Получить ленту задач.")
   @GetMapping
   public CompletableFuture<List<TaskResponse>> getAll() {
@@ -103,7 +99,6 @@ public class TaskController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Обновить задачу по идентификатору.")
   @PutMapping(path = "/{id}")
   public void update(@PathVariable Long id, @RequestBody TaskUpdateRequest taskUpdateRequest) {
@@ -132,7 +127,6 @@ public class TaskController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Удалить задачу по идентификатору.")
   @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {

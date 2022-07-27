@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +43,6 @@ public class ContentController {
   /**
    * Добавление контента.
    */
-  @Async
   @Operation(summary = "Добавить новый контент.")
   @PostMapping
   public void add(@RequestBody ContentRequest contentRequest) {
@@ -65,7 +63,6 @@ public class ContentController {
    * @param id идентификатор
    * @return comment контент
    */
-  @Async
   @Operation(summary = "Получить контент по идентификатору.")
   @GetMapping(path = "/{id}")
   public CompletableFuture<ContentResponse> get(@PathVariable Long id) {
@@ -81,7 +78,6 @@ public class ContentController {
    *
    * @return list лента контента
    */
-  @Async
   @Operation(summary = "Получить весь контент.")
   @GetMapping
   public CompletableFuture<List<ContentResponse>> getAll() {
@@ -99,7 +95,6 @@ public class ContentController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Обновить контент по идентификатору.")
   @PutMapping(path = "/{id}")
   public void update(@PathVariable Long id, @RequestBody ContentRequest contentRequest) {
@@ -119,7 +114,6 @@ public class ContentController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Удалить контент по идентификатору.")
   @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {

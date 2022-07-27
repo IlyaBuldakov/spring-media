@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +36,6 @@ public class FileController {
   /**
    * Добавление файла.
    */
-  @Async
   @Operation(summary = "Добавить нового файла.")
   @PostMapping
   public void upload(@RequestBody FileRequest fileRequest) {
@@ -59,7 +57,6 @@ public class FileController {
    * @param id идентификатор
    * @return file файл
    */
-  @Async
   @Operation(summary = "Получить файл по идентификатору.")
   @GetMapping(path = "/{id}")
   public CompletableFuture<FileResponse> get(@PathVariable Long id) {
@@ -75,7 +72,6 @@ public class FileController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Удалить файл по идентификатору.")
   @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {

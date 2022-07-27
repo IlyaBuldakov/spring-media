@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +43,6 @@ public class UserController {
   /**
    * Добавление пользователя.
    */
-  @Async
   @Operation(summary = "Добавить нового пользователя.")
   @PostMapping
   public void add(@RequestBody UserRequest userRequest) {
@@ -67,7 +65,6 @@ public class UserController {
    * @param id идентификатор
    * @return user пользователь
    */
-  @Async
   @Operation(summary = "Получить пользователя по идентификатору.")
   @GetMapping(path = "/{id}")
   public CompletableFuture<UserResponse> get(@PathVariable Long id) {
@@ -83,7 +80,6 @@ public class UserController {
    *
    * @return list список пользователей
    */
-  @Async
   @Operation(summary = "Получить список всех пользователей.")
   @GetMapping
   public CompletableFuture<List<UserResponse>> getAll() {
@@ -101,7 +97,6 @@ public class UserController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Обновить пользователя по идентификатору.")
   @PutMapping(path = "/{id}")
   public void update(@PathVariable Long id, @RequestBody UserRequest userRequest) {
@@ -124,7 +119,6 @@ public class UserController {
    *
    * @param id идентификатор
    */
-  @Async
   @Operation(summary = "Удалить пользователя по идентификатору.")
   @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {
