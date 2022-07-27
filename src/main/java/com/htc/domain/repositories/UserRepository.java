@@ -38,6 +38,14 @@ public interface UserRepository {
   CompletableFuture<Either<Failure, User>> get(Id id);
 
   /**
+   * Получение пользователя.
+   *
+   * @param email почта пользователя
+   * @return user пользователь, подробнее {@link User}
+   */
+  CompletableFuture<Either<Failure, User>> get(UserEmail email);
+
+  /**
    * Получение всех пользователей.
    *
    * @return list список всех пользователей, подробнее {@link User}

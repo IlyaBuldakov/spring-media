@@ -50,6 +50,11 @@ public class UserRepositoryImplementation implements UserRepository {
   }
 
   @Override
+  public CompletableFuture<Either<Failure, User>> get(UserEmail email) {
+    return users.findByEmail(email.getValue()).thenApplyAsync(Either::right);
+  }
+
+  @Override
   public CompletableFuture<Either<Failure, List<User>>> getAll() {
     var userList = users.findAll().stream().map(userModel -> (User) userModel).toList();
     return EitherHelper.goodRight(userList);

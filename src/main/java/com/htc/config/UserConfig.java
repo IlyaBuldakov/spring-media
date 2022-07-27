@@ -4,6 +4,7 @@ import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.user.AddUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
+import com.htc.domain.usecases.user.GetUserByEmail;
 import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.UpdateUserById;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,11 @@ public class UserConfig {
   @Bean
   public GetUserById getUserById(UserRepository repository) {
     return new GetUserById(repository);
+  }
+
+  @Bean
+  public GetUserByEmail getUserByEmail(UserRepository repository) {
+    return new GetUserByEmail(repository);
   }
 
   @Bean
