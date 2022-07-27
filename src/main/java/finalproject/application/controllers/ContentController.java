@@ -2,6 +2,7 @@ package finalproject.application.controllers;
 
 
 import finalproject.application.dto.failures.BadRequestDto;
+import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.services.ContentService;
 import finalproject.application.services.FileStorageService;
 import finalproject.application.services.TaskService;
@@ -45,7 +46,12 @@ public class ContentController {
                                                                   HttpServletRequest request)
           throws IOException {
     return contentService.attachFileToTask(file, taskId)
-            .thenApply(either -> either.getOrElseThrow(BadRequestDto::new));
+            .thenApply(either -> either.getOrElseThrow(failure -> {
+              if (failure.getProblems() != null) {
+                return new BadRequestDto(failure);
+              }
+              return new NotFoundDto(failure);
+            }));
 
   }
 
