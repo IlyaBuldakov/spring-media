@@ -19,8 +19,7 @@ class DeleteUserByIdTest {
   final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
   final DeleteUserById useCase = new DeleteUserById(mockUserRepository);
   final DeleteUserById.Params params = new DeleteUserById.Params(
-          new Random().nextLong(1, 32),
-          "idKey"
+          Id.create(new Random().nextLong(1, 32)).get()
   );
 
   @Test
@@ -31,13 +30,13 @@ class DeleteUserByIdTest {
   @Test
   void shouldDeleteUserByTheRepository() {
     useCase.execute(params);
-    Mockito.verify(mockUserRepository).delete(Id.create(params.id()).get());
+    Mockito.verify(mockUserRepository).delete(params.id());
   }
 
   @Test
   void userExists_ShouldDeleteUserAndReturnVoid() throws ExecutionException, InterruptedException {
     // Arrange
-    Mockito.when(mockUserRepository.delete(Id.create(params.id()).get()))
+    Mockito.when(mockUserRepository.delete(params.id()))
             .thenReturn(EitherHelper.goodRight(null));
     // Act
     var result = useCase.execute(params).get().get();
@@ -48,7 +47,7 @@ class DeleteUserByIdTest {
   @Test
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     var failure = NotFound.DEFAULT_MESSAGE;
-    Mockito.when(mockUserRepository.delete(Id.create(params.id()).get()))
+    Mockito.when(mockUserRepository.delete(params.id()))
             .thenReturn(EitherHelper.badLeft(failure));
     var result = useCase.execute(params).get().getLeft();
     assertThat(result).isEqualTo(failure);

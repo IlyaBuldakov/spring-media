@@ -2,6 +2,11 @@ package com.htc.application.controllers;
 
 import com.htc.application.dtos.user.UserRequest;
 import com.htc.application.dtos.user.UserResponse;
+import com.htc.domain.entities.utility.parameters.Id;
+import com.htc.domain.entities.utility.parameters.user.UserEmail;
+import com.htc.domain.entities.utility.parameters.user.UserImage;
+import com.htc.domain.entities.utility.parameters.user.UserName;
+import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.usecases.user.AddUser;
 import com.htc.domain.usecases.user.DeleteUserById;
 import com.htc.domain.usecases.user.GetAllUsers;
@@ -49,11 +54,11 @@ public class UserController {
     ControllerHelper.customRequest(
             addUser,
             new AddUser.Params(
-                    userRequest.getName(), "name",
-                    userRequest.getEmail(), "email",
-                    userRequest.getPassword(), "password",
-                    userRequest.getAvatar(), "image",
-                    userRequest.getRole(), "role"
+                    UserName.create(userRequest.getName()).get(),
+                    UserEmail.create(userRequest.getEmail()).get(),
+                    UserPassword.create(userRequest.getPassword()).get(),
+                    UserImage.create(userRequest.getAvatar()).get(),
+                    userRequest.getRole()
             ),
             null
     );
@@ -70,7 +75,7 @@ public class UserController {
   public CompletableFuture<UserResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getUserById,
-            new GetUserById.Params(id, "id"),
+            new GetUserById.Params(Id.create(id).get()),
             UserResponse::new
     );
   }
@@ -103,12 +108,12 @@ public class UserController {
     ControllerHelper.customRequest(
             updateUserById,
             new UpdateUserById.Params(
-                    id, "id",
-                    userRequest.getName(), "name",
-                    userRequest.getEmail(), "email",
-                    userRequest.getPassword(), "password",
-                    userRequest.getAvatar(), "image",
-                    userRequest.getRole(), "role"
+                    Id.create(id).get(),
+                    UserName.create(userRequest.getName()).get(),
+                    UserEmail.create(userRequest.getEmail()).get(),
+                    UserPassword.create(userRequest.getPassword()).get(),
+                    UserImage.create(userRequest.getAvatar()).get(),
+                    userRequest.getRole()
             ),
             UserResponse::new
     );
@@ -124,7 +129,7 @@ public class UserController {
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteUserById,
-            new DeleteUserById.Params(id, "id"),
+            new DeleteUserById.Params(Id.create(id).get()),
             null
     );
   }

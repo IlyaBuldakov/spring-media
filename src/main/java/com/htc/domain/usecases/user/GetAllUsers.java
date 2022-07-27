@@ -13,11 +13,16 @@ import lombok.AllArgsConstructor;
  * Сценарий получения списка всех пользователей.
  */
 @AllArgsConstructor
-public final class GetAllUsers implements UseCase<Void, List<User>> {
+public final class GetAllUsers implements UseCase<GetAllUsers.VoidParam, List<User>> {
   private final UserRepository repository;
 
   @Override
-  public CompletableFuture<Either<Failure, List<User>>> execute(Void param) {
+  public CompletableFuture<Either<Failure, List<User>>> execute(VoidParam param) {
     return repository.getAll();
   }
+
+  /**
+   * Пустой параметр для сценария без параметра.
+   */
+  public record VoidParam() {}
 }

@@ -19,7 +19,11 @@ public interface UserRepository {
   /**
    * Добавление нового пользователя.
    *
-   * @param name новый пользователь
+   * @param name имя пользователя
+   * @param email почта пользователя
+   * @param password пароль пользователя
+   * @param image изображение пользователя
+   * @param role роль пользователя
    * @return user новый пользователь, подробнее {@link User}
    */
   CompletableFuture<Either<Failure, User>> add(UserName name, UserEmail email,
@@ -43,8 +47,13 @@ public interface UserRepository {
   /**
    * Обновление пользователя.
    *
-   * @param id пользователь
-   * @return user пользователь, подробнее {@link User}
+   * @param id идентификатор пользователя
+   * @param name имя пользователя
+   * @param email почта пользователя
+   * @param password пароль пользователя
+   * @param image изображение пользователя
+   * @param role роль пользователя
+   * @return user новый пользователь, подробнее {@link User}
    */
   CompletableFuture<Either<Failure, User>> update(
           Id id, UserName name, UserEmail email, UserPassword password, UserImage image, Role role);

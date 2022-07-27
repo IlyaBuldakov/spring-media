@@ -4,6 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.user.UserEmail;
+import com.htc.domain.entities.utility.parameters.user.UserImage;
+import com.htc.domain.entities.utility.parameters.user.UserName;
+import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
 import com.htc.infrastructure.models.user.UserModel;
@@ -21,11 +25,11 @@ class GetAllUsersTest {
   final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
   final GetAllUsers useCase = new GetAllUsers(mockUserRepository);
   final AddUser.Params params = new AddUser.Params(
-          "name", "nameKey",
-          "email@email.com", "emailKey",
-          "password11AA", "passwordKey",
-          "image==", "imageKey",
-          Role.ADMIN, "roleKey"
+          UserName.create("name").get(),
+          UserEmail.create("email@email.com").get(),
+          UserPassword.create("password11AA").get(),
+          UserImage.create("image==").get(),
+          Role.ADMIN
   );
 
   @Test
@@ -44,10 +48,10 @@ class GetAllUsersTest {
     var usersm = List.of(
             (User) new UserModel(
                     new Random().nextLong(1, 32),
-                    params.name(),
-                    params.password(),
-                    params.email(),
-                    params.image(),
+                    params.name().getValue(),
+                    params.password().getValue(),
+                    params.email().getValue(),
+                    params.image().getValue(),
                     params.role().getName())
     );
     Mockito.when(mockUserRepository.getAll()).thenReturn(EitherHelper.goodRight(usersm));

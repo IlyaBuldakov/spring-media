@@ -24,11 +24,11 @@ class AddUserTest {
   final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
   final AddUser useCase = new AddUser(mockUserRepository);
   final AddUser.Params params = new AddUser.Params(
-          "name", "nameKey",
-          "email@email.com", "emailKey",
-          "password11AA", "passwordKey",
-          "image==", "imageKey",
-          Role.ADMIN, "roleKey"
+          UserName.create("name").get(),
+          UserEmail.create("email@email.com").get(),
+          UserPassword.create("password11AA").get(),
+          UserImage.create("image==").get(),
+          Role.ADMIN
   );
 
   @Test
@@ -42,10 +42,10 @@ class AddUserTest {
     useCase.execute(params);
     // Assert
     Mockito.verify(mockUserRepository).add(
-            UserName.create(params.name()).get(),
-            UserEmail.create(params.email()).get(),
-            UserPassword.create(params.password()).get(),
-            UserImage.create(params.image()).get(),
+            params.name(),
+            params.email(),
+            params.password(),
+            params.image(),
             params.role()
     );
   }
@@ -53,32 +53,32 @@ class AddUserTest {
   @Test
   void userDoesNotExist_ShouldCreateUserAndReturnUser()
           throws ExecutionException, InterruptedException {
-    var userm = new UserModel(
+    var userModel = new UserModel(
             new Random().nextLong(1, 32),
-            params.name(),
-            params.password(),
-            params.email(),
-            params.image(),
+            params.name().getValue(),
+            params.password().getValue(),
+            params.email().getValue(),
+            params.image().getValue(),
             params.role().getName());
     Mockito.when(mockUserRepository.add(
-                    UserName.create(params.name()).get(),
-                    UserEmail.create(params.email()).get(),
-                    UserPassword.create(params.password()).get(),
-                    UserImage.create(params.image()).get(),
+                    params.name(),
+                    params.email(),
+                    params.password(),
+                    params.image(),
                     params.role()))
-            .thenReturn(EitherHelper.goodRight(userm));
+            .thenReturn(EitherHelper.goodRight(userModel));
     var result = useCase.execute(params).get().get();
-    assertThat(result).isEqualTo(userm);
+    assertThat(result).isEqualTo(userModel);
   }
 
   @Test
   void usersExist_ShouldReturnAlreadyExists() throws ExecutionException, InterruptedException {
     var failure = AlreadyExists.DEFAULT_MESSAGE;
     Mockito.when(mockUserRepository.add(
-                    UserName.create(params.name()).get(),
-                    UserEmail.create(params.email()).get(),
-                    UserPassword.create(params.password()).get(),
-                    UserImage.create(params.image()).get(),
+                    params.name(),
+                    params.email(),
+                    params.password(),
+                    params.image(),
                     params.role()))
             .thenReturn(EitherHelper.badLeft(failure));
     var result = useCase.execute(params).get().getLeft();

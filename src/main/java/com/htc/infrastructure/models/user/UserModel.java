@@ -28,10 +28,11 @@ public class UserModel implements User {
   @Column(nullable = false)
   String name;
 
+  //TODO реализовать шифрование пароля (bcrypt)
   @Column(nullable = false)
   String password;
 
-  @Column(nullable = false)
+  @Column(unique = true, nullable = false)
   String email;
 
   String image;

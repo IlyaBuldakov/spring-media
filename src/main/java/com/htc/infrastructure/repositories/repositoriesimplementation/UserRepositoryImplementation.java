@@ -32,6 +32,7 @@ public class UserRepositoryImplementation implements UserRepository {
                                                       UserPassword password,
                                                       UserImage image,
                                                       Role role) {
+    // TODO реализовать проверку на уникальность почты.
     var userModel = new UserModel(
             0L,
             name.getValue(),
@@ -44,7 +45,7 @@ public class UserRepositoryImplementation implements UserRepository {
 
   @Override
   public CompletableFuture<Either<Failure, User>> get(Id id) {
-    // проверка на наличие в базе записи
+    // TODO проверка на наличие в базе записи
     return users.findById((long) id.getValue()).thenApplyAsync(Either::right);
   }
 

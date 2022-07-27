@@ -25,12 +25,12 @@ class UpdateUserByIdTest {
   final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
   final UpdateUserById useCase = new UpdateUserById(mockUserRepository);
   final UpdateUserById.Params params = new UpdateUserById.Params(
-          new Random().nextLong(1, 32), "idKey",
-          "name", "nameKey",
-          "email@email.com", "emailKey",
-          "password11AA", "passwordKey",
-          "image==", "imageKey",
-          Role.ADMIN, "roleKey"
+          Id.create(new Random().nextLong(1, 32)).get(),
+          UserName.create("name").get(),
+          UserEmail.create("email@email.com").get(),
+          UserPassword.create("password11AA").get(),
+          UserImage.create("image==").get(),
+          Role.ADMIN
   );
 
   @Test
@@ -44,29 +44,29 @@ class UpdateUserByIdTest {
     useCase.execute(params);
     // Assert
     Mockito.verify(mockUserRepository).update(
-            Id.create(params.id()).get(),
-            UserName.create(params.name()).get(),
-            UserEmail.create(params.email()).get(),
-            UserPassword.create(params.password()).get(),
-            UserImage.create(params.image()).get(),
+            params.id(),
+            params.name(),
+            params.email(),
+            params.password(),
+            params.image(),
             params.role());
   }
 
   @Test
   void usersExist_ShouldUpdateUser() throws ExecutionException, InterruptedException {
     var userModel = new UserModel(
-            params.id(),
-            params.name(),
-            params.password(),
-            params.email(),
-            params.image(),
+            params.id().getValue(),
+            params.name().getValue(),
+            params.password().getValue(),
+            params.email().getValue(),
+            params.image().getValue(),
             params.role().getName());
     Mockito.when(mockUserRepository.update(
-                    Id.create(params.id()).get(),
-                    UserName.create(params.name()).get(),
-                    UserEmail.create(params.email()).get(),
-                    UserPassword.create(params.password()).get(),
-                    UserImage.create(params.image()).get(),
+                    params.id(),
+                    params.name(),
+                    params.email(),
+                    params.password(),
+                    params.image(),
                     params.role()))
             .thenReturn(EitherHelper.goodRight(userModel));
     var result = useCase.execute(params).get().get();
@@ -77,11 +77,11 @@ class UpdateUserByIdTest {
   void userDoesNotExist_ShouldReturnNotFound() throws ExecutionException, InterruptedException {
     var failure = NotFound.DEFAULT_MESSAGE;
     Mockito.when(mockUserRepository.update(
-                    Id.create(params.id()).get(),
-                    UserName.create(params.name()).get(),
-                    UserEmail.create(params.email()).get(),
-                    UserPassword.create(params.password()).get(),
-                    UserImage.create(params.image()).get(),
+                    params.id(),
+                    params.name(),
+                    params.email(),
+                    params.password(),
+                    params.image(),
                     params.role()))
             .thenReturn(EitherHelper.badLeft(failure));
     var result = useCase.execute(params).get().getLeft();
