@@ -4,11 +4,13 @@ import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.file.Format;
 import com.htc.domain.entities.user.User;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Основное представление сущности контента.
  */
+@EqualsAndHashCode
 public class ContentResponse {
   /**
    * Идентификатор.

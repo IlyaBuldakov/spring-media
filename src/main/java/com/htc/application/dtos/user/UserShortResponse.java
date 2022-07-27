@@ -1,11 +1,13 @@
 package com.htc.application.dtos.user;
 
 import com.htc.domain.entities.user.User;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Краткое представление пользователя.
  */
+@EqualsAndHashCode
 public class UserShortResponse {
   /**
    * Идентификатор.

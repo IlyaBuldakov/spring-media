@@ -1,11 +1,13 @@
 package com.htc.application.dtos.content;
 
 import com.htc.domain.entities.content.Content;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Основное представление сущности типа контента.
  */
+@EqualsAndHashCode
 public class ContentTypeResponse {
   /**
    * Идентификатор.

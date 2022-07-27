@@ -7,11 +7,13 @@ import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.task.Status;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Представление задачи.
  */
+@EqualsAndHashCode
 public class TaskResponse {
   /**
    * Идентификатор.

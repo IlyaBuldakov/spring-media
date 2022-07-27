@@ -2,11 +2,13 @@ package com.htc.application.dtos.task;
 
 import com.htc.domain.entities.task.Status;
 import com.htc.domain.entities.task.Task;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Представление задачи для проверки статуса.
  */
+@EqualsAndHashCode
 public class TaskStatusResponse {
   /**
    * Идентификатор.

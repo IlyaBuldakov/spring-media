@@ -4,11 +4,13 @@ import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.notification.Notification;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Основное представление сущности уведомления.
  */
+@EqualsAndHashCode
 public class NotificationResponse {
   /**
    * Идентификатор.

@@ -1,11 +1,13 @@
 package com.htc.application.dtos.task;
 
 import com.htc.domain.entities.task.Task;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Краткое представление задачи.
  */
+@EqualsAndHashCode
 public class TaskShortResponse {
   /**
    * Идентификатор.

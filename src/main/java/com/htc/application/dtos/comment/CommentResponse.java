@@ -2,11 +2,13 @@ package com.htc.application.dtos.comment;
 
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.user.User;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Основное представление сущности комментария.
  */
+@EqualsAndHashCode
 public class CommentResponse {
   /**
    * Идентификатор.

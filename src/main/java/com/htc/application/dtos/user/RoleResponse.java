@@ -1,11 +1,13 @@
 package com.htc.application.dtos.user;
 
 import com.htc.domain.entities.user.Role;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Основное представление сущности роли.
  */
+@EqualsAndHashCode
 public class RoleResponse {
   /**
    * Идентификатор.

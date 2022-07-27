@@ -2,11 +2,13 @@ package com.htc.application.dtos.user;
 
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Основное представление сущности пользователя.
  */
+@EqualsAndHashCode
 public class UserResponse {
   /**
    * Идентификатор.
@@ -48,7 +50,7 @@ public class UserResponse {
    * @return role роль
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Role role;
+  private final @Getter RoleResponse role;
 
   /**
    * Создание основного представления пользователя.
@@ -60,6 +62,6 @@ public class UserResponse {
     this.name = user.getName().getValue();
     this.email = user.getEmail().getValue();
     this.avatar = user.getAvatar().getValue();
-    this.role = user.getRole();
+    this.role = new RoleResponse(user.getRole());
   }
 }

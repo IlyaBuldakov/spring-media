@@ -2,11 +2,13 @@ package com.htc.application.dtos.file;
 
 import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.file.Format;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * Ответ. Основное представление сущности файла.
  */
+@EqualsAndHashCode
 public class FileResponse {
   /**
    * Идентификатор.
