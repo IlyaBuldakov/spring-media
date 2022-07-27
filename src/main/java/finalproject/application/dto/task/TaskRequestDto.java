@@ -18,6 +18,8 @@ public class TaskRequestDto {
 
   private @Getter String description;
 
+  private @Getter String taskStatus;
+
   private @Getter int authorId;
 
   private @Getter int contentMakerId;
