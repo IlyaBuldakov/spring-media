@@ -2,7 +2,8 @@ package finalproject.domain.entities.user;
 
 
 
-import finalproject.domain.entities.content.Content;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.task.Task;
 import finalproject.utils.Validators;
@@ -26,9 +27,8 @@ public class User implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Getter
-  @Setter
-  int id;
+  @Column
+  private int id;
 
   /**
    * Электронная почта пользователя.
@@ -80,15 +80,20 @@ public class User implements Serializable {
   @Column
   private Role role;
 
+  @JsonIgnore
   @Getter
   @Setter
-  @OneToMany(mappedBy = "authorId")
+  @OneToMany(mappedBy = "author")
   private List<Task> tasksAsAuthor;
 
+  @JsonIgnore
   @Getter
   @Setter
-  @OneToMany(mappedBy = "contentMakerId")
+  @OneToMany(mappedBy = "contentMaker")
   private List<Task> tasksAsContentMaker;
+
+  public Integer getId(){return id;}
+  public void setId(Integer id){this.id = id;}
 
   public User() {}
 

@@ -65,7 +65,7 @@ public class Task implements Serializable {
   @Setter
   @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "authorId")
-  private int authorId;
+  private User author;
 
   /** Исполнитель задачи / контентмейкер.
    *
@@ -75,7 +75,7 @@ public class Task implements Serializable {
   @Setter
   @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "contentMakerId")
-  private int contentMakerId;
+  private User contentMaker;
 
 
   /**Дата создания задачи.
@@ -126,19 +126,19 @@ public class Task implements Serializable {
    * @param name наименование
    * @param type тип контента
    * @param description описание
-   * @param authorId id автора / инициатора
-   * @param contentMakerId id исполнителя
+   * @param author id автора / инициатора
+   * @param contentMaker id исполнителя
    * @param stringDate дата завершения задачи
    * @return task задачу
    */
   public static Either<Failure, Task> create(String name, ContentType type,
-                                              String description, int authorId,
-                                       int contentMakerId, String stringDate) {
+                                              String description, User author,
+                                       User contentMaker, String stringDate) {
     Validators validators = new Validators();
     validators.validateNonNullString(name, "name");
     validators.validateNotNull(type, "contentType");
     validators.validateNonNullString(description, "description");
-    validators.validateNotNull(contentMakerId, "contentMaker");
+    validators.validateNotNull(contentMaker, "contentMaker");
     Task task = new Task();
     task.dateExpired = validators.validateDateTime(stringDate);
 
@@ -147,8 +147,8 @@ public class Task implements Serializable {
       task.name = name;
       task.type = type;
       task.description = description;
-      task.authorId = authorId;
-      task.contentMakerId = contentMakerId;
+      task.author = author;
+      task.contentMaker = contentMaker;
       task.taskStatus = TaskStatus.INWORK;
 
       return Either.right(task);

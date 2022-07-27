@@ -7,6 +7,7 @@ import finalproject.application.services.TaskService;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.task.Task;
+import finalproject.domain.entities.user.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.time.LocalDateTime;
@@ -42,14 +43,12 @@ public class TaskController {
   @PutMapping
   public CompletableFuture<Task> createTask(@RequestBody TaskRequestDto taskdto)
           throws ExecutionException, InterruptedException {
-    userService.getUserById(taskdto.getAuthorId())
-            .thenApply(either -> either.getOrElseThrow(failure -> new NotFoundDto(failure)));
-    int authorId = taskdto.getAuthorId();
-    userService.getUserById(taskdto.getContentMakerId())
-            .thenApply(either -> either.getOrElseThrow(failure -> new NotFoundDto(failure)));
-    int contentMakerId = taskdto.getContentMakerId();
+    User author = userService.getUserById(taskdto.getAuthorId())
+            .thenApply(either -> either.getOrElseThrow(failure -> new NotFoundDto(failure))).get();
+    User contentMaker = userService.getUserById(taskdto.getContentMakerId())
+            .thenApply(either -> either.getOrElseThrow(failure -> new NotFoundDto(failure))).get();
     Task task = Task.create(taskdto.getName(), ContentType.getContentTypeByName(taskdto.getType()),
-            taskdto.getDescription(), authorId, contentMakerId,
+            taskdto.getDescription(), author, contentMaker,
             taskdto.getDateExpired()).getOrElseThrow(failure -> new BadRequestDto(failure));
     task.setDateCreated(LocalDateTime.now());
     return taskService.createNewTask(task).thenApply(either -> either.get());
