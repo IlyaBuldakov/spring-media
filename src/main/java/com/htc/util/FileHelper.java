@@ -4,7 +4,13 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.file.File.Format;
 import io.vavr.control.Either;
-import org.apache.tika.Tika;
+import org.apache.tika.detect.DefaultDetector;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Random;
 
 /**
@@ -41,26 +47,31 @@ public class FileHelper {
     /**
      * Получение формата входящего файла.
      *
-     * @param fileBinary Файл.
+     * @param file Файл.
      * @param fileName Имя файла.
      * @return Формат файла.
      */
-    public static Either<Failure, Format> getFormat(byte[] fileBinary, String fileName) {
+    public static Either<Failure, Format> getFormat(File file, String fileName) {
         var expectedFailure = checkFileExtension(fileName);
         if (expectedFailure != null) {
             return Either.left(InvalidValue.INCORRECT_FORMAT);
         }
-        Format format = null;
-        Tika tika = new Tika();
-        switch (tika.detect(fileBinary)) {
-            case "application/x-tika-msoffice", "application/msword" -> format = Format.DOC;
-            case "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> format = Format.DOCX;
-            case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" -> format = Format.XLSX;
-            case "application/vnd.ms-excel" -> format = Format.XLS;
-            case "application/pdf" -> format = Format.PDF;
+        try {
+            Format format = null;
+            var type
+                    = new DefaultDetector().detect(TikaInputStream.get(Path.of(file.getPath())), new Metadata()).toString();
+            switch (type) {
+                case "application/x-tika-msoffice", "application/msword" -> format = Format.DOC;
+                case "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> format = Format.DOCX;
+                case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" -> format = Format.XLSX;
+                case "application/vnd.ms-excel" -> format = Format.XLS;
+                case "application/pdf" -> format = Format.PDF;
+            }
+            return format == null ? Either.left(InvalidValue.INCORRECT_FORMAT)
+                    : Either.right(format);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return format == null ? Either.left(InvalidValue.INCORRECT_FORMAT)
-                : Either.right(format);
     }
 
     /**

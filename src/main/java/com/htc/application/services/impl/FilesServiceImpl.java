@@ -1,5 +1,6 @@
 package com.htc.application.services.impl;
 
+import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.services.ExceptionDtoResolver;
 import com.htc.application.services.FilesService;
 import com.htc.domain.usecases.file.DeleteFile;
@@ -10,7 +11,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
@@ -41,25 +45,29 @@ public class FilesServiceImpl implements FilesService {
     /**
      * Загрузка файла в базу данных.
      *
-     * @param file Файл.
+     * @param multipartFile Файл.
      * @param taskId Идентификатор задачи, к которой загружается файл.
      * @return void.
      */
     @Override
-    public CompletableFuture<Void> uploadFile(MultipartFile file, String taskId) {
-        String fileName = file.getOriginalFilename();
+    public CompletableFuture<Void> uploadFile(MultipartFile multipartFile, String taskId) {
+        String fileName = multipartFile.getOriginalFilename();
         String composedUrl = composeUrl(fileName, taskId);
         try {
-            return uploadFile.execute(fileName, URL_QUALIFIER + composedUrl, LocalDate.now(), taskId, file.getBytes())
+            File file = new File("src/main/resources/tmp/formatFile.tmp");
+            try (OutputStream stream = new FileOutputStream(file)) {
+                stream.write(multipartFile.getBytes());
+            }
+            return uploadFile.execute(fileName, URL_QUALIFIER + composedUrl, LocalDate.now(), taskId, file)
                     .thenApply(either -> {
                         if (either.isLeft()) {
                             throw ExceptionDtoResolver.resolve(either.getLeft());
                         }
-                        saveFile(file, composedUrl);
+                        saveFile(multipartFile, composedUrl);
                         return null;
                     });
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new InternalServerErrorResponse();
         }
     }
 
