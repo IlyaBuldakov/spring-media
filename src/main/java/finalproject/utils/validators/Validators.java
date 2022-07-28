@@ -1,9 +1,11 @@
-package finalproject.utils;
+package finalproject.utils.validators;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.Validate;
@@ -52,8 +54,8 @@ public class Validators {
   }
 
 
-
-  public List<String> problems = new ArrayList<>();
+@Getter
+  private List<String> problems = new ArrayList<>();
 
   /**
    * Проверка e-mail по шаблону.
@@ -97,11 +99,13 @@ public class Validators {
    * @param object Object
    * @param field поле
    */
-  public void validateNotNull(Object object, String field) {
+  public boolean validateNotNull(Object object, String field) {
     try {
       Validate.notNull(object);
+      return true;
     } catch (Exception e) {
       problems.add(field);
+      return false;
     }
   }
 
@@ -139,6 +143,5 @@ public class Validators {
     }
     return validated;
   }
-
 
 }
