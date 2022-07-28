@@ -6,12 +6,14 @@ import javax.persistence.*;
 import finalproject.domain.entities.task.Task;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * Класс сущности Файл.
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Getter
 @Setter
@@ -64,5 +66,5 @@ public class FileDocuments {
    */
   @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "taskId")
-  private int taskId;
+  private Task task;
 }
