@@ -2,8 +2,6 @@ package finalproject.application.services.impl;
 
 
 import finalproject.application.services.FileStorageService;
-
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -20,12 +18,6 @@ public class FileStorageServiceImpl implements FileStorageService {
 
   @Override
   public boolean save(MultipartFile file, Path path, String filename) {
-
-    if (file.isEmpty() || filename.contains("..")) {
-      return false;
-    }
-
-
 
     try {
       if (!Files.exists(path)) {

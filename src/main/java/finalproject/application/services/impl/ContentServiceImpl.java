@@ -2,14 +2,19 @@ package finalproject.application.services.impl;
 
 
 
+import finalproject.application.dto.content.InnerContentTransferObject;
+import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.services.ContentService;
 import finalproject.application.services.FileStorageService;
-import finalproject.domain.entities.content.ContentFormat;
+import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.filedocuments.FileDocuments;
+import finalproject.domain.entities.task.Task;
 import finalproject.infrastructure.repositories.ContentRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
+import finalproject.utils.validators.ValidateContent;
+import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -17,21 +22,17 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import javax.imageio.ImageIO;
 import lombok.AllArgsConstructor;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.tika.Tika;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -54,51 +55,33 @@ public class ContentServiceImpl implements ContentService {
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, String>> attachFileToTask(MultipartFile file,
+  public CompletableFuture<Either<Failure, Content>> attachFileToTask(MultipartFile file,
                                              int taskId) throws IOException {
     if (!taskRepository.existsById(taskId)) {
       return CompletableFuture.completedFuture(
               Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
     }
-    String originalFilename = Objects.requireNonNull(file.getOriginalFilename());
-    String filename = StringUtils.cleanPath(originalFilename);
-    String extension = FilenameUtils.getExtension(originalFilename);
-    Tika tika = new Tika();
-    String mimeType = tika.detect(file.getInputStream());
-    ContentFormat contentFormat = ContentFormat.valueOf(extension.toUpperCase());
-
-    if (!Arrays.stream(ContentFormat.values())
-            .toList()
-            .contains(contentFormat)
-            ||
-                    !(mimeType.contains("audio")
-                    || mimeType.contains("video")
-                    || mimeType.contains("image"))
-
-    ) {
+    Task task = taskRepository.findById(taskId).get();
+    ValidateContent validateContent = new ValidateContent(new Validators());
+    InnerContentTransferObject fileData = validateContent.validateContent(file).getOrElseThrow(BadRequestDto::new);
+    if (!task.getType().equals(fileData.getType())) {
       problems.add("file");
-      return CompletableFuture.completedFuture(Either.left(
-              new Failure(Failure.Messages.UNACCEPTABLE_FILE_FORMAT, problems)));
+      return CompletableFuture.completedFuture(
+              Either.left(new Failure(Failure.Messages.UNACCEPTABLE_TASK_CONTENT, problems)));
     }
 
     Path path = Paths.get(contentPath, Integer.toString(taskId));
-    if (!fileStorageService.save(file, path, filename)) {
+    if (!fileStorageService.save(file, path, fileData.getFilename())) {
       return CompletableFuture.completedFuture(Either.left(
               new Failure(Failure.Messages.INTERNAL_SERVER_ERROR)));
     }
-    String fileUrl = returnRelativePath + taskId + "/" + filename;
-    ContentType type = switch (extension.toLowerCase()) {
-      case "jpg", "png" -> ContentType.PHOTO;
-      case "mp3", "m4a", "flac" -> ContentType.AUDIO;
-      case "avi", "mp4" -> ContentType.VIDEO;
-      default -> null;
-    };
-    String previewUrl = getPreviewUrl(filename, path, type);
-    String name = filename.substring(0, filename.lastIndexOf("."));
-
-
-
-    return CompletableFuture.completedFuture(Either.right(fileUrl + " " + previewUrl));
+    String fileUrl = returnRelativePath + taskId + "/" + fileData.getFilename();
+    String previewUrl = getPreviewUrl(fileData.getFilename(), path, fileData.getType());
+    Content content = new Content(fileData.getType(), fileData.getFilename(), fileData.getFormat(),
+            previewUrl, task, fileUrl, false);
+    content.setDateCreated(LocalDateTime.now());
+    contentRepository.save(content);
+    return CompletableFuture.completedFuture(Either.right(content));
 
   }
 
@@ -119,11 +102,11 @@ public class ContentServiceImpl implements ContentService {
       preview = ImageIO.read(toConvert);
     } else
       if (type == ContentType.VIDEO) {
-        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(toConvert);
+        try(FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(toConvert)) {
         grabber.start();
         Frame frame = grabber.grabImage();
         Java2DFrameConverter converter = new Java2DFrameConverter();
-        preview = converter.convert(frame);
+        preview = converter.convert(frame);}
       } else {
         return  "/" + defaultPath.toUri().relativize(Paths.get(staticPath, "defaultmusicicon.png")
               .toUri());

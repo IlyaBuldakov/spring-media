@@ -1,5 +1,6 @@
 package finalproject.application.services;
 
+import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.filedocuments.FileDocuments;
 import io.vavr.control.Either;
@@ -12,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Сервис контента.
  */
 public interface ContentService {
-  CompletableFuture<Either<Failure, String>> attachFileToTask(
+  CompletableFuture<Either<Failure, Content>> attachFileToTask(
           MultipartFile file, int taskId) throws IOException;
 
   CompletableFuture<Either<Failure, Void>> deleteFileById(int id);
