@@ -6,7 +6,7 @@ package finalproject.domain.entities.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.task.Task;
-import finalproject.utils.Validators;
+import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
 import java.io.Serializable;
 import java.util.List;
@@ -52,7 +52,7 @@ public class User implements Serializable {
   /**
    * Изображение пользователя.
    *
-   * @return id Изображение пользователя.
+   * @return avatar Изображение пользователя.
    */
   @Setter
   @Getter
@@ -115,7 +115,7 @@ public class User implements Serializable {
     validators.validatePassword(password);
     validators.validateNonNullString(name, "name");
     validators.validateNotNull(role, "role");
-    if (validators.problems.size() == 0) {
+    if (validators.getProblems().size() == 0) {
       user.name = name;
       user.email = email;
       user.password = password;
@@ -123,7 +123,7 @@ public class User implements Serializable {
       user.role = role;
       return Either.right(user);
     }
-    return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.problems));
+    return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.getProblems()));
   }
 }
 

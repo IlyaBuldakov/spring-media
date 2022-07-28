@@ -1,12 +1,13 @@
 package finalproject.domain.entities.task;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.filedocuments.FileDocuments;
 import finalproject.domain.entities.user.User;
-import finalproject.utils.Validators;
+import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -77,6 +78,12 @@ public class Task implements Serializable {
   @JoinColumn(name = "contentMakerId")
   private User contentMaker;
 
+  @JsonIgnore
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "task")
+  private List<Content> allTaskContent;
+
 
   /**Дата создания задачи.
    *
@@ -108,15 +115,7 @@ public class Task implements Serializable {
   private TaskStatus taskStatus;
 
 
-  @Getter
-  @Setter
-  @OneToMany(mappedBy = "taskId")
-  private List<Content> contents;
 
-  @Getter
-  @Setter
-  @OneToMany(mappedBy = "taskId")
-  private List<FileDocuments> files;
 
   public Task() {}
 
@@ -143,7 +142,7 @@ public class Task implements Serializable {
     task.dateExpired = validators.validateDateTime(stringDate);
 
 
-    if (validators.problems.size() == 0) {
+    if (validators.getProblems().size() == 0) {
       task.name = name;
       task.type = type;
       task.description = description;
@@ -154,7 +153,7 @@ public class Task implements Serializable {
       return Either.right(task);
     }
 
-    return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.problems));
+    return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.getProblems()));
   }
 
 
