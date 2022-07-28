@@ -1,7 +1,8 @@
 package finalproject.application.dto.content;
 
 import finalproject.application.dto.user.UserBasicDto;
-import java.time.LocalDateTime;
+import finalproject.application.dto.user.UserDto;
+import finalproject.domain.entities.content.Content;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -16,13 +17,13 @@ public class ContentDto {
    * Форматы контента.
    */
   public enum Format {
-    JPG,
-    PNG,
-    MP3,
-    M4A,
-    FLAC,
-    AVI,
-    MP4
+    jpg,
+    png,
+    mp3,
+    m4a,
+    flac,
+    avi,
+    mp4
   }
 
   /**
@@ -43,7 +44,7 @@ public class ContentDto {
   /**
    * Возвращает @return LocalDateTime dateCreated дату создания контента.
    */
-  private @Getter LocalDateTime dateCreated;
+  private @Getter String dateCreated;
 
   /**
    * Возвращает @return UserBasicDto author автора контента.
@@ -64,6 +65,18 @@ public class ContentDto {
    * Возвращает @return строку пути к превью.
    */
   private @Getter String preview;
+
+  public ContentDto(Content content) {
+    this.id = content.getId();
+    this.type = new ContentTypeDto(content.getType().getId(), content.getType().getName());
+    this.name = content.getName();
+    this.dateCreated = content.getDateCreated().toString();
+    this.author = new UserDto(content.getTask().getContentMaker());
+    this.format = Format.valueOf(content.getContentFormat().name().toLowerCase());
+    this.url = content.getUrl();
+    this.preview = content.getPreview();
+
+  }
 
 
 }

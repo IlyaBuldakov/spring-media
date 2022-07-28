@@ -50,6 +50,7 @@ public class ValidateContent {
         case "jpg", "png" -> ContentType.PHOTO;
         case "mp3", "m4a", "flac" -> ContentType.AUDIO;
         case "avi", "mp4" -> ContentType.VIDEO;
+        default -> null;
       };
       return Either.right(new InnerContentTransferObject(filename, type, contentFormat, extension));
     } catch (Exception e) {

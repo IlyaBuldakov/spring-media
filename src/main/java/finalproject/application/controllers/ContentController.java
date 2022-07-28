@@ -1,6 +1,8 @@
 package finalproject.application.controllers;
 
 
+import finalproject.application.dto.content.ContentDto;
+import finalproject.application.dto.content.ContentsResponseDto;
 import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.services.ContentService;
@@ -13,10 +15,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import javax.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -53,6 +52,29 @@ public class ContentController {
               }
               return new NotFoundDto(failure);
             }));
+
+  }
+
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
+  @DeleteMapping("/api/contents/{id}")
+  public CompletableFuture<Void> deleteContent(@PathVariable int id) {
+    return contentService.deleteContentById(id).thenApply(either -> either.getOrElseThrow(failure -> {
+      if (failure.getProblems() != null) {
+        return new BadRequestDto(failure);
+      }
+      return new NotFoundDto(failure);
+    }));
+  }
+
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
+  @GetMapping("/api/contents")
+  public CompletableFuture<ContentsResponseDto> getPublishedContent() {
+
+    return contentService.getAllContent()
+            .thenApply(either -> either.get().stream().map(ContentDto::new)
+                    .toList()
+                    .toArray(new ContentDto[0]))
+            .thenApply( list -> new ContentsResponseDto(list, list.length));
 
   }
 

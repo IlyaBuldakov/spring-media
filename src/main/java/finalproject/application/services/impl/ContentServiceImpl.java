@@ -9,7 +9,6 @@ import finalproject.application.services.FileStorageService;
 import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.Failure;
-import finalproject.domain.entities.filedocuments.FileDocuments;
 import finalproject.domain.entities.task.Task;
 import finalproject.infrastructure.repositories.ContentRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
@@ -85,6 +84,27 @@ public class ContentServiceImpl implements ContentService {
 
   }
 
+  @Override
+  public CompletableFuture<Either<Failure, Void>> deleteContentById(int id) {
+    List<String> problems = new ArrayList<>();
+    if (taskRepository.existsById(id)) {
+      taskRepository.deleteById(id);
+      return CompletableFuture.completedFuture(Either.right(null));
+    }
+    if (id <= 1) {
+      problems.add("id");
+      return CompletableFuture.completedFuture(Either.left(
+              new Failure(Failure.Messages.INVALID_VALUES, problems)));
+    }
+    return CompletableFuture.completedFuture(Either.left(
+            new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+  }
+
+  @Override
+  public CompletableFuture<Either<Failure, List<Content>>> getAllContent() {
+    return CompletableFuture.completedFuture(Either.right(contentRepository.findByIsPublished(true)));
+  }
+
   /**
    * Метод, получающий preview контента из полученных файлов и возвращающий его URI.
    *
@@ -127,18 +147,5 @@ public class ContentServiceImpl implements ContentService {
 
 
 
-
-  @Override
-  public CompletableFuture<Either<Failure, Void>> deleteFileById(int id) {
-    return null;
-  }
-
-
-
-  @Override
-  public CompletableFuture<Either<Failure, List<FileDocuments>>>
-      getAllFilesRelatedToTask(int taskId) {
-    return null;
-  }
 
 }

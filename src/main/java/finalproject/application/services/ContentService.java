@@ -16,8 +16,9 @@ public interface ContentService {
   CompletableFuture<Either<Failure, Content>> attachFileToTask(
           MultipartFile file, int taskId) throws IOException;
 
-  CompletableFuture<Either<Failure, Void>> deleteFileById(int id);
+  CompletableFuture<Either<Failure, Void>> deleteContentById(int id);
 
-  CompletableFuture<Either<Failure, List<FileDocuments>>> getAllFilesRelatedToTask(int taskId);
+  CompletableFuture<Either<Failure, List<Content>>> getAllContent();
+
 
 }
