@@ -20,7 +20,12 @@ public class Failure {
     USERS_EMAIL_IS_ALREADY_EXISTS("Пользователь с таким e-mail уже существует"),
     AUTHORIZATION_FAILURE("Ошибка авторизации"),
     NOT_FOUND("Страница не найдена"),
-    UNACCEPTABLE_FILE_FORMAT("Недопустимый формат файла");
+    UNACCEPTABLE_FILE("Файл пустой или поврежденный"),
+    UNACCEPTABLE_FILE_EXTENSION("Недопустимое расширение файла"),
+    UNACCEPTABLE_FILE_CONTENT("Недопустимое содержимое файла"),
+
+    UNACCEPTABLE_TASK_CONTENT("Контент не соответствует типу, установленному в задаче"),
+    ;
 
 
     final String stringMessage;
@@ -37,7 +42,6 @@ public class Failure {
   @Getter
   @Setter
   private String[] problems;
-  private List<String> problemList;
 
   public String getMessage() {
     return this.message.stringMessage;

@@ -6,6 +6,7 @@ import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.services.ContentService;
 import finalproject.application.services.FileStorageService;
 import finalproject.application.services.TaskService;
+import finalproject.domain.entities.content.Content;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.io.IOException;
@@ -41,9 +42,9 @@ public class ContentController {
    */
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PostMapping(value = "/api/contents", consumes = {"multipart/form-data"})
-  public CompletableFuture<String> uploadContent(@RequestPart("file") MultipartFile file,
-                                                                  @RequestParam("task") int taskId,
-                                                                  HttpServletRequest request)
+  public CompletableFuture<Content> uploadContent(@RequestPart("file") MultipartFile file,
+                                                  @RequestParam("task") int taskId,
+                                                  HttpServletRequest request)
           throws IOException {
     return contentService.attachFileToTask(file, taskId)
             .thenApply(either -> either.getOrElseThrow(failure -> {
