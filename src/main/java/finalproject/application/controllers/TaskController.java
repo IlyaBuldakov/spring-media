@@ -49,6 +49,7 @@ public class TaskController {
   @PutMapping
   public CompletableFuture<Task> createTask(@RequestBody TaskRequestDto taskDto)
           throws ExecutionException, InterruptedException {
+    int autorizedUserId = authService.getId();
     User author = userService.getUserById(taskDto.getAuthorId())
             .thenApply(either -> either.getOrElseThrow(NotFoundDto::new)).get();
     User contentMaker = userService.getUserById(taskDto.getContentMakerId())
@@ -58,7 +59,7 @@ public class TaskController {
             taskDto.getDateExpired()).getOrElseThrow(BadRequestDto::new);
     task.setDateCreated(LocalDateTime.now());
     task.setTaskStatus(TaskStatus.INWORK);
-    return taskService.createNewTask(task).thenApply(Either::get);
+    return taskService.createNewTask(task, autorizedUserId).thenApply(Either::get);
 
   }
 
@@ -66,6 +67,7 @@ public class TaskController {
   @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
   @PutMapping("/{id}")
   public CompletableFuture<Task> editTask(@PathVariable int id, @RequestBody TaskRequestDto taskdto) throws ExecutionException, InterruptedException {
+    int autorizedUserId = authService.getId();
     User author = userService.getUserById(taskdto.getAuthorId())
             .thenApply(either -> either.getOrElseThrow(NotFoundDto::new))
             .get();
@@ -77,7 +79,7 @@ public class TaskController {
                                   taskdto.getDateExpired())
                             .getOrElseThrow(BadRequestDto::new);
     updatedTask.setTaskStatus(TaskStatus.getTaskStatusByName(taskdto.getTaskStatus()));
-    return taskService.editTask(updatedTask, id).thenApply(
+    return taskService.editTask(updatedTask, id, autorizedUserId).thenApply(
             either -> either.getOrElseThrow(failure -> {
               if (failure instanceof BadRequest) {
                 return new BadRequestDto(failure);

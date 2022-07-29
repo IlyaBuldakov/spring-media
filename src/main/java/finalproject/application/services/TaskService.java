@@ -11,15 +11,15 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface TaskService {
 
-  CompletableFuture<Either<Failure, Task>> createNewTask(Task task);
+  CompletableFuture<Either<Failure, Task>> createNewTask(Task task, int authorizedUserId);
 
-  CompletableFuture<Either<Failure, Task>> editTask(Task task, int id);
+  CompletableFuture<Either<Failure, Task>> editTask(Task task, int id, int authorizedUserId);
 
-  CompletableFuture<Either<Failure, Void>> deleteTask(Task task, int id);
+  CompletableFuture<Either<Failure, Void>> deleteTask(Task task, int id, int authorizedUserId);
 
   CompletableFuture<Either<Failure, Task>> getTaskById(int id);
 
-  CompletableFuture<Either<Failure, List<Task>>> getAllTasks();
+  CompletableFuture<Either<Failure, List<Task>>> getAllTasks(int authorizedUserId);
 
 
 

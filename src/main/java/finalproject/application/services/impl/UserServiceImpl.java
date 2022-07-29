@@ -89,14 +89,10 @@ public class UserServiceImpl implements UserService {
               new BadRequest(Messages.INVALID_VALUES, problems)));
     }
     Optional<User> user = userRepository.findById(id);
-    User authorizedUser = userRepository.findById(authService.getId()).get();
     if (user.isPresent()) {
-      if (authorizedUser.getRole() == Role.ADMIN || user.get().getRole() == Role.CONTENT_MAKER) {
-      return CompletableFuture.completedFuture(Either.right(user.get())); }
-      else {
-        return CompletableFuture.completedFuture(
-                Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
-      }
+
+      return CompletableFuture.completedFuture(Either.right(user.get()));
+
     }
     return CompletableFuture.completedFuture(
             Either.left(new NotFound(Messages.USER_NOT_FOUND)));

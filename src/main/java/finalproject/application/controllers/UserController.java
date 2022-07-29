@@ -107,6 +107,7 @@ public class UserController {
   @PreAuthorize("hasAuthority('ADMIN')")
   @GetMapping("/{id}")
   public CompletableFuture<UserDto> getUser(@PathVariable int id) {
+    int autorizedUserId = authService.getId();
     return userService.getUserById(id)
       .thenApply(
               either -> either.getOrElseThrow(failure -> {

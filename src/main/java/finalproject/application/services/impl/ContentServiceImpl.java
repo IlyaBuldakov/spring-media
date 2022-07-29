@@ -10,8 +10,11 @@ import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.*;
 import finalproject.domain.entities.task.Task;
+import finalproject.domain.entities.user.Role;
+import finalproject.domain.entities.user.User;
 import finalproject.infrastructure.repositories.ContentRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
+import finalproject.infrastructure.repositories.UserRepository;
 import finalproject.utils.validators.ValidateContent;
 import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
@@ -48,6 +51,8 @@ public class ContentServiceImpl implements ContentService {
 
   FileStorageService fileStorageService;
   TaskRepository taskRepository;
+
+  UserRepository userRepository;
   ContentRepository contentRepository;
   ArrayList<String> problems;
 
@@ -55,12 +60,18 @@ public class ContentServiceImpl implements ContentService {
   @Async
   @Override
   public CompletableFuture<Either<Failure, Content>> attachFileToTask(MultipartFile file,
-                                             int taskId) throws IOException {
+                                             int taskId, int auth) throws IOException {
+    User authorizedUser = userRepository.findById(auth).get();
     if (!taskRepository.existsById(taskId)) {
       return CompletableFuture.completedFuture(
               Either.left(new NotFound(Messages.TASK_NOT_FOUND)));
     }
+
     Task task = taskRepository.findById(taskId).get();
+    if (authorizedUser.getRole() != Role.ADMIN && !task.getContentMaker().equals(authorizedUser)) {
+      return CompletableFuture.completedFuture(
+              Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
+    }
     ValidateContent validateContent = new ValidateContent(new Validators());
     InnerContentTransferObject fileData = validateContent.validateContent(file).getOrElseThrow(BadRequestDto::new);
     if (!task.getType().equals(fileData.getType())) {

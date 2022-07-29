@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface ContentService {
   CompletableFuture<Either<Failure, Content>> attachFileToTask(
-          MultipartFile file, int taskId) throws IOException;
+          MultipartFile file, int taskId, int authorizedUserId) throws IOException;
 
   CompletableFuture<Either<Failure, Void>> deleteContentById(int id);
 

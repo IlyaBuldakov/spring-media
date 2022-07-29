@@ -5,6 +5,7 @@ import finalproject.application.dto.content.ContentDto;
 import finalproject.application.dto.content.ContentsResponseDto;
 import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.dto.failures.NotFoundDto;
+import finalproject.application.services.AuthService;
 import finalproject.application.services.ContentService;
 import finalproject.application.services.FileStorageService;
 import finalproject.application.services.TaskService;
@@ -27,6 +28,7 @@ public class ContentController {
 
   FileStorageService fileStorageService;
   TaskService taskService;
+  AuthService authService;
   ContentService contentService;
 
 
@@ -45,7 +47,8 @@ public class ContentController {
                                                   @RequestParam("task") int taskId,
                                                   HttpServletRequest request)
           throws IOException {
-    return contentService.attachFileToTask(file, taskId)
+    int autorizedUserId = authService.getId();
+    return contentService.attachFileToTask(file, taskId, autorizedUserId)
             .thenApply(either -> either.getOrElseThrow(failure -> {
               if (failure.getProblems() != null) {
                 return new BadRequestDto(failure);
@@ -58,6 +61,7 @@ public class ContentController {
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @DeleteMapping("/api/contents/{id}")
   public CompletableFuture<Void> deleteContent(@PathVariable int id) {
+    int autorizedUserId = authService.getId();
     return contentService.deleteContentById(id).thenApply(either -> either.getOrElseThrow(failure -> {
       if (failure.getProblems() != null) {
         return new BadRequestDto(failure);
