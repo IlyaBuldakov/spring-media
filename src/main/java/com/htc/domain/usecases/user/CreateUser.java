@@ -43,6 +43,9 @@ public class CreateUser {
         if (expectedFailure != null) {
             return CompletableFuture.completedFuture(Either.left(expectedFailure));
         }
+        if (usersRepository.userExistsByEmail(email)) {
+            return CompletableFuture.completedFuture(Either.left(AlreadyExists.USER));
+        }
         return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
                 ? usersRepository.create(name, password, email, avatar, role)
                 : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
