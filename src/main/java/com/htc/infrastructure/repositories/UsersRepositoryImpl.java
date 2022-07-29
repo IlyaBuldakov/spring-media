@@ -89,6 +89,17 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     /**
+     * Проверка на то, существует ли пользователь
+     * по заданному адресу электронной почты.
+     *
+     * @return boolean.
+     */
+    @Override
+    public boolean userExistsByEmail(String email) {
+        return usersJpaRepository.findUserMapperByEmail(email).isPresent();
+    }
+
+    /**
      * Обновление пользователя.
      *
      * @param id       Идентификатор пользователя.

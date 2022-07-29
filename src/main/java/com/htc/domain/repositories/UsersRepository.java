@@ -53,6 +53,14 @@ public interface UsersRepository {
     CompletableFuture<Either<Failure, List<User>>> getAll();
 
     /**
+     * Проверка на то, существует ли пользователь
+     * по заданному адресу электронной почты.
+     *
+     * @return boolean.
+     */
+    boolean userExistsByEmail(String email);
+
+    /**
      * Обновление пользователя.
      *
      * @param id Идентификатор пользователя.
