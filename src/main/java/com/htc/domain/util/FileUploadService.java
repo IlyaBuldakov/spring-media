@@ -1,4 +1,4 @@
-package com.htc.service;
+package com.htc.domain.util;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

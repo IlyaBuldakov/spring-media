@@ -1,6 +1,6 @@
-package com.htc.service.impl;
+package com.htc.domain.util.impl;
 
-import com.htc.service.FileUploadService;
+import com.htc.domain.util.FileUploadService;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -1,4 +1,4 @@
-package com.htc.service;
+package com.htc.domain.util;
 
 import com.htc.domain.entities.Content;
 import com.htc.domain.entities.File;
