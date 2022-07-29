@@ -10,7 +10,7 @@ public enum AlreadyExists implements Failure {
     /**
      * Стандартное сообщение.
      */
-    DEFAULT_MESSAGE("Уже существует");
+    USER("Пользователь уже существует");
 
     AlreadyExists(String message) {
         this.message = message;
