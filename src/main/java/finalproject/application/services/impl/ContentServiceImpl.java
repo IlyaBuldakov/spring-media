@@ -10,6 +10,7 @@ import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.*;
 import finalproject.domain.entities.task.Task;
+import finalproject.domain.entities.task.TaskStatus;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import finalproject.infrastructure.repositories.ContentRepository;
@@ -91,6 +92,8 @@ public class ContentServiceImpl implements ContentService {
             previewUrl, task, fileUrl, true);
     content.setDateCreated(LocalDateTime.now());
     contentRepository.save(content);
+    task.setTaskStatus(TaskStatus.FEEDBACK);
+    taskRepository.save(task);
     return CompletableFuture.completedFuture(Either.right(content));
 
   }

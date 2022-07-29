@@ -51,6 +51,7 @@ public class TaskServiceImpl implements TaskService {
     return CompletableFuture.completedFuture(Either.right(taskRepository.save(task)));
   }
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, Task>> editTask(Task task, int id, int auth) {
     if (!taskRepository.existsById(id)) {
@@ -80,6 +81,7 @@ public class TaskServiceImpl implements TaskService {
     return CompletableFuture.completedFuture(Either.right(taskRepository.save(task)));
   }
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteTask(Task task, int id, int auth) {
     List<String> problems = new ArrayList<>();
@@ -102,6 +104,7 @@ public class TaskServiceImpl implements TaskService {
 
   }
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, Task>> getTaskById(int id) {
     List<String> problems = new ArrayList<>();
@@ -122,6 +125,7 @@ public class TaskServiceImpl implements TaskService {
     }
   }
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, List<Task>>> getAllTasks(int auth) {
     User authorizedUser = userRepository.findById(auth).get();

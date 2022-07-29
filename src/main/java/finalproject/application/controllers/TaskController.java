@@ -3,6 +3,7 @@ package finalproject.application.controllers;
 import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.dto.failures.InternalServerErrorDto;
 import finalproject.application.dto.failures.NotFoundDto;
+import finalproject.application.dto.task.TaskDto;
 import finalproject.application.dto.task.TaskRequestDto;
 import finalproject.application.services.AuthService;
 import finalproject.application.services.TaskService;
@@ -12,7 +13,6 @@ import finalproject.domain.entities.failures.BadRequest;
 import finalproject.domain.entities.failures.NotFound;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.task.TaskStatus;
-import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -66,7 +66,8 @@ public class TaskController {
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
   @PutMapping("/{id}")
-  public CompletableFuture<Task> editTask(@PathVariable int id, @RequestBody TaskRequestDto taskdto) throws ExecutionException, InterruptedException {
+  public CompletableFuture<Task> editTask(@PathVariable int id, @RequestBody TaskRequestDto taskdto)
+          throws ExecutionException, InterruptedException {
     int autorizedUserId = authService.getId();
     User author = userService.getUserById(taskdto.getAuthorId())
             .thenApply(either -> either.getOrElseThrow(NotFoundDto::new))
@@ -91,5 +92,21 @@ public class TaskController {
             }));
 
   }
+
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
+  @GetMapping("/{id}")
+  public CompletableFuture<Task> getTaskById(@PathVariable int id) {
+    return taskService.getTaskById(id).thenApply(either -> either.getOrElseThrow(failure -> {
+      if (failure instanceof BadRequest) {
+        return new BadRequestDto(failure);
+      }
+      if (failure instanceof NotFound) {
+        return new NotFoundDto(failure);
+      }
+      return new InternalServerErrorDto(failure);
+            }));
+
+  }
+
 
 }

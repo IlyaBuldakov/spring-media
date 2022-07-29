@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import javax.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,6 +43,7 @@ public class ContentController {
    * @throws IOException исключение при сохранении файла
    */
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'CONTENT_MAKER')")
   @PostMapping(value = "/api/contents", consumes = {"multipart/form-data"})
   public CompletableFuture<Content> uploadContent(@RequestPart("file") MultipartFile file,
                                                   @RequestParam("task") int taskId,
@@ -58,6 +60,7 @@ public class ContentController {
 
   }
 
+  @PreAuthorize("hasAuthority('ADMIN')")
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @DeleteMapping("/api/contents/{id}")
   public CompletableFuture<Void> deleteContent(@PathVariable int id) {

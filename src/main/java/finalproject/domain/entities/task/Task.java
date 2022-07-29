@@ -63,6 +63,7 @@ public class Task implements Serializable {
    * @return author автор задачи
    */
 
+  @JsonIgnore
   @Getter
   @Setter
   @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
@@ -73,6 +74,7 @@ public class Task implements Serializable {
    *
    * @return contentMaker исполнитель задачи.
    */
+  @JsonIgnore
   @Getter
   @Setter
   @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
