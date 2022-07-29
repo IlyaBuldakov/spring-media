@@ -1,12 +1,11 @@
 package com.htc.domain.repositories;
 
-import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.Notification;
-import io.vavr.control.Either;
+import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 
 /**
  * Репозиторий уведомление.
@@ -19,30 +18,23 @@ public interface NotificationRepository {
    * @param type Тип уведомления.
    * @param date Дата создания уведомления.
    * @param message Сообщение уведомления
-   * @param userId Пользователь связаный с уведомлением.
-   * @param taskId Задача связанная с уведомлением
+   * @param user Пользователь связаный с уведомлением.
+   * @param task Задача связанная с уведомлением
    * @return Уведомление или ошибку.
    */
-  CompletableFuture<Either<Failure, Notification>> create(
+  Notification create(
           Notification.Type type,
           LocalDateTime date,
           Notification.Message message,
-          Id userId,
-          Id taskId);
-
-  /**
-   * Обновляет уведомление.
-   *
-   * @param notification Уведомление.
-   */
-  CompletableFuture<Either<Failure, Notification>> update(Notification notification);
+          User user,
+          User task);
 
   /**
    * Удаляет уведомление.
    *
    * @param id Идентификатор уведомления.
    */
-  CompletableFuture<Either<Failure, Void>> delete(Id id);
+  void delete(Id id);
 
   /**
    * Получает уведомление.
@@ -50,12 +42,20 @@ public interface NotificationRepository {
    * @param id Идентификатор уведомления.
    * @return Уведомление.
    */
-  CompletableFuture<Either<Failure, Notification>> get(Id id);
+  Optional<Notification> get(Id id);
 
   /**
-   * Получает список всех уведомлений.
+   * Получает список всех уведомлений по задаче.
    *
    * @return Список уведомлений.
    */
-  CompletableFuture<Either<Failure, Collection<Notification>>> getAllByUser();
+  Collection<Notification> getAllByTask();
+
+  /**
+   * Проверяет, существует ли уведомление с указанным идентификатором.
+   *
+   * @param id Идентификатор уведомления.
+   * @return Результат проверки.
+   */
+  boolean exists(Id id);
 }

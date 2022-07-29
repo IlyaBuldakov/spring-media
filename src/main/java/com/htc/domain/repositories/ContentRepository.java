@@ -1,9 +1,9 @@
 package com.htc.domain.repositories;
 
-import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.Content;
-import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,10 +24,10 @@ public interface ContentRepository {
    * @param format Формат медиаконтента.
    * @param url Адрес медиаконтента.
    * @param preview Адрес миниатюры медиаконтента.
-   * @return Медиаконтент или ошибка.
+   * @return Созданый медиаконтент.
    */
 
-  CompletableFuture<Either<Failure, Content>> create(
+  Content create(
           Content.Type type,
           Content.Name name,
           LocalDateTime dateCreated,
@@ -41,19 +41,19 @@ public interface ContentRepository {
    *
    * @param id Идентификатор медиаконтент.
    */
-  CompletableFuture<Either<Failure, Void>> delete(Id id);
+  void delete(Id id);
 
   /**
    * Получает содержимое ленты медиаконтента по запросу.
    *
-   * @param page   Номер страницы.
-   * @param count  Количество медиаконтента на страницу.
+   * @param page Номер страницы.
+   * @param count Количество медиаконтента на страницу.
    * @param author Имя автора медиаконтента (запрос).
-   * @param date   Дата публикации медиаконтента (запрос).
+   * @param date Дата публикации медиаконтента (запрос).
    * @param typeId Идентификатор тип медиаконтента (запрос).
    * @return Список медиаконтента или ошибку.
    */
-  CompletableFuture<Either<Failure, Collection<Content>>> findByQuery(
+  Collection<Content> findByQuery(
           Integer page,
           Integer count,
           String author,
@@ -66,5 +66,13 @@ public interface ContentRepository {
    * @param taskId Идентификатор задачи.
    * @return Список контента или ошибку.
    */
-  CompletableFuture<Either<Failure, Collection<Content>>> findByTask(Id taskId);
+  Collection<Content> findByTask(Id taskId);
+
+  /**
+   * Проверяет, существует ли контент с указанным идентификатором.
+   *
+   * @param id Идентификатор контента.
+   * @return Результат проверки.
+   */
+  boolean exists(Id id);
 }

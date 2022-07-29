@@ -1,13 +1,12 @@
 package com.htc.domain.repositories;
 
-import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.Content;
-import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.Task;
-import io.vavr.control.Either;
+import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 
 /**
  * Репозиторий задач.
@@ -20,18 +19,22 @@ public interface TaskRepository {
    * @param name Название задачи.
    * @param contentType Тип медиаконтекта.
    * @param description Описание задачи.
-   * @param authorId Автор задачи.
-   * @param executorId Исполнитель задачи.
+   * @param author Автор задачи.
+   * @param executor Исполнитель задачи.
+   * @param dateCreated Дата создания здачи задачи.
    * @param dateExpired Срок задачи.
-   * @return Задача или ошибка
+   * @param status Статус задачи.
+   * @return Созданая задача
    */
-  CompletableFuture<Either<Failure, Task>> create(
+  Task create(
           Task.Name name,
           Content.Type contentType,
           Task.Description description,
-          Id authorId,
-          Id executorId,
-          LocalDateTime dateExpired);
+          User author,
+          User executor,
+          LocalDateTime dateCreated,
+          LocalDateTime dateExpired,
+          Task.Status status);
 
   /**
    * Обновляет данные задачи.
@@ -40,18 +43,18 @@ public interface TaskRepository {
    * @param name Название задачи.
    * @param contentType Тип медиаконтекта.
    * @param description Описание задачи
-   * @param authorId Автор задачи.
-   * @param executorId Исполнитель задачи.
+   * @param author Автор задачи.
+   * @param executor Исполнитель задачи.
    * @param dateExpired Срок задачи.
-   * @return Задача или ошибка
+   * @return Обновленная задача
    */
-  CompletableFuture<Either<Failure, Task>> update(
+  Task update(
           Id id,
           Task.Name name,
           Content.Type contentType,
           Task.Description description,
-          Id authorId,
-          Id executorId,
+          User author,
+          User executor,
           LocalDateTime dateExpired);
 
   /**
@@ -59,7 +62,7 @@ public interface TaskRepository {
    *
    * @param id Идентификатор задачи.
    */
-  CompletableFuture<Either<Failure, Void>> delete(Id id);
+  void delete(Id id);
 
   /**
    * Получает задачу.
@@ -67,14 +70,21 @@ public interface TaskRepository {
    * @param id Идентификатор задачи.
    * @return Задача.
    */
-  CompletableFuture<Either<Failure, Task>> get(Id id);
+  Optional<Task> get(Id id);
 
   /**
    * Получает список всех задач.
    *
    * @return Список задач.
    */
-  CompletableFuture<Either<Failure, Collection<Task>>> getAll();
+  Collection<Task> getAll();
 
 
+  /**
+   * Проверяет, существует ли задача с указанным идентификатором.
+   *
+   * @param id Идентификатор задачи.
+   * @return Результат проверки.
+   */
+  boolean exists(Id id);
 }

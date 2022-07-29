@@ -1,12 +1,11 @@
 package com.htc.domain.repositories;
 
-import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.File;
-import io.vavr.control.Either;
+import com.htc.domain.entities.Task;
+import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 
 /**
  * Репозиторий файлов.
@@ -20,29 +19,22 @@ public interface FileRepository {
    * @param dateCreated Дата создания файла.
    * @param format Формат файла.
    * @param url Адрес файла.
-   * @param taskId Индентификатор родительской задачи.
-   * @return Файл или ошибку
+   * @param task Индентификатор родительской задачи.
+   * @return Созданный файл
    */
-  CompletableFuture<Either<Failure, File>> create(
+  File create(
           File.Name name,
           LocalDateTime dateCreated,
           File.Format format,
           File.Url url,
-          Id taskId);
-
-  /**
-   * Обновляет файл.
-   *
-   * @param file Файл.
-   */
-  CompletableFuture<Either<Failure, File>> update(File file);
+          Task task);
 
   /**
    * Удаляет файл.
    *
    * @param id Идентификатор файла.
    */
-  CompletableFuture<Either<Failure, Void>> delete(Id id);
+  void delete(Id id);
 
   /**
    * Получает файл.
@@ -50,12 +42,20 @@ public interface FileRepository {
    * @param id Идентификатор файла.
    * @return Файл.
    */
-  CompletableFuture<Either<Failure, File>> get(Id id);
+  Optional<File> get(Id id);
 
   /**
    * Получает список всех файлов.
    *
    * @return Список файлов.
    */
-  CompletableFuture<Either<Failure, Collection<File>>> getAll();
+  Collection<File> getAllByTask();
+
+  /**
+   * Проверяет, существует ли файл с указанным идентификатором.
+   *
+   * @param id Идентификатор файла.
+   * @return Результат проверки.
+   */
+  boolean exists(Id id);
 }

@@ -1,135 +1,154 @@
 package com.htc.domain.entities;
 
-import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Задача.
+ *
+ * @param id Индентификатор задачи
+ * @param name Название задачи.
+ * @param contentType Тип контента.
+ * @param description Описание задачи.
+ * @param author Позьзователь - автор задачи.
+ * @param executor Позьзователь - исполнитель задачи.
+ * @param dateCreated Дата создания задачи.
+ * @param dateExpired Дата окончания срока выполнения задачи.
+ * @param status Статус задачи.
  */
-public interface Task {
-  /**
-   * Индентификатор задачи.
-   *
-   * @return Индентификатор задачи.
-   */
-  Id getId();
-
-  /**
-   * Название задачи.
-   *
-   * @return Название задачи.
-   */
-  Name getName();
-
-  /**
-   * Требуемный тип контента.
-   *
-   * @return Тип контента.
-   */
-  Content.Type getContentType();
-
-  /**
-   * Описание задачи.
-   *
-   * @return Описание задачи.
-   */
-  Description getDescription();
-
-  /**
-   * Автор задачи.
-   *
-   * @return Позьзователь - автор задачи.
-   */
-  User getAuthor();
-
-  /**
-   * Исполнитель задачи.
-   *
-   * @return Позьзователь - исполнитель задачи.
-   */
-  User getExecutor();
-
-  /**
-   * Дата создания задачи.
-   *
-   * @return Дата создания задачи.
-   */
-  LocalDateTime getDateCreated();
-
-  /**
-   * Дата окончания срока выполнения задачи.
-   *
-   * @return Дата окончания срока выполнения задачи.
-   */
-  LocalDateTime getDateExpired();
-
-  /**
-   * Статус задачи.
-   *
-   * @return Статус задачи.
-   */
-  Status getStatus();
-
+public record Task(
+        Id id,
+        Task.Name name,
+        Content.Type contentType,
+        Description description,
+        User author,
+        User executor,
+        LocalDateTime dateCreated,
+        LocalDateTime dateExpired,
+        Status status
+) implements Entity {
   /**
    * Название задачи.
    */
-  final class Name extends Attribute<String> {
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  public static final class Name extends BaseAttribute<String> {
 
     /**
      * Проверяет входные данные на корректность и создаёт название задачи.
-     * Название задачи не должно быть пустой строкой и не должно быть длиннее 32 символов
      *
      * @param value Входные данные.
      * @return Название задачи или ошибка.
      */
-    public static Either<InvalidValue, Task.Name> create(String value) {
-      if (value.length() == 0 || value.length() > 255) {
-        return Either.left(InvalidValue.INVALID_TASK_NAME);
-      }
+    public static Either<Collection<Failure>, Task.Name> create(String value) {
+      final var name = new Task.Name();
+      name.setValue(value);
 
-      var taskName = new Task.Name(value);
-      return Either.right(taskName);
+      final var failures = name.validate();
+      return failures.isEmpty()
+              ? Either.right(name)
+              : Either.left(failures);
     }
 
-    private Name(String value) {
-      super(value);
+    /**
+     * Проверяет название задачи на корректность.
+     *
+     * <p>Требования к названию задачи:</p>
+     * <ol>
+     *   <li>Название не должно быть короче 3 символов, см. {@link TooShort}.</li>
+     *   <li>Название не должно быть длиннее 255 символов, см. {@link TooLong}.</li>
+     * </ol>
+     *
+     * @return Список ошибок.
+     */
+    @Override
+    protected Collection<Failure> validate() {
+      final var value = super.getValue();
+      return new ValidationResultBuilder()
+              .addIf(new TooShort(), value.length() < 3)
+              .addIf(new TooLong(), value.length() > 255)
+              .build();
     }
 
+
+    /**
+     * Имя пользователя слишком короткое.
+     */
+    public record TooShort() implements Failure {
+    }
+
+    /**
+     * Имя пользователя слишком длинное.
+     */
+    public record TooLong() implements Failure {
+    }
   }
+
 
   /**
    * Описание задачи.
    */
-  final class Description extends Attribute<String> {
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  public static final class Description extends BaseAttribute<String> {
+
     /**
-     * Проверяет входные данные на корректность и создаёт описание задачи.
-     * Описание задачи не должно быть пустой строкой.
+     * Проверяет входные данные на корректность и создаёт название задачи.
      *
      * @param value Входные данные.
-     * @return Описание задачи или ошибка.
+     * @return Название задачи или ошибка.
      */
-    public static Either<InvalidValue, Task.Description> create(String value) {
-      if (value.length() == 0) {
-        return Either.left(InvalidValue.INVALID_TASK_DESCRIPTION);
-      }
+    public static Either<Collection<Failure>, Task.Name> create(String value) {
+      final var name = new Task.Name();
+      name.setValue(value);
 
-      var taskDescription = new Task.Description(value);
-      return Either.right(taskDescription);
+      final var failures = name.validate();
+      return failures.isEmpty()
+              ? Either.right(name)
+              : Either.left(failures);
     }
 
-    private Description(String value) {
-      super(value);
+    /**
+     * Проверяет описание задачи на корректность.
+     *
+     * <p>Требования к описанию задачи:</p>
+     * <ol>
+     *   <li>Название не должно быть короче 3 символов, см. {@link TooShort}.</li>
+     *   <li>Название не должно быть длиннее 2048  символов, см. {@link TooLong}.</li>
+     * </ol>
+     *
+     * @return Список ошибок.
+     */
+    @Override
+    protected Collection<Failure> validate() {
+      final var value = super.getValue();
+      return new ValidationResultBuilder()
+              .addIf(new TooShort(), value.length() < 3)
+              .addIf(new TooLong(), value.length() > 2048)
+              .build();
+    }
+
+    /**
+     * Имя пользователя слишком короткое.
+     */
+    public record TooShort() implements Failure {
+    }
+
+    /**
+     * Имя пользователя слишком длинное.
+     */
+    public record TooLong() implements Failure {
     }
   }
 
   /**
    * Статус задачи.
    */
-  enum Status {
+  public enum Status {
     /**
      * В работе.
      */
@@ -164,6 +183,4 @@ public interface Task {
       this.id = id;
     }
   }
-
-
 }

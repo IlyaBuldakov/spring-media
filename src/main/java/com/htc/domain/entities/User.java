@@ -12,7 +12,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
- * Пользователя.
+ * Пользователь.
  *
  * @param id Идентификатор пользователя.
  * @param name Имя пользователя.

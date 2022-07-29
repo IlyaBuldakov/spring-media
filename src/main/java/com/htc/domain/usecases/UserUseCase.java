@@ -12,6 +12,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+/**
+ * Сценарии использования пользователя.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class UserUseCase {
   /**
@@ -69,8 +72,7 @@ public final class UserUseCase {
             @NonNull User.Password password,
             @NonNull User.Image image,
             @NonNull User.Role role
-    ) {
-    }
+    ) {}
   }
 
   /**
@@ -101,7 +103,7 @@ public final class UserUseCase {
 
       // Проверяем, что, при изменении электронной почты пользователя,
       // она не будет совпадать с электронной почтой уже существующих пользователей.
-      final var emailIsChanging = !user.get().getEmail().equals(params.email);
+      final var emailIsChanging = !user.get().email().equals(params.email);
       final var emailAlreadyExists = super.userRepository.exists(params.email);
       if (emailIsChanging && emailAlreadyExists) {
         return Either.left(new EmailAlreadyExists());
@@ -232,7 +234,7 @@ public final class UserUseCase {
       }
 
       final var user = result.get();
-      final var passwordIsValid = user.getPassword().equals(params.password);
+      final var passwordIsValid = user.password().equals(params.password);
       if (!passwordIsValid) {
         return Either.left(new NoAccess());
       }

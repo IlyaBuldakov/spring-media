@@ -1,72 +1,74 @@
 package com.htc.domain.entities;
 
-import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import lombok.NonNull;
 
 /**
  * Комментарий.
+ *
+ * @param id Идентификатор комментария.
+ * @param dateCreated Дата создания комментария.
+ * @param author Пользователь - автора комментария.
+ * @param task Задача в которой оставлен комментарий.
+ * @param message Текст комментария.
  */
-public interface Comment {
-  /**
-   * Идентификатор комментария.
-   *
-   * @return Идентификатор комментария.
-   */
-  Id getId();
-
-  /**
-   * Дата создания комментария.
-   *
-   * @return Дата создания комментария.
-   */
-  LocalDateTime getDate();
-
-  /**
-   * Автор комментария.
-   *
-   * @return Пользователь - автора комментария.
-   */
-  User getUser();
-
-  /**
-   * Задача связанная с комментарием.
-   *
-   * @return task задача.
-   */
-  Task getTask();
+public record Comment(Id id, LocalDateTime dateCreated, User author, Task task, Message message)
+        implements Entity {
 
   /**
    * Текст комментария.
-   *
-   * @return Текст комментария.
    */
-  Message getMessage();
-
-  /**
-   * Текст уведомления.
-   */
-  class Message extends Attribute<String> {
+  public static final class Message extends BaseAttribute<String> {
     /**
-     * Проверяет входные данные на корректность и создаёт сообщение уведомления.
-     * Сообщение не должно быть пустой строкой.
+     * Создаёт сообщение уведомления.
      *
      * @param value Входные данные.
-     * @return Сообщение уведомления или ошибка.
+     * @return Сообщение уведомления.
      */
-    public static Either<InvalidValue, Comment.Message> create(String value) {
-      if (value.length() == 0) {
-        return Either.left(InvalidValue.INVALID_TASK_DESCRIPTION);
-      }
+    public static Either<Collection<Failure>, Message> create(@NonNull String value) {
+      final var message = new Message();
+      message.setValue(value);
 
-      var message = new Comment.Message(value);
-      return Either.right(message);
+      final var failures = message.validate();
+      return failures.isEmpty()
+              ? Either.right(message)
+              : Either.left(failures);
     }
 
-    private Message(String value) {
-      super(value);
+    /**
+     * Проверяет текст комментария на корректность.
+     *
+     * <p>Требования к тексту комментария:</p>
+     * <ol>
+     *   <li>Имя не должно быть короче 10 символов, см. {@link TooShort}.</li>
+     *   <li>Имя не должно быть длиннее 2000 символов, см. {@link TooLong}.</li>
+     * </ol>
+     *
+     * @return Список ошибок.
+     */
+    @Override
+    public Collection<Failure> validate() {
+      final var value = super.getValue();
+      return new ValidationResultBuilder()
+              .addIf(new TooShort(), value.length() < 10)
+              .addIf(new TooLong(), value.length() > 2000)
+              .build();
+    }
+
+    /**
+     * Имя пользователя слишком короткое.
+     */
+    public record TooShort() implements Failure {
+    }
+
+    /**
+     * Имя пользователя слишком длинное.
+     */
+    public record TooLong() implements Failure {
     }
   }
 }

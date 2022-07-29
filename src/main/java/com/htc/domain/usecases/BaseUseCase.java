@@ -37,7 +37,7 @@ public abstract class BaseUseCase<ParamsT, ResultT> implements UseCase<ParamsT, 
       return Either.left(new SubjectNotFound());
     }
 
-    final var role = user.get().getRole();
+    final var role = user.get().role();
     final var hasAccess = this.getPermittedRoles().contains(role);
     if (!hasAccess) {
       return Either.left(new NoAccess());

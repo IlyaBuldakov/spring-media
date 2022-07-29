@@ -1,77 +1,40 @@
 package com.htc.domain.entities;
 
-import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * Медиаконтент.
+ *
+ * @param id Индентификатор медиаконтента.
+ * @param type Тип медиаконтента.
+ * @param name Наименование медиаконтента.
+ * @param dateCreated Дата загрузки медиаконтента.
+ * @param author Пользователь - автор медиаконтента.
+ * @param format Формат медиаконтента.
+ * @param contentUrl Адресс медиаконтента.
+ * @param previewUrl Адрес миниатюры медиаконтента.
  */
-public interface Content {
-
-  /**
-   * Индентификатор медиаконтента.
-   *
-   * @return Индентификатор медиаконтента.
-   */
-  Id getId();
-
-  /**
-   * Тип медиаконтента.
-   *
-   * @return Тип медиаконтента.
-   */
-  Type getType();
-
-  /**
-   * Наименование медиаконтента.
-   *
-   * @return Наименование медиаконтента.
-   */
-  Name getName();
-
-  /**
-   * Дата загрузки медиаконтента.
-   *
-   * @return Дата загрузки медиаконтента.
-   */
-  LocalDateTime getDateCreated();
-
-  /**
-   * Пользователь - автор медиаконтента.
-   *
-   * @return Пользователь - автор медиаконтента.
-   */
-  User getAuthor();
-
-  /**
-   * Формат медиаконтента.
-   *
-   * @return Формат медиаконтента.
-   */
-  Format getFormat();
-
-  /**
-   * Адресс медиаконтента.
-   *
-   * @return Адресс медиаконтента.
-   */
-  Url getUrl();
-
-  /**
-   * Адрес ревью медиаконтента.
-   *
-   * @return Адрес превью медиаконтента.
-   */
-  Url getPreview();
+public record Content(
+        Id id,
+        Type type,
+        Name name,
+        LocalDateTime dateCreated,
+        User author,
+        Format format,
+        Url contentUrl,
+        Url previewUrl
+) implements Entity {
 
   /**
    * Расширение файла медиаконтента.
    */
-  enum Format {
+  public enum Format {
     JPG,
     PNG,
     MP3,
@@ -85,7 +48,7 @@ public interface Content {
    * Тип медиаконтента.
    */
 
-  enum Type {
+  public enum Type {
     /**
      * Фото.
      */
@@ -123,40 +86,88 @@ public interface Content {
   /**
    * Имя файла.
    */
-  final class Name extends Attribute<String> {
+  public static final class Name extends BaseAttribute<String> {
     /**
-     * Создаёт имя файла.
+     * Создаёт имя медиаконтента.
      *
      * @param value Входные данные.
-     * @return Имя файла или ошибка.
+     * @return Имя медиаконтента или ошибка.
      */
-    public static Either<InvalidValue, Content.Name> create(String value) {
-      var contentName = new Content.Name(value);
-      return Either.right(contentName);
+    public static Either<Collection<Failure>, Name> create(@NonNull String value) {
+      final var name = new Name();
+      name.setValue(value);
+
+      final var failures = name.validate();
+      return failures.isEmpty()
+              ? Either.right(name)
+              : Either.left(failures);
     }
 
-    private Name(String value) {
-      super(value);
+    /**
+     * Проверяет имя пользователя на корректность.
+     *
+     * <p>Требования к имени пользователя:</p>
+     * <ol>
+     *   <li>Имя не должно быть пустым, см. {@link TooShort}.</li>
+     *   <li>Имя не должно быть длиннее 255 символов, см. {@link TooLong}.</li>
+     * </ol>
+     *
+     * @return Список ошибок.
+     */
+    @Override
+    public Collection<Failure> validate() {
+      final var value = super.getValue();
+      return new ValidationResultBuilder()
+              .addIf(new TooShort(), value.length() == 0)
+              .addIf(new TooLong(), value.length() > 255)
+              .build();
+    }
+
+    /**
+     * Имя пользователя слишком короткое.
+     */
+    public record TooShort() implements Failure {
+    }
+
+    /**
+     * Имя пользователя слишком длинное.
+     */
+    public record TooLong() implements Failure {
     }
   }
 
   /**
    * Адресс файла.
    */
-  final class Url extends Attribute<String> {
+  public static final class Url extends BaseAttribute<String> {
     /**
      * Создаёт адресс файла.
      *
      * @param value Входные данные.
      * @return Адресс файла или ошибка.
      */
-    public static Either<InvalidValue, Content.Url> create(String value) {
-      var contentUrl = new Content.Url(value);
-      return Either.right(contentUrl);
+    public static Either<Collection<Failure>, Url> create(@NonNull String value) {
+      final var url = new Url();
+      url.setValue(value);
+
+      final var failures = url.validate();
+      return failures.isEmpty()
+              ? Either.right(url)
+              : Either.left(failures);
     }
-    
-    private Url(String value) {
-      super(value);
+
+    @Override
+    protected Collection<Failure> validate() {
+      final var value = super.getValue();
+      return new ValidationResultBuilder()
+              .addIf(new TooShort(), value.length() == 0)
+              .build();
+    }
+
+    /**
+     * Имя пользователя слишком короткое.
+     */
+    public record TooShort() implements Failure {
     }
   }
 }
