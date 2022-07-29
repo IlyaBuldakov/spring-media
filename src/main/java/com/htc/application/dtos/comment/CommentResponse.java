@@ -1,7 +1,7 @@
 package com.htc.application.dtos.comment;
 
+import com.htc.application.dtos.user.UserResponse;
 import com.htc.domain.entities.comment.Comment;
-import com.htc.domain.entities.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -32,7 +32,7 @@ public class CommentResponse {
    * @return author автор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter User author;
+  private final @Getter UserResponse author;
 
   /**
    * Текст.
@@ -58,7 +58,7 @@ public class CommentResponse {
   public CommentResponse(Comment comment) {
     this.id = comment.getId().getValue();
     this.dateCreated = comment.getDateCreated().getValue();
-    this.author = comment.getAuthor();
+    this.author = new UserResponse(comment.getAuthor());
     this.message = comment.getMessage();
     this.content = comment.getContents();
   }

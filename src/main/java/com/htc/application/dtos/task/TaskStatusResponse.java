@@ -24,7 +24,7 @@ public class TaskStatusResponse {
    * @return status статус задачи
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Status status;
+  private final @Getter StatusResponse status;
 
   /**
    * Создание краткого представления задачи.
@@ -33,6 +33,6 @@ public class TaskStatusResponse {
    */
   public TaskStatusResponse(Task task) {
     this.id = task.getId().getValue();
-    this.status = task.getStatus();
+    this.status = new StatusResponse(task.getStatus());
   }
 }

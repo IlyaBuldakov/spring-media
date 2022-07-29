@@ -1,5 +1,7 @@
 package com.htc.application.dtos.task;
 
+import com.htc.application.dtos.content.TypeResponse;
+import com.htc.application.dtos.user.UserResponse;
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.Type;
@@ -37,7 +39,7 @@ public class TaskResponse {
    * @return type тип
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Type type;
+  private final @Getter TypeResponse type;
 
   /**
    * Описание задачи.
@@ -62,7 +64,7 @@ public class TaskResponse {
    * @return author автор задачи
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter User author;
+  private final @Getter UserResponse author;
 
   /**
    * {@link User Исполнитель задачи}.
@@ -70,7 +72,7 @@ public class TaskResponse {
    * @return executor исполнитель задачи
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter User executor;
+  private final @Getter UserResponse executor;
 
   /**
    * Дата создания.
@@ -113,7 +115,7 @@ public class TaskResponse {
    * @return status статус задачи
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Status status;
+  private final @Getter StatusResponse status;
 
   /**
    * Создание краткого представления задачи.
@@ -123,15 +125,15 @@ public class TaskResponse {
   public TaskResponse(Task task) {
     this.id = task.getId().getValue();
     this.name = task.getName().getValue();
-    this.type = task.getType();
+    this.type = new TypeResponse(task.getType());
     this.description = task.getDescription();
     this.file = task.getFile();
-    this.author = task.getAuthor();
-    this.executor = task.getExecutor();
+    this.author = new UserResponse(task.getAuthor());
+    this.executor = new UserResponse(task.getExecutor());
     this.dateCreated = task.getDateCreated().getValue();
     this.dateExpired = task.getDateExpired().getValue();
     this.content = task.getContent();
     this.comment = task.getComment();
-    this.status = task.getStatus();
+    this.status = new StatusResponse(task.getStatus());
   }
 }

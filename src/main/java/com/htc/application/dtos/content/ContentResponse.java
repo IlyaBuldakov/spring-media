@@ -1,9 +1,8 @@
 package com.htc.application.dtos.content;
 
+import com.htc.application.dtos.user.UserResponse;
 import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.file.Format;
-import com.htc.domain.entities.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -26,7 +25,7 @@ public class ContentResponse {
    * @return type тип
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Type type;
+  private final @Getter TypeResponse type;
 
   /**
    * Наименование.
@@ -50,7 +49,7 @@ public class ContentResponse {
    * @return author автор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter User author;
+  private final @Getter UserResponse author;
 
   /**
    * Формат.
@@ -83,10 +82,10 @@ public class ContentResponse {
    */
   public ContentResponse(Content content) {
     this.id = content.getId().getValue();
-    this.type = content.getType();
+    this.type = new TypeResponse(content.getType());
     this.name = content.getName().getValue();
     this.dateCreated = content.getDateCreated().getValue();
-    this.author = content.getAuthor();
+    this.author = new UserResponse(content.getAuthor());
     this.format = content.getFormat();
     this.fileUrlPath = content.getFile().getFileUrlPath().getValue();
     this.previewPath = content.getPreviewPath().getValue();

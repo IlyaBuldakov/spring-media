@@ -1,9 +1,10 @@
 package com.htc.application.dtos.notification;
 
+import com.htc.application.dtos.content.TypeResponse;
+import com.htc.application.dtos.task.TaskResponse;
+import com.htc.application.dtos.user.UserResponse;
 import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.notification.Notification;
-import com.htc.domain.entities.task.Task;
-import com.htc.domain.entities.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -26,7 +27,7 @@ public class NotificationResponse {
    * @return type тип
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Type type;
+  private final @Getter TypeResponse type;
 
   /**
    * Дата уведомления.
@@ -50,7 +51,7 @@ public class NotificationResponse {
    * @return user пользователь
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter User user;
+  private final @Getter UserResponse user;
 
   /**
    * Задача.
@@ -58,7 +59,7 @@ public class NotificationResponse {
    * @return task задача
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Task task;
+  private final @Getter TaskResponse task;
 
   /**
    * Создание основного представления уведомления.
@@ -67,10 +68,10 @@ public class NotificationResponse {
    */
   public NotificationResponse(Notification notification) {
     this.id = notification.getId().getValue();
-    this.type = notification.getType();
+    this.type = new TypeResponse(notification.getType());
     this.dateNotification = notification.getDateNotification().getValue();
     this.message = notification.getMessage();
-    this.user = notification.getUser();
-    this.task = notification.getTask();
+    this.user = new UserResponse(notification.getUser());
+    this.task = new TaskResponse(notification.getTask());
   }
 }

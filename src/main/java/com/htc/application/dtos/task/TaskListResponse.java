@@ -1,5 +1,7 @@
 package com.htc.application.dtos.task;
 
+import com.htc.application.dtos.content.TypeResponse;
+import com.htc.application.dtos.user.UserResponse;
 import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.task.Status;
 import com.htc.domain.entities.task.Task;
@@ -34,7 +36,7 @@ public class TaskListResponse {
    * @return type тип
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Type type;
+  private final @Getter TypeResponse type;
 
   /**
    * {@link User Исполнитель задачи}.
@@ -42,7 +44,7 @@ public class TaskListResponse {
    * @return executor исполнитель задачи
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter User executor;
+  private final @Getter UserResponse executor;
 
   /**
    * Дата выполнения.
@@ -58,7 +60,7 @@ public class TaskListResponse {
    * @return status статус задачи
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter Status status;
+  private final @Getter StatusResponse status;
 
   /**
    * Создание краткого представления задачи.
@@ -68,9 +70,9 @@ public class TaskListResponse {
   public TaskListResponse(Task task) {
     this.id = task.getId().getValue();
     this.name = task.getName().getValue();
-    this.type = task.getType();
-    this.executor = task.getExecutor();
+    this.type = new TypeResponse(task.getType());
+    this.executor = new UserResponse(task.getExecutor());
     this.dateExpired = task.getDateExpired().getValue();
-    this.status = task.getStatus();
+    this.status = new StatusResponse(task.getStatus());
   }
 }
