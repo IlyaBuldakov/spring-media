@@ -1,10 +1,9 @@
 package finalproject.application.services.impl;
 
+import finalproject.application.services.AuthService;
 import finalproject.application.services.UserService;
-import finalproject.domain.entities.failures.BadRequest;
-import finalproject.domain.entities.failures.Failure;
-import finalproject.domain.entities.failures.Messages;
-import finalproject.domain.entities.failures.NotFound;
+import finalproject.domain.entities.failures.*;
+import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import finalproject.infrastructure.repositories.UserRepository;
 import io.vavr.control.Either;
@@ -25,7 +24,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-  private final UserRepository repository;
+  private final UserRepository userRepository;
+  private final AuthService authService;
 
 
   @Async
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
       return CompletableFuture.completedFuture(Either.left(
               new BadRequest(Messages.USERS_EMAIL_IS_ALREADY_EXISTS, problems)));
     }
-    return CompletableFuture.completedFuture(Either.right(repository.save(user)));
+    return CompletableFuture.completedFuture(Either.right(userRepository.save(user)));
   }
 
   @Async
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
       return CompletableFuture.completedFuture(Either.left(
               new BadRequest(Messages.INVALID_VALUES, problems)));
     }
-    if (!repository.existsById(id)) {
+    if (!userRepository.existsById(id)) {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.USER_NOT_FOUND)));
     }
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
       return CompletableFuture.completedFuture(Either.left(
               new BadRequest(Messages.USERS_EMAIL_IS_ALREADY_EXISTS, problems)));
     }
-    return CompletableFuture.completedFuture(Either.right(repository.save(user)));
+    return CompletableFuture.completedFuture(Either.right(userRepository.save(user)));
 
   }
 
@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteUserById(int id) {
     List<String> problems = new ArrayList<>();
-    if (repository.existsById(id)) {
-      repository.deleteById(id);
+    if (userRepository.existsById(id)) {
+      userRepository.deleteById(id);
       return CompletableFuture.completedFuture(Either.right(null));
     }
     if (id <= 1) {
@@ -88,9 +88,15 @@ public class UserServiceImpl implements UserService {
       return CompletableFuture.completedFuture(Either.left(
               new BadRequest(Messages.INVALID_VALUES, problems)));
     }
-    Optional<User> user = repository.findById(id);
+    Optional<User> user = userRepository.findById(id);
+    User authorizedUser = userRepository.findById(authService.getId()).get();
     if (user.isPresent()) {
-      return CompletableFuture.completedFuture(Either.right(user.get()));
+      if (authorizedUser.getRole() == Role.ADMIN || user.get().getRole() == Role.CONTENT_MAKER) {
+      return CompletableFuture.completedFuture(Either.right(user.get())); }
+      else {
+        return CompletableFuture.completedFuture(
+                Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
+      }
     }
     return CompletableFuture.completedFuture(
             Either.left(new NotFound(Messages.USER_NOT_FOUND)));
@@ -99,17 +105,25 @@ public class UserServiceImpl implements UserService {
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, List<User>>> getAllUsers() {
-    return CompletableFuture.completedFuture(Either.right(repository.findAll()));
+  public CompletableFuture<Either<Failure, List<User>>> getAllUsers(int authorizedUserId) {
+    User authorizedUser = userRepository.findById(authorizedUserId).get();
+    if (authorizedUser.getRole() == Role.ADMIN) {
+    return CompletableFuture.completedFuture(Either.right(userRepository.findAll()));}
+    else return CompletableFuture.completedFuture(Either.right(userRepository
+            .findAll()
+            .stream()
+            .filter(user -> user.getRole() == Role.CONTENT_MAKER)
+            .toList()
+    ));}
 
-  }
+
 
   @Async
   @Override
   public CompletableFuture<Either<Failure, User>> getUserByEmail(String email) {
     if (isEmailExists(email)) {
       return CompletableFuture.completedFuture(Either.right(
-            repository.findOneByEmail(email).get()));
+            userRepository.findOneByEmail(email).get()));
     } else {
       return CompletableFuture.completedFuture(Either.left(
             new NotFound(Messages.USER_NOT_FOUND)));
@@ -120,7 +134,7 @@ public class UserServiceImpl implements UserService {
   }
 
   public boolean isEmailExists(String email) {
-    return repository.findOneByEmail(email).isPresent();
+    return userRepository.findOneByEmail(email).isPresent();
   }
 
   /**Проверка, есть ли уже у пользователей в репозитории
@@ -132,7 +146,7 @@ public class UserServiceImpl implements UserService {
    */
   public boolean anotherUserHasUpdatedEmail(String email, int id) {
     if (isEmailExists(email)) {
-      return repository.findOneByEmail(email).get().getId() == id;
+      return userRepository.findOneByEmail(email).get().getId() == id;
     }
     return false;
   }

@@ -15,7 +15,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,19 +37,13 @@ public class UserController {
   AuthService authService;
 
 
-  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
-  @PreAuthorize("hasAuthority('ADMIN')")
-  @GetMapping("/hello")
-  public String helloAdmin() throws ExecutionException, InterruptedException {
-    return userService.getUserById(authService.getId())
-            .thenApply(either -> either.get()).get().getName();
-  }
 
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
   @GetMapping
   public CompletableFuture<List<UserDto>> getUsers() {
-    return userService.getAllUsers()
+    int autorizedUserId = authService.getId();
+    return userService.getAllUsers(autorizedUserId)
             .thenApply(either -> either.get().stream().map(UserDto::new).toList());
   }
 

@@ -17,6 +17,7 @@ public enum Messages {
   CONTENT_NOT_FOUND("Контент не найден"),
   FILE_NOT_FOUND("Файл не найден"),
   COMMENT_NOT_FOUND("Комментарий не найден"),
+  NOT_ENOUGH_AUTHORITY("Недостаточно прав для выполнения операции"),
 
 
 

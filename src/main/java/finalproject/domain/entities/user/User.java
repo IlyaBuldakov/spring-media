@@ -127,6 +127,27 @@ public class User implements Serializable {
     }
     return Either.left(new BadRequest(Messages.INVALID_VALUES, validators.getProblems()));
   }
+  @Override
+  public boolean equals(Object ob) {
+    if (ob == null) {
+      return false;
+    }
+    if (this == ob) {
+      return true;
+    }
+    if (ob instanceof User other) {
+      return this.id == other.getId();
+    }
+    return false;
+  }
+
+
+  @Override
+  public int hashCode() {
+    return id;
+  }
+
+
 }
 
 
