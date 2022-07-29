@@ -10,6 +10,7 @@ import com.htc.infrastructure.jpa.UsersJpaRepository;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     UsersJpaRepository usersJpaRepository;
 
     /**
-     * Создание пользователя.
+     * Создание пользователя, шифрование пароля.
      *
      * @param name     Имя пользователя.
      * @param password Пароль пользователя.
@@ -41,7 +42,8 @@ public class UsersRepositoryImpl implements UsersRepository {
                                                            String email,
                                                            String avatar,
                                                            Role role) {
-        usersJpaRepository.save(new UserMapper(name, password, email, avatar, role));
+        BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
+        usersJpaRepository.save(new UserMapper(name, bCryptEncoder.encode(password), email, avatar, role));
         return CompletableFuture.completedFuture(Either.right(null));
     }
 
