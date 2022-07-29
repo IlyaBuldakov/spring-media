@@ -3,7 +3,10 @@ package finalproject.utils.validators;
 import finalproject.application.dto.content.InnerContentTransferObject;
 import finalproject.domain.entities.content.ContentFormat;
 import finalproject.domain.entities.content.ContentType;
+import finalproject.domain.entities.failures.BadRequest;
 import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.InternalServerError;
+import finalproject.domain.entities.failures.Messages;
 import io.vavr.control.Either;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.tika.Tika;
@@ -21,17 +24,17 @@ public class ValidateContent {
 
   public Either<Failure, InnerContentTransferObject> validateContent(MultipartFile file) {
     if (!validators.validateNotNull(file.getOriginalFilename(), "file")) {
-      return Either.left(new Failure(Failure.Messages.UNACCEPTABLE_FILE, validators.getProblems()));
+      return Either.left(new BadRequest(Messages.UNACCEPTABLE_FILE, validators.getProblems()));
     }
     String filename = StringUtils.cleanPath(file.getOriginalFilename());
     String extension = FilenameUtils.getExtension(file.getOriginalFilename());
     if (file.isEmpty() || filename.contains("..")) {
       validators.getProblems().add("file");
-      return Either.left(new Failure(Failure.Messages.UNACCEPTABLE_FILE, validators.getProblems()));
+      return Either.left(new BadRequest(Messages.UNACCEPTABLE_FILE, validators.getProblems()));
     }
 
     if(!validators.validateNotNull(ContentFormat.valueOf(extension.toUpperCase()), "file")) {
-      return Either.left(new Failure(Failure.Messages.UNACCEPTABLE_FILE_EXTENSION, validators.getProblems()));
+      return Either.left(new BadRequest(Messages.UNACCEPTABLE_FILE_EXTENSION, validators.getProblems()));
     }
     ContentFormat contentFormat = ContentFormat.valueOf(extension.toUpperCase());
     try (InputStream is = file.getInputStream()) {
@@ -44,7 +47,7 @@ public class ValidateContent {
       ) {
         validators.getProblems().add("file");
         return Either.left(
-                new Failure(Failure.Messages.UNACCEPTABLE_FILE_CONTENT, validators.getProblems()));
+                new BadRequest(Messages.UNACCEPTABLE_FILE_CONTENT, validators.getProblems()));
       }
       ContentType type = switch (extension.toLowerCase()) {
         case "jpg", "png" -> ContentType.PHOTO;
@@ -54,7 +57,7 @@ public class ValidateContent {
       };
       return Either.right(new InnerContentTransferObject(filename, type, contentFormat, extension));
     } catch (Exception e) {
-      return Either.left(new Failure(Failure.Messages.INTERNAL_SERVER_ERROR));
+      return Either.left(new InternalServerError(Messages.INTERNAL_SERVER_ERROR));
     }
 
   }

@@ -1,11 +1,14 @@
 package finalproject.application.controllers;
 
 import finalproject.application.dto.failures.BadRequestDto;
+import finalproject.application.dto.failures.InternalServerErrorDto;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.user.UserDto;
 import finalproject.application.dto.user.UserRequestDto;
 import finalproject.application.services.AuthService;
 import finalproject.application.services.UserService;
+import finalproject.domain.entities.failures.BadRequest;
+import finalproject.domain.entities.failures.NotFound;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import io.swagger.annotations.ApiOperation;
@@ -90,12 +93,16 @@ public class UserController {
             .getOrElseThrow(failure -> new BadRequestDto(failure));
     updatedUser.setId(id);
     return userService.editUser(updatedUser, id)
-            .thenApply(either -> either.getOrElseThrow(failure -> {
-              if (failure.getProblems() != null) {
-                return new BadRequestDto(failure);
-              }
-              return new NotFoundDto(failure);
-            })).thenApply(UserDto::new);
+            .thenApply(
+                    either -> either.getOrElseThrow(failure -> {
+                      if (failure instanceof BadRequest) {
+                        return new BadRequestDto(failure);
+                      }
+                      if (failure instanceof NotFound) {
+                        return new NotFoundDto(failure);
+                      }
+                      return new InternalServerErrorDto(failure);
+                    })).thenApply(UserDto::new);
   }
 
   /**Получение пользователя.
@@ -108,12 +115,16 @@ public class UserController {
   @GetMapping("/{id}")
   public CompletableFuture<UserDto> getUser(@PathVariable int id) {
     return userService.getUserById(id)
-      .thenApply(either -> either.getOrElseThrow(failure -> {
-        if (failure.getProblems() != null) {
-          return new BadRequestDto(failure);
-        }
-        return new NotFoundDto(failure);
-      }))
+      .thenApply(
+              either -> either.getOrElseThrow(failure -> {
+                if (failure instanceof BadRequest) {
+                  return new BadRequestDto(failure);
+                }
+                if (failure instanceof NotFound) {
+                  return new NotFoundDto(failure);
+                }
+                return new InternalServerErrorDto(failure);
+              }))
       .thenApply(UserDto::new);
   }
 
@@ -125,18 +136,17 @@ public class UserController {
   @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
-    return userService.deleteUserById(id).thenApply(either -> either.getOrElseThrow(failure -> {
-      if (failure.getProblems() != null) {
-        return new BadRequestDto(failure);
-      }
-      return new NotFoundDto(failure);
-    }));
+    return userService.deleteUserById(id).thenApply(
+            either -> either.getOrElseThrow(failure -> {
+              if (failure instanceof BadRequest) {
+                return new BadRequestDto(failure);
+              }
+              if (failure instanceof NotFound) {
+                return new NotFoundDto(failure);
+              }
+              return new InternalServerErrorDto(failure);
+            }));
+
   }
-
-
-
-
-
-
 
 }

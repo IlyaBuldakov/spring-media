@@ -4,8 +4,9 @@ package finalproject.domain.entities.task;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
+import finalproject.domain.entities.failures.BadRequest;
 import finalproject.domain.entities.failures.Failure;
-import finalproject.domain.entities.filedocuments.FileDocuments;
+import finalproject.domain.entities.failures.Messages;
 import finalproject.domain.entities.user.User;
 import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
@@ -148,12 +149,12 @@ public class Task implements Serializable {
       task.description = description;
       task.author = author;
       task.contentMaker = contentMaker;
-      task.taskStatus = TaskStatus.INWORK;
+
 
       return Either.right(task);
     }
 
-    return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.getProblems()));
+    return Either.left(new BadRequest(Messages.INVALID_VALUES, validators.getProblems()));
   }
 
 

@@ -10,32 +10,6 @@ import lombok.Setter;
  */
 public class Failure {
 
-  /**
-   * Перечисление возможных ошибок.
-   */
-  public enum Messages {
-    INVALID_VALUES("Введенные данные некорректны"),
-    ENTITY_NOT_FOUND("Сущность не найдена"),
-    INTERNAL_SERVER_ERROR("Ошибка сервера"),
-    USERS_EMAIL_IS_ALREADY_EXISTS("Пользователь с таким e-mail уже существует"),
-    AUTHORIZATION_FAILURE("Ошибка авторизации"),
-    NOT_FOUND("Страница не найдена"),
-    UNACCEPTABLE_FILE("Файл пустой или поврежденный"),
-    UNACCEPTABLE_FILE_EXTENSION("Недопустимое расширение файла"),
-    UNACCEPTABLE_FILE_CONTENT("Недопустимое содержимое файла"),
-
-    UNACCEPTABLE_TASK_CONTENT("Контент не соответствует типу, установленному в задаче"),
-    ;
-
-
-    final String stringMessage;
-
-    Messages(String stringMessage) {
-      this.stringMessage = stringMessage;
-    }
-
-  }
-
   @Setter
   private Messages message;
 

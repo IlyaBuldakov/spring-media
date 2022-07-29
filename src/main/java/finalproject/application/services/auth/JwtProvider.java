@@ -3,6 +3,8 @@ package finalproject.application.services.auth;
 
 import finalproject.application.dto.failures.NotAuthorizedDto;
 import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.Messages;
+import finalproject.domain.entities.failures.NotAuthorized;
 import finalproject.domain.entities.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -89,7 +91,7 @@ public class JwtProvider {
               .parseClaimsJws(token);
       return true;
     } catch (Exception e) {
-      throw new NotAuthorizedDto(new Failure(Failure.Messages.AUTHORIZATION_FAILURE));
+      throw new NotAuthorizedDto(new NotAuthorized(Messages.AUTHORIZATION_FAILURE));
     }
   }
 

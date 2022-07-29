@@ -4,7 +4,9 @@ package finalproject.domain.entities.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import finalproject.domain.entities.failures.BadRequest;
 import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.Messages;
 import finalproject.domain.entities.task.Task;
 import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
@@ -123,7 +125,7 @@ public class User implements Serializable {
       user.role = role;
       return Either.right(user);
     }
-    return Either.left(new Failure(Failure.Messages.INVALID_VALUES, validators.getProblems()));
+    return Either.left(new BadRequest(Messages.INVALID_VALUES, validators.getProblems()));
   }
 }
 

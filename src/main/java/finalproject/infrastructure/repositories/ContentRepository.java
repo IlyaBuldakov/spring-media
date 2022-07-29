@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface ContentRepository extends JpaRepository<Content, Integer> {
   List<Content> findByIsPublished(Boolean bool);
+  List<Content> findByTaskId(int id);
 }

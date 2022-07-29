@@ -8,7 +8,7 @@ import finalproject.application.services.ContentService;
 import finalproject.application.services.FileStorageService;
 import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
-import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.*;
 import finalproject.domain.entities.task.Task;
 import finalproject.infrastructure.repositories.ContentRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
@@ -58,7 +58,7 @@ public class ContentServiceImpl implements ContentService {
                                              int taskId) throws IOException {
     if (!taskRepository.existsById(taskId)) {
       return CompletableFuture.completedFuture(
-              Either.left(new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+              Either.left(new NotFound(Messages.TASK_NOT_FOUND)));
     }
     Task task = taskRepository.findById(taskId).get();
     ValidateContent validateContent = new ValidateContent(new Validators());
@@ -66,18 +66,18 @@ public class ContentServiceImpl implements ContentService {
     if (!task.getType().equals(fileData.getType())) {
       problems.add("file");
       return CompletableFuture.completedFuture(
-              Either.left(new Failure(Failure.Messages.UNACCEPTABLE_TASK_CONTENT, problems)));
+              Either.left(new BadRequest(Messages.UNACCEPTABLE_TASK_CONTENT, problems)));
     }
 
     Path path = Paths.get(contentPath, Integer.toString(taskId));
     if (!fileStorageService.save(file, path, fileData.getFilename())) {
       return CompletableFuture.completedFuture(Either.left(
-              new Failure(Failure.Messages.INTERNAL_SERVER_ERROR)));
+              new InternalServerError(Messages.INTERNAL_SERVER_ERROR)));
     }
     String fileUrl = returnRelativePath + taskId + "/" + fileData.getFilename();
     String previewUrl = getPreviewUrl(fileData.getFilename(), path, fileData.getType());
     Content content = new Content(fileData.getType(), fileData.getFilename(), fileData.getFormat(),
-            previewUrl, task, fileUrl, false);
+            previewUrl, task, fileUrl, true);
     content.setDateCreated(LocalDateTime.now());
     contentRepository.save(content);
     return CompletableFuture.completedFuture(Either.right(content));
@@ -94,10 +94,10 @@ public class ContentServiceImpl implements ContentService {
     if (id <= 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(
-              new Failure(Failure.Messages.INVALID_VALUES, problems)));
+              new BadRequest(Messages.INVALID_VALUES, problems)));
     }
     return CompletableFuture.completedFuture(Either.left(
-            new Failure(Failure.Messages.ENTITY_NOT_FOUND)));
+            new NotFound(Messages.CONTENT_NOT_FOUND)));
   }
 
   @Override

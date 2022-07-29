@@ -5,6 +5,8 @@ import finalproject.application.dto.auth.AuthLoginResponseDto;
 import finalproject.application.dto.failures.NotAuthorizedDto;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.Messages;
+import finalproject.domain.entities.failures.NotAuthorized;
 import finalproject.domain.entities.user.User;
 import io.jsonwebtoken.Claims;
 import java.util.HashMap;
@@ -44,7 +46,7 @@ public final class AuthorizeService {
       refreshStorage.put(user.getEmail(), refreshToken);
       return new AuthLoginResponseDto(accessToken, refreshToken);
     } else {
-      throw new NotAuthorizedDto(new Failure(Failure.Messages.AUTHORIZATION_FAILURE));
+      throw new NotAuthorizedDto(new NotAuthorized(Messages.AUTHORIZATION_FAILURE));
     }
   }
 
@@ -69,7 +71,7 @@ public final class AuthorizeService {
         return new AuthLoginResponseDto(accessToken, newRefreshToken);
       }
     }
-    throw new NotAuthorizedDto(new Failure(Failure.Messages.AUTHORIZATION_FAILURE));
+    throw new NotAuthorizedDto(new NotAuthorized(Messages.AUTHORIZATION_FAILURE));
   }
 
 
