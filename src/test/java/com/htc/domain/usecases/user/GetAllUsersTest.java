@@ -4,9 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.user.UserEmail;
 import com.htc.domain.entities.utility.parameters.user.UserImage;
-import com.htc.domain.entities.utility.parameters.user.UserName;
 import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
@@ -25,7 +25,7 @@ class GetAllUsersTest {
   final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
   final GetAllUsers useCase = new GetAllUsers(mockUserRepository);
   final AddUser.Params params = new AddUser.Params(
-          UserName.create("name").get(),
+          EntityName.create("name").get(),
           UserEmail.create("email@email.com").get(),
           UserPassword.create("password11AA").get(),
           UserImage.create("image==").get(),

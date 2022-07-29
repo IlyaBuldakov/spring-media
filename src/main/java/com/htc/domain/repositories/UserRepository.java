@@ -3,10 +3,10 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.user.UserEmail;
 import com.htc.domain.entities.utility.parameters.user.UserImage;
-import com.htc.domain.entities.utility.parameters.user.UserName;
 import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import io.vavr.control.Either;
 import java.util.List;
@@ -26,7 +26,7 @@ public interface UserRepository {
    * @param role роль пользователя
    * @return user новый пользователь, подробнее {@link User}
    */
-  CompletableFuture<Either<Failure, User>> add(UserName name, UserEmail email,
+  CompletableFuture<Either<Failure, User>> add(EntityName name, UserEmail email,
                                                UserPassword password, UserImage image, Role role);
 
   /**
@@ -64,7 +64,8 @@ public interface UserRepository {
    * @return user новый пользователь, подробнее {@link User}
    */
   CompletableFuture<Either<Failure, User>> update(
-          Id id, UserName name, UserEmail email, UserPassword password, UserImage image, Role role);
+          Id id, EntityName name, UserEmail email,
+          UserPassword password, UserImage image, Role role);
 
   /**
    * Удаление пользователя.

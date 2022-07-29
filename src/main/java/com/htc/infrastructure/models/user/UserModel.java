@@ -2,10 +2,10 @@ package com.htc.infrastructure.models.user;
 
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.user.UserEmail;
 import com.htc.domain.entities.utility.parameters.user.UserImage;
-import com.htc.domain.entities.utility.parameters.user.UserName;
 import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,8 +46,8 @@ public class UserModel implements User {
   }
 
   @Override
-  public UserName getName() {
-    return UserName.create(this.name).get();
+  public EntityName getName() {
+    return EntityName.create(this.name).get();
   }
 
   @Override

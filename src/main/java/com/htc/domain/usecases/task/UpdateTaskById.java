@@ -11,8 +11,8 @@ import com.htc.domain.entities.task.Status;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.repositories.FileRepository;
@@ -59,7 +59,7 @@ public final class UpdateTaskById implements UseCase<UpdateTaskById.Params, Task
     if (id.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.idKey);
     }
-    var name = FileName.create(params.name());
+    var name = EntityName.create(params.name());
     if (name.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
     }

@@ -7,8 +7,8 @@ import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
@@ -39,7 +39,7 @@ public final class AddTask implements UseCase<AddTask.Params, Task> {
   @Override
   public CompletableFuture<Either<Failure, Task>> execute(Params params) {
     var failure = new InvalidValues();
-    var name = FileName.create(params.name());
+    var name = EntityName.create(params.name());
     if (name.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
     }

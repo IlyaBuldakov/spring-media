@@ -9,8 +9,8 @@ import com.htc.domain.entities.task.Status;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.infrastructure.models.comment.CommentModel;
 import com.htc.infrastructure.models.content.ContentModel;
@@ -34,7 +34,7 @@ public class TaskRepositoryImplementation implements TaskRepository {
   Tasks tasks;
 
   @Override
-  public CompletableFuture<Either<Failure, Task>> add(FileName name, Type type,
+  public CompletableFuture<Either<Failure, Task>> add(EntityName name, Type type,
                                                       String description, User author,
                                                       User executor, DateCreated dateCreated,
                                                       DateCreated dateExpired) {
@@ -67,7 +67,7 @@ public class TaskRepositoryImplementation implements TaskRepository {
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Task>> update(Id id, FileName name, Type type,
+  public CompletableFuture<Either<Failure, Task>> update(Id id, EntityName name, Type type,
                                                          String description, File file,
                                                          User author, User executor,
                                                          DateCreated dateCreated,

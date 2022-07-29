@@ -7,8 +7,8 @@ import com.htc.domain.entities.file.Format;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
 import com.htc.infrastructure.models.file.FileModel;
 import com.htc.infrastructure.models.task.TaskModel;
@@ -70,8 +70,8 @@ public class ContentModel implements Content {
   }
 
   @Override
-  public FileName getName() {
-    return FileName.create(this.name).get();
+  public EntityName getName() {
+    return EntityName.create(this.name).get();
   }
 
   @Override

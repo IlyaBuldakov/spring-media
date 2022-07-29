@@ -1,9 +1,9 @@
 package com.htc.domain.entities.user;
 
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.user.UserEmail;
 import com.htc.domain.entities.utility.parameters.user.UserImage;
-import com.htc.domain.entities.utility.parameters.user.UserName;
 import com.htc.domain.entities.utility.parameters.user.UserPassword;
 
 /**
@@ -22,11 +22,11 @@ public interface User {
   /**
    * Получить полное имя пользователя.
    *
-   * @see UserName#create(String)
+   * @see EntityName#create(String)
    *
    * @return name полное имя пользователя
    */
-  UserName getName();
+  EntityName getName();
 
   /**
    * Получить пароль.

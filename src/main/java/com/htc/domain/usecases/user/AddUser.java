@@ -3,9 +3,9 @@ package com.htc.domain.usecases.user;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.user.UserEmail;
 import com.htc.domain.entities.utility.parameters.user.UserImage;
-import com.htc.domain.entities.utility.parameters.user.UserName;
 import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.UseCase;
@@ -28,7 +28,7 @@ public final class AddUser implements UseCase<AddUser.Params, User> {
    * @param image изображение
    * @param role роль
    */
-  public record Params(UserName name,
+  public record Params(EntityName name,
                        UserEmail email,
                        UserPassword password,
                        UserImage image,

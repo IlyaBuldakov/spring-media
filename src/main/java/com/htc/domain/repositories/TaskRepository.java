@@ -9,8 +9,8 @@ import com.htc.domain.entities.task.Status;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -32,7 +32,7 @@ public interface TaskRepository {
    * @param dateExpired дата выполнения
    * @return task новая задача, подробнее {@link Task}
    */
-  CompletableFuture<Either<Failure, Task>> add(FileName name, Type type, String description,
+  CompletableFuture<Either<Failure, Task>> add(EntityName name, Type type, String description,
                                                User author, User executor, DateCreated dateCreated,
                                                DateCreated dateExpired);
 
@@ -68,7 +68,7 @@ public interface TaskRepository {
    * @param status статус
    * @return task измененная задача, подробнее {@link Task}
    */
-  CompletableFuture<Either<Failure, Task>> update(Id id, FileName name, Type type,
+  CompletableFuture<Either<Failure, Task>> update(Id id, EntityName name, Type type,
                                                   String description, File file, User author,
                                                   User executor, DateCreated dateCreated,
                                                   DateCreated dateExpired, Content content,

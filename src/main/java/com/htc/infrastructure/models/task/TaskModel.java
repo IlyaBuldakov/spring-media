@@ -8,8 +8,8 @@ import com.htc.domain.entities.task.Status;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.infrastructure.models.comment.CommentModel;
 import com.htc.infrastructure.models.content.ContentModel;
 import com.htc.infrastructure.models.file.FileModel;
@@ -77,8 +77,8 @@ public class TaskModel implements Task {
   }
 
   @Override
-  public FileName getName() {
-    return FileName.create(this.name).get();
+  public EntityName getName() {
+    return EntityName.create(this.name).get();
   }
 
   @Override

@@ -8,8 +8,8 @@ import com.htc.domain.entities.file.Format;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.infrastructure.models.content.ContentModel;
@@ -33,7 +33,7 @@ public class ContentRepositoryImplementation implements ContentRepository {
   Contents contents;
 
   @Override
-  public CompletableFuture<Either<Failure, Content>> add(FileName name, Type type,
+  public CompletableFuture<Either<Failure, Content>> add(EntityName name, Type type,
                                                          DateCreated dateCreated, User author,
                                                          Format format, FileUrlPath previewPath,
                                                          File file, Task task) {
@@ -63,7 +63,7 @@ public class ContentRepositoryImplementation implements ContentRepository {
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Content>> change(Id id, FileName name, Type type,
+  public CompletableFuture<Either<Failure, Content>> change(Id id, EntityName name, Type type,
                                                             DateCreated dateCreated, User author,
                                                             Format format, FileUrlPath previewPath,
                                                             File file, Task task) {

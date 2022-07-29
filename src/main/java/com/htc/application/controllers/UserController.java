@@ -2,10 +2,10 @@ package com.htc.application.controllers;
 
 import com.htc.application.dtos.user.UserRequest;
 import com.htc.application.dtos.user.UserResponse;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.user.UserEmail;
 import com.htc.domain.entities.utility.parameters.user.UserImage;
-import com.htc.domain.entities.utility.parameters.user.UserName;
 import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.usecases.user.AddUser;
 import com.htc.domain.usecases.user.DeleteUserById;
@@ -54,7 +54,7 @@ public class UserController {
     ControllerHelper.customRequest(
             addUser,
             new AddUser.Params(
-                    UserName.create(userRequest.getName()).get(),
+                    EntityName.create(userRequest.getName()).get(),
                     UserEmail.create(userRequest.getEmail()).get(),
                     UserPassword.create(userRequest.getPassword()).get(),
                     UserImage.create(userRequest.getAvatar()).get(),
@@ -109,7 +109,7 @@ public class UserController {
             updateUserById,
             new UpdateUserById.Params(
                     Id.create(id).get(),
-                    UserName.create(userRequest.getName()).get(),
+                    EntityName.create(userRequest.getName()).get(),
                     UserEmail.create(userRequest.getEmail()).get(),
                     UserPassword.create(userRequest.getPassword()).get(),
                     UserImage.create(userRequest.getAvatar()).get(),

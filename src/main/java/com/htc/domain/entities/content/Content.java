@@ -5,8 +5,8 @@ import com.htc.domain.entities.file.Format;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
 
 /**
@@ -34,7 +34,7 @@ public interface Content {
    *
    * @return name наименование
    */
-  FileName getName();
+  EntityName getName();
 
   /**
    * Получить дату создания.

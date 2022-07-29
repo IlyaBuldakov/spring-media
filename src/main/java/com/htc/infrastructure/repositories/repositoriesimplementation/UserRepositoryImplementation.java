@@ -3,10 +3,10 @@ package com.htc.infrastructure.repositories.repositoriesimplementation;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.user.UserEmail;
 import com.htc.domain.entities.utility.parameters.user.UserImage;
-import com.htc.domain.entities.utility.parameters.user.UserName;
 import com.htc.domain.entities.utility.parameters.user.UserPassword;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.infrastructure.models.user.UserModel;
@@ -27,7 +27,7 @@ public class UserRepositoryImplementation implements UserRepository {
   Users users;
 
   @Override
-  public CompletableFuture<Either<Failure, User>> add(UserName name,
+  public CompletableFuture<Either<Failure, User>> add(EntityName name,
                                                       UserEmail email,
                                                       UserPassword password,
                                                       UserImage image,
@@ -62,7 +62,7 @@ public class UserRepositoryImplementation implements UserRepository {
 
   @Override
   public CompletableFuture<Either<Failure, User>> update(Id id,
-                                                         UserName name,
+                                                         EntityName name,
                                                          UserEmail email,
                                                          UserPassword password,
                                                          UserImage image,

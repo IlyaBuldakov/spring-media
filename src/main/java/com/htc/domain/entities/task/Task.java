@@ -6,8 +6,8 @@ import com.htc.domain.entities.content.Type;
 import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
-import com.htc.domain.entities.utility.parameters.file.FileName;
 
 /**
  * Задача.
@@ -25,7 +25,7 @@ public interface Task {
    *
    * @return name наименование
    */
-  FileName getName();
+  EntityName getName();
 
   /**
    * Получить {@link Type тип} контента.
