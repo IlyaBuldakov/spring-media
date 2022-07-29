@@ -1,5 +1,6 @@
 package com.htc.application.services;
 
+import com.htc.application.dto.errors.AlreadyExistsResponse;
 import com.htc.application.dto.errors.BadRequestResponse;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.dto.errors.NotFoundResponse;
@@ -9,6 +10,7 @@ import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.failures.InvalidValuesContainer;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.Unauthorized;
+import com.htc.domain.entities.failures.AlreadyExists;
 
 /**
  * Класс, объединяющий в себе логику преобразования
@@ -33,6 +35,8 @@ public class ExceptionDtoResolver {
                     exception = new BadRequestResponse(invalidValue);
             case NotFound notFound ->
                     exception = new NotFoundResponse(notFound);
+            case AlreadyExists alreadyExists ->
+                exception = new AlreadyExistsResponse(alreadyExists);
             default -> throw new InternalServerErrorResponse();
         }
         return exception;
