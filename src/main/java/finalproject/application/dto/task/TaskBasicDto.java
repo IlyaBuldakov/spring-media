@@ -1,26 +1,29 @@
 package finalproject.application.dto.task;
 
-import lombok.AllArgsConstructor;
+
+import finalproject.domain.entities.task.Task;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 
 /**
  * Задача - базовый класс.
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class TaskBasicDto {
 
   /**
    * Возвращает @return id идентификатор задачи.
    */
-  private @Getter int id;
+  private final @Getter int id;
 
   /**
    * Возвращает @return name название задачи.
    */
-  private @Getter String name;
+  private final @Getter String name;
 
-
+  public TaskBasicDto(Task task) {
+    this.id = task.getId();
+    this.name = task.getName();
+  }
 }
