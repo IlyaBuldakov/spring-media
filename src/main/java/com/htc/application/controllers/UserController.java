@@ -1,18 +1,28 @@
 package com.htc.application.controllers;
 
+import com.htc.application.dto.errors.BadRequest;
+import com.htc.application.dto.errors.HttpError;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
+import com.htc.domain.entities.User;
+import com.htc.domain.entities.Id;
+import com.htc.domain.service.UserService;
+import com.htc.domain.usecases.BaseUseCase;
 import com.htc.domain.usecases.UserUseCase;
-import com.htc.utility.Controllers;
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
+import java.util.List;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,101 +37,357 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(path = "api/users")
-@AllArgsConstructor
 @SecurityRequirement(name = "JWT")
 @Tags(@Tag(name = "Пользователи"))
+@AllArgsConstructor
 public class UserController {
-  private UserUseCase.Create create;
-  private UserUseCase.UpdateUser updateUser;
-  private UserUseCase.DeleteUserById deleteUserById;
-  private UserUseCase.GetUserById getUserById;
-  private UserUseCase.GetAllUsers getAllUsers;
+  UserService userService;
 
   /**
-   * Создаёт пользователя.
+   * Создать нового пользователя.
+   *
+   * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
+   * @param userRequest Представление сущности пользователя.
+   * @return Ответ с пустым телом.
    */
   @PostMapping
-  @Async
-  @Operation(summary = "Создать нового пользователя")
-  public void create(@RequestBody UserRequest userRequest) {
-    Controllers.handleRequest(
-            create,
-            new UserUseCase.Create.Params(
-                    userRequest.name(),
-                    userRequest.email(),
-                    userRequest.password(),
-                    userRequest.image(),
-                    userRequest.role()),
-            null);
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "201",
+          content = @Content
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = BadRequest.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "403",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "404",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      )
+  })
+  public ResponseEntity<Object> create(
+      @AuthenticationPrincipal Id subjectId,
+      @RequestBody @Valid UserRequest userRequest
+  ) {
+    // TODO: Изменить обработку ошибок для атрибутов.
+    final var name = User.Name.create(userRequest.name()).get();
+    final var email = User.Email.create(userRequest.email()).get();
+    final var password = User.Password.create(userRequest.password()).get();
+    final var image = User.Image.create(userRequest.image()).get();
+
+    return this.userService
+        .create(subjectId, name, email, password, image, userRequest.role())
+        .mapLeft(
+            failure -> switch (failure) {
+              case BaseUseCase.SubjectNotFound ignored ->
+                  HttpError.forbidden("Аутентифицированный пользователь не найден.");
+              case BaseUseCase.NoAccess ignored -> HttpError.forbidden("Недостаточно прав для выполнения операции.");
+              case UserUseCase.EmailAlreadyExists ignored -> new BadRequest(
+                  "Пользователь с указанной электронной почтой уже существует.",
+                  () -> List.of(
+                      new BadRequest.FieldInvalid(
+                          "Пользователь с указанной электронной почтой уже существует.",
+                          "email"
+                      )
+                  )
+              );
+              default -> new BadRequest("Запрос содержит некорректные данные.");
+            }
+        )
+        .fold(
+            HttpError::toResponseEntity,
+            unused -> new ResponseEntity<>(HttpStatus.CREATED)
+        );
   }
 
   /**
-   * Возвращает пользователя.
+   * Изменить пользователя по идентификатору.
    *
-   * @param id Идентификатор пользователя.
-   * @return Пользователь.
-   */
-  @GetMapping(path = "/{id}")
-  @Async
-  @Operation(summary = "Получить пользователя по идентификатору")
-  public CompletableFuture<UserResponse> get(@PathVariable Integer id) {
-    return Controllers.handleRequest(
-            getUserById,
-            id,
-            UserResponse::new);
-  }
-
-  /**
-   * Возвращает список всех пользователей.
-   *
-   * @return Список пользователей.
-   */
-  @GetMapping
-  @Async
-  @Operation(summary = "Получить список пользователей")
-  public CompletableFuture<Collection<UserResponse>> getAll() {
-    return Controllers.handleRequest(
-            getAllUsers,
-            null,
-            users -> users.stream()
-                    .map(UserResponse::new)
-                    .collect(Collectors.toList()));
-  }
-
-  /**
-   * Обновляет данные пользователя.
-   *
-   * @param id Идентификатор пользователя.
+   * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
+   * @param targetId Идентификатор пользователя.
    * @param userRequest Представление сущности пользователя.
+   * @return Ответ с пустым телом.
    */
   @PutMapping(path = "/{id}")
-  @Async
-  @Operation(summary = "Изменить пользователя по идентификатору")
-  public void update(@PathVariable int id, @RequestBody UserRequest userRequest) {
-    Controllers.handleRequest(
-            updateUser,
-            new UserUseCase.UpdateUser.Params(
-                    id,
-                    userRequest.name(),
-                    userRequest.email(),
-                    userRequest.password(),
-                    userRequest.image(),
-                    userRequest.role()),
-            null);
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "204",
+          content = @Content
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = BadRequest.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "403",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "404",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      )
+  })
+  public ResponseEntity<Object> update(
+      @AuthenticationPrincipal Id subjectId,
+      @PathVariable("id") Id targetId,
+      @RequestBody @Valid UserRequest userRequest
+  ) {
+
+    final var name = User.Name.create(userRequest.name()).get();
+    final var email = User.Email.create(userRequest.email()).get();
+    final var password = User.Password.create(userRequest.password()).get();
+    final var image = User.Image.create(userRequest.image()).get();
+
+    return this.userService
+        .update(subjectId, targetId, name, email, password, image, userRequest.role())
+        .mapLeft(
+            failure -> switch (failure) {
+              case BaseUseCase.SubjectNotFound ignored ->
+                  HttpError.forbidden("Аутентифицированный пользователь не найден.");
+              case BaseUseCase.NoAccess ignored -> HttpError.forbidden("Недостаточно прав для выполнения операции.");
+              case UserUseCase.NotFound ignored -> HttpError.notFound("Запрошенный пользователь не найден.");
+              case UserUseCase.EmailAlreadyExists ignored -> new BadRequest(
+                  "Пользователь с указанной электронной почтой уже существует.",
+                  () -> List.of(
+                      new BadRequest.FieldInvalid(
+                          "Пользователь с указанной электронной почтой уже существует.",
+                          "email"
+                      )
+                  )
+              );
+              default -> new BadRequest("Запрос содержит некорректные данные.");
+            }
+        )
+        .fold(
+            HttpError::toResponseEntity,
+            unused -> new ResponseEntity<>(HttpStatus.NO_CONTENT)
+        );
   }
 
   /**
-   * Удаляет пользователя.
+   * Удалить пользователя по идентификатору.
    *
-   * @param id Идентификатор пользователя.
+   * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
+   * @param targetId Идентификатор пользователя.
+   * @return Ответ с пустым телом.
    */
   @DeleteMapping(path = "/{id}")
-  @Async
-  @Operation(summary = "Удалить пользователя по идентификатору")
-  public void delete(@PathVariable int id) {
-    Controllers.handleRequest(
-            deleteUserById,
-            id,
-            null);
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "204",
+          content = @Content
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = BadRequest.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "403",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "404",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      )
+  })
+  public ResponseEntity<Object> delete(
+      @AuthenticationPrincipal Id subjectId,
+      @PathVariable("id") Id targetId
+  ) {
+    return this.userService
+        .delete(subjectId, targetId)
+        .mapLeft(
+            failure -> switch (failure) {
+              case BaseUseCase.SubjectNotFound ignored ->
+                  HttpError.forbidden("Аутентифицированный пользователь не найден.");
+              case BaseUseCase.NoAccess ignored -> HttpError.forbidden("Недостаточно прав для выполнения операции.");
+              case UserUseCase.NotFound ignored -> HttpError.notFound("Запрошенный пользователь не найден.");
+              default -> new BadRequest("Запрос содержит некорректные данные.");
+            }
+        )
+        .fold(
+            HttpError::toResponseEntity,
+            unused -> new ResponseEntity<>(HttpStatus.NO_CONTENT)
+        );
+  }
+
+  /**
+   * Получить пользователя по идентификатору.
+   *
+   * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
+   * @param targetId Идентификатор пользователя.
+   * @return Представление сущности пользователя.
+   */
+  @GetMapping(path = "/{id}")
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "200",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = UserResponse.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = BadRequest.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "403",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "404",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class)
+          )
+      )
+  })
+  public ResponseEntity<Object> get(
+      @AuthenticationPrincipal Id subjectId,
+      @PathVariable("id") Id targetId
+  ) {
+    return this.userService
+        .get(subjectId, targetId)
+        .bimap(
+            failure -> switch (failure) {
+              case BaseUseCase.SubjectNotFound ignored ->
+                  HttpError.forbidden("Аутентифицированный пользователь не найден.");
+              case BaseUseCase.NoAccess ignored -> HttpError.forbidden("Недостаточно прав для выполнения операции.");
+              case UserUseCase.NotFound ignored -> HttpError.notFound("Запрошенный пользователь не найден.");
+              default -> new BadRequest("Запрос содержит некорректные данные.");
+            },
+            UserResponse::new
+        )
+        .fold(
+            HttpError::toResponseEntity,
+            ResponseEntity::ok
+        );
+  }
+
+  /**
+   * Получить список пользователей.
+   *
+   * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
+   * @return Список представлений сущности пользователя.
+   */
+  @GetMapping
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "200",
+          content = @Content(
+              mediaType = "application/json",
+              array = @ArraySchema(schema = @Schema(implementation = UserResponse.class))
+          )
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = BadRequest.class))
+      ),
+      @ApiResponse(
+          responseCode = "403",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class))
+      ),
+      @ApiResponse(
+          responseCode = "404",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class))
+      ),
+      @ApiResponse(
+          responseCode = "500",
+          content = @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = HttpError.class))
+      )
+  })
+  public ResponseEntity<Object> getAll(@AuthenticationPrincipal Id subjectId) {
+    return this.userService
+        .getAll(subjectId)
+        .bimap(
+            failure -> switch (failure) {
+              case BaseUseCase.SubjectNotFound ignored ->
+                  HttpError.forbidden("Аутентифицированный пользователь не найден.");
+              case BaseUseCase.NoAccess ignored -> HttpError.forbidden("Недостаточно прав для выполнения операции.");
+              default -> new BadRequest("Запрос содержит некорректные данные.");
+            },
+            users -> users
+                .stream()
+                .map(UserResponse::new)
+                .toList()
+        )
+        .fold(
+            HttpError::toResponseEntity,
+            ResponseEntity::ok
+        );
   }
 }

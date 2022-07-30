@@ -1,13 +1,9 @@
 package com.htc.application.dto.authentication;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * Представление запроса на вход в систему.
+ *
+ * @param email Электронная почта пользователя.
+ * @param password Пароль пользователя.
  */
-@AllArgsConstructor
-public class LoginRequest {
-  public @Getter String email;
-  public  @Getter String password;
-}
+public record LoginRequest(String email, String password) {}

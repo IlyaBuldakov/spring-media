@@ -1,12 +1,9 @@
 package com.htc.application.dto.authentication;
 
-import lombok.AllArgsConstructor;
-
 /**
- * Представление Access- и Refresh-токенов (ответ на запрос).
+ * Представление Access- и Refresh- токенов (ответ на запрос).
+ *
+ * @param accessToken Access-токен.
+ * @param refreshToken Refresh-токен.
  */
-@AllArgsConstructor
-public class LoginResponse {
-  public String accessToken;
-  public String refreshToken;
-}
+public record LoginResponse(String accessToken, String refreshToken) {}

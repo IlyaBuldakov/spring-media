@@ -2,23 +2,21 @@ package com.htc.application.controllers;
 
 import com.htc.application.dto.content.ContentCreateRequestDto;
 import com.htc.application.dto.content.ContentsResponseDto;
-import com.htc.application.dto.responsestatus.BadRequestResponse;
-import com.htc.application.dto.responsestatus.InternalServerErrorResponse;
-import com.htc.application.dto.responsestatus.NotFoundResponse;
-import com.htc.domain.entities.failures.InvalidValues;
-import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.usecases.content.CreateContent;
-import com.htc.domain.usecases.content.DeleteContentById;
-import com.htc.domain.usecases.content.GetContentByQuery;
-import com.htc.utility.Controllers;
+import com.htc.application.dto.errors.BadRequest;
+import com.htc.application.dto.errors.HttpError;
+import com.htc.domain.entities.Id;
+import com.htc.domain.service.ContentService;
+import com.htc.domain.usecases.BaseUseCase;
+import com.htc.domain.usecases.ContentUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import java.time.LocalDate;
-import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,9 +34,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SecurityRequirement(name = "JWT")
 @Tags(@Tag(name = "Медиаконтент"))
 public class ContentController {
-  private DeleteContentById deleteContentById;
-  private GetContentByQuery getContentByQuery;
-  private CreateContent createContent;
+  private ContentUseCase.Create createContent;
+
+  private final ContentService contentService;
 
   /**
    * Загрузить новый медиаконтент в задачу.
@@ -46,11 +44,13 @@ public class ContentController {
   @PostMapping
   @Async
   @Operation(summary = "Загрузить новый контент в задачу")
-  public void upload(@RequestBody ContentCreateRequestDto contentCreateRequestDto) {
-    createContent.execute(
-            new CreateContent.Params(
-                    contentCreateRequestDto.file(),
-                    contentCreateRequestDto.taskId())
+  public void upload(
+      @AuthenticationPrincipal Id subjectId,
+      @RequestBody ContentCreateRequestDto contentCreateRequestDto) {
+    contentService.create(
+        subjectId,
+        contentCreateRequestDto.file(),
+        contentCreateRequestDto.taskId()
     );
   }
 
@@ -67,41 +67,59 @@ public class ContentController {
    * @return Список медиа контента, удовлетварющий запрсам.
    */
   @GetMapping
-  @Async
   @Operation(summary = "Получить содержимое ленты контента")
-  public CompletableFuture<ContentsResponseDto> getContentList(
-          Integer page,
-          Integer count,
-          String author,
-          LocalDate date,
-          Integer typeId) {
-    var contents = getContentByQuery.execute(new GetContentByQuery.Params(
-            page,
-            count,
-            author,
-            date,
-            typeId)).thenApply(either -> (either
-            .getOrElseThrow(failure -> switch (failure) {
-              case InvalidValues invalidValues -> new BadRequestResponse(invalidValues);
-              case NotFound ignored -> new NotFoundResponse(failure);
-              default -> new InternalServerErrorResponse(failure);
-            }))).thenApply(ContentsResponseDto::new);
-    return contents;
+  public ResponseEntity<Object> getContentList(
+      @AuthenticationPrincipal Id subjectId,
+      Integer page,
+      Integer count,
+      String author,
+      String date,
+      Integer typeId) {
+
+    return this.contentService
+        .getFeed(subjectId, page, count, author, date, typeId)
+        .bimap(
+            failure -> switch (failure) {
+              case BaseUseCase.SubjectNotFound ignored ->
+                  HttpError.forbidden("Аутентифицированный пользователь не найден.");
+              case BaseUseCase.NoAccess ignored -> HttpError.forbidden("Недостаточно прав для выполнения операции.");
+              default -> new BadRequest("Запрос содержит некорректные данные.");
+            },
+            ContentsResponseDto::new
+        )
+        .fold(
+            HttpError::toResponseEntity,
+            ResponseEntity::ok
+        );
   }
 
 
   /**
    * Удаляет медиаконтент.
    *
-   * @param id Идентификатор медиаконтента.
+   * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
+   * @param targetId Идентификатор медиаконтента.
    */
   @DeleteMapping(path = "/{id}")
-  @Async
   @Operation(summary = "Удалить контент по идентификатору")
-  public void delete(@PathVariable int id) {
-    Controllers.handleRequest(
-            deleteContentById,
-            id,
-            null);
+  public ResponseEntity<Object> delete(
+      @AuthenticationPrincipal Id subjectId,
+      @PathVariable("id") Id targetId
+  ) {
+    return this.contentService
+        .delete(subjectId, targetId)
+        .mapLeft(
+            failure -> switch (failure) {
+              case BaseUseCase.SubjectNotFound ignored ->
+                  HttpError.forbidden("Аутентифицированный пользователь не найден.");
+              case BaseUseCase.NoAccess ignored -> HttpError.forbidden("Недостаточно прав для выполнения операции.");
+              case ContentUseCase.NotFound ignored -> HttpError.notFound("Запрошенный пользователь не найден.");
+              default -> new BadRequest("Запрос содержит некорректные данные.");
+            }
+        )
+        .fold(
+            HttpError::toResponseEntity,
+            unused -> new ResponseEntity<>(HttpStatus.NO_CONTENT)
+        );
   }
 }
