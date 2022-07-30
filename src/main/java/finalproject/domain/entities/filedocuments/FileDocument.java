@@ -1,5 +1,6 @@
 package finalproject.domain.entities.filedocuments;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FileDocument {
+public class FileDocument implements Serializable {
 
   /**
    * Идентификатор сущности. Обычно генерируется репозиторием.
@@ -66,7 +67,8 @@ public class FileDocument {
    * @return возвращает task идентификатор задачи.
    */
   @JsonIgnore
-  @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY)
+  @Getter
+  @ManyToOne(targetEntity = Task.class)
   @JoinColumn(name = "taskId")
   private Task task;
 

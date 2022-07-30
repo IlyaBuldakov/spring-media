@@ -69,7 +69,7 @@ public class Task implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
   @JoinColumn(name = "authorId")
   private User author;
 
@@ -80,18 +80,20 @@ public class Task implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
   @JoinColumn(name = "contentMakerId")
   private User contentMaker;
 
   @JsonIgnore
   @Getter
+  @Setter
   @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
   private List<Content> allTaskContent;
 
   @JsonIgnore
   @Getter
+  @Setter
   @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
   private List<FileDocument> allTaskFiles;

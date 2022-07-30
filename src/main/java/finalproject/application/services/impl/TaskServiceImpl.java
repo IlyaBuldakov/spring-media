@@ -10,11 +10,12 @@ import finalproject.domain.entities.failures.InternalServerError;
 import finalproject.domain.entities.failures.Messages;
 import finalproject.domain.entities.failures.NotAuthorized;
 import finalproject.domain.entities.failures.NotFound;
+import finalproject.domain.entities.filedocuments.FileDocument;
 import finalproject.domain.entities.task.Task;
-import finalproject.domain.entities.task.TaskStatus;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import finalproject.infrastructure.repositories.ContentRepository;
+import finalproject.infrastructure.repositories.FileDocumentRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
 import finalproject.infrastructure.repositories.UserRepository;
 import io.vavr.control.Either;
@@ -37,6 +38,7 @@ public class TaskServiceImpl implements TaskService {
 
   private final UserRepository userRepository;
   private final ContentRepository contentRepository;
+  private final FileDocumentRepository fileDocumentRepository;
 
 
 
@@ -108,6 +110,9 @@ public class TaskServiceImpl implements TaskService {
       for (Content content : contentRepository.findByTaskId(task.getId())) {
         content.setTask(null);
         contentRepository.save(content);
+      }
+      for (FileDocument document : fileDocumentRepository.findByTaskId(task.getId())) {
+       fileDocumentRepository.deleteById(document.getId());
       }
       taskRepository.deleteById(id);
       return CompletableFuture.completedFuture(Either.right(null));
