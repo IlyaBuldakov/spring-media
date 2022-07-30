@@ -27,83 +27,83 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class FilesServiceImpl implements FilesService {
 
-    UploadFile uploadFile;
-    SaveFile saveFile;
-    DeleteFile deleteFile;
+  UploadFile uploadFile;
+  SaveFile saveFile;
+  DeleteFile deleteFile;
 
-    private final String localDirectoryQualifier = "files/";
+  private final String localDirectoryQualifier = "files/";
 
-    /**
-     * Уточняющий элемент для формирования
-     * URL файла и последующего доступа к нему
-     * как к статическому ресурсу на сервере.
-     */
-    private final String urlQualifier = "uploads/" + localDirectoryQualifier;
+  /**
+   * Уточняющий элемент для формирования
+   * URL файла и последующего доступа к нему
+   * как к статическому ресурсу на сервере.
+   */
+  private final String urlQualifier = "uploads/" + localDirectoryQualifier;
 
-    /**
-     * Загрузка файла в базу данных.
-     *
-     * @param multipartFile Файл.
-     * @param taskId        Идентификатор задачи, к которой загружается файл.
-     * @return void.
-     */
-    @Override
-    public CompletableFuture<Void> uploadFile(MultipartFile multipartFile, String taskId) {
-        String fileName = multipartFile.getOriginalFilename();
-        String composedUrl = FileHelper.composeUrl(fileName, taskId);
-        try {
-            File file = new File("src/main/resources/formatFile.tmp");
-            try (OutputStream stream = new FileOutputStream(file)) {
-                stream.write(multipartFile.getBytes());
-            }
-            return uploadFile.execute(fileName, urlQualifier + composedUrl, LocalDate.now(), taskId, file)
-                    .thenApply(either -> {
-                        if (either.isLeft()) {
-                            throw ExceptionDtoResolver.resolve(either.getLeft());
-                        }
-                        var saveFileResult = saveFile(multipartFile, composedUrl);
-                        if (saveFileResult.isLeft()) {
-                            throw ExceptionDtoResolver.resolve(saveFileResult.getLeft());
-                        }
-                        return null;
-                    });
-        } catch (IOException e) {
-            throw new InternalServerErrorResponse();
-        }
+  /**
+   * Загрузка файла в базу данных.
+   *
+   * @param multipartFile Файл.
+   * @param taskId        Идентификатор задачи, к которой загружается файл.
+   * @return void.
+   */
+  @Override
+  public CompletableFuture<Void> uploadFile(MultipartFile multipartFile, String taskId) {
+    String fileName = multipartFile.getOriginalFilename();
+    String composedUrl = FileHelper.composeUrl(fileName, taskId);
+    try {
+      File file = new File("src/main/resources/formatFile.tmp");
+      try (OutputStream stream = new FileOutputStream(file)) {
+        stream.write(multipartFile.getBytes());
+      }
+      return uploadFile.execute(fileName, urlQualifier + composedUrl, LocalDate.now(), taskId, file)
+              .thenApply(either -> {
+                if (either.isLeft()) {
+                  throw ExceptionDtoResolver.resolve(either.getLeft());
+                }
+                var saveFileResult = saveFile(multipartFile, composedUrl);
+                if (saveFileResult.isLeft()) {
+                  throw ExceptionDtoResolver.resolve(saveFileResult.getLeft());
+                }
+                return null;
+              });
+    } catch (IOException e) {
+      throw new InternalServerErrorResponse();
     }
+  }
 
-    /**
-     * Сохранение файла в файловой системе
-     * (в директории статических ресурсов).
-     *
-     * @param file        Файл.
-     * @param composedUrl Составной url из директории и последовательности
-     *                    случайных символов для уникальности.
-     */
-    @Override
-    public Either<Failure, Void> saveFile(MultipartFile file, String composedUrl) {
-        try {
-            return saveFile.execute(file.getBytes(), localDirectoryQualifier, composedUrl);
-        } catch (IOException e) {
-            throw new InternalServerErrorResponse();
-        }
+  /**
+   * Сохранение файла в файловой системе
+   * (в директории статических ресурсов).
+   *
+   * @param file        Файл.
+   * @param composedUrl Составной url из директории и последовательности
+   *                    случайных символов для уникальности.
+   */
+  @Override
+  public Either<Failure, Void> saveFile(MultipartFile file, String composedUrl) {
+    try {
+      return saveFile.execute(file.getBytes(), localDirectoryQualifier, composedUrl);
+    } catch (IOException e) {
+      throw new InternalServerErrorResponse();
     }
+  }
 
-    /**
-     * Удаление файла из файловой системы
-     * (из директории статических ресурсов).
-     *
-     * @param fileId Идентификатор файла.
-     * @return void.
-     */
-    @Override
-    public CompletableFuture<Void> deleteFile(String fileId) {
-        return deleteFile.execute("", fileId)
-                .thenApply(either -> {
-                    if (either.isLeft()) {
-                        throw ExceptionDtoResolver.resolve(either.getLeft());
-                    }
-                    return null;
-                });
-    }
+  /**
+   * Удаление файла из файловой системы
+   * (из директории статических ресурсов).
+   *
+   * @param fileId Идентификатор файла.
+   * @return void.
+   */
+  @Override
+  public CompletableFuture<Void> deleteFile(String fileId) {
+    return deleteFile.execute("", fileId)
+            .thenApply(either -> {
+              if (either.isLeft()) {
+                throw ExceptionDtoResolver.resolve(either.getLeft());
+              }
+              return null;
+            });
+  }
 }

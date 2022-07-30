@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 
-    @ExceptionHandler(AbstractDtoError.class)
-    public ResponseEntity<AbstractDtoError> handleApplicationException(AbstractDtoError exception) {
-        return new ResponseEntity<>(exception, exception.getHttpStatus());
-    }
+  @ExceptionHandler(AbstractDtoError.class)
+  public ResponseEntity<AbstractDtoError> handleApplicationException(AbstractDtoError exception) {
+    return new ResponseEntity<>(exception, exception.getHttpStatus());
+  }
 }

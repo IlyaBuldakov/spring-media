@@ -8,18 +8,18 @@ import lombok.Getter;
  */
 public class RoleResponse {
 
-    public RoleResponse(Role role) {
-        this.id = role.getId();
-        this.role = role;
-    }
+  public RoleResponse(Role role) {
+    this.id = role.getId();
+    this.role = role;
+  }
 
-    /**
-     * Идентификатор роли.
-     */
-    private final @Getter int id;
+  /**
+   * Идентификатор роли.
+   */
+  private final @Getter int id;
 
-    /**
-     * Имя роли.
-     */
-    private final @Getter Role role;
+  /**
+   * Имя роли.
+   */
+  private final @Getter Role role;
 }

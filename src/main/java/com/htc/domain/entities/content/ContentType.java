@@ -9,28 +9,28 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ContentType {
 
-        /**
-         * Видео-контент.
-         */
-        VIDEO(1, "Видео"),
+  /**
+   * Видео-контент.
+   */
+  VIDEO(1, "Видео"),
 
-        /**
-         * Аудио-контент.
-         */
-        AUDIO(2, "Аудио"),
+  /**
+   * Аудио-контент.
+   */
+  AUDIO(2, "Аудио"),
 
-        /**
-         * Фото-контент.
-         */
-        PHOTO(3, "Фото");
+  /**
+   * Фото-контент.
+   */
+  PHOTO(3, "Фото");
 
-    /**
-     * Идентификатор типа контента.
-     */
-    private final @Getter int id;
+  /**
+   * Идентификатор типа контента.
+   */
+  private final @Getter int id;
 
-    /**
-     * Наименование контента.
-     */
-    private final @Getter String name;
+  /**
+   * Наименование контента.
+   */
+  private final @Getter String name;
 }

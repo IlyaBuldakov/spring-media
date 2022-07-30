@@ -19,28 +19,28 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class UploadFile {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    FilesRepository filesRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  FilesRepository filesRepository;
 
-    /**
-     * Метод сценария.
-     *
-     * @param fileName Имя файла.
-     * @param composedUrl Составной URL.
-     * @param dateCreated Дата создания файла.
-     * @param taskId Идентификатор задачи.
-     * @param file Файл.
-     * @return void;
-     */
-    public CompletableFuture<Either<Failure, Void>> execute(String fileName, String composedUrl, LocalDate dateCreated, String taskId, File file) {
-        var expectedFailure = ValuesValidator.validateStringId(taskId);
-        if (expectedFailure != null) {
-            return CompletableFuture.completedFuture(Either.left(expectedFailure));
-        }
-        var format = FileHelper.getFileFormat(file, fileName);
-        return format.isLeft() ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
-                : filesRepository.uploadFile(fileName, dateCreated, (com.htc.domain.entities.file.File.FileFormat) format.get(), composedUrl, Integer.parseInt(taskId));
+  /**
+   * Метод сценария.
+   *
+   * @param fileName    Имя файла.
+   * @param composedUrl Составной URL.
+   * @param dateCreated Дата создания файла.
+   * @param taskId      Идентификатор задачи.
+   * @param file        Файл.
+   * @return void;
+   */
+  public CompletableFuture<Either<Failure, Void>> execute(String fileName, String composedUrl, LocalDate dateCreated, String taskId, File file) {
+    var expectedFailure = ValuesValidator.validateStringId(taskId);
+    if (expectedFailure != null) {
+      return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
+    var format = FileHelper.getFileFormat(file, fileName);
+    return format.isLeft() ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
+            : filesRepository.uploadFile(fileName, dateCreated, (com.htc.domain.entities.file.File.FileFormat) format.get(), composedUrl, Integer.parseInt(taskId));
+  }
 }

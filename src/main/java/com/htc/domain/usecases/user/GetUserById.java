@@ -22,30 +22,30 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class GetUserById {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     * Пример: {@link UsersRepositoryImpl}.
-     */
-    private UsersRepository usersRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   * Пример: {@link UsersRepositoryImpl}.
+   */
+  private UsersRepository usersRepository;
 
-    /**
-     * Роль, которой разрешено данное действие.
-     */
-    private final Role permittedRole = Role.ADMIN;
+  /**
+   * Роль, которой разрешено данное действие.
+   */
+  private final Role permittedRole = Role.ADMIN;
 
-    /**
-     * Метод сценария.
-     *
-     * @param param Идентификатор.
-     * @return Список пользователей.
-     */
-    public CompletableFuture<Either<Failure, User>> execute(Set<String> permissions, String param) {
-        var expectedFailure = ValuesValidator.validateStringId(param);
-        if (expectedFailure != null) {
-            return CompletableFuture.completedFuture(Either.left(expectedFailure));
-        }
-        return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
-                ? usersRepository.getById(Integer.parseInt(param))
-                : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+  /**
+   * Метод сценария.
+   *
+   * @param param Идентификатор.
+   * @return Список пользователей.
+   */
+  public CompletableFuture<Either<Failure, User>> execute(Set<String> permissions, String param) {
+    var expectedFailure = ValuesValidator.validateStringId(param);
+    if (expectedFailure != null) {
+      return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
+    return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
+            ? usersRepository.getById(Integer.parseInt(param))
+            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+  }
 }

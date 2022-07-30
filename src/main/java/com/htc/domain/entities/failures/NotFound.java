@@ -7,20 +7,20 @@ import lombok.Getter;
  */
 public enum NotFound implements Failure {
 
-    USER("Пользователь не найден"),
+  USER("Пользователь не найден"),
 
-    TASK("Задача не найдена"),
+  TASK("Задача не найдена"),
 
-    FILE("Файл не найден"),
+  FILE("Файл не найден"),
 
-    CONTENT("Контент не найден");
+  CONTENT("Контент не найден");
 
-    NotFound(String message) {
-        this.message = message;
-    }
+  NotFound(String message) {
+    this.message = message;
+  }
 
-    /**
-     * Сообщение об ошибке.
-     */
-    private final @Getter String message;
+  /**
+   * Сообщение об ошибке.
+   */
+  private final @Getter String message;
 }

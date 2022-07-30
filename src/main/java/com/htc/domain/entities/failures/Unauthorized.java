@@ -7,18 +7,18 @@ import lombok.Getter;
  */
 public enum Unauthorized implements Failure {
 
-    DEFAULT_MESSAGE("Вы не авторизованы"),
+  DEFAULT_MESSAGE("Вы не авторизованы"),
 
-    BAD_CREDENTIALS("Неверный e-mail ли пароль"),
+  BAD_CREDENTIALS("Неверный e-mail ли пароль"),
 
-    FORBIDDEN("У вас нет доступа");
+  FORBIDDEN("У вас нет доступа");
 
-    Unauthorized(String message) {
-        this.message = message;
-    }
+  Unauthorized(String message) {
+    this.message = message;
+  }
 
-    /**
-     * Сообщение об ошибке.
-     */
-    private final @Getter String message;
+  /**
+   * Сообщение об ошибке.
+   */
+  private final @Getter String message;
 }

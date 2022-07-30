@@ -14,36 +14,36 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface ContentsService {
 
-    /**
-     * Получение списка контента.
-     *
-     * @return Список контента.
-     */
-    CompletableFuture<List<ContentResponse>> getAll();
+  /**
+   * Получение списка контента.
+   *
+   * @return Список контента.
+   */
+  CompletableFuture<List<ContentResponse>> getAll();
 
-    /**
-     * Создание контента.
-     *
-     * @param file Файл контента.
-     * @param taskId Идентификатор задачи.
-     * @return void.
-     */
-    CompletableFuture<Void> uploadContent(int authorId, MultipartFile file, String taskId);
+  /**
+   * Создание контента.
+   *
+   * @param file   Файл контента.
+   * @param taskId Идентификатор задачи.
+   * @return void.
+   */
+  CompletableFuture<Void> uploadContent(int authorId, MultipartFile file, String taskId);
 
-    /**
-     * Сохранение контента в файловой системе.
-     *
-     * @param file Файл.
-     * @param composedUrl Составной url из директории и последовательности
-     *                    случайных символов для уникальности.
-     */
-    Either<Failure, Void> saveContent(MultipartFile file, String composedUrl);
+  /**
+   * Сохранение контента в файловой системе.
+   *
+   * @param file        Файл.
+   * @param composedUrl Составной url из директории и последовательности
+   *                    случайных символов для уникальности.
+   */
+  Either<Failure, Void> saveContent(MultipartFile file, String composedUrl);
 
-    /**
-     * Удаление контента по идентификатору.
-     *
-     * @param id Идентификатор контента.
-     * @return void.
-     */
-    CompletableFuture<Void> delete(String id);
+  /**
+   * Удаление контента по идентификатору.
+   *
+   * @param id Идентификатор контента.
+   * @return void.
+   */
+  CompletableFuture<Void> delete(String id);
 }

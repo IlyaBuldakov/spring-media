@@ -23,60 +23,60 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class FilesRepositoryImpl implements FilesRepository {
 
-    /**
-     * JPA-репозиторий.
-     */
-    FilesJpaRepository filesJpaRepository;
+  /**
+   * JPA-репозиторий.
+   */
+  FilesJpaRepository filesJpaRepository;
 
-    /**
-     * Загрузка файла в базу данных.
-     *
-     * @param name Имя файла.
-     * @param dateCreated Дата создания файла.
-     * @param fileFormat Формат файла.
-     * @param url URL файла.
-     * @param taskId Идентификатор задачи.
-     */
-    @Override
-    public CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, File.FileFormat fileFormat, String url, int taskId) {
-        filesJpaRepository.save(new FileMapper(name, dateCreated, fileFormat, url, taskId));
-        return CompletableFuture.completedFuture(Either.right(null));
-    }
+  /**
+   * Загрузка файла в базу данных.
+   *
+   * @param name        Имя файла.
+   * @param dateCreated Дата создания файла.
+   * @param fileFormat  Формат файла.
+   * @param url         URL файла.
+   * @param taskId      Идентификатор задачи.
+   */
+  @Override
+  public CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, File.FileFormat fileFormat, String url, int taskId) {
+    filesJpaRepository.save(new FileMapper(name, dateCreated, fileFormat, url, taskId));
+    return CompletableFuture.completedFuture(Either.right(null));
+  }
 
-    /**
-     * Удаление файла из базы данных.
-     *
-     * @param fileId Идентификатор файла.
-     * @return void.
-     */
-    @Override
-    public CompletableFuture<Either<Failure, Void>> deleteFile(int fileId) {
-        try {
-            filesJpaRepository.deleteById(fileId);
-        } catch (EmptyResultDataAccessException exception) {
-            return CompletableFuture.completedFuture(Either.left(NotFound.FILE));
-        }
-        return CompletableFuture.completedFuture(Either.right(null));
+  /**
+   * Удаление файла из базы данных.
+   *
+   * @param fileId Идентификатор файла.
+   * @return void.
+   */
+  @Override
+  public CompletableFuture<Either<Failure, Void>> deleteFile(int fileId) {
+    try {
+      filesJpaRepository.deleteById(fileId);
+    } catch (EmptyResultDataAccessException exception) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.FILE));
     }
+    return CompletableFuture.completedFuture(Either.right(null));
+  }
 
-    @Override
-    public Either<Failure, String> findFileUrlById(int fileId) {
-        var file = filesJpaRepository.findById(fileId);
-        if (file.isPresent()) {
-            return Either.right(file.get().getUrl());
-        }
-        return Either.left(NotFound.FILE);
+  @Override
+  public Either<Failure, String> findFileUrlById(int fileId) {
+    var file = filesJpaRepository.findById(fileId);
+    if (file.isPresent()) {
+      return Either.right(file.get().getUrl());
     }
+    return Either.left(NotFound.FILE);
+  }
 
-    /**
-     * Поиск URL файлов, относящихся к задаче.
-     *
-     * @param taskId Идентификатор задачи.
-     * @return Множество URL.
-     */
-    @Override
-    public Set<String> findRelevantToTaskFilesUrl(int taskId) {
-        return filesJpaRepository.findFileMappersByTaskId(taskId)
-                .parallelStream().map(FileMapper::getUrl).collect(Collectors.toSet());
-    }
+  /**
+   * Поиск URL файлов, относящихся к задаче.
+   *
+   * @param taskId Идентификатор задачи.
+   * @return Множество URL.
+   */
+  @Override
+  public Set<String> findRelevantToTaskFilesUrl(int taskId) {
+    return filesJpaRepository.findFileMappersByTaskId(taskId)
+            .parallelStream().map(FileMapper::getUrl).collect(Collectors.toSet());
+  }
 }

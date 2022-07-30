@@ -20,25 +20,25 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class CreateContent {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    ContentsRepository contentsRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  ContentsRepository contentsRepository;
 
-    /**
-     * Метод сценария.
-     *
-     * @param fileName Имя контента.
-     * @param taskId   Идентификатор задачи.
-     * @return void.
-     */
-    public CompletableFuture<Either<Failure, Void>> execute(int authorId, String fileName, File file, String url, String taskId) {
-        var expectedFailure = ValuesValidator.validateStringId(taskId);
-        if (expectedFailure != null) {
-            return CompletableFuture.completedFuture(Either.left(expectedFailure));
-        }
-        var format = FileHelper.getContentFormat(file, fileName);
-        return format.isLeft() ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
-                : contentsRepository.create(authorId, fileName, ContentType.PHOTO, (Content.ContentFormat) format.get(), url, Integer.parseInt(taskId));
+  /**
+   * Метод сценария.
+   *
+   * @param fileName Имя контента.
+   * @param taskId   Идентификатор задачи.
+   * @return void.
+   */
+  public CompletableFuture<Either<Failure, Void>> execute(int authorId, String fileName, File file, String url, String taskId) {
+    var expectedFailure = ValuesValidator.validateStringId(taskId);
+    if (expectedFailure != null) {
+      return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
+    var format = FileHelper.getContentFormat(file, fileName);
+    return format.isLeft() ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
+            : contentsRepository.create(authorId, fileName, ContentType.PHOTO, (Content.ContentFormat) format.get(), url, Integer.parseInt(taskId));
+  }
 }

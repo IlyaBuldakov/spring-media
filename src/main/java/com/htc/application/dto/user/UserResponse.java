@@ -10,41 +10,41 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserResponse {
 
-    /**
-     * Конструктор из соответствующей сущности.
-     *
-     * @param user Сущность {@link User пользователя}.
-     */
-    public UserResponse(User user) {
-        this.id = user.getId();
-        this.name = user.getName();
-        this.email = user.getEmail();
-        this.avatar = user.getAvatar();
-        this.role = new RoleResponse(user.getRole());
-    }
+  /**
+   * Конструктор из соответствующей сущности.
+   *
+   * @param user Сущность {@link User пользователя}.
+   */
+  public UserResponse(User user) {
+    this.id = user.getId();
+    this.name = user.getName();
+    this.email = user.getEmail();
+    this.avatar = user.getAvatar();
+    this.role = new RoleResponse(user.getRole());
+  }
 
-    /**
-     * Идентификатор пользователя.
-     */
-    private final @Getter int id;
+  /**
+   * Идентификатор пользователя.
+   */
+  private final @Getter int id;
 
-    /**
-     * Имя пользователя.
-     */
-    private final @Getter String name;
+  /**
+   * Имя пользователя.
+   */
+  private final @Getter String name;
 
-    /**
-     * E-mail пользователя.
-     */
-    private final @Getter String email;
+  /**
+   * E-mail пользователя.
+   */
+  private final @Getter String email;
 
-    /**
-     * Аватар пользователя.
-     */
-    private final @Getter String avatar;
+  /**
+   * Аватар пользователя.
+   */
+  private final @Getter String avatar;
 
-    /**
-     * Роль пользователя.
-     */
-    private final @Getter RoleResponse role;
+  /**
+   * Роль пользователя.
+   */
+  private final @Getter RoleResponse role;
 }

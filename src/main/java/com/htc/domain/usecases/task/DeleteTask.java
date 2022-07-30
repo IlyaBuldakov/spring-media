@@ -18,44 +18,44 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class DeleteTask {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    TasksRepository tasksRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  TasksRepository tasksRepository;
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    FilesRepository filesRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  FilesRepository filesRepository;
 
-    /**
-     * Метод сценария.
-     *
-     * @param id Идентификатор задачи.
-     * @return void
-     */
-    public CompletableFuture<Either<Failure, Void>> execute(String id) {
-        var expectedFailure = ValuesValidator.validateStringId(id);
-        if (expectedFailure != null) {
-            return CompletableFuture.completedFuture(Either.left(expectedFailure));
-        }
-        clearRelevantStaticResources(Integer.parseInt(id));
-        return tasksRepository.deleteById(Integer.parseInt(id));
+  /**
+   * Метод сценария.
+   *
+   * @param id Идентификатор задачи.
+   * @return void
+   */
+  public CompletableFuture<Either<Failure, Void>> execute(String id) {
+    var expectedFailure = ValuesValidator.validateStringId(id);
+    if (expectedFailure != null) {
+      return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
+    clearRelevantStaticResources(Integer.parseInt(id));
+    return tasksRepository.deleteById(Integer.parseInt(id));
+  }
 
-    /**
-     * Отчистка статических ресурсов,
-     * прикрепленных к задаче, при её удалении.
-     *
-     * @param id Идентификатор задачи.
-     */
-    private void clearRelevantStaticResources(int id) {
-        String pathQualifier = "src/main/webapp/";
-        var fileUrls = filesRepository.findRelevantToTaskFilesUrl(id);
-        if (!fileUrls.isEmpty()) {
-            for (String url : fileUrls) {
-                new File(pathQualifier + url).delete();
-            }
-        }
+  /**
+   * Отчистка статических ресурсов,
+   * прикрепленных к задаче, при её удалении.
+   *
+   * @param id Идентификатор задачи.
+   */
+  private void clearRelevantStaticResources(int id) {
+    String pathQualifier = "src/main/webapp/";
+    var fileUrls = filesRepository.findRelevantToTaskFilesUrl(id);
+    if (!fileUrls.isEmpty()) {
+      for (String url : fileUrls) {
+        new File(pathQualifier + url).delete();
+      }
     }
+  }
 }

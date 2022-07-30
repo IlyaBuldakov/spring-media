@@ -18,17 +18,17 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/files")
 public class FilesController {
 
-    FilesService filesService;
+  FilesService filesService;
 
-    @PostMapping
-    @Async
-    public CompletableFuture<Void> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("task") String taskId) {
-        return filesService.uploadFile(file, taskId);
-    }
+  @PostMapping
+  @Async
+  public CompletableFuture<Void> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("task") String taskId) {
+    return filesService.uploadFile(file, taskId);
+  }
 
-    @DeleteMapping("/{id}")
-    @Async
-    public CompletableFuture<Void> deleteFile(@PathVariable("id") String fileId) {
-        return filesService.deleteFile(fileId);
-    }
+  @DeleteMapping("/{id}")
+  @Async
+  public CompletableFuture<Void> deleteFile(@PathVariable("id") String fileId) {
+    return filesService.deleteFile(fileId);
+  }
 }

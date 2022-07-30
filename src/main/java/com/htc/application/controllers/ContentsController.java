@@ -23,26 +23,26 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/contents")
 public class ContentsController {
 
-    ContentsService contentsService;
+  ContentsService contentsService;
 
-    @GetMapping
-    @Async
-    public CompletableFuture<List<ContentResponse>> getAll() {
-        return contentsService.getAll();
-    }
+  @GetMapping
+  @Async
+  public CompletableFuture<List<ContentResponse>> getAll() {
+    return contentsService.getAll();
+  }
 
-    @PostMapping
-    @Async
-    public CompletableFuture<Void> create(@RequestParam("file") MultipartFile file,
-                                          @RequestParam("task") String taskId) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        int authorId = (int) securityContext.getAuthentication().getDetails();
-        return contentsService.uploadContent(authorId, file, taskId);
-    }
+  @PostMapping
+  @Async
+  public CompletableFuture<Void> create(@RequestParam("file") MultipartFile file,
+                                        @RequestParam("task") String taskId) {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    int authorId = (int) securityContext.getAuthentication().getDetails();
+    return contentsService.uploadContent(authorId, file, taskId);
+  }
 
-    @DeleteMapping("/{id}")
-    @Async
-    public CompletableFuture<Void> delete(@PathVariable("id") String id) {
-        return contentsService.delete(id);
-    }
+  @DeleteMapping("/{id}")
+  @Async
+  public CompletableFuture<Void> delete(@PathVariable("id") String id) {
+    return contentsService.delete(id);
+  }
 }

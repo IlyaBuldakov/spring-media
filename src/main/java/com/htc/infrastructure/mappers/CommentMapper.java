@@ -21,15 +21,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class CommentMapper implements Comment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public @Getter Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  public @Getter Integer id;
 
-    private @Getter LocalDate dateCreated;
+  private @Getter LocalDate dateCreated;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private @Getter UserMapper author;
+  @OneToOne(fetch = FetchType.EAGER)
+  private @Getter UserMapper author;
 
-    private @Getter String message;
+  private @Getter String message;
 }

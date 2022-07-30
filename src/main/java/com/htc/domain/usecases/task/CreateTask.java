@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class CreateTask {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    TasksRepository tasksRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  TasksRepository tasksRepository;
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    UsersRepository usersRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  UsersRepository usersRepository;
 
-    /**
-     * Метод сценария.
-     *
-     * @param name Имя задачи.
-     * @param type Тип контента задачи.
-     * @param description Описание задачи.
-     * @param author Автор задачи.
-     * @param executor Исполнитель задачи.
-     * @param dateExpired Дата выполнения задачи (срок выполнения).
-     * @return void.
-     */
-    public CompletableFuture<Either<Failure, Void>> execute(String name, ContentType type,
-                                                            String description, String author,
-                                                            String executor, LocalDate dateExpired) {
-        var expectedFailure = ValuesValidator.checkTaskFields(name, description, author, executor);
-        return expectedFailure == null ?
-                tasksRepository.create(name, type, description, Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
-                : CompletableFuture.completedFuture(Either.left(expectedFailure));
-    }
+  /**
+   * Метод сценария.
+   *
+   * @param name        Имя задачи.
+   * @param type        Тип контента задачи.
+   * @param description Описание задачи.
+   * @param author      Автор задачи.
+   * @param executor    Исполнитель задачи.
+   * @param dateExpired Дата выполнения задачи (срок выполнения).
+   * @return void.
+   */
+  public CompletableFuture<Either<Failure, Void>> execute(String name, ContentType type,
+                                                          String description, String author,
+                                                          String executor, LocalDate dateExpired) {
+    var expectedFailure = ValuesValidator.checkTaskFields(name, description, author, executor);
+    return expectedFailure == null ?
+            tasksRepository.create(name, type, description, Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
+            : CompletableFuture.completedFuture(Either.left(expectedFailure));
+  }
 }

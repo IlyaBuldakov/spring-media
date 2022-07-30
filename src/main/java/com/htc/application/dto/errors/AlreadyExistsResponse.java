@@ -4,28 +4,31 @@ import com.htc.domain.entities.failures.AlreadyExists;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+/**
+ *
+ */
 public class AlreadyExistsResponse extends AbstractDtoError {
 
-    /**
-     * HTTP статус ошибки.
-     */
-    private final @Getter HttpStatus httpStatus = HttpStatus.CONFLICT;
+  /**
+   * HTTP статус ошибки.
+   */
+  private final @Getter HttpStatus httpStatus = HttpStatus.CONFLICT;
 
-    /**
-     * Код HTTP статуса для сериализации ошибки.
-     */
-    private final @Getter int statusCode = httpStatus.value();
+  /**
+   * Код HTTP статуса для сериализации ошибки.
+   */
+  private final @Getter int statusCode = httpStatus.value();
 
-    /**
-     * Конструктор из {@link AlreadyExists соответствующей сущности}
-     *
-     * @param alreadyExists Сущность ошибки "Уже существует".
-     */
-    public AlreadyExistsResponse(AlreadyExists alreadyExists) {
-        super(alreadyExists.getMessage());
-    }
+  /**
+   * Конструктор из {@link AlreadyExists соответствующей сущности}
+   *
+   * @param alreadyExists Сущность ошибки "Уже существует".
+   */
+  public AlreadyExistsResponse(AlreadyExists alreadyExists) {
+    super(alreadyExists.getMessage());
+  }
 
-    public AlreadyExistsResponse(String message) {
-        super(message);
-    }
+  public AlreadyExistsResponse(String message) {
+    super(message);
+  }
 }

@@ -25,54 +25,54 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/users")
 public class UsersController {
 
-    public UsersController(UsersService usersService) {
-        this.usersService = usersService;
-    }
+  public UsersController(UsersService usersService) {
+    this.usersService = usersService;
+  }
 
-    UsersService usersService;
+  UsersService usersService;
 
-    @GetMapping
-    @Async
-    public CompletableFuture<List<UserResponse>> getAllUsers() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return usersService.getAll(securityContext.getAuthentication().getAuthorities());
-    }
+  @GetMapping
+  @Async
+  public CompletableFuture<List<UserResponse>> getAllUsers() {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return usersService.getAll(securityContext.getAuthentication().getAuthorities());
+  }
 
-    @GetMapping("/{id}")
-    @Async
-    public CompletableFuture<UserResponse> getUserById(@PathVariable("id") String id) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return usersService.getById(
-                securityContext.getAuthentication().getAuthorities(),
-                id);
-    }
+  @GetMapping("/{id}")
+  @Async
+  public CompletableFuture<UserResponse> getUserById(@PathVariable("id") String id) {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return usersService.getById(
+            securityContext.getAuthentication().getAuthorities(),
+            id);
+  }
 
-    @PostMapping
-    @Async
-    public CompletableFuture<Void> createUser(@RequestBody UserRequest user) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return usersService.create(
-                securityContext.getAuthentication().getAuthorities(),
-                user);
-    }
+  @PostMapping
+  @Async
+  public CompletableFuture<Void> createUser(@RequestBody UserRequest user) {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return usersService.create(
+            securityContext.getAuthentication().getAuthorities(),
+            user);
+  }
 
-    @PutMapping("/{id}")
-    @Async
-    public CompletableFuture<Void> updateUser(@RequestBody UserRequest user,
-                                              @PathVariable("id") String id) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return usersService.update(
-                securityContext.getAuthentication().getAuthorities(),
-                user,
-                id);
-    }
+  @PutMapping("/{id}")
+  @Async
+  public CompletableFuture<Void> updateUser(@RequestBody UserRequest user,
+                                            @PathVariable("id") String id) {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return usersService.update(
+            securityContext.getAuthentication().getAuthorities(),
+            user,
+            id);
+  }
 
-    @DeleteMapping("/{id}")
-    @Async
-    public CompletableFuture<Void> deleteUser(@PathVariable("id") String id) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        return usersService.delete(
-                securityContext.getAuthentication().getAuthorities(),
-                id);
-    }
+  @DeleteMapping("/{id}")
+  @Async
+  public CompletableFuture<Void> deleteUser(@PathVariable("id") String id) {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return usersService.delete(
+            securityContext.getAuthentication().getAuthorities(),
+            id);
+  }
 }

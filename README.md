@@ -12,9 +12,7 @@ Spring
 Тестирование
 
  - **org.junit.jupiter:junit-jupiter** - модульные тесты.
-
  - **org.mockito:mockito-junit-jupiter** - объекты-заглушки с поддержкой JUnit.
-
  - **org.assertj:assertj-core** - человекочитаемые проверки.
 
 Валидаторы
@@ -26,9 +24,7 @@ Spring
 Разное
 
 - **org.postgresql:postgresql** - драйвер PostgreSQL.
-
 - **org.projectlombok:lombok** - полезные аннотации.
-
 - **io.vavr:vavr** - примитивы функционального программирования.
 - **com.auth0:java-jwt** - генерация и валидация JWT токенов.
 

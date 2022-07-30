@@ -17,42 +17,42 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class DeleteFile {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    FilesRepository filesRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  FilesRepository filesRepository;
 
-    /**
-     * Метод сценария.
-     *
-     * @param directoryQualifier Уточняющий элемент URL.
-     * @param fileId Идентификатор файла.
-     * @return void
-     */
-    public CompletableFuture<Either<Failure, Void>> execute(String directoryQualifier, String fileId) {
-        var expectedFailure = ValuesValidator.validateStringId(fileId);
-        if (expectedFailure != null) {
-            return CompletableFuture.completedFuture(Either.left(expectedFailure));
-        }
-        var removeFile = removeFile(directoryQualifier, fileId);
-        return (removeFile != null && removeFile.isLeft())
-                ? CompletableFuture.completedFuture(Either.left(removeFile.getLeft()))
-                : filesRepository.deleteFile(Integer.parseInt(fileId));
+  /**
+   * Метод сценария.
+   *
+   * @param directoryQualifier Уточняющий элемент URL.
+   * @param fileId             Идентификатор файла.
+   * @return void
+   */
+  public CompletableFuture<Either<Failure, Void>> execute(String directoryQualifier, String fileId) {
+    var expectedFailure = ValuesValidator.validateStringId(fileId);
+    if (expectedFailure != null) {
+      return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
+    var removeFile = removeFile(directoryQualifier, fileId);
+    return (removeFile != null && removeFile.isLeft())
+            ? CompletableFuture.completedFuture(Either.left(removeFile.getLeft()))
+            : filesRepository.deleteFile(Integer.parseInt(fileId));
+  }
 
-    /**
-     * Метод удаления файла из файловой системы по идентификатору.
-     *
-     * @param directoryQualifier Уточняющий элемент пути.
-     * @param fileId Идентификатор файла.
-     * @return void.
-     */
-    private Either<Failure, Void> removeFile(String directoryQualifier, String fileId) {
-        var file = filesRepository.findFileUrlById(Integer.parseInt(fileId));
-        if (file.isLeft()) {
-            return Either.left(file.getLeft());
-        }
-        new File(directoryQualifier + file.get()).delete();
-        return null;
+  /**
+   * Метод удаления файла из файловой системы по идентификатору.
+   *
+   * @param directoryQualifier Уточняющий элемент пути.
+   * @param fileId             Идентификатор файла.
+   * @return void.
+   */
+  private Either<Failure, Void> removeFile(String directoryQualifier, String fileId) {
+    var file = filesRepository.findFileUrlById(Integer.parseInt(fileId));
+    if (file.isLeft()) {
+      return Either.left(file.getLeft());
     }
+    new File(directoryQualifier + file.get()).delete();
+    return null;
+  }
 }

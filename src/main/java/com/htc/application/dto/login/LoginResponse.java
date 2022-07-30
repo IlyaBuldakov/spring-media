@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class LoginResponse {
 
-    private @Getter String accessToken;
+  private @Getter String accessToken;
 
-    private @Getter String refreshToken;
+  private @Getter String refreshToken;
 }

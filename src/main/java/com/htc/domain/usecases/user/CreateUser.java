@@ -19,36 +19,36 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class CreateUser {
 
-    public CreateUser(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+  public CreateUser(UsersRepository usersRepository) {
+    this.usersRepository = usersRepository;
+  }
+
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  private final UsersRepository usersRepository;
+
+  /**
+   * Роль, которой разрешено данное действие.
+   */
+  private final Role permittedRole = Role.ADMIN;
+
+  /**
+   * Метод сценария.
+   *
+   * @return Пользователь.
+   */
+  public CompletableFuture<Either<Failure, Void>> execute(Set<String> permissions, String name, String password,
+                                                          String email, String avatar, Role role) {
+    var expectedFailure = ValuesValidator.checkUserFields(name, password, email, avatar);
+    if (expectedFailure != null) {
+      return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
-
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    private final UsersRepository usersRepository;
-
-    /**
-     * Роль, которой разрешено данное действие.
-     */
-    private final Role permittedRole = Role.ADMIN;
-
-    /**
-     * Метод сценария.
-     *
-     * @return Пользователь.
-     */
-    public CompletableFuture<Either<Failure, Void>> execute(Set<String> permissions, String name, String password,
-                                                            String email, String avatar, Role role) {
-        var expectedFailure = ValuesValidator.checkUserFields(name, password, email, avatar);
-        if (expectedFailure != null) {
-            return CompletableFuture.completedFuture(Either.left(expectedFailure));
-        }
-        if (usersRepository.userExistsByEmail(email)) {
-            return CompletableFuture.completedFuture(Either.left(AlreadyExists.USER));
-        }
-        return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
-                ? usersRepository.create(name, password, email, avatar, role)
-                : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+    if (usersRepository.userExistsByEmail(email)) {
+      return CompletableFuture.completedFuture(Either.left(AlreadyExists.USER));
     }
+    return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
+            ? usersRepository.create(name, password, email, avatar, role)
+            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+  }
 }

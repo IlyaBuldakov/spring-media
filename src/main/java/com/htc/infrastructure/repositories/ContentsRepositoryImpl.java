@@ -23,52 +23,52 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class ContentsRepositoryImpl implements ContentsRepository {
 
-    /**
-     * JPA-репозиторий.
-     */
-    ContentsJpaRepository contentsJpaRepository;
+  /**
+   * JPA-репозиторий.
+   */
+  ContentsJpaRepository contentsJpaRepository;
 
-    /**
-     * Получение списка контента.
-     *
-     * @return Список контента.
-     */
-    @Override
-    public CompletableFuture<Either<Failure, List<Content>>> getAll() {
-        return CompletableFuture.completedFuture(Either.right(
-                new ArrayList<>(contentsJpaRepository.findAll())
-        ));
-    }
+  /**
+   * Получение списка контента.
+   *
+   * @return Список контента.
+   */
+  @Override
+  public CompletableFuture<Either<Failure, List<Content>>> getAll() {
+    return CompletableFuture.completedFuture(Either.right(
+            new ArrayList<>(contentsJpaRepository.findAll())
+    ));
+  }
 
-    /**
-     * Создание контента.
-     *
-     * @param name Имя контента.
-     * @param type Тип контента.
-     * @param contentFormat Формат контента.
-     * @param taskId Идентификатор задачи.
-     * @return void.
-     */
-    @Override
-    public CompletableFuture<Either<Failure, Void>> create(int authorId, String name, ContentType type,
-                                                           Content.ContentFormat contentFormat, String url, int taskId) {
-        contentsJpaRepository.save(new ContentMapper(name, type, authorId, contentFormat, url, taskId));
-        return CompletableFuture.completedFuture(Either.right(null));
-    }
+  /**
+   * Создание контента.
+   *
+   * @param name          Имя контента.
+   * @param type          Тип контента.
+   * @param contentFormat Формат контента.
+   * @param taskId        Идентификатор задачи.
+   * @return void.
+   */
+  @Override
+  public CompletableFuture<Either<Failure, Void>> create(int authorId, String name, ContentType type,
+                                                         Content.ContentFormat contentFormat, String url, int taskId) {
+    contentsJpaRepository.save(new ContentMapper(name, type, authorId, contentFormat, url, taskId));
+    return CompletableFuture.completedFuture(Either.right(null));
+  }
 
-    /**
-     * Удаление контента по идентификатору.
-     *
-     * @param id Идентификатор контента.
-     * @return void.
-     */
-    @Override
-    public CompletableFuture<Either<Failure, Void>> deleteById(int id) {
-        try {
-            contentsJpaRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException exception) {
-            return CompletableFuture.completedFuture(Either.left(NotFound.CONTENT));
-        }
-        return CompletableFuture.completedFuture(Either.right(null));
+  /**
+   * Удаление контента по идентификатору.
+   *
+   * @param id Идентификатор контента.
+   * @return void.
+   */
+  @Override
+  public CompletableFuture<Either<Failure, Void>> deleteById(int id) {
+    try {
+      contentsJpaRepository.deleteById(id);
+    } catch (EmptyResultDataAccessException exception) {
+      return CompletableFuture.completedFuture(Either.left(NotFound.CONTENT));
     }
+    return CompletableFuture.completedFuture(Either.right(null));
+  }
 }

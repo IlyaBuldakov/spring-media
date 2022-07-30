@@ -27,42 +27,42 @@ import java.util.concurrent.ExecutionException;
 @AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    JwtService jwtService;
-    UsersService usersService;
-    AuthenticationManager authenticationManager;
+  JwtService jwtService;
+  UsersService usersService;
+  AuthenticationManager authenticationManager;
 
-    /**
-     * Основной метод проведения аутентификации в приложении.
-     *
-     * Используется AuthenticationManager по умолчанию, делегирующий работу получения пользователя
-     * {@link DaoAuthenticationProvider провайдеру}, который в свою очередь использует {@link UserDetailsServiceImpl реализацию}
-     * {@link UserDetailsService} для того, чтобы Spring Security смог получить пользователя из базы данных и сверить его данные со входящими.
-     *
-     * @param loginRequest E-mail, пароль.
-     * @return Access-токен, refresh-токен.
-     */
-    @Override
-    public CompletableFuture<LoginResponse> login(LoginRequest loginRequest) {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.getEmail(),
-                            loginRequest.getPassword()
-                    ));
-            var user = usersService.getByEmail(loginRequest.getEmail()).get();
-            return CompletableFuture.completedFuture(
-                    jwtService.createPairOfTokens(user.getId(), user.getRole().getRole(), user.getEmail())
-            );
+  /**
+   * Основной метод проведения аутентификации в приложении.
+   * <p>
+   * Используется AuthenticationManager по умолчанию, делегирующий работу получения пользователя
+   * {@link DaoAuthenticationProvider провайдеру}, который в свою очередь использует {@link UserDetailsServiceImpl реализацию}
+   * {@link UserDetailsService} для того, чтобы Spring Security смог получить пользователя из базы данных и сверить его данные со входящими.
+   *
+   * @param loginRequest E-mail, пароль.
+   * @return Access-токен, refresh-токен.
+   */
+  @Override
+  public CompletableFuture<LoginResponse> login(LoginRequest loginRequest) {
+    try {
+      authenticationManager.authenticate(
+              new UsernamePasswordAuthenticationToken(
+                      loginRequest.getEmail(),
+                      loginRequest.getPassword()
+              ));
+      var user = usersService.getByEmail(loginRequest.getEmail()).get();
+      return CompletableFuture.completedFuture(
+              jwtService.createPairOfTokens(user.getId(), user.getRole().getRole(), user.getEmail())
+      );
 
-        } catch (AuthenticationException exception) {
-            throw new UnauthorizedResponse(Unauthorized.BAD_CREDENTIALS.getMessage());
-        } catch (ExecutionException | InterruptedException e) {
-            throw new InternalServerErrorResponse();
-        }
+    } catch (AuthenticationException exception) {
+      throw new UnauthorizedResponse(Unauthorized.BAD_CREDENTIALS.getMessage());
+    } catch (ExecutionException | InterruptedException e) {
+      throw new InternalServerErrorResponse();
     }
+  }
 
-    @Override
-    public CompletableFuture<LoginResponse> getNewAccessToken(String refreshToken) {
-        return CompletableFuture.completedFuture(jwtService.getNewAccessToken(refreshToken));
-    }
+  @Override
+  public CompletableFuture<LoginResponse> getNewAccessToken(String refreshToken) {
+    return CompletableFuture.completedFuture(jwtService.getNewAccessToken(refreshToken));
+  }
 }

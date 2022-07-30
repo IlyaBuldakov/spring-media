@@ -18,29 +18,29 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class UpdateTask {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    TasksRepository tasksRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  TasksRepository tasksRepository;
 
-    /**
-     * Метод сценария.
-     *
-     * @param id Идентификатор задачи.
-     * @param name Имя задачи.
-     * @param type Тип задачи.
-     * @param description Описание задачи.
-     * @param author Автор задачи.
-     * @param executor Исполнитель задачи.
-     * @param dateExpired Дата выполнения задачи (срок выполнения).
-     * @return void.
-     */
-    public CompletableFuture<Either<Failure, Void>> execute(String id, String name, ContentType type, String description,
-                                                            String author, String executor, LocalDate dateExpired) {
-        var expectedFailure = ValuesValidator.checkTaskFields(id, name, description, author, executor);
-        return expectedFailure == null ?
-                tasksRepository.update(Integer.parseInt(id), name, type, description,
-                Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
-                : CompletableFuture.completedFuture(Either.left(expectedFailure));
-    }
+  /**
+   * Метод сценария.
+   *
+   * @param id          Идентификатор задачи.
+   * @param name        Имя задачи.
+   * @param type        Тип задачи.
+   * @param description Описание задачи.
+   * @param author      Автор задачи.
+   * @param executor    Исполнитель задачи.
+   * @param dateExpired Дата выполнения задачи (срок выполнения).
+   * @return void.
+   */
+  public CompletableFuture<Either<Failure, Void>> execute(String id, String name, ContentType type, String description,
+                                                          String author, String executor, LocalDate dateExpired) {
+    var expectedFailure = ValuesValidator.checkTaskFields(id, name, description, author, executor);
+    return expectedFailure == null ?
+            tasksRepository.update(Integer.parseInt(id), name, type, description,
+                    Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
+            : CompletableFuture.completedFuture(Either.left(expectedFailure));
+  }
 }

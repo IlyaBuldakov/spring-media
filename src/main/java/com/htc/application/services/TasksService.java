@@ -12,43 +12,43 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface TasksService {
 
-    /**
-     * Получение списка задач.
-     *
-     * @return Список задач.
-     */
-    CompletableFuture<List<TaskResponse>> getAll();
+  /**
+   * Получение списка задач.
+   *
+   * @return Список задач.
+   */
+  CompletableFuture<List<TaskResponse>> getAll();
 
-    /**
-     * Получение задачи по идентификатору.
-     *
-     * @param id Идентификатор задачи.
-     * @return {@link TaskResponse Представление} задачи.
-     */
-    CompletableFuture<TaskResponse> getById(String id);
+  /**
+   * Получение задачи по идентификатору.
+   *
+   * @param id Идентификатор задачи.
+   * @return {@link TaskResponse Представление} задачи.
+   */
+  CompletableFuture<TaskResponse> getById(String id);
 
-    /**
-     * Создание задачи.
-     *
-     * @param task {@link TaskRequest Представление} задачи (запрос).
-     * @return void.
-     */
-    CompletableFuture<Void> create(TaskRequest task);
+  /**
+   * Создание задачи.
+   *
+   * @param task {@link TaskRequest Представление} задачи (запрос).
+   * @return void.
+   */
+  CompletableFuture<Void> create(TaskRequest task);
 
-    /**
-     * Обновление задачи.
-     *
-     * @param task {@link TaskRequest Представление} задачи (запрос).
-     * @param id Идентификатор задачи.
-     * @return void.
-     */
-    CompletableFuture<Void> update(TaskRequest task, String id);
+  /**
+   * Обновление задачи.
+   *
+   * @param task {@link TaskRequest Представление} задачи (запрос).
+   * @param id   Идентификатор задачи.
+   * @return void.
+   */
+  CompletableFuture<Void> update(TaskRequest task, String id);
 
-    /**
-     * Удаление задачи по идентификатору.
-     *
-     * @param id Идентификатор задачи.
-     * @return void.
-     */
-    CompletableFuture<Void> delete(String id);
+  /**
+   * Удаление задачи по идентификатору.
+   *
+   * @param id Идентификатор задачи.
+   * @return void.
+   */
+  CompletableFuture<Void> delete(String id);
 }

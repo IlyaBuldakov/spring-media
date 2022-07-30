@@ -18,27 +18,22 @@ import com.htc.domain.entities.failures.AlreadyExists;
  */
 public class ExceptionDtoResolver {
 
-    /**
-     * Преобразование сущности ошибки в exception.
-     *
-     * @param failure Сущность ошибки.
-     * @return Исключение, соответствующее {@link Failure}.
-     */
-    public static RuntimeException resolve(Failure failure) {
-        RuntimeException exception;
-        switch (failure) {
-            case InvalidValuesContainer invalidValues ->
-                    exception = new BadRequestResponse(invalidValues);
-            case Unauthorized unauthorized ->
-                    exception = new UnauthorizedResponse(unauthorized.getMessage());
-            case InvalidValue invalidValue ->
-                    exception = new BadRequestResponse(invalidValue);
-            case NotFound notFound ->
-                    exception = new NotFoundResponse(notFound);
-            case AlreadyExists alreadyExists ->
-                exception = new AlreadyExistsResponse(alreadyExists);
-            default -> throw new InternalServerErrorResponse();
-        }
-        return exception;
+  /**
+   * Преобразование сущности ошибки в exception.
+   *
+   * @param failure Сущность ошибки.
+   * @return Исключение, соответствующее {@link Failure}.
+   */
+  public static RuntimeException resolve(Failure failure) {
+    RuntimeException exception;
+    switch (failure) {
+      case InvalidValuesContainer invalidValues -> exception = new BadRequestResponse(invalidValues);
+      case Unauthorized unauthorized -> exception = new UnauthorizedResponse(unauthorized.getMessage());
+      case InvalidValue invalidValue -> exception = new BadRequestResponse(invalidValue);
+      case NotFound notFound -> exception = new NotFoundResponse(notFound);
+      case AlreadyExists alreadyExists -> exception = new AlreadyExistsResponse(alreadyExists);
+      default -> throw new InternalServerErrorResponse();
     }
+    return exception;
+  }
 }

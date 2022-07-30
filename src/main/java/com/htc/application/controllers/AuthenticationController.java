@@ -18,17 +18,17 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
-    AuthenticationService authenticationService;
+  AuthenticationService authenticationService;
 
-    @PostMapping("/login")
-    @Async
-    public CompletableFuture<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-        return authenticationService.login(loginRequest);
-    }
+  @PostMapping("/login")
+  @Async
+  public CompletableFuture<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    return authenticationService.login(loginRequest);
+  }
 
-    @PostMapping("/access-token")
-    @Async
-    public CompletableFuture<LoginResponse> getNewAccessToken(@RequestBody AccessTokenRequest accessTokenRequest) {
-        return authenticationService.getNewAccessToken(accessTokenRequest.getRefreshToken());
-    }
+  @PostMapping("/access-token")
+  @Async
+  public CompletableFuture<LoginResponse> getNewAccessToken(@RequestBody AccessTokenRequest accessTokenRequest) {
+    return authenticationService.getNewAccessToken(accessTokenRequest.getRefreshToken());
+  }
 }

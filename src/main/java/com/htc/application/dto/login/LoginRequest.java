@@ -7,13 +7,13 @@ import lombok.Getter;
  */
 public class LoginRequest {
 
-    /**
-     * E-mail пользователя.
-     */
-    private @Getter String email;
+  /**
+   * E-mail пользователя.
+   */
+  private @Getter String email;
 
-    /**
-     * Пароль пользователя.
-     */
-    private @Getter String password;
+  /**
+   * Пароль пользователя.
+   */
+  private @Getter String password;
 }

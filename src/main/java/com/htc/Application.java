@@ -14,15 +14,15 @@ import javax.servlet.MultipartConfigElement;
 @EnableAsync
 @EnableJpaRepositories
 public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
 
-    @Bean
-    public MultipartConfigElement multipartConfigElement() {
-        MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setMaxFileSize(DataSize.ofGigabytes(50));
-        factory.setMaxRequestSize(DataSize.ofGigabytes(50));
-        return factory.createMultipartConfig();
-    }
+  @Bean
+  public MultipartConfigElement multipartConfigElement() {
+    MultipartConfigFactory factory = new MultipartConfigFactory();
+    factory.setMaxFileSize(DataSize.ofGigabytes(50));
+    factory.setMaxRequestSize(DataSize.ofGigabytes(50));
+    return factory.createMultipartConfig();
+  }
 }

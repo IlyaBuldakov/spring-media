@@ -22,27 +22,27 @@ import java.util.concurrent.ExecutionException;
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    GetUserByEmail getUserByEmail;
+  GetUserByEmail getUserByEmail;
 
-    /**
-     * Инструкция для провайдера: каким образом нужно
-     * получать пользователя при аутентификации.
-     *
-     * @param email E-mail пользователя.
-     * @return {@link UserSecurity Представление} пользователя для Spring Security.
-     * @throws UsernameNotFoundException Пользователь не найден.
-     */
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var result = getUserByEmail.execute(email);
-        try {
-            var user = result.get().get();
-            return new UserSecurity(
-                    user.getId(), user.getEmail(), user.getPassword(),
-                    Set.of(new RoleGrantedAuthority(user.getRole())
-            ), true);
-        } catch (ExecutionException | InterruptedException e) {
-            throw new InternalServerErrorResponse();
-        }
+  /**
+   * Инструкция для провайдера: каким образом нужно
+   * получать пользователя при аутентификации.
+   *
+   * @param email E-mail пользователя.
+   * @return {@link UserSecurity Представление} пользователя для Spring Security.
+   * @throws UsernameNotFoundException Пользователь не найден.
+   */
+  @Override
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    var result = getUserByEmail.execute(email);
+    try {
+      var user = result.get().get();
+      return new UserSecurity(
+              user.getId(), user.getEmail(), user.getPassword(),
+              Set.of(new RoleGrantedAuthority(user.getRole())
+              ), true);
+    } catch (ExecutionException | InterruptedException e) {
+      throw new InternalServerErrorResponse();
     }
+  }
 }

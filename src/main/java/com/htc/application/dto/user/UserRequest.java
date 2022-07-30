@@ -13,30 +13,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserRequest {
 
-    /**
-     * Имя пользователя.
-     */
-    private @Getter String name;
+  /**
+   * Имя пользователя.
+   */
+  private @Getter String name;
 
-    /**
-     * Пароль пользователя.
-     *
-     * {@link User#getPassword() Требования к паролю}.
-     */
-    private @Getter String password;
+  /**
+   * Пароль пользователя.
+   * <p>
+   * {@link User#getPassword() Требования к паролю}.
+   */
+  private @Getter String password;
 
-    /**
-     * E-mail пользователя.
-     */
-    private @Getter String email;
+  /**
+   * E-mail пользователя.
+   */
+  private @Getter String email;
 
-    /**
-     * Аватар пользователя.
-     */
-    private @Getter String avatar;
+  /**
+   * Аватар пользователя.
+   */
+  private @Getter String avatar;
 
-    /**
-     * Роль пользователя.
-     */
-    private @Getter Role role;
+  /**
+   * Роль пользователя.
+   */
+  private @Getter Role role;
 }

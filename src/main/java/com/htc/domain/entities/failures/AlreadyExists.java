@@ -7,17 +7,17 @@ import lombok.Getter;
  */
 public enum AlreadyExists implements Failure {
 
-    /**
-     * Стандартное сообщение.
-     */
-    USER("Пользователь уже существует");
+  /**
+   * Стандартное сообщение.
+   */
+  USER("Пользователь уже существует");
 
-    AlreadyExists(String message) {
-        this.message = message;
-    }
+  AlreadyExists(String message) {
+    this.message = message;
+  }
 
-    /**
-     * Сообщение об ошибке.
-     */
-    private final @Getter String message;
+  /**
+   * Сообщение об ошибке.
+   */
+  private final @Getter String message;
 }

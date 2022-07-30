@@ -8,17 +8,17 @@ import org.springframework.http.HttpStatus;
  */
 public class UnauthorizedResponse extends AbstractDtoError {
 
-    /**
-     * HTTP статус ошибки.
-     */
-    private final @Getter HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
+  /**
+   * HTTP статус ошибки.
+   */
+  private final @Getter HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
 
-    /**
-     * Код HTTP статуса для сериализации ошибки.
-     */
-    private final @Getter int statusCode = httpStatus.value();
+  /**
+   * Код HTTP статуса для сериализации ошибки.
+   */
+  private final @Getter int statusCode = httpStatus.value();
 
-    public UnauthorizedResponse(String message) {
-        super(message);
-    }
+  public UnauthorizedResponse(String message) {
+    super(message);
+  }
 }

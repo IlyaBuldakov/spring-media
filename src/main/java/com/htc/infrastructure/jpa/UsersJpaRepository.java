@@ -10,6 +10,6 @@ import java.util.Optional;
  */
 public interface UsersJpaRepository extends JpaRepository<UserMapper, Integer> {
 
-    Optional<UserMapper> findUserMapperByEmail(String email);
+  Optional<UserMapper> findUserMapperByEmail(String email);
 }
 

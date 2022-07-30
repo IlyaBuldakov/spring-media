@@ -14,12 +14,12 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class GetUserByEmail {
 
-    UsersRepository usersRepository;
+  UsersRepository usersRepository;
 
-    public CompletableFuture<Either<Failure, User>> execute(String email) {
-        var expectedFailure = ValuesValidator.validateEmail(email);
-        return expectedFailure == null
-                ? usersRepository.getByEmail(email)
-                : CompletableFuture.completedFuture(Either.left(expectedFailure));
-    }
+  public CompletableFuture<Either<Failure, User>> execute(String email) {
+    var expectedFailure = ValuesValidator.validateEmail(email);
+    return expectedFailure == null
+            ? usersRepository.getByEmail(email)
+            : CompletableFuture.completedFuture(Either.left(expectedFailure));
+  }
 }

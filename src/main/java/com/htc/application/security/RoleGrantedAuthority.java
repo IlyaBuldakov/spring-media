@@ -8,17 +8,17 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class RoleGrantedAuthority implements GrantedAuthority {
 
-    /**
-     * Роль пользователя.
-     */
-    private final Role role;
+  /**
+   * Роль пользователя.
+   */
+  private final Role role;
 
-    public RoleGrantedAuthority(Role role) {
-        this.role = role;
-    }
+  public RoleGrantedAuthority(Role role) {
+    this.role = role;
+  }
 
-    @Override
-    public String getAuthority() {
-        return role.name();
-    }
+  @Override
+  public String getAuthority() {
+    return role.name();
+  }
 }

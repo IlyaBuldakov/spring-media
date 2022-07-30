@@ -9,31 +9,31 @@ import java.time.LocalDate;
  */
 public interface Comment {
 
-    /**
-     * Идентификатор комментария.
-     *
-     * @return Идентификатор комментария.
-     */
-    Integer getId();
+  /**
+   * Идентификатор комментария.
+   *
+   * @return Идентификатор комментария.
+   */
+  Integer getId();
 
-    /**
-     * Дата создания комментария.
-     *
-     * @return Дата создания.
-     */
-    LocalDate getDateCreated();
+  /**
+   * Дата создания комментария.
+   *
+   * @return Дата создания.
+   */
+  LocalDate getDateCreated();
 
-    /**
-     * Автор комментария.
-     *
-     * @return Автор комментария.
-     */
-    User getAuthor();
+  /**
+   * Автор комментария.
+   *
+   * @return Автор комментария.
+   */
+  User getAuthor();
 
-    /**
-     * Содержимое комментария.
-     *
-     * @return Сообщение комментария.
-     */
-    String getMessage();
+  /**
+   * Содержимое комментария.
+   *
+   * @return Сообщение комментария.
+   */
+  String getMessage();
 }

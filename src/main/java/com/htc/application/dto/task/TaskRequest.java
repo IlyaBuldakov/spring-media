@@ -10,33 +10,33 @@ import java.time.LocalDate;
  */
 public class TaskRequest {
 
-    /**
-     * Имя задачи.
-     */
-    private @Getter String name;
+  /**
+   * Имя задачи.
+   */
+  private @Getter String name;
 
-    /**
-     * Тип задачи.
-     */
-    private @Getter ContentType type;
+  /**
+   * Тип задачи.
+   */
+  private @Getter ContentType type;
 
-    /**
-     * Описание задачи.
-     */
-    private @Getter String description;
+  /**
+   * Описание задачи.
+   */
+  private @Getter String description;
 
-    /**
-     * Автор задачи.
-     */
-    private @Getter String author;
+  /**
+   * Автор задачи.
+   */
+  private @Getter String author;
 
-    /**
-     * Исполнитель задачи.
-     */
-    private @Getter String executor;
+  /**
+   * Исполнитель задачи.
+   */
+  private @Getter String executor;
 
-    /**
-     * Дата выполнения задачи (срок выполнения).
-     */
-    private @Getter LocalDate dateExpired;
+  /**
+   * Дата выполнения задачи (срок выполнения).
+   */
+  private @Getter LocalDate dateExpired;
 }

@@ -9,54 +9,54 @@ import java.time.LocalDate;
  */
 public interface File {
 
-    /**
-     * Формат файла.
-     */
-    enum FileFormat implements AbstractApplicationFormat {
+  /**
+   * Формат файла.
+   */
+  enum FileFormat implements AbstractApplicationFormat {
 
-        DOC,
+    DOC,
 
-        DOCX,
+    DOCX,
 
-        XLS,
+    XLS,
 
-        XLSX,
+    XLSX,
 
-        PDF
-    }
+    PDF
+  }
 
-    /**
-     * Идентификатор файла.
-     *
-     * @return Идентификатор файла.
-     */
-    Integer getId();
+  /**
+   * Идентификатор файла.
+   *
+   * @return Идентификатор файла.
+   */
+  Integer getId();
 
-    /**
-     * Имя файла.
-     *
-     * @return Имя файла.
-     */
-    String getName();
+  /**
+   * Имя файла.
+   *
+   * @return Имя файла.
+   */
+  String getName();
 
-    /**
-     * Дата создания файла.
-     *
-     * @return Дата создания файла.
-     */
-    LocalDate getDateCreated();
+  /**
+   * Дата создания файла.
+   *
+   * @return Дата создания файла.
+   */
+  LocalDate getDateCreated();
 
-    /**
-     * Формат файла.
-     *
-     * @return Формат файла.
-     */
-    FileFormat getFormat();
+  /**
+   * Формат файла.
+   *
+   * @return Формат файла.
+   */
+  FileFormat getFormat();
 
-    /**
-     * URL файла.
-     *
-     * @return URL файла.
-     */
-    String getUrl();
+  /**
+   * URL файла.
+   *
+   * @return URL файла.
+   */
+  String getUrl();
 }

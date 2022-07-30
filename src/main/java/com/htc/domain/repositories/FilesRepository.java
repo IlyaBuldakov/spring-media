@@ -13,40 +13,40 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface FilesRepository {
 
-    /**
-     * Загрузка файла в базу данных.
-     *
-     * @param name Имя файла.
-     * @param dateCreated Дата создания файла.
-     * @param fileFormat Формат файла.
-     * @param url URL файла.
-     * @param taskId Идентификатор задачи.
-     */
-    CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, FileFormat fileFormat, String url, int taskId);
+  /**
+   * Загрузка файла в базу данных.
+   *
+   * @param name        Имя файла.
+   * @param dateCreated Дата создания файла.
+   * @param fileFormat  Формат файла.
+   * @param url         URL файла.
+   * @param taskId      Идентификатор задачи.
+   */
+  CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, FileFormat fileFormat, String url, int taskId);
 
-    /**
-     * Удаление файла из базы данных и файловой системы
-     * (директории статических ресурсов).
-     *
-     * @param fileId Идентификатор файла.
-     * @return void.
-     */
-    CompletableFuture<Either<Failure, Void>> deleteFile(int fileId);
+  /**
+   * Удаление файла из базы данных и файловой системы
+   * (директории статических ресурсов).
+   *
+   * @param fileId Идентификатор файла.
+   * @return void.
+   */
+  CompletableFuture<Either<Failure, Void>> deleteFile(int fileId);
 
-    /**
-     * Получение URL файла по его идентификатору.
-     *
-     * @param fileId Идентификатор файла.
-     * @return URL файла.
-     */
-    Either<Failure, String> findFileUrlById(int fileId);
+  /**
+   * Получение URL файла по его идентификатору.
+   *
+   * @param fileId Идентификатор файла.
+   * @return URL файла.
+   */
+  Either<Failure, String> findFileUrlById(int fileId);
 
-    /**
-     * Получение множества URL файлов по идентификатору
-     * задачи, которые относятся к этой задаче
-     *
-     * @param taskId Идентификатор задачи.
-     * @return Множество URL файлов.
-     */
-    Set<String> findRelevantToTaskFilesUrl(int taskId);
+  /**
+   * Получение множества URL файлов по идентификатору
+   * задачи, которые относятся к этой задаче
+   *
+   * @param taskId Идентификатор задачи.
+   * @return Множество URL файлов.
+   */
+  Set<String> findRelevantToTaskFilesUrl(int taskId);
 }

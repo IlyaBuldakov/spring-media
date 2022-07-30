@@ -9,28 +9,28 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TaskStatus {
 
-        /**
-         * В работе.
-         */
-        IN_WORK(1, "В работе"),
+  /**
+   * В работе.
+   */
+  IN_WORK(1, "В работе"),
 
-        /**
-         * Ожидает согласования.
-         */
-        FEEDBACK(2, "Ожидает согласования"),
+  /**
+   * Ожидает согласования.
+   */
+  FEEDBACK(2, "Ожидает согласования"),
 
-        /**
-         * Выполнено.
-         */
-        APPROVED(3, "Выполнено");
+  /**
+   * Выполнено.
+   */
+  APPROVED(3, "Выполнено");
 
-    /**
-     * Идентификатор статуса задачи.
-     */
-    private final @Getter int id;
+  /**
+   * Идентификатор статуса задачи.
+   */
+  private final @Getter int id;
 
-    /**
-     * Название статуса задачи.
-     */
-    private final @Getter String name;
+  /**
+   * Название статуса задачи.
+   */
+  private final @Getter String name;
 }

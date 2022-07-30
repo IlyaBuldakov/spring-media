@@ -22,25 +22,25 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class GetAllUsers {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     * Пример: {@link UsersRepositoryImpl}.
-     */
-    private UsersRepository usersRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   * Пример: {@link UsersRepositoryImpl}.
+   */
+  private UsersRepository usersRepository;
 
-    /**
-     * Роль, которой разрешено данное действие.
-     */
-    private final Role permittedRole = Role.ADMIN;
+  /**
+   * Роль, которой разрешено данное действие.
+   */
+  private final Role permittedRole = Role.ADMIN;
 
-    /**
-     * Метод сценария.
-     *
-     * @return Список пользователей.
-     */
-    public CompletableFuture<Either<Failure, List<User>>> execute(Set<String> permissions) {
-        return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
-                ? usersRepository.getAll()
-                : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
-    }
+  /**
+   * Метод сценария.
+   *
+   * @return Список пользователей.
+   */
+  public CompletableFuture<Either<Failure, List<User>>> execute(Set<String> permissions) {
+    return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
+            ? usersRepository.getAll()
+            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+  }
 }

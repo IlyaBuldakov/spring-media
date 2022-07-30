@@ -22,76 +22,76 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /**
-     * Фильтр, обрабатывающий Authentication Header запроса
-     */
-    private final AuthorizationFilter authorizationFilter;
+  /**
+   * Фильтр, обрабатывающий Authentication Header запроса
+   */
+  private final AuthorizationFilter authorizationFilter;
 
-    /**
-     * URL выхода.
-     */
-    private final String logoutUrl = "/api/auth/logout";
+  /**
+   * URL выхода.
+   */
+  private final String logoutUrl = "/api/auth/logout";
 
-    /**
-     * Массив путей, не подлежащих авторизации.
-     */
-    private final String[] permittedPaths = {
-            "/api/auth/login",
-            "/api/auth/access-token"
-    };
+  /**
+   * Массив путей, не подлежащих авторизации.
+   */
+  private final String[] permittedPaths = {
+          "/api/auth/login",
+          "/api/auth/access-token"
+  };
 
-    /**
-     * Конфигурация HttpSecurity.
-     *
-     * @param http HttpSecurity.
-     */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .sessionManagement(config -> config
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeRequests(config -> config
-                        .antMatchers(permittedPaths).permitAll()
-                        .anyRequest().authenticated())
-                .logout(config -> config
-                        .logoutUrl(logoutUrl).permitAll()
-                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()))
-                .addFilterAfter(authorizationFilter, BasicAuthenticationFilter.class);
-    }
+  /**
+   * Конфигурация HttpSecurity.
+   *
+   * @param http HttpSecurity.
+   */
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+            .csrf().disable()
+            .sessionManagement(config -> config
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeRequests(config -> config
+                    .antMatchers(permittedPaths).permitAll()
+                    .anyRequest().authenticated())
+            .logout(config -> config
+                    .logoutUrl(logoutUrl).permitAll()
+                    .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()))
+            .addFilterAfter(authorizationFilter, BasicAuthenticationFilter.class);
+  }
 
-    /**
-     * Создание бина Authentication Manager
-     * с конфигурацией по умолчанию
-     *
-     * @return Authentication Manager.
-     * @throws Exception Исключение.
-     */
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  /**
+   * Создание бина Authentication Manager
+   * с конфигурацией по умолчанию
+   *
+   * @return Authentication Manager.
+   * @throws Exception Исключение.
+   */
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 
-    /**
-     * Конфигурация encoder'а паролей.
-     *
-     * @return {@link BCryptPasswordEncoder}.
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
+  /**
+   * Конфигурация encoder'а паролей.
+   *
+   * @return {@link BCryptPasswordEncoder}.
+   */
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder(12);
+  }
 
-    /**
-     * Настройка SecurityContextHolder
-     * на размножение по потокам.
-     *
-     * @return InitializingBean.
-     */
-    @Bean
-    public InitializingBean initializingBean() {
-        return () -> SecurityContextHolder.setStrategyName(
-                SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
-    }
+  /**
+   * Настройка SecurityContextHolder
+   * на размножение по потокам.
+   *
+   * @return InitializingBean.
+   */
+  @Bean
+  public InitializingBean initializingBean() {
+    return () -> SecurityContextHolder.setStrategyName(
+            SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+  }
 }

@@ -10,5 +10,5 @@ import java.util.Set;
  */
 public interface FilesJpaRepository extends JpaRepository<FileMapper, Integer> {
 
-    Set<FileMapper> findFileMappersByTaskId(int id);
+  Set<FileMapper> findFileMappersByTaskId(int id);
 }

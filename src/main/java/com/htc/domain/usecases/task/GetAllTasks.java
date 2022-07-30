@@ -17,17 +17,17 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class GetAllTasks {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    private TasksRepository tasksRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  private TasksRepository tasksRepository;
 
-    /**
-     * Метод сценария.
-     *
-     * @return Список задач.
-     */
-    public CompletableFuture<Either<Failure, List<Task>>> execute() {
-        return tasksRepository.getAll();
-    }
+  /**
+   * Метод сценария.
+   *
+   * @return Список задач.
+   */
+  public CompletableFuture<Either<Failure, List<Task>>> execute() {
+    return tasksRepository.getAll();
+  }
 }

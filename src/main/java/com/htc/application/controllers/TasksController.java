@@ -22,35 +22,35 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/tasks")
 public class TasksController {
 
-    TasksService tasksService;
+  TasksService tasksService;
 
-    @GetMapping("/{id}")
-    @Async
-    public CompletableFuture<TaskResponse> getById(@PathVariable String id) {
-        return tasksService.getById(id);
-    }
+  @GetMapping("/{id}")
+  @Async
+  public CompletableFuture<TaskResponse> getById(@PathVariable String id) {
+    return tasksService.getById(id);
+  }
 
-    @GetMapping
-    @Async
-    public CompletableFuture<List<TaskResponse>> getAll() {
-        return tasksService.getAll();
-    }
+  @GetMapping
+  @Async
+  public CompletableFuture<List<TaskResponse>> getAll() {
+    return tasksService.getAll();
+  }
 
-    @PostMapping
-    @Async
-    public CompletableFuture<Void> create(@RequestBody TaskRequest taskRequest) {
-        return tasksService.create(taskRequest);
-    }
+  @PostMapping
+  @Async
+  public CompletableFuture<Void> create(@RequestBody TaskRequest taskRequest) {
+    return tasksService.create(taskRequest);
+  }
 
-    @PutMapping("/{id}")
-    @Async
-    public CompletableFuture<Void> update(@RequestBody TaskRequest taskRequest, @PathVariable String id) {
-        return tasksService.update(taskRequest, id);
-    }
+  @PutMapping("/{id}")
+  @Async
+  public CompletableFuture<Void> update(@RequestBody TaskRequest taskRequest, @PathVariable String id) {
+    return tasksService.update(taskRequest, id);
+  }
 
-    @DeleteMapping("/{id}")
-    @Async
-    public CompletableFuture<Void> delete(@PathVariable("id") String id) {
-        return tasksService.delete(id);
-    }
+  @DeleteMapping("/{id}")
+  @Async
+  public CompletableFuture<Void> delete(@PathVariable("id") String id) {
+    return tasksService.delete(id);
+  }
 }

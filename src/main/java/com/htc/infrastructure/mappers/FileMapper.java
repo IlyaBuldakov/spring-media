@@ -19,28 +19,28 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class FileMapper implements File {
 
-    public FileMapper(String name, LocalDate dateCreated, FileFormat format, String url, int taskId) {
-        this.name = name;
-        this.dateCreated = dateCreated;
-        this.format = format;
-        this.url = url;
-        this.taskId = taskId;
-    }
+  public FileMapper(String name, LocalDate dateCreated, FileFormat format, String url, int taskId) {
+    this.name = name;
+    this.dateCreated = dateCreated;
+    this.format = format;
+    this.url = url;
+    this.taskId = taskId;
+  }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public @Getter Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  public @Getter Integer id;
 
-    private @Getter String name;
+  private @Getter String name;
 
-    private @Getter LocalDate dateCreated;
+  private @Getter LocalDate dateCreated;
 
-    @Enumerated(EnumType.STRING)
-    private @Getter FileFormat format;
+  @Enumerated(EnumType.STRING)
+  private @Getter FileFormat format;
 
-    private @Getter String url;
+  private @Getter String url;
 
-    @Column(name = "task_id")
-    private @Getter Integer taskId;
+  @Column(name = "task_id")
+  private @Getter Integer taskId;
 }

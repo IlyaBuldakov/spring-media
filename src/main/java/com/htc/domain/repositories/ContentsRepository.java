@@ -14,29 +14,29 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface ContentsRepository {
 
-    /**
-     * Получение списка контента.
-     *
-     * @return Список контента.
-     */
-    CompletableFuture<Either<Failure, List<Content>>> getAll();
+  /**
+   * Получение списка контента.
+   *
+   * @return Список контента.
+   */
+  CompletableFuture<Either<Failure, List<Content>>> getAll();
 
-    /**
-     * Создание контента.
-     *
-     * @param name Имя контента.
-     * @param type Тип контента.
-     * @param contentFormat Формат контента.
-     * @param taskId Идентификатор задачи.
-     * @return void.
-     */
-    CompletableFuture<Either<Failure, Void>> create(int id, String name, ContentType type, ContentFormat contentFormat, String url, int taskId);
+  /**
+   * Создание контента.
+   *
+   * @param name          Имя контента.
+   * @param type          Тип контента.
+   * @param contentFormat Формат контента.
+   * @param taskId        Идентификатор задачи.
+   * @return void.
+   */
+  CompletableFuture<Either<Failure, Void>> create(int id, String name, ContentType type, ContentFormat contentFormat, String url, int taskId);
 
-    /**
-     * Удаление контента по идентификатору.
-     *
-     * @param id Идентификатор контента.
-     * @return void.
-     */
-    CompletableFuture<Either<Failure, Void>> deleteById(int id);
+  /**
+   * Удаление контента по идентификатору.
+   *
+   * @param id Идентификатор контента.
+   * @return void.
+   */
+  CompletableFuture<Either<Failure, Void>> deleteById(int id);
 }

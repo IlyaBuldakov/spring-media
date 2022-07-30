@@ -30,82 +30,82 @@ import java.util.List;
 @NoArgsConstructor
 public class TaskMapper implements Task {
 
-    public TaskMapper(int id, String name, ContentType type, String description,
-                      int author, int executor, LocalDate dateExpired) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.description = description;
-        this.authorId = author;
-        this.executorId = executor;
-        this.dateCreated = LocalDate.now();
-        this.dateExpired = dateExpired;
-        this.status = TaskStatus.IN_WORK;
-    }
+  public TaskMapper(int id, String name, ContentType type, String description,
+                    int author, int executor, LocalDate dateExpired) {
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.description = description;
+    this.authorId = author;
+    this.executorId = executor;
+    this.dateCreated = LocalDate.now();
+    this.dateExpired = dateExpired;
+    this.status = TaskStatus.IN_WORK;
+  }
 
-    public TaskMapper(String name, ContentType type, String description,
-                      int author, int executor, LocalDate dateExpired) {
-        this.name = name;
-        this.type = type;
-        this.description = description;
-        this.authorId = author;
-        this.executorId = executor;
-        this.dateCreated = LocalDate.now();
-        this.dateExpired = dateExpired;
-        this.status = TaskStatus.IN_WORK;
-    }
+  public TaskMapper(String name, ContentType type, String description,
+                    int author, int executor, LocalDate dateExpired) {
+    this.name = name;
+    this.type = type;
+    this.description = description;
+    this.authorId = author;
+    this.executorId = executor;
+    this.dateCreated = LocalDate.now();
+    this.dateExpired = dateExpired;
+    this.status = TaskStatus.IN_WORK;
+  }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public @Getter Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  public @Getter Integer id;
 
-    @Column(name = "name")
-    private @Getter String name;
+  @Column(name = "name")
+  private @Getter String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type")
-    private @Getter ContentType type;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "type")
+  private @Getter ContentType type;
 
-    @Column(name = "description")
-    private @Getter String description;
+  @Column(name = "description")
+  private @Getter String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "task_id")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private @Getter List<FileMapper> files;
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "task_id")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private @Getter List<FileMapper> files;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", insertable = false, updatable = false)
-    private @Getter UserMapper author;
+  @ManyToOne
+  @JoinColumn(name = "author_id", insertable = false, updatable = false)
+  private @Getter UserMapper author;
 
-    @Column(name="author_id")
-    private @Getter Integer authorId;
+  @Column(name = "author_id")
+  private @Getter Integer authorId;
 
-    @ManyToOne
-    @JoinColumn(name = "executor_id", insertable = false, updatable = false)
-    private @Getter UserMapper executor;
+  @ManyToOne
+  @JoinColumn(name = "executor_id", insertable = false, updatable = false)
+  private @Getter UserMapper executor;
 
-    @Column(name="executor_id")
-    private @Getter Integer executorId;
+  @Column(name = "executor_id")
+  private @Getter Integer executorId;
 
-    @Column(name = "date_created")
-    private @Getter LocalDate dateCreated;
+  @Column(name = "date_created")
+  private @Getter LocalDate dateCreated;
 
-    @Column(name = "date_expired")
-    private @Getter LocalDate dateExpired;
+  @Column(name = "date_expired")
+  private @Getter LocalDate dateExpired;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "task_id")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private @Getter List<ContentMapper> contents;
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "task_id")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private @Getter List<ContentMapper> contents;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "task_id")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private @Getter List<CommentMapper> comments;
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "task_id")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private @Getter List<CommentMapper> comments;
 
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private @Getter TaskStatus status;
+  @Column(name = "status")
+  @Enumerated(EnumType.STRING)
+  private @Getter TaskStatus status;
 }

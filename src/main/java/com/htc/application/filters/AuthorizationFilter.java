@@ -23,34 +23,34 @@ import java.io.IOException;
 @AllArgsConstructor
 public class AuthorizationFilter extends GenericFilterBean {
 
-    /**
-     * Сервис для работы с JWT токеном.
-     */
-    JwtService jwtService;
+  /**
+   * Сервис для работы с JWT токеном.
+   */
+  JwtService jwtService;
 
-    /**
-     * Проверка Authorization Header.
-     *
-     * @param servletRequest  Запрос.
-     * @param servletResponse Ответ.
-     * @param filterChain     Цепочка фильтров.
-     */
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        var request = (HttpServletRequest) servletRequest;
-        var authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+  /**
+   * Проверка Authorization Header.
+   *
+   * @param servletRequest  Запрос.
+   * @param servletResponse Ответ.
+   * @param filterChain     Цепочка фильтров.
+   */
+  @Override
+  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    var request = (HttpServletRequest) servletRequest;
+    var authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (authHeader != null) {
-            String token = jwtService.getTokenFromHeader(authHeader);
-            if (jwtService.isTokenValid(token)) {
-                var userAuthentication = jwtService.getAuthentication(token);
-                SecurityContextHolder.getContext()
-                        .setAuthentication(userAuthentication);
-            } else {
-                SecurityContextHolder.clearContext();
-                throw new UnauthorizedResponse(Unauthorized.DEFAULT_MESSAGE.getMessage());
-            }
-        }
-        filterChain.doFilter(servletRequest, servletResponse);
+    if (authHeader != null) {
+      String token = jwtService.getTokenFromHeader(authHeader);
+      if (jwtService.isTokenValid(token)) {
+        var userAuthentication = jwtService.getAuthentication(token);
+        SecurityContextHolder.getContext()
+                .setAuthentication(userAuthentication);
+      } else {
+        SecurityContextHolder.clearContext();
+        throw new UnauthorizedResponse(Unauthorized.DEFAULT_MESSAGE.getMessage());
+      }
     }
+    filterChain.doFilter(servletRequest, servletResponse);
+  }
 }

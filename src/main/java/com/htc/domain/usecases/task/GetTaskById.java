@@ -17,20 +17,20 @@ import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
 public class GetTaskById {
 
-    /**
-     * Поле для внедрения реализации из infrastructure layer.
-     */
-    TasksRepository tasksRepository;
+  /**
+   * Поле для внедрения реализации из infrastructure layer.
+   */
+  TasksRepository tasksRepository;
 
-    /**
-     * Метод сценария.
-     *
-     * @param id Идентификатор задачи.
-     * @return Задача.
-     */
-    public CompletableFuture<Either<Failure, Task>> execute(String id) {
-        var expectedFailure = ValuesValidator.validateStringId(id);
-        return expectedFailure == null ? tasksRepository.getById(Integer.parseInt(id))
-                : CompletableFuture.completedFuture(Either.left(expectedFailure));
-    }
+  /**
+   * Метод сценария.
+   *
+   * @param id Идентификатор задачи.
+   * @return Задача.
+   */
+  public CompletableFuture<Either<Failure, Task>> execute(String id) {
+    var expectedFailure = ValuesValidator.validateStringId(id);
+    return expectedFailure == null ? tasksRepository.getById(Integer.parseInt(id))
+            : CompletableFuture.completedFuture(Either.left(expectedFailure));
+  }
 }
