@@ -4,6 +4,8 @@
 2. `org.springframework.boot:spring-boot-starter-web` - cтартер для создания веб-приложений.
 3. `org.springframework.boot:spring-boot-starter-data-jpa` - cтартер для взаимодействия с базой данных.
 4. `org.postgresql:postgresql` - JDBC драйвер для СУБД PostgreSQL.
+5. `org.springframework.boot:spring-boot-starter-security` - Стартер для Spring Security.
+6. `org.springframework.security:spring-security-test` - Spring Security для тестирования.
 
 Swagger
 1. `org.springdoc:springdoc-openapi-ui` - генерация Swagger UI.
