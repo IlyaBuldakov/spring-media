@@ -27,7 +27,9 @@ public class ContentsController {
     @Async
     public CompletableFuture<Void> create(@RequestParam("file") MultipartFile file,
                                           @RequestParam("task") String taskId) {
-        return contentsService.create(file, taskId);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        int authorId = (int) securityContext.getAuthentication().getDetails();
+        return contentsService.uploadContent(authorId, file, taskId);
     }
 
     @DeleteMapping("/{id}")

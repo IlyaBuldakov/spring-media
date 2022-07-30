@@ -33,7 +33,7 @@ public class CreateContent {
      * @param taskId Идентификатор задачи.
      * @return void.
      */
-    public CompletableFuture<Either<Failure, Void>> execute(String name, ContentType type, Content.Format format, String taskId) {
+    public CompletableFuture<Either<Failure, Void>> execute(int authorId, String fileName, File file, String url, String taskId) {
         var expectedFailure = ValuesValidator.validateStringId(taskId);
         return expectedFailure == null ? contentsRepository.create(name, type, format, Integer.parseInt(taskId))
                 : CompletableFuture.completedFuture(Either.left(expectedFailure));

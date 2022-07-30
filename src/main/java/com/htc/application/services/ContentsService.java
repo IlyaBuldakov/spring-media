@@ -26,7 +26,7 @@ public interface ContentsService {
      * @param taskId Идентификатор задачи.
      * @return void.
      */
-    CompletableFuture<Void> create(MultipartFile file, String taskId);
+    CompletableFuture<Void> uploadContent(int authorId, MultipartFile file, String taskId);
 
     /**
      * Удаление контента по идентификатору.
