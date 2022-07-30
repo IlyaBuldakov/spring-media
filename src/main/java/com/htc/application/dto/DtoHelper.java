@@ -1,5 +1,6 @@
 package com.htc.application.dto;
 
+import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.domain.entities.ResponseConvertable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -25,7 +26,8 @@ public class DtoHelper {
    *                    (см. интерфейс {@link ResponseConvertable})
    * @return Список представлений (DTO) {@link BaseResponse}.
    */
-  public static <DtoT extends BaseResponse, EntityT extends ResponseConvertable> List<DtoT> createFromEntityList(
+  public static <DtoT extends BaseResponse, EntityT extends ResponseConvertable> List<DtoT>
+      createFromEntityList(
           List<? extends EntityT> list,
           Class<? extends DtoT> dtoClass,
           Class<? extends EntityT> entityClass) {
@@ -33,8 +35,8 @@ public class DtoHelper {
     for (ResponseConvertable entity : list) {
       try {
         result.add(dtoClass.getConstructor(entityClass).newInstance(entity));
-      } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-        throw new RuntimeException(e);
+      } catch (Exception exception) {
+        throw new InternalServerErrorResponse();
       }
     }
     return result;

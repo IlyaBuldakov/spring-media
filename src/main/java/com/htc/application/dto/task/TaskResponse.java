@@ -35,9 +35,12 @@ public class TaskResponse implements BaseResponse {
     this.executor = new UserResponse(task.getExecutor());
     this.dateCreated = task.getDateCreated();
     this.dateExpired = task.getDateExpired();
-    this.files = DtoHelper.createFromEntityList(task.getFiles(), FileResponse.class, File.class);
-    this.contents = DtoHelper.createFromEntityList(task.getContents(), ContentResponse.class, Content.class);
-    this.comments = DtoHelper.createFromEntityList(task.getComments(), CommentResponse.class, Comment.class);
+    this.files = DtoHelper
+            .createFromEntityList(task.getFiles(), FileResponse.class, File.class);
+    this.contents = DtoHelper
+            .createFromEntityList(task.getContents(), ContentResponse.class, Content.class);
+    this.comments = DtoHelper
+            .createFromEntityList(task.getComments(), CommentResponse.class, Comment.class);
     this.status = task.getStatus();
   }
 
