@@ -9,7 +9,7 @@ import com.htc.domain.entities.Task;
  * @param name Название статуса.
  */
 public record TaskStatusDto(int id, String name) {
-    /**
+  /**
    * Создаёт экземпляр класса {@link TaskStatusDto}.
    *
    * @param taskStatus Статус задачи.

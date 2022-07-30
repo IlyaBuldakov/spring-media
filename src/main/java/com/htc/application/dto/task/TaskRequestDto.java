@@ -1,6 +1,7 @@
 package com.htc.application.dto.task;
 
 import com.htc.domain.entities.Content;
+import com.htc.domain.entities.Entity;
 import com.htc.domain.entities.Task;
 import java.time.LocalDateTime;
 
@@ -15,12 +16,17 @@ import java.time.LocalDateTime;
  * @param dateExpired Срок выполнения задачи.
  */
 public record TaskRequestDto(
-        String name,
-        Content.Type contentType,
-        String description,
-        int author,
-        int executor,
-        LocalDateTime dateExpired) {
+    String name,
+    Content.Type contentType,
+    String description,
+    int author,
+    int executor,
+    LocalDateTime dateExpired)
+    implements Entity.View<TaskRequestDto, Task> {
+  @Override
+  public TaskRequestDto fromEntity(Task task) {
+    return new TaskRequestDto(task);
+  }
 
   /**
    * Создаёт экземпляр класса {@link TaskRequestDto}.
@@ -28,11 +34,11 @@ public record TaskRequestDto(
    * @param task Сущность пользователя.
    */
   public TaskRequestDto(Task task) {
-    this(task.getName().getValue(),
-            task.getContentType(),
-            task.getDescription().getValue(),
-            task.getAuthor().getId().getValue(),
-            task.getExecutor().getId().getValue(),
-            task.getDateExpired());
+    this(task.name().getValue(),
+        task.contentType(),
+        task.description().getValue(),
+        task.author().id().getValue(),
+        task.executor().id().getValue(),
+        task.dateExpired());
   }
 }

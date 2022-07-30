@@ -1,9 +1,11 @@
 package com.htc.application.dto.user;
 
+import com.htc.domain.entities.Entity;
 import com.htc.domain.entities.User;
 
 /**
- *  Представление сущности пользователя (запрос).
+ * Представление сущности пользователя (запрос).
+ *
  * @param name Имя пользователя.
  * @param email Электронная почта пользователя.
  * @param password Пароль пользователя.
@@ -15,7 +17,13 @@ public record UserRequest(
         String email,
         String password,
         String image,
-        User.Role role) {
+        User.Role role)
+        implements Entity.View<UserRequest, User> {
+
+  @Override
+  public UserRequest fromEntity(User user) {
+    return new UserRequest(user);
+  }
 
   /**
    * Создаёт экземпляр класса {@link UserRequest}.
@@ -23,10 +31,10 @@ public record UserRequest(
    * @param user Сущность пользователя.
    */
   public UserRequest(User user) {
-    this(user.getName().getValue(),
-        user.getEmail().getValue(),
-        user.getPassword().getValue(),
-        user.getImage().getValue(),
-        user.getRole());
+    this(user.name().getValue(),
+            user.email().getValue(),
+            user.password().getValue(),
+            user.image().getValue(),
+            user.role());
   }
 }

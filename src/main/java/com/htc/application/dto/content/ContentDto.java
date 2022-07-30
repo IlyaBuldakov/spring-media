@@ -2,6 +2,7 @@ package com.htc.application.dto.content;
 
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.Content;
+import com.htc.domain.entities.Entity;
 import java.time.LocalDateTime;
 
 /**
@@ -23,7 +24,13 @@ public record ContentDto(int id,
                          UserShortResponse author,
                          String format,
                          String url,
-                         String preview) {
+                         String preview)
+    implements Entity.View<ContentDto, Content> {
+  @Override
+  public ContentDto fromEntity(Content content) {
+    return new ContentDto(content);
+  }
+
 
   /**
    * Создаёт экземпляр класса {@link ContentDto}.
@@ -31,13 +38,13 @@ public record ContentDto(int id,
    * @param content Сущность медиаконтента.
    */
   public ContentDto(Content content) {
-    this(content.getId().getValue(),
-            new ContentTypeDto(content.getType()),
-            content.getName().getValue(),
-            content.getDateCreated(),
-            new UserShortResponse(content.getAuthor()),
-            content.getFormat().name(),
-            content.getUrl().getValue(),
-            content.getPreview().getValue());
+    this(content.id().getValue(),
+        new ContentTypeDto(content.type()),
+        content.name().getValue(),
+        content.dateCreated(),
+        new UserShortResponse(content.author()),
+        content.format().name(),
+        content.contentUrl().getValue(),
+        content.previewUrl().getValue());
   }
 }

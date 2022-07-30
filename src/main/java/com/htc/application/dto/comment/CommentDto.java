@@ -2,7 +2,9 @@ package com.htc.application.dto.comment;
 
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.Comment;
+import com.htc.domain.entities.Entity;
 import java.time.LocalDateTime;
+
 /**
  * Представление сущности комментария.
  *
@@ -11,19 +13,26 @@ import java.time.LocalDateTime;
  * @param user Автор комментария.
  * @param message Текст комментария.
  */
-public record CommentDto(int id,
-                         LocalDateTime date,
-                         UserShortResponse user,
-                         String message) {
-    /**
+public record CommentDto(
+    int id,
+    LocalDateTime date,
+    UserShortResponse user,
+    String message)
+    implements Entity.View<CommentDto, Comment> {
+  @Override
+  public CommentDto fromEntity(Comment comment) {
+    return new CommentDto(comment);
+  }
+
+  /**
    * Создаёт экземпляр класса {@link CommentDto}.
    *
    * @param comment Коментарий.
    */
   public CommentDto(Comment comment) {
-    this(comment.getId().getValue(),
-    comment.getDate(),
-    new UserShortResponse(comment.getUser()),
-    comment.getMessage().getValue());
+    this(comment.id().getValue(),
+        comment.dateCreated(),
+        new UserShortResponse(comment.author()),
+        comment.message().getValue());
   }
 }
