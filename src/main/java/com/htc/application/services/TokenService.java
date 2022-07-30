@@ -6,16 +6,18 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.htc.application.dto.authentication.LoginResponse;
 import com.htc.domain.entities.User;
-import com.htc.domain.entities.attributes.Id;
-
-import java.nio.charset.StandardCharsets;
+import com.htc.domain.entities.Id;
+import com.htc.domain.entities.failures.Failure;
+import io.vavr.control.Either;
 import java.time.ZonedDateTime;
-import java.util.Base64;
 import java.util.Date;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+/**
+ * Сервис для работы с Access- и Refresh- токенами.
+ */
 @Service
 public class TokenService {
   private final Pattern tokenRegex = Pattern.compile(
@@ -33,10 +35,10 @@ public class TokenService {
    */
   private static final int REFRESH_TOKEN_EXPIRATION_SECONDS = 24 * 60 * 60;
 
-  public LoginResponse createTokens(Id id, User.Role role) {
+  public Either<Failure, LoginResponse> createTokens(Id id, User.Role role) {
     var accessToken = createToken(id, role, ACCESS_TOKEN_EXPIRATION_SECONDS);
     var refreshToken = createToken(id, role, REFRESH_TOKEN_EXPIRATION_SECONDS);
-    return new LoginResponse(accessToken, refreshToken);
+    return Either.right(new LoginResponse(accessToken, refreshToken));
   }
 
   public String getToken(String authorizationHeader) {

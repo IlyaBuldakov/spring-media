@@ -1,10 +1,11 @@
 package com.htc.application;
 
-import com.fasterxml.jackson.core.JacksonException;
-import com.htc.application.dto.responsestatus.ApplicationFailureException;
-import com.htc.application.dto.responsestatus.BadRequestResponse;
-import com.htc.domain.entities.failures.InvalidValues;
+import com.htc.application.dto.errors.BadRequest;
+import com.htc.application.dto.errors.HttpError;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -12,21 +13,42 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * Общий для всех контроллеров обработчик исключений.
  */
 @ControllerAdvice
+@Slf4j
 public class ApplicationExceptionHandler {
-  @ExceptionHandler(ApplicationFailureException.class)
-  ResponseEntity<ApplicationFailureException> handleAuth(ApplicationFailureException exception) {
-    return new ResponseEntity<>(exception, exception.getStatus());
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  ResponseEntity<Object> handleValidation(MethodArgumentNotValidException exception) {
+    log.error("Запрос содержит некорректные данные.", exception);
+
+    final var problems = exception
+        .getFieldErrors()
+        .stream()
+        .map(objectError -> new BadRequest.FieldInvalid(
+                objectError.getDefaultMessage(),
+                objectError.getField()
+            )
+        )
+        .toList();
+
+    return new BadRequest("Запрос содержит некорректные данные.", problems)
+        .toResponseEntity();
   }
 
-  @ExceptionHandler({
-      IllegalArgumentException.class,
-      JacksonException.class
-  })
-  ResponseEntity<ApplicationFailureException> handleIllegalArgument(
-          Exception exception) {
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  ResponseEntity<Object> handleInvalidRequestBody(HttpMessageNotReadableException exception) {
+    log.error("Тело запроса некорректно.", exception);
 
-    InvalidValues invalidValues = new InvalidValues();
-    var applicationFailure = new BadRequestResponse(invalidValues);
-    return new ResponseEntity<>(applicationFailure, applicationFailure.getStatus());
+    return new BadRequest("Тело запроса некорректно.")
+        .toResponseEntity();
+  }
+
+  @ExceptionHandler(Exception.class)
+  ResponseEntity<Object> handleAll(Exception exception) {
+    log.error("Внутренняя ошибка сервера.", exception);
+
+    return HttpError.internalServerError(
+        "Внутренняя ошибка сервера."
+    ).toResponseEntity();
   }
 }
+

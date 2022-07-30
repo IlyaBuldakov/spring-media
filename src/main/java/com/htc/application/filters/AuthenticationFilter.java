@@ -1,34 +1,30 @@
 package com.htc.application.filters;
 
+import com.htc.application.UserAuthenticationToken;
+import com.htc.application.services.TokenService;
+import com.htc.domain.entities.Id;
 import java.io.IOException;
-import java.util.Set;
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
-import com.htc.application.UserAuthentication;
-import com.htc.application.services.TokenService;
-import com.htc.domain.entities.User;
+import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 @AllArgsConstructor
-public class AuthenticationFilter implements Filter {
+public class AuthenticationFilter extends OncePerRequestFilter {
   private TokenService tokenService;
 
   @Override
-  public void doFilter(
-          ServletRequest servletRequest,
-          ServletResponse servletResponse,
-          FilterChain filterChain) throws IOException, ServletException {
-    var request = (HttpServletRequest) servletRequest;
+  protected void doFilterInternal(
+      HttpServletRequest request,
+      HttpServletResponse response,
+      FilterChain filterChain
+  ) throws ServletException, IOException {
     var header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
     if (header != null && !header.isEmpty()) {
@@ -38,19 +34,13 @@ public class AuthenticationFilter implements Filter {
         var jwt = this.tokenService.parseToken(token);
 
         var id = jwt.getClaim("id").asInt();
-        var role = jwt.getClaim("role").asString();
-        var userRole = User.Role.valueOf(role);
-        var authority = new UserAuthentication.UserGrantedAuthority(userRole);
-        var userAuthentication = new UserAuthentication(id, Set.of(authority));
+        var userAuthentication = new UserAuthenticationToken(Id.create(id).get(), true);
 
         SecurityContextHolder.getContext()
                 .setAuthentication(userAuthentication);
       }
     }
 
-
-    // Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSIsIm5hbWUiOiJKb2huIEdvbGQiLCJhZG1pbiI6dHJ1ZX0K.LIHjWCBORSWMEibq-tnT8ue_deUqZx1K0XxCOXZRrBI
-
-    filterChain.doFilter(servletRequest, servletResponse);
+    filterChain.doFilter(request, response);
   }
 }
