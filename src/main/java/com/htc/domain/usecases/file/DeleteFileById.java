@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public class DeleteFile {
+public class DeleteFileById {
 
   /**
    * Поле для внедрения реализации из infrastructure layer.

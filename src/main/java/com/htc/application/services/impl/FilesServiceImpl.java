@@ -4,7 +4,7 @@ import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.services.ExceptionDtoResolver;
 import com.htc.application.services.FilesService;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.usecases.file.DeleteFile;
+import com.htc.domain.usecases.file.DeleteFileById;
 import com.htc.domain.usecases.file.SaveFile;
 import com.htc.domain.usecases.file.UploadFile;
 import com.htc.util.FileHelper;
@@ -28,7 +28,7 @@ public class FilesServiceImpl implements FilesService {
 
   UploadFile uploadFile;
   SaveFile saveFile;
-  DeleteFile deleteFile;
+  DeleteFileById deleteFileById;
 
   private static final String LOCAL_DIRECTORY_QUALIFIER = "files/";
 
@@ -98,7 +98,7 @@ public class FilesServiceImpl implements FilesService {
    */
   @Override
   public CompletableFuture<Void> deleteFile(String fileId) {
-    return deleteFile.execute(fileId)
+    return deleteFileById.execute(fileId)
             .thenApply(either -> {
               if (either.isLeft()) {
                 throw ExceptionDtoResolver.resolve(either.getLeft());
