@@ -3,8 +3,10 @@ package com.htc.application.services;
 import com.htc.application.dto.content.ContentResponse;
 import com.htc.domain.entities.failure.Failure;
 import io.vavr.control.Either;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,7 +20,7 @@ public interface ContentsService {
    *
    * @return Список контента.
    */
-  CompletableFuture<List<ContentResponse>> getAll();
+  CompletableFuture<List<ContentResponse>> getAll(Collection<? extends GrantedAuthority> authorities);
 
   /**
    * Создание контента.
@@ -27,7 +29,9 @@ public interface ContentsService {
    * @param taskId Идентификатор задачи.
    * @return void.
    */
-  CompletableFuture<Void> uploadContent(int authorId, MultipartFile file, String taskId);
+  CompletableFuture<Void> uploadContent(int authorId,
+                                        Collection<? extends GrantedAuthority> authorities,
+                                        MultipartFile file, String taskId);
 
   /**
    * Сохранение контента в файловой системе.
@@ -44,5 +48,6 @@ public interface ContentsService {
    * @param id Идентификатор контента.
    * @return void.
    */
-  CompletableFuture<Void> delete(String id);
+  CompletableFuture<Void> delete(Collection<? extends GrantedAuthority> authorities,
+                                 String id);
 }

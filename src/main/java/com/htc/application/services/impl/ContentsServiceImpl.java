@@ -4,6 +4,7 @@ import com.htc.application.dto.content.ContentResponse;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.services.ContentsService;
 import com.htc.application.services.ExceptionDtoResolver;
+import com.htc.application.services.ServiceHelper;
 import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.usecases.contents.CreateContent;
 import com.htc.domain.usecases.contents.DeleteContentById;
@@ -15,9 +16,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,8 +54,9 @@ public class ContentsServiceImpl implements ContentsService {
    *
    * @return Список контента.
    */
-  public CompletableFuture<List<ContentResponse>> getAll() {
-    return getAllContent.execute()
+  public CompletableFuture<List<ContentResponse>> getAll(Collection<? extends GrantedAuthority> authorities) {
+    var permissions = ServiceHelper.getPermissions(authorities);
+    return getAllContent.execute(permissions)
             .thenApply(either -> either.map(
                     list -> list.parallelStream()
                             .map(ContentResponse::new)
@@ -68,16 +72,18 @@ public class ContentsServiceImpl implements ContentsService {
    * @return void.
    */
   @Override
-  public CompletableFuture<Void> uploadContent(int authorId, MultipartFile multipartFile,
-                                               String taskId) {
+  public CompletableFuture<Void> uploadContent(int authorId,
+                                               Collection<? extends GrantedAuthority> authorities,
+                                               MultipartFile multipartFile, String taskId) {
     String fileName = multipartFile.getOriginalFilename();
     String composedUrl = FileHelper.composeUrl(fileName, taskId);
+    var permissions = ServiceHelper.getPermissions(authorities);
     try {
       File file = new File("src/main/resources/formatContent.tmp");
       try (OutputStream stream = new FileOutputStream(file)) {
         stream.write(multipartFile.getBytes());
       }
-      return createContent.execute(authorId, fileName, file, URL_QUALIFIER + composedUrl, taskId)
+      return createContent.execute(authorId, permissions, fileName, file, URL_QUALIFIER + composedUrl, taskId)
               .thenApply(either -> {
                 if (either.isLeft()) {
                   throw ExceptionDtoResolver.resolve(either.getLeft());
@@ -116,8 +122,12 @@ public class ContentsServiceImpl implements ContentsService {
    * @param id Идентификатор контента.
    * @return void.
    */
-  public CompletableFuture<Void> delete(String id) {
-    return deleteContentById.execute(id)
+  @Override
+  public CompletableFuture<Void> delete(
+          Collection<? extends GrantedAuthority> authorities,
+          String id) {
+    var permissions = ServiceHelper.getPermissions(authorities);
+    return deleteContentById.execute(permissions, id)
             .thenApply(either -> {
               if (either.isLeft()) {
                 throw ExceptionDtoResolver.resolve(either.getLeft());

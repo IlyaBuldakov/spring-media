@@ -35,7 +35,8 @@ public class ContentsController {
   @GetMapping
   @Async
   public CompletableFuture<List<ContentResponse>> getAll() {
-    return contentsService.getAll();
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return contentsService.getAll(securityContext.getAuthentication().getAuthorities());
   }
 
   /**
@@ -51,7 +52,10 @@ public class ContentsController {
                                         @RequestParam("task") String taskId) {
     SecurityContext securityContext = SecurityContextHolder.getContext();
     int authorId = (int) securityContext.getAuthentication().getDetails();
-    return contentsService.uploadContent(authorId, file, taskId);
+    return contentsService.uploadContent(
+            authorId,
+            securityContext.getAuthentication().getAuthorities(),
+            file, taskId);
   }
 
   /**
@@ -63,6 +67,9 @@ public class ContentsController {
   @DeleteMapping("/{id}")
   @Async
   public CompletableFuture<Void> delete(@PathVariable("id") String id) {
-    return contentsService.delete(id);
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return contentsService.delete(
+            securityContext.getAuthentication().getAuthorities(),
+            id);
   }
 }
