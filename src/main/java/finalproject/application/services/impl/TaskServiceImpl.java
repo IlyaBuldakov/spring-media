@@ -67,15 +67,18 @@ public class TaskServiceImpl implements TaskService {
     Task oldTask = taskRepository.findById(id).get();
     User authorizedUser = userRepository.findById(auth).get();
     if (authorizedUser.getRole() != Role.ADMIN
-            && (task.getTaskStatus() != oldTask.getTaskStatus()
-              || !task.getAuthor().equals(authorizedUser))) {
+              && !task.getAuthor().equals(authorizedUser)) {
       return CompletableFuture.completedFuture(
               Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
     }
     task.setDateCreated(oldTask.getDateCreated());
     task.setId(oldTask.getId());
-    if (task.getTaskStatus() == TaskStatus.APPROVED
-            && oldTask.getTaskStatus() != TaskStatus.APPROVED) {
+    if (task.getTaskStatus() != oldTask.getTaskStatus()
+        && authorizedUser.getRole() != Role.ADMIN) {
+      return CompletableFuture.completedFuture(
+              Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
+    }
+    if (task.getTaskStatus() != oldTask.getTaskStatus()) {
       for (Content content : contentRepository.findByTaskId(task.getId())) {
         content.setIsPublished(true);
         contentRepository.save(content);
