@@ -46,7 +46,7 @@ public class DeleteFileById {
   /**
    * Метод удаления файла из файловой системы по идентификатору.
    *
-   * @param fileId             Идентификатор файла.
+   * @param fileId Идентификатор файла.
    * @return void.
    */
   private Either<Failure, Void> removeFile(String fileId) {

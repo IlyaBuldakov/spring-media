@@ -34,6 +34,9 @@ public class ContentsServiceImpl implements ContentsService {
 
   SaveFile saveFile;
 
+  /**
+   * Уточняющий элемент для формирования пути к файлу.
+   */
   private static final String LOCAL_DIRECTORY_QUALIFIER = "content/";
 
   /**

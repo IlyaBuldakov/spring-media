@@ -30,6 +30,9 @@ public class FilesServiceImpl implements FilesService {
   SaveFile saveFile;
   DeleteFileById deleteFileById;
 
+  /**
+   * Уточняющий элемент для формирования пути к файлу.
+   */
   private static final String LOCAL_DIRECTORY_QUALIFIER = "files/";
 
   /**
