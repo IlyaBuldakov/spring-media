@@ -1,17 +1,24 @@
 package com.htc.application.services.impl;
 
 import com.htc.application.dto.content.ContentResponse;
+import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.services.ContentsService;
 import com.htc.application.services.ExceptionDtoResolver;
-import com.htc.domain.entities.content.Content.Format;
-import com.htc.domain.entities.content.ContentType;
+import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.usecases.contents.CreateContent;
 import com.htc.domain.usecases.contents.DeleteContentById;
 import com.htc.domain.usecases.contents.GetAllContent;
+import com.htc.domain.usecases.file.SaveFile;
+import com.htc.util.FileHelper;
+import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -25,6 +32,17 @@ public class ContentsServiceImpl implements ContentsService {
     GetAllContent getAllContent;
     CreateContent createContent;
     DeleteContentById deleteContentById;
+
+    SaveFile saveFile;
+
+    private final String localDirectoryQualifier = "content/";
+
+    /**
+     * Уточняющий элемент для формирования
+     * URL файла и последующего доступа к нему
+     * как к статическому ресурсу на сервере.
+     */
+    private final String urlQualifier = "uploads/" + localDirectoryQualifier;
 
     /**
      * Получение списка всего контента.
@@ -43,19 +61,50 @@ public class ContentsServiceImpl implements ContentsService {
     /**
      * Создание контента.
      *
-     * @param file Файл.
-     * @param taskId Идентификатор задачи.
+     * @param multipartFile Файл.
+     * @param taskId        Идентификатор задачи.
      * @return void.
      */
     @Override
-    public CompletableFuture<Void> create(MultipartFile file, String taskId) {
-        return createContent.execute(file.getOriginalFilename(), ContentType.PHOTO, Format.AVI, taskId)
-                .thenApply(either -> {
-                    if (either.isLeft()) {
-                        throw ExceptionDtoResolver.resolve(either.getLeft());
-                    }
-                    return null;
-                });
+    public CompletableFuture<Void> uploadContent(int authorId, MultipartFile multipartFile, String taskId) {
+        String fileName = multipartFile.getOriginalFilename();
+        String composedUrl = FileHelper.composeUrl(fileName, taskId);
+        try {
+            File file = new File("src/main/resources/formatContent.tmp");
+            try (OutputStream stream = new FileOutputStream(file)) {
+                stream.write(multipartFile.getBytes());
+            }
+            return createContent.execute(authorId, fileName, file, urlQualifier + composedUrl, taskId)
+                    .thenApply(either -> {
+                        if (either.isLeft()) {
+                            throw ExceptionDtoResolver.resolve(either.getLeft());
+                        }
+                        var saveFileResult = saveContent(multipartFile, composedUrl);
+                        if (saveFileResult.isLeft()) {
+                            throw ExceptionDtoResolver.resolve(saveFileResult.getLeft());
+                        }
+                        return null;
+                    });
+        } catch (IOException e) {
+            throw new InternalServerErrorResponse();
+        }
+    }
+
+    /**
+     * Сохранение контента в файловой системе
+     * (в директории статических ресурсов).
+     *
+     * @param file        Файл.
+     * @param composedUrl Составной url из директории и последовательности
+     *                    случайных символов для уникальности.
+     */
+    @Override
+    public Either<Failure, Void> saveContent(MultipartFile file, String composedUrl) {
+        try {
+            return saveFile.execute(file.getBytes(), localDirectoryQualifier, composedUrl);
+        } catch (IOException e) {
+            throw new InternalServerErrorResponse();
+        }
     }
 
     /**
