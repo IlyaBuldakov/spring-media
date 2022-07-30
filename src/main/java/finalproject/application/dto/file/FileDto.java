@@ -1,6 +1,8 @@
 package finalproject.application.dto.file;
 
 import java.time.LocalDateTime;
+
+import finalproject.domain.entities.filedocuments.FileDocument;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,11 +17,11 @@ public class FileDto {
    * Форматы файлов документов.
    */
   public enum Format {
-    DOC,
-    DOCX,
-    XLS,
-    XLSX,
-    PDF,
+    doc,
+    docx,
+    xls,
+    xlsx,
+    pdf,
   }
 
   /**
@@ -47,6 +49,13 @@ public class FileDto {
    */
   private @Getter String url;
 
+  public FileDto (FileDocument document) {
+    this.id = document.getId();
+    this.name = document.getName();
+    this.dateCreated = document.getDateCreated();
+    this.url = document.getUrl();
+    this.format = Format.valueOf(document.getFormat().name().toLowerCase());
+  }
 
 
 }

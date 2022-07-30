@@ -39,7 +39,8 @@ public class TaskListDto extends TaskBasicDto {
   public TaskListDto(Task task) {
     super(task);
     this.dateExpired = task.getDateExpired().toString();
-    this.executor = new UserDto(task.getContentMaker());
+    if (task.getContentMaker() != null) {this.executor = new UserDto(task.getContentMaker());}
+    else { this.executor = null;}
     this.type = new ContentTypeDto(task.getType().getId(), task.getType().getName());
     this.status = new TaskStatusDto(task.getTaskStatus().getId(), task.getTaskStatus().getName());
 

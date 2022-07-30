@@ -52,10 +52,12 @@ public class TaskDto extends TaskListDto {
    */
   public TaskDto(Task task) {
     super(task);
-    this.author = new UserDto(task.getAuthor());
+    if (task.getAuthor() != null) {this.author = new UserDto(task.getAuthor());}
+    else { this.author = null;}
     this.description = task.getDescription();
     this.dateCreated = task.getDateCreated().toString();
     this.contents = task.getAllTaskContent().stream().map(ContentDto::new).toList().toArray(new ContentDto[0]);
+    this.files = task.getAllTaskFiles().stream().map(FileDto::new).toList().toArray(new FileDto[0]);
 
 
   }
