@@ -4,7 +4,7 @@ ___
 
 Формат списка изменений - [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/). Проект следует [семантическому версионированию](https://semver.org/lang/ru/)
 
-## v0.8.0 - 2022.07.29
+## [v0.8.0] - 2022.07.29
 
 - Написаны JavaDoc
 - Интерфейсы и DTO для базовых сущностей
@@ -48,7 +48,7 @@ ___
 - Полностью переделаны тесты
 
 
-## v0.7.0 - 2022.07.16
+## [v0.7.0] - 2022.07.16
 
 ___
 ### Добавлено
@@ -88,7 +88,7 @@ ___
 - Класс UserParams
 - Утилитный класс Users
 
-## v0.6.0 - 2022.07.11
+## [v0.6.0] - 2022.07.11
 
 ___
 ### Добавлено
@@ -113,7 +113,7 @@ ___
 - Класс DataTransferObject
 - SearchUsers и связанные с ним классы
 
-## v0.5.0 - 2022.06.17
+## [v0.5.0] - 2022.06.17
 
 ___
 ### Добавлено
@@ -129,7 +129,7 @@ ___
 - Future заменён на CompletableFuture
 
 
-## v0.4.0 - 2022.05.28
+## [v0.4.0]- 2022.05.28
 
 ___
 ### Добавлено
@@ -155,7 +155,7 @@ ___
 
 - Неиспользуемые сущности из пакета entities
 
-## v0.3.0 - 2022.05.04
+## [v0.3.0] - 2022.05.04
 ___
 ### Добавлено
 
@@ -172,7 +172,7 @@ ___
 
 - Изменен тип возвращаемого значения метода `search()` в классе UserRepository: `List<User>` → `Iterable<User>`
 
-## v0.2.0 - 2022.04.26
+## [v0.2.0] - 2022.04.26
 ___
 ### Добавлено
 
@@ -190,3 +190,11 @@ ___
 - Создана заготовка проекта
 - Созданы основные сущности
 - Описаны зависимости проекта в `README.md`
+
+[v0.2.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.1.0...ilya.buldakov-v0.2.0
+[v0.3.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.2.0...ilya.buldakov-v0.3.0
+[v0.4.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.3.0...ilya.buldakov-v0.4.0
+[v0.5.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.4.0...ilya.buldakov-v0.5.0
+[v0.6.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.5.0...ilya.buldakov-v0.6.0
+[v0.7.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.6.0...ilya.buldakov-v0.7.0
+[v0.8.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.7.0...ilya.buldakov-v0.8.0
