@@ -16,7 +16,8 @@ import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
-
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 /**
@@ -85,12 +86,14 @@ public class User implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
+  @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "author")
   private List<Task> tasksAsAuthor;
 
   @JsonIgnore
   @Getter
   @Setter
+  @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "contentMaker")
   private List<Task> tasksAsContentMaker;
 

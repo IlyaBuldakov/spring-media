@@ -17,6 +17,8 @@ import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  * Возвращает @return id идентификатор задачи.
@@ -66,7 +68,7 @@ public class Task implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "authorId")
   private User author;
 
@@ -77,13 +79,14 @@ public class Task implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "contentMakerId")
   private User contentMaker;
 
   @JsonIgnore
   @Getter
   @Setter
+  @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "task")
   private List<Content> allTaskContent;
 
