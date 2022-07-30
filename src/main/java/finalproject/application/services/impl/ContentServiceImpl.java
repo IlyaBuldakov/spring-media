@@ -60,8 +60,8 @@ public class ContentServiceImpl implements ContentService {
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, Content>> attachFileToTask(MultipartFile file,
-                                             int taskId, int auth) throws IOException {
+  public CompletableFuture<Either<Failure, Content>> uploadContentToTask(MultipartFile file,
+                                                                         int taskId, int auth) throws IOException {
     User authorizedUser = userRepository.findById(auth).get();
     if (!taskRepository.existsById(taskId)) {
       return CompletableFuture.completedFuture(
