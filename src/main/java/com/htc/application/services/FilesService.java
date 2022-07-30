@@ -1,5 +1,7 @@
 package com.htc.application.services;
 
+import com.htc.domain.entities.failures.Failure;
+import io.vavr.control.Either;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.concurrent.CompletableFuture;
@@ -32,5 +34,5 @@ public interface FilesService {
      * @param composedUrl Составной url из директории и последовательности
      *                    случайных символов для уникальности.
      */
-    void saveFile(MultipartFile file, String composedUrl);
+    Either<Failure, Void> saveFile(MultipartFile file, String composedUrl);
 }

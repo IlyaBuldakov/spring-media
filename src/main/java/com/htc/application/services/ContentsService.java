@@ -1,6 +1,8 @@
 package com.htc.application.services;
 
 import com.htc.application.dto.content.ContentResponse;
+import com.htc.domain.entities.failures.Failure;
+import io.vavr.control.Either;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -27,6 +29,15 @@ public interface ContentsService {
      * @return void.
      */
     CompletableFuture<Void> uploadContent(int authorId, MultipartFile file, String taskId);
+
+    /**
+     * Сохранение контента в файловой системе.
+     *
+     * @param file Файл.
+     * @param composedUrl Составной url из директории и последовательности
+     *                    случайных символов для уникальности.
+     */
+    Either<Failure, Void> saveContent(MultipartFile file, String composedUrl);
 
     /**
      * Удаление контента по идентификатору.

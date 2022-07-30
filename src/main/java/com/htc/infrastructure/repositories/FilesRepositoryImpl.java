@@ -33,13 +33,13 @@ public class FilesRepositoryImpl implements FilesRepository {
      *
      * @param name Имя файла.
      * @param dateCreated Дата создания файла.
-     * @param format Формат файла.
+     * @param fileFormat Формат файла.
      * @param url URL файла.
      * @param taskId Идентификатор задачи.
      */
     @Override
-    public CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, File.Format format, String url, int taskId) {
-        filesJpaRepository.save(new FileMapper(name, dateCreated, format, url, taskId));
+    public CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, File.FileFormat fileFormat, String url, int taskId) {
+        filesJpaRepository.save(new FileMapper(name, dateCreated, fileFormat, url, taskId));
         return CompletableFuture.completedFuture(Either.right(null));
     }
 

@@ -1,7 +1,7 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.content.Content.Format;
+import com.htc.domain.entities.content.Content.ContentFormat;
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
@@ -26,11 +26,11 @@ public interface ContentsRepository {
      *
      * @param name Имя контента.
      * @param type Тип контента.
-     * @param format Формат контента.
+     * @param contentFormat Формат контента.
      * @param taskId Идентификатор задачи.
      * @return void.
      */
-    CompletableFuture<Either<Failure, Void>> create(String name, ContentType type, Format format, int taskId);
+    CompletableFuture<Either<Failure, Void>> create(int id, String name, ContentType type, ContentFormat contentFormat, String url, int taskId);
 
     /**
      * Удаление контента по идентификатору.

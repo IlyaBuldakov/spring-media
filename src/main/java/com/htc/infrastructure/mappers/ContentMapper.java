@@ -24,11 +24,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ContentMapper implements Content {
 
-    public ContentMapper(String name, ContentType type, ContentFormat format, int taskId ) {
+    public ContentMapper(String name, ContentType type, int authorId, ContentFormat format, String url, int taskId ) {
         this.type = type;
         this.name = name;
         this.dateCreated = LocalDate.now();
+        this.authorId = authorId;
         this.format = format;
+        this.url = url;
         this.taskId = taskId;
     }
 
@@ -45,8 +47,11 @@ public class ContentMapper implements Content {
     private @Getter LocalDate dateCreated;
 
     @ManyToOne
-    @JoinColumn(name = "author",insertable = false, updatable = false)
+    @JoinColumn(name = "author", insertable = false, updatable = false)
     private @Getter UserMapper author;
+
+    @Column(name = "author")
+    private @Getter int authorId;
 
     @Enumerated(EnumType.STRING)
     private @Getter ContentFormat format;

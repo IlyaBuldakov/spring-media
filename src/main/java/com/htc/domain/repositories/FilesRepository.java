@@ -1,7 +1,7 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.file.File.Format;
+import com.htc.domain.entities.file.File.FileFormat;
 import io.vavr.control.Either;
 
 import java.time.LocalDate;
@@ -18,11 +18,11 @@ public interface FilesRepository {
      *
      * @param name Имя файла.
      * @param dateCreated Дата создания файла.
-     * @param format Формат файла.
+     * @param fileFormat Формат файла.
      * @param url URL файла.
      * @param taskId Идентификатор задачи.
      */
-    CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, Format format, String url, int taskId);
+    CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, FileFormat fileFormat, String url, int taskId);
 
     /**
      * Удаление файла из базы данных и файловой системы

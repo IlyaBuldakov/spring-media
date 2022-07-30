@@ -45,13 +45,14 @@ public class ContentsRepositoryImpl implements ContentsRepository {
      *
      * @param name Имя контента.
      * @param type Тип контента.
-     * @param format Формат контента.
+     * @param contentFormat Формат контента.
      * @param taskId Идентификатор задачи.
      * @return void.
      */
     @Override
-    public CompletableFuture<Either<Failure, Void>> create(String name, ContentType type, Content.Format format, int taskId) {
-        contentsJpaRepository.save(new ContentMapper(name, type, format, taskId));
+    public CompletableFuture<Either<Failure, Void>> create(int authorId, String name, ContentType type,
+                                                           Content.ContentFormat contentFormat, String url, int taskId) {
+        contentsJpaRepository.save(new ContentMapper(name, type, authorId, contentFormat, url, taskId));
         return CompletableFuture.completedFuture(Either.right(null));
     }
 

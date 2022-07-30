@@ -39,8 +39,8 @@ public class UploadFile {
         if (expectedFailure != null) {
             return CompletableFuture.completedFuture(Either.left(expectedFailure));
         }
-        var format = FileHelper.getFormat(file, fileName);
+        var format = FileHelper.getFileFormat(file, fileName);
         return format.isLeft() ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
-                : filesRepository.uploadFile(fileName, dateCreated, format.get(), composedUrl, Integer.parseInt(taskId));
+                : filesRepository.uploadFile(fileName, dateCreated, (com.htc.domain.entities.file.File.FileFormat) format.get(), composedUrl, Integer.parseInt(taskId));
     }
 }
