@@ -55,7 +55,8 @@ public class FilesServiceImpl implements FilesService {
       try (OutputStream stream = new FileOutputStream(file)) {
         stream.write(multipartFile.getBytes());
       }
-      return uploadFile.execute(fileName, URL_QUALIFIER + composedUrl, LocalDate.now(), taskId, file)
+      return uploadFile.execute(
+              fileName, URL_QUALIFIER + composedUrl, LocalDate.now(), taskId, file)
               .thenApply(either -> {
                 if (either.isLeft()) {
                   throw ExceptionDtoResolver.resolve(either.getLeft());
