@@ -15,9 +15,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class DeleteContentById {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   ContentsRepository contentsRepository;
 
   /**

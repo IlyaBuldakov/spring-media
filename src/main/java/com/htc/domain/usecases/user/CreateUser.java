@@ -22,9 +22,6 @@ public class CreateUser {
     this.usersRepository = usersRepository;
   }
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   private final UsersRepository usersRepository;
 
   /**

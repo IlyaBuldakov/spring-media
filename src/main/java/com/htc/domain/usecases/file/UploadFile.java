@@ -19,9 +19,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class UploadFile {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   FilesRepository filesRepository;
 
   /**

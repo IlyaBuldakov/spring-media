@@ -21,10 +21,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GetAllUsers {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   * Пример: {@link UsersRepositoryImpl}.
-   */
   private UsersRepository usersRepository;
 
   /**

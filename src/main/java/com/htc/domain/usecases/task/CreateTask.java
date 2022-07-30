@@ -18,14 +18,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateTask {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   TasksRepository tasksRepository;
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   UsersRepository usersRepository;
 
   /**

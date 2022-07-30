@@ -17,9 +17,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class UpdateTask {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   TasksRepository tasksRepository;
 
   /**

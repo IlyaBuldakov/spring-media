@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class GetTaskById {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   TasksRepository tasksRepository;
 
   /**

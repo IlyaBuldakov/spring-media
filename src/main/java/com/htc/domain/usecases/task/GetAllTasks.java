@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class GetAllTasks {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   private TasksRepository tasksRepository;
 
   /**

@@ -21,10 +21,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GetUserById {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   * Пример: {@link UsersRepositoryImpl}.
-   */
   private UsersRepository usersRepository;
 
   /**

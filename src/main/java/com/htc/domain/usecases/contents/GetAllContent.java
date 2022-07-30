@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class GetAllContent {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   ContentsRepository contentsRepository;
 
   /**
