@@ -71,7 +71,7 @@ public class NotificationUseCase {
   /**
    * Сценарий удаления уведомления по его идентификатору.
    */
-  public static final class DeleteNotificationById extends BaseUseCase<Id, Void> {
+  public static final class DeleteById extends BaseUseCase<Id, Void> {
 
     private final NotificationRepository repository;
 
@@ -89,7 +89,7 @@ public class NotificationUseCase {
       return Either.right(null);
     }
 
-    public DeleteNotificationById(
+    public DeleteById(
             @NonNull NotificationRepository repository,
             @NonNull UserRepository userRepository) {
       super(userRepository);
@@ -101,11 +101,11 @@ public class NotificationUseCase {
   /**
    * Сценарий получения списка всех уведомлений задачи.
    */
-  public static final class GetAllNotificationsByTask
+  public static final class GetAll
           extends BaseUseCase<UseCase.NoParams, Collection<Notification>> {
     private final NotificationRepository repository;
 
-    public GetAllNotificationsByTask(
+    public GetAll(
             @NonNull NotificationRepository repository,
             @NonNull UserRepository userRepository) {
       super(userRepository);
@@ -119,7 +119,7 @@ public class NotificationUseCase {
 
     @Override
     public Either<Failure, Collection<Notification>> execute(@NonNull NoParams param) {
-      return Either.right(repository.getAllByTask());
+      return Either.right(repository.getAll());
     }
   }
 
@@ -127,7 +127,7 @@ public class NotificationUseCase {
   /**
    * Сценарий получения уведомления по ее идентификатору.
    */
-  public static final class GetNotificationById extends BaseUseCase<Id, Notification> {
+  public static final class GetById extends BaseUseCase<Id, Notification> {
     private final NotificationRepository repository;
 
     @Override
@@ -144,8 +144,8 @@ public class NotificationUseCase {
       return Either.right(notification.get());
     }
 
-    public GetNotificationById(@NonNull NotificationRepository repository,
-                               @NonNull UserRepository userRepository) {
+    public GetById(@NonNull NotificationRepository repository,
+                   @NonNull UserRepository userRepository) {
       super(userRepository);
       this.repository = repository;
     }

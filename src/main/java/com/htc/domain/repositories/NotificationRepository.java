@@ -45,11 +45,11 @@ public interface NotificationRepository {
   Optional<Notification> get(Id id);
 
   /**
-   * Получает список всех уведомлений по задаче.
+   * Получает список всех уведомлений.
    *
    * @return Список уведомлений.
    */
-  Collection<Notification> getAllByTask();
+  Collection<Notification> getAll();
 
   /**
    * Проверяет, существует ли уведомление с указанным идентификатором.

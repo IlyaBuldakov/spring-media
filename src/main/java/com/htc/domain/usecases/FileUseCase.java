@@ -5,7 +5,6 @@ import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.repositories.FileRepository;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
@@ -24,7 +23,7 @@ public class FileUseCase {
   /**
    * Сценарий создания файла.
    */
-  public static final class CreateFile extends BaseUseCase<CreateFile.Params, File> {
+  public static final class Create extends BaseUseCase<Create.Params, File> {
 
     private final FileRepository repository;
 
@@ -45,8 +44,8 @@ public class FileUseCase {
                       params.task));
     }
 
-    public CreateFile(@NonNull FileRepository repository,
-                      @NonNull UserRepository userRepository) {
+    public Create(@NonNull FileRepository repository,
+                  @NonNull UserRepository userRepository) {
       super(userRepository);
       this.repository = repository;
     }
@@ -72,7 +71,7 @@ public class FileUseCase {
   /**
    * Сценарий удаления задачи по его идентификатору.
    */
-  public static final class DeleteFileById extends BaseUseCase<Id, Void> {
+  public static final class DeleteById extends BaseUseCase<Id, Void> {
 
     private final FileRepository repository;
 
@@ -90,8 +89,8 @@ public class FileUseCase {
       return Either.right(null);
     }
 
-    public DeleteFileById(@NonNull FileRepository repository,
-                          @NonNull UserRepository userRepository) {
+    public DeleteById(@NonNull FileRepository repository,
+                      @NonNull UserRepository userRepository) {
       super(userRepository);
       this.repository = repository;
     }
@@ -100,7 +99,7 @@ public class FileUseCase {
   /**
    * Сценарий получения задачи по ее идентификатору.
    */
-  public static final class GetFileById extends BaseUseCase<Id, File> {
+  public static final class GetById extends BaseUseCase<Id, File> {
     private final FileRepository repository;
 
     @Override
@@ -118,8 +117,8 @@ public class FileUseCase {
       return Either.right(file.get());
     }
 
-    public GetFileById(@NonNull FileRepository repository,
-                       @NonNull UserRepository userRepository) {
+    public GetById(@NonNull FileRepository repository,
+                   @NonNull UserRepository userRepository) {
       super(userRepository);
       this.repository = repository;
     }

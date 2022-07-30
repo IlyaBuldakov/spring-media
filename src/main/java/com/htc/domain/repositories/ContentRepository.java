@@ -53,7 +53,8 @@ public interface ContentRepository {
    * @param typeId Идентификатор тип медиаконтента (запрос).
    * @return Список медиаконтента или ошибку.
    */
-  Collection<Content> findByQuery(
+
+  Collection<Content> getFeedByQuery(
           Integer page,
           Integer count,
           String author,

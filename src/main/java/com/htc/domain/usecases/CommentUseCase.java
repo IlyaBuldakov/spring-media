@@ -1,7 +1,6 @@
 package com.htc.domain.usecases;
 
 import com.htc.domain.entities.Comment;
-import com.htc.domain.entities.Notification;
 import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
@@ -21,7 +20,7 @@ public class CommentUseCase {
   /**
    * Сценарий создания комментария.
    */
-  public static class CreateComment extends BaseUseCase<CreateComment.Params, Comment> {
+  public static class Create extends BaseUseCase<Create.Params, Comment> {
 
     private final CommentRepository repository;
 
@@ -39,7 +38,7 @@ public class CommentUseCase {
               params.message));
     }
 
-    public CreateComment(
+    public Create(
             @NotNull CommentRepository repository,
             @NonNull UserRepository userRepository) {
       super(userRepository);
@@ -63,7 +62,7 @@ public class CommentUseCase {
   /**
    * Сценарий удаления комментария по его идентификатору.
    */
-  public static final class DeleteCommentById extends BaseUseCase<Id, Void> {
+  public static final class DeleteById extends BaseUseCase<Id, Void> {
     private final CommentRepository repository;
 
     @Override
@@ -80,7 +79,7 @@ public class CommentUseCase {
       return Either.right(null);
     }
 
-    public DeleteCommentById(
+    public DeleteById(
             @NotNull CommentRepository repository,
             @NonNull UserRepository userRepository) {
       super(userRepository);
@@ -91,7 +90,7 @@ public class CommentUseCase {
   /**
    * Сценарий получения комментария по ее идентификатору.
    */
-  public static final class GetAllCommentsByTask extends BaseUseCase<Task, Collection<Comment>> {
+  public static final class GetAllByTask extends BaseUseCase<Task, Collection<Comment>> {
     private final CommentRepository repository;
 
     @Override
@@ -104,7 +103,7 @@ public class CommentUseCase {
       return Either.right(repository.getAllByTask(task));
     }
 
-    public GetAllCommentsByTask(
+    public GetAllByTask(
             @NotNull CommentRepository repository,
             @NonNull UserRepository userRepository) {
       super(userRepository);

@@ -23,11 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * Сценарии использования медиаконтента.
  */
-public class ContentUseCase {
+public class  ContentUseCase {
   /**
    * Сценарий создания контента.
    */
-  public static class CreateContent extends BaseUseCase<CreateContent.Params, Content> {
+  public static class Create extends BaseUseCase<Create.Params, Content> {
     private final ContentRepository repository;
     private final FileMetadata fileMetadata;
     private final FileUploadService fileUploadService;
@@ -93,7 +93,7 @@ public class ContentUseCase {
      * @param fileUploadService СЕрвис для загрузки файлов на сервер.
      * @param previewPicture Сервис для создания миниатюры.
      */
-    public CreateContent(
+    public Create(
             @NonNull UserRepository userRepository,
             @NonNull ContentRepository repository,
             @NonNull FileMetadata fileMetadata,
@@ -121,7 +121,7 @@ public class ContentUseCase {
   /**
    * Сценарий удаления контента по его идентификатору.
    */
-  public static final class DeleteContentById extends BaseUseCase<Id, Void> {
+  public static final class DeleteById extends BaseUseCase<Id, Void> {
     private final ContentRepository repository;
 
     @Override
@@ -140,8 +140,8 @@ public class ContentUseCase {
 
 
 
-    public DeleteContentById(@NonNull ContentRepository repository,
-                             @NonNull UserRepository userRepository) {
+    public DeleteById(@NonNull ContentRepository repository,
+                      @NonNull UserRepository userRepository) {
       super(userRepository);
       this.repository = repository;
     }
@@ -150,8 +150,8 @@ public class ContentUseCase {
   /**
    * Сценарий получения медиакотента по запросу.
    */
-  public static final class GetContentByQuery
-          extends BaseUseCase<GetContentByQuery.Params, Collection<Content>> {
+  public static final class GetFeed
+          extends BaseUseCase<GetFeed.Params, Collection<Content>> {
     private final ContentRepository repository;
 
     @Override
@@ -162,7 +162,7 @@ public class ContentUseCase {
     @Override
     public Either<Failure, Collection<Content>> execute(
             Params param) {
-      return Either.right(repository.findByQuery(
+      return Either.right(repository.getFeedByQuery(
               param.page,
               param.count,
               param.author,
@@ -170,8 +170,8 @@ public class ContentUseCase {
               param.typeId));
     }
 
-    public GetContentByQuery(@NonNull ContentRepository repository,
-                             @NonNull UserRepository userRepository) {
+    public GetFeed(@NonNull ContentRepository repository,
+                   @NonNull UserRepository userRepository) {
       super(userRepository);
       this.repository = repository;
     }
