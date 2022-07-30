@@ -1,5 +1,6 @@
 package com.htc.application.dto.file;
 
+import com.htc.application.dto.BaseResponse;
 import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.file.File.FileFormat;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import lombok.Getter;
 /**
  * Представление файла (ответ).
  */
-public class FileResponse {
+public class FileResponse implements BaseResponse {
 
   /**
    * Конструктор из соответствующей сущности.
@@ -23,21 +24,6 @@ public class FileResponse {
     this.dateCreated = file.getDateCreated();
     this.fileFormat = file.getFormat();
     this.url = file.getUrl();
-  }
-
-  /**
-   * Создание списка представления файлов
-   * из списка соответствующих сущностей.
-   *
-   * @param list Список сущностей {@link File}.
-   * @return Список представлений (DTO) {@link FileResponse}.
-   */
-  public static List<FileResponse> createFromEntityList(List<? extends File> list) {
-    List<FileResponse> resultList = new ArrayList<>();
-    for (File file : list) {
-      resultList.add(new FileResponse(file));
-    }
-    return resultList;
   }
 
   /**

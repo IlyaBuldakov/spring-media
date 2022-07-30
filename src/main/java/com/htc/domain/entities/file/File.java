@@ -1,12 +1,13 @@
 package com.htc.domain.entities.file;
 
 import com.htc.domain.entities.AbstractApplicationFormat;
+import com.htc.domain.entities.ResponseConvertable;
 import java.time.LocalDate;
 
 /**
  * Интерфейс, описывающий сущность файла.
  */
-public interface File {
+public interface File extends ResponseConvertable {
 
   /**
    * Формат файла.

@@ -1,9 +1,11 @@
 package com.htc.domain.entities.user;
 
+import com.htc.domain.entities.ResponseConvertable;
+
 /**
  * Интерфейс, описывающий пользователя.
  */
-public interface User {
+public interface User extends ResponseConvertable {
 
   /**
    * Идентификатор пользователя.

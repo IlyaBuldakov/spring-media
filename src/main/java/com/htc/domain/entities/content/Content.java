@@ -1,13 +1,14 @@
 package com.htc.domain.entities.content;
 
 import com.htc.domain.entities.AbstractApplicationFormat;
+import com.htc.domain.entities.ResponseConvertable;
 import com.htc.domain.entities.user.User;
 import java.time.LocalDate;
 
 /**
  * Интерфейс, описывающий контент.
  */
-public interface Content {
+public interface Content extends ResponseConvertable {
 
   /**
    * Перечисление форматов контента.

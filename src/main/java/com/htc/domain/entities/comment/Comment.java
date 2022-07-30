@@ -1,12 +1,13 @@
 package com.htc.domain.entities.comment;
 
+import com.htc.domain.entities.ResponseConvertable;
 import com.htc.domain.entities.user.User;
 import java.time.LocalDate;
 
 /**
  * Интерфейс, описывающий сущность комментария.
  */
-public interface Comment {
+public interface Comment extends ResponseConvertable {
 
   /**
    * Идентификатор комментария.

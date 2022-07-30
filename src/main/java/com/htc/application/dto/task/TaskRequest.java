@@ -1,5 +1,6 @@
 package com.htc.application.dto.task;
 
+import com.htc.application.dto.BaseResponse;
 import com.htc.domain.entities.content.ContentType;
 import java.time.LocalDate;
 import lombok.Getter;
@@ -7,7 +8,7 @@ import lombok.Getter;
 /**
  * Представление задачи (запрос).
  */
-public class TaskRequest {
+public class TaskRequest implements BaseResponse {
 
   /**
    * Имя задачи.

@@ -1,10 +1,15 @@
 package com.htc.application.dto.task;
 
+import com.htc.application.dto.BaseResponse;
+import com.htc.application.dto.DtoHelper;
 import com.htc.application.dto.comment.CommentResponse;
 import com.htc.application.dto.content.ContentResponse;
 import com.htc.application.dto.file.FileResponse;
 import com.htc.application.dto.user.UserResponse;
+import com.htc.domain.entities.comment.Comment;
+import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
+import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.task.TaskStatus;
 import java.time.LocalDate;
@@ -14,7 +19,7 @@ import lombok.Getter;
 /**
  * Представление задачи (ответ).
  */
-public class TaskResponse {
+public class TaskResponse implements BaseResponse {
 
   /**
    * Конструктор из соответствующей сущности.
@@ -26,13 +31,13 @@ public class TaskResponse {
     this.name = task.getName();
     this.type = task.getType();
     this.description = task.getDescription();
-    this.files = FileResponse.createFromEntityList(task.getFiles());
     this.author = new UserResponse(task.getAuthor());
     this.executor = new UserResponse(task.getExecutor());
     this.dateCreated = task.getDateCreated();
     this.dateExpired = task.getDateExpired();
-    this.contents = ContentResponse.createFromEntityList(task.getContents());
-    this.comments = CommentResponse.createFromEntityList(task.getComments());
+    this.files = DtoHelper.createFromEntityList(task.getFiles(), FileResponse.class, File.class);
+    this.contents = DtoHelper.createFromEntityList(task.getContents(), ContentResponse.class, Content.class);
+    this.comments = DtoHelper.createFromEntityList(task.getComments(), CommentResponse.class, Comment.class);
     this.status = task.getStatus();
   }
 

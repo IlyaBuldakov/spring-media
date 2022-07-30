@@ -1,5 +1,6 @@
 package com.htc.application.dto.user;
 
+import com.htc.application.dto.BaseResponse;
 import com.htc.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.Getter;
  * Представление сущности пользователя (ответ).
  */
 @AllArgsConstructor
-public class UserResponse {
+public class UserResponse implements BaseResponse {
 
   /**
    * Конструктор из соответствующей сущности.

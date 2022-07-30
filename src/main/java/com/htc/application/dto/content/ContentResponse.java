@@ -1,18 +1,17 @@
 package com.htc.application.dto.content;
 
+import com.htc.application.dto.BaseResponse;
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.Content.ContentFormat;
 import com.htc.domain.entities.content.ContentType;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 
 /**
  * Представление контента (ответ).
  */
-public class ContentResponse {
+public class ContentResponse implements BaseResponse {
 
   /**
    * Конструктор из соответствующей сущности.
@@ -27,21 +26,6 @@ public class ContentResponse {
     this.contentFormat = content.getFormat();
     this.url = content.getUrl();
     this.preview = content.getPreview();
-  }
-
-  /**
-   * Создание списка представления контента
-   * из списка соответствующих сущностей.
-   *
-   * @param list Список сущностей {@link Content}.
-   * @return Список представлений (DTO) {@link ContentResponse}.
-   */
-  public static List<ContentResponse> createFromEntityList(List<? extends Content> list) {
-    List<ContentResponse> resultList = new ArrayList<>();
-    for (Content content : list) {
-      resultList.add(new ContentResponse(content));
-    }
-    return resultList;
   }
 
   /**

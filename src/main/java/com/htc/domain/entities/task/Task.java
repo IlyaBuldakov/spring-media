@@ -1,5 +1,6 @@
 package com.htc.domain.entities.task;
 
+import com.htc.domain.entities.ResponseConvertable;
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Интерфейс, описывающий задачу.
  */
-public interface Task {
+public interface Task extends ResponseConvertable {
 
   /**
    * Идентификатор задачи.
