@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,31 +31,41 @@ public class TasksController {
   @GetMapping("/{id}")
   @Async
   public CompletableFuture<TaskResponse> getById(@PathVariable String id) {
-    return tasksService.getById(id);
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return tasksService.getById(
+            securityContext.getAuthentication().getAuthorities(), id);
   }
 
   @GetMapping
   @Async
   public CompletableFuture<List<TaskResponse>> getAll() {
-    return tasksService.getAll();
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return tasksService.getAll(
+            securityContext.getAuthentication().getAuthorities());
   }
 
   @PostMapping
   @Async
   public CompletableFuture<Void> create(@RequestBody TaskRequest taskRequest) {
-    return tasksService.create(taskRequest);
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return tasksService.create(
+            securityContext.getAuthentication().getAuthorities(), taskRequest);
   }
 
   @PutMapping("/{id}")
   @Async
   public CompletableFuture<Void> update(@RequestBody TaskRequest taskRequest,
                                         @PathVariable String id) {
-    return tasksService.update(taskRequest, id);
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return tasksService.update(
+            securityContext.getAuthentication().getAuthorities(), taskRequest, id);
   }
 
   @DeleteMapping("/{id}")
   @Async
   public CompletableFuture<Void> delete(@PathVariable("id") String id) {
-    return tasksService.delete(id);
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return tasksService.delete(
+            securityContext.getAuthentication().getAuthorities(), id);
   }
 }

@@ -2,11 +2,15 @@ package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.domain.repositories.UsersRepository;
+import com.htc.domain.usecases.UseCaseHelper;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,6 +27,14 @@ public class CreateTask {
   UsersRepository usersRepository;
 
   /**
+   * Роли, которым разрешено данное действие.
+   */
+  private final Role[] permittedRoles = new Role[]{
+          Role.ADMIN,
+          Role.MANAGER
+  };
+
+  /**
    * Метод сценария.
    *
    * @param name        Имя задачи.
@@ -33,13 +45,18 @@ public class CreateTask {
    * @param dateExpired Дата выполнения задачи (срок выполнения).
    * @return void.
    */
-  public CompletableFuture<Either<Failure, Void>> execute(String name, ContentType type,
+  public CompletableFuture<Either<Failure, Void>> execute(Set<String> permissions,
+                                                          String name, ContentType type,
                                                           String description, String author,
                                                           String executor, LocalDate dateExpired) {
-    var expectedFailure = ValuesValidator.checkTaskFields(name, description, author, executor);
-    return expectedFailure == null
+    var expectedFailure
+            = ValuesValidator.checkTaskFields(name, description, author, executor);
+    if (expectedFailure != null) {
+      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+    }
+    return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? tasksRepository.create(name, type, description,
             Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
-            : CompletableFuture.completedFuture(Either.left(expectedFailure));
+            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
   }
 }

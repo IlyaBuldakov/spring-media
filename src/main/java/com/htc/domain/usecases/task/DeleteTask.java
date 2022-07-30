@@ -1,9 +1,12 @@
 package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.ContentsRepository;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.domain.repositories.TasksRepository;
+import com.htc.domain.usecases.UseCaseHelper;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.io.File;
@@ -27,18 +30,29 @@ public class DeleteTask {
   ContentsRepository contentsRepository;
 
   /**
+   * Роли, которым разрешено данное действие.
+   */
+  private final Role[] permittedRoles = new Role[]{
+          Role.ADMIN
+  };
+
+  /**
    * Метод сценария.
    *
    * @param id Идентификатор задачи.
    * @return void.
    */
-  public CompletableFuture<Either<Failure, Void>> execute(String id) {
+  public CompletableFuture<Either<Failure, Void>> execute(Set<String> permissions,
+                                                          String id) {
     var expectedFailure = ValuesValidator.validateStringId(id);
     if (expectedFailure != null) {
       return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
-    clearRelevantStaticResources(Integer.parseInt(id));
-    return tasksRepository.deleteById(Integer.parseInt(id));
+    if (UseCaseHelper.hasRolePermissions(permissions, permittedRoles)) {
+      clearRelevantStaticResources(Integer.parseInt(id));
+      return tasksRepository.deleteById(Integer.parseInt(id));
+    }
+    return CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
   }
 
   /**

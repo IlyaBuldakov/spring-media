@@ -2,8 +2,10 @@ package com.htc.application.services;
 
 import com.htc.application.dto.task.TaskRequest;
 import com.htc.application.dto.task.TaskResponse;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Интерфейс, описывающий базовые операции для взаимодействия с задачами.
@@ -16,7 +18,8 @@ public interface TasksService {
    *
    * @return Список задач.
    */
-  CompletableFuture<List<TaskResponse>> getAll();
+  CompletableFuture<List<TaskResponse>> getAll(
+          Collection<? extends GrantedAuthority> authorities);
 
   /**
    * Получение задачи по идентификатору.
@@ -24,7 +27,9 @@ public interface TasksService {
    * @param id Идентификатор задачи.
    * @return {@link TaskResponse Представление} задачи.
    */
-  CompletableFuture<TaskResponse> getById(String id);
+  CompletableFuture<TaskResponse> getById(
+          Collection<? extends GrantedAuthority> authorities,
+          String id);
 
   /**
    * Создание задачи.
@@ -32,7 +37,9 @@ public interface TasksService {
    * @param task {@link TaskRequest Представление} задачи (запрос).
    * @return void.
    */
-  CompletableFuture<Void> create(TaskRequest task);
+  CompletableFuture<Void> create(
+          Collection<? extends GrantedAuthority> authorities,
+          TaskRequest task);
 
   /**
    * Обновление задачи.
@@ -41,7 +48,9 @@ public interface TasksService {
    * @param id   Идентификатор задачи.
    * @return void.
    */
-  CompletableFuture<Void> update(TaskRequest task, String id);
+  CompletableFuture<Void> update(
+          Collection<? extends GrantedAuthority> authorities,
+          TaskRequest task, String id);
 
   /**
    * Удаление задачи по идентификатору.
@@ -49,5 +58,7 @@ public interface TasksService {
    * @param id Идентификатор задачи.
    * @return void.
    */
-  CompletableFuture<Void> delete(String id);
+  CompletableFuture<Void> delete(
+          Collection<? extends GrantedAuthority> authorities,
+          String id);
 }
