@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             var user = result.get().get();
             return new UserSecurity(
-                    user.getEmail(), user.getPassword(),
+                    user.getId(), user.getEmail(), user.getPassword(),
                     Set.of(new RoleGrantedAuthority(user.getRole())
             ), true);
         } catch (ExecutionException | InterruptedException e) {

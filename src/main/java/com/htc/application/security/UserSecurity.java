@@ -14,6 +14,11 @@ import java.util.Set;
 public class UserSecurity implements UserDetails {
 
     /**
+     * Идентификатор пользователя.
+     */
+    private int id;
+
+    /**
      * E-mail пользователя.
      * (в контексте Spring Security - username, см. {@link UserDetailsServiceImpl})
      */
