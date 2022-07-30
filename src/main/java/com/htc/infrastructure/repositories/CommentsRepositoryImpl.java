@@ -1,6 +1,6 @@
 package com.htc.infrastructure.repositories;
 
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.repositories.CommentsRepository;
 import com.htc.infrastructure.jpa.CommentsJpaRepository;
 import com.htc.infrastructure.mappers.CommentMapper;

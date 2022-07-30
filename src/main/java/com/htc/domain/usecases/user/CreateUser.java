@@ -1,8 +1,8 @@
 package com.htc.domain.usecases.user;
 
-import com.htc.domain.entities.failures.AlreadyExists;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.Unauthorized;
+import com.htc.domain.entities.failure.AlreadyExists;
+import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.Unauthorized;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCaseHelper;

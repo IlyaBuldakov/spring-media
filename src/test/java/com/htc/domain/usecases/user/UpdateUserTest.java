@@ -1,8 +1,7 @@
 package com.htc.domain.usecases.user;
 
-import com.htc.domain.entities.failures.AlreadyExists;
-import com.htc.domain.entities.failures.InvalidValuesContainer;
-import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.failure.InvalidValuesContainer;
+import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;

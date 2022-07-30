@@ -1,6 +1,6 @@
 package com.htc.application.dto.errors;
 
-import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.failure.NotFound;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

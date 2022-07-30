@@ -1,6 +1,6 @@
 package com.htc.domain.usecases.comments;
 
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.repositories.CommentsRepository;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;

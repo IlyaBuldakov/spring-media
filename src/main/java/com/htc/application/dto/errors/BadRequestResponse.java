@@ -1,8 +1,8 @@
 package com.htc.application.dto.errors;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.htc.domain.entities.failures.InvalidValue;
-import com.htc.domain.entities.failures.InvalidValuesContainer;
+import com.htc.domain.entities.failure.InvalidValue;
+import com.htc.domain.entities.failure.InvalidValuesContainer;
 import java.util.List;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

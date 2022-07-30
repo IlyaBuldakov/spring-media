@@ -5,12 +5,12 @@ import com.htc.application.dto.errors.BadRequestResponse;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.dto.errors.NotFoundResponse;
 import com.htc.application.dto.errors.UnauthorizedResponse;
-import com.htc.domain.entities.failures.AlreadyExists;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.InvalidValue;
-import com.htc.domain.entities.failures.InvalidValuesContainer;
-import com.htc.domain.entities.failures.NotFound;
-import com.htc.domain.entities.failures.Unauthorized;
+import com.htc.domain.entities.failure.AlreadyExists;
+import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.InvalidValue;
+import com.htc.domain.entities.failure.InvalidValuesContainer;
+import com.htc.domain.entities.failure.NotFound;
+import com.htc.domain.entities.failure.Unauthorized;
 
 /**
  * Класс, объединяющий в себе логику преобразования

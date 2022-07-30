@@ -3,7 +3,7 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.Content.ContentFormat;
 import com.htc.domain.entities.content.ContentType;
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failure.Failure;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.Set;

@@ -1,7 +1,7 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.content.ContentType;
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.entities.task.Task;
 import io.vavr.control.Either;
 import java.time.LocalDate;

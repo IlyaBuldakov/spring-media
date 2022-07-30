@@ -1,7 +1,7 @@
 package com.htc.infrastructure.repositories;
 
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;

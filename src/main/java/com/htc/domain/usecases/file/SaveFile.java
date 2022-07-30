@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.file;
 
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.InvalidValue;
 import io.vavr.control.Either;
 import java.io.BufferedOutputStream;
 import java.io.File;

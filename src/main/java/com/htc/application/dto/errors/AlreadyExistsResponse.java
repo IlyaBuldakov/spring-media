@@ -1,6 +1,6 @@
 package com.htc.application.dto.errors;
 
-import com.htc.domain.entities.failures.AlreadyExists;
+import com.htc.domain.entities.failure.AlreadyExists;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

@@ -1,6 +1,6 @@
 package com.htc.domain.usecases.task;
 
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.util.ValuesValidator;

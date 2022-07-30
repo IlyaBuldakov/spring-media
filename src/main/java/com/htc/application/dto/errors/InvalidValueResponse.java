@@ -1,6 +1,6 @@
 package com.htc.application.dto.errors;
 
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failure.InvalidValue;
 import lombok.Getter;
 
 /**

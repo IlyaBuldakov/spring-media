@@ -1,6 +1,6 @@
 package com.htc.application.services;
 
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failure.Failure;
 import io.vavr.control.Either;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.web.multipart.MultipartFile;

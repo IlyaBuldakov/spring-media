@@ -2,8 +2,8 @@ package com.htc.util;
 
 import com.htc.domain.entities.AbstractApplicationFormat;
 import com.htc.domain.entities.content.Content.ContentFormat;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.InvalidValue;
+import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.InvalidValue;
 import com.htc.domain.entities.file.File.FileFormat;
 import io.vavr.control.Either;
 import java.io.File;

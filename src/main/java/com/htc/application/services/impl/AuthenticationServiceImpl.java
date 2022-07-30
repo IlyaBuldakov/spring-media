@@ -8,7 +8,7 @@ import com.htc.application.security.UserDetailsServiceImpl;
 import com.htc.application.services.AuthenticationService;
 import com.htc.application.services.JwtService;
 import com.htc.application.services.UsersService;
-import com.htc.domain.entities.failures.Unauthorized;
+import com.htc.domain.entities.failure.Unauthorized;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;

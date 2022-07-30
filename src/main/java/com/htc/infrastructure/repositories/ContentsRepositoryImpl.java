@@ -2,8 +2,8 @@ package com.htc.infrastructure.repositories;
 
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.repositories.ContentsRepository;
 import com.htc.infrastructure.jpa.ContentsJpaRepository;
 import com.htc.infrastructure.mappers.ContentMapper;

@@ -1,7 +1,7 @@
 package com.htc.util;
 
-import com.htc.domain.entities.failures.InvalidValue;
-import com.htc.domain.entities.failures.InvalidValuesContainer;
+import com.htc.domain.entities.failure.InvalidValue;
+import com.htc.domain.entities.failure.InvalidValuesContainer;
 import java.util.Locale;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.IntegerValidator;

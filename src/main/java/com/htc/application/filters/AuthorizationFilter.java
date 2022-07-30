@@ -2,7 +2,7 @@ package com.htc.application.filters;
 
 import com.htc.application.dto.errors.UnauthorizedResponse;
 import com.htc.application.services.JwtService;
-import com.htc.domain.entities.failures.Unauthorized;
+import com.htc.domain.entities.failure.Unauthorized;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

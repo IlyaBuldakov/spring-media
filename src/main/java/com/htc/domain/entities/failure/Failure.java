@@ -1,4 +1,4 @@
-package com.htc.domain.entities.failures;
+package com.htc.domain.entities.failure;
 
 /**
  * Интерфейс, описывающий сущность ошибки.

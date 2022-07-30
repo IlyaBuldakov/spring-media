@@ -4,7 +4,7 @@ import com.htc.application.dto.content.ContentResponse;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.services.ContentsService;
 import com.htc.application.services.ExceptionDtoResolver;
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.usecases.contents.CreateContent;
 import com.htc.domain.usecases.contents.DeleteContentById;
 import com.htc.domain.usecases.contents.GetAllContent;

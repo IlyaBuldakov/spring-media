@@ -1,6 +1,6 @@
 package com.htc.domain.usecases.file;
 
-import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
