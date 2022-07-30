@@ -10,6 +10,7 @@ import finalproject.domain.entities.filedocuments.FileDocument;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
+import finalproject.infrastructure.repositories.FileDocumentsRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
 import finalproject.infrastructure.repositories.UserRepository;
 import finalproject.utils.validators.ValidateFile;
@@ -29,6 +30,8 @@ public class FileServiceImpl implements FileService {
 
   UserRepository userRepository;
   TaskRepository taskRepository;
+
+  FileDocumentsRepository fileDocumentsRepository;
   FileStorageService fileStorageService;
 
 
@@ -60,6 +63,7 @@ public class FileServiceImpl implements FileService {
     String fileUrl = returnRelativePath + taskId + "/" + fileData.getFilename();
     FileDocument document = new FileDocument(fileData.getFilename(), fileData.getFormat(), fileUrl, task);
     document.setDateCreated(LocalDateTime.now());
+    fileDocumentsRepository.save(document);
     return CompletableFuture.completedFuture(Either.right(document));
   }
 

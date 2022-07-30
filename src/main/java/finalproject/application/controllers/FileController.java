@@ -1,7 +1,8 @@
 package finalproject.application.controllers;
 
+import finalproject.application.dto.failures.FailureConverter;
 import finalproject.application.services.AuthService;
-import finalproject.application.services.ContentService;
+import finalproject.application.services.FileService;
 import finalproject.application.services.FileStorageService;
 import finalproject.domain.entities.filedocuments.FileDocument;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +22,7 @@ public class FileController {
 
   FileStorageService fileStorageService;
   AuthService authService;
-  ContentService contentService;
+  FileService fileService;
 
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
@@ -31,6 +32,9 @@ public class FileController {
                                                        HttpServletRequest request) {
 
     int autorizedUserId = authService.getId();
+    return fileService.uploadFileToTask(file, taskId, autorizedUserId)
+            .thenApply(either -> either.getOrElseThrow(
+                    failure -> FailureConverter.convert(failure)));
 
 
   }

@@ -13,9 +13,15 @@ import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.tika.Tika;
+import org.apache.tika.config.TikaConfig;
+import org.apache.tika.detect.Detector;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.mime.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 @AllArgsConstructor
@@ -38,8 +44,7 @@ public class ValidateFile {
     }
     Format fileFormat = Format.valueOf(extension.toUpperCase());
     try (InputStream is = file.getInputStream()) {
-      Tika tika = new Tika();
-      String mimeType = tika.detect(is);
+      String mimeType = getContentType(is, filename);
       if (!(mimeType.equals(fileFormat.myme))
       ) {
         validators.getProblems().add("file");
@@ -50,6 +55,19 @@ public class ValidateFile {
     } catch (Exception e) {
       return Either.left(new InternalServerError(Messages.INTERNAL_SERVER_ERROR));
     }
+
+  }
+
+  public String getContentType(InputStream is, String filename) throws IOException {
+    TikaConfig config = TikaConfig.getDefaultConfig();
+    Detector detector = config.getDetector();
+
+    TikaInputStream stream = TikaInputStream.get(is);
+
+    Metadata metadata = new Metadata();
+    metadata.add(Metadata.RESOURCE_NAME_KEY, filename);
+    MediaType mediaType = detector.detect(stream, metadata);
+    return mediaType.toString();
 
   }
 }
