@@ -4,11 +4,11 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.htc.application.dto.login.LoginResponse;
+import com.htc.application.security.UserAuthentication;
 import com.htc.application.services.JwtService;
 import com.htc.domain.entities.user.Role;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -92,10 +92,15 @@ public class JwtServiceImpl implements JwtService {
         return JWT.decode(token).getSubject();
     }
 
+    public int getIdFromToken(String token) {
+        return JWT.decode(token).getClaim("id").asInt();
+    }
+
     @Override
     public Authentication getAuthentication(String token) {
         var email = getEmailFromToken(token);
+        var id = getIdFromToken(token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return new UserAuthentication(id, userDetails, "", userDetails.getAuthorities());
     }
 }
