@@ -1,11 +1,14 @@
 package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.repositories.ContentsRepository;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,21 +20,17 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class DeleteTask {
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   TasksRepository tasksRepository;
 
-  /**
-   * Поле для внедрения реализации из infrastructure layer.
-   */
   FilesRepository filesRepository;
+
+  ContentsRepository contentsRepository;
 
   /**
    * Метод сценария.
    *
    * @param id Идентификатор задачи.
-   * @return void
+   * @return void.
    */
   public CompletableFuture<Either<Failure, Void>> execute(String id) {
     var expectedFailure = ValuesValidator.validateStringId(id);
@@ -50,9 +49,11 @@ public class DeleteTask {
    */
   private void clearRelevantStaticResources(int id) {
     String pathQualifier = "src/main/webapp/";
-    var fileUrls = filesRepository.findRelevantToTaskFilesUrl(id);
-    if (!fileUrls.isEmpty()) {
-      for (String url : fileUrls) {
+    Set<String> urls = new HashSet<>();
+    urls.addAll(contentsRepository.findRelevantToTaskContentUrl(id));
+    urls.addAll(filesRepository.findRelevantToTaskFilesUrl(id));
+    if (!urls.isEmpty()) {
+      for (String url : urls) {
         new File(pathQualifier + url).delete();
       }
     }

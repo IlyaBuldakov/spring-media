@@ -6,6 +6,7 @@ import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -41,4 +42,13 @@ public interface ContentsRepository {
    * @return void.
    */
   CompletableFuture<Either<Failure, Void>> deleteById(int id);
+
+  /**
+   * Получение множества URL контента по идентификатору
+   * задачи, которые относятся к этой задаче.
+   *
+   * @param taskId Идентификатор задачи.
+   * @return Множество URL контента.
+   */
+  Set<String> findRelevantToTaskContentUrl(int taskId);
 }

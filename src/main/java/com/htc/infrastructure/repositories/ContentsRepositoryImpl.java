@@ -10,7 +10,9 @@ import com.htc.infrastructure.mappers.ContentMapper;
 import io.vavr.control.Either;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
@@ -71,5 +73,17 @@ public class ContentsRepositoryImpl implements ContentsRepository {
       return CompletableFuture.completedFuture(Either.left(NotFound.CONTENT));
     }
     return CompletableFuture.completedFuture(Either.right(null));
+  }
+
+  /**
+   * Поиск URL контента, относящегося к задаче.
+   *
+   * @param taskId Идентификатор задачи.
+   * @return Множество URL.
+   */
+  @Override
+  public Set<String> findRelevantToTaskContentUrl(int taskId) {
+    return contentsJpaRepository.findContentMappersByTaskId(taskId)
+            .parallelStream().map(ContentMapper::getUrl).collect(Collectors.toSet());
   }
 }
