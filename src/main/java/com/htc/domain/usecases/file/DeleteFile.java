@@ -22,19 +22,22 @@ public class DeleteFile {
   FilesRepository filesRepository;
 
   /**
+   * Уточняющий элемент пути.
+   */
+  private static final String DIRECTORY_QUALIFIER = "src/main/webapp/";
+
+  /**
    * Метод сценария.
    *
-   * @param directoryQualifier Уточняющий элемент URL.
-   * @param fileId             Идентификатор файла.
+   * @param fileId Идентификатор файла.
    * @return void
    */
-  public CompletableFuture<Either<Failure, Void>> execute(String directoryQualifier,
-                                                          String fileId) {
+  public CompletableFuture<Either<Failure, Void>> execute(String fileId) {
     var expectedFailure = ValuesValidator.validateStringId(fileId);
     if (expectedFailure != null) {
       return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
-    var removeFile = removeFile(directoryQualifier, fileId);
+    var removeFile = removeFile(fileId);
     return (removeFile != null && removeFile.isLeft())
             ? CompletableFuture.completedFuture(Either.left(removeFile.getLeft()))
             : filesRepository.deleteFile(Integer.parseInt(fileId));
@@ -43,16 +46,15 @@ public class DeleteFile {
   /**
    * Метод удаления файла из файловой системы по идентификатору.
    *
-   * @param directoryQualifier Уточняющий элемент пути.
    * @param fileId             Идентификатор файла.
    * @return void.
    */
-  private Either<Failure, Void> removeFile(String directoryQualifier, String fileId) {
+  private Either<Failure, Void> removeFile(String fileId) {
     var file = filesRepository.findFileUrlById(Integer.parseInt(fileId));
     if (file.isLeft()) {
       return Either.left(file.getLeft());
     }
-    new File(directoryQualifier + file.get()).delete();
+    new File(DIRECTORY_QUALIFIER + file.get()).delete();
     return null;
   }
 }

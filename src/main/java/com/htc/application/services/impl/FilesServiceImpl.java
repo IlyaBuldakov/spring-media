@@ -97,7 +97,7 @@ public class FilesServiceImpl implements FilesService {
    */
   @Override
   public CompletableFuture<Void> deleteFile(String fileId) {
-    return deleteFile.execute("", fileId)
+    return deleteFile.execute(fileId)
             .thenApply(either -> {
               if (either.isLeft()) {
                 throw ExceptionDtoResolver.resolve(either.getLeft());
