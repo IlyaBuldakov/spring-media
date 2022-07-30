@@ -37,6 +37,7 @@ public class CommentsController {
     return commentsService.createComment(
             commentRequest.getTaskId(),
             authorId,
+            securityContext.getAuthentication().getAuthorities(),
             commentRequest.getMessage());
   }
 }

@@ -1,6 +1,8 @@
 package com.htc.application.services;
 
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Сервис комментариев.
@@ -15,5 +17,8 @@ public interface CommentsService {
    * @param message  Сообщение комментария.
    * @return void.
    */
-  CompletableFuture<Void> createComment(String taskId, int authorId, String message);
+  CompletableFuture<Void> createComment(String taskId,
+                                        int authorId,
+                                        Collection<? extends GrantedAuthority> authorities,
+                                        String message);
 }
