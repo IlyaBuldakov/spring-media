@@ -34,14 +34,14 @@ public class ContentsServiceImpl implements ContentsService {
 
   SaveFile saveFile;
 
-  private final String localDirectoryQualifier = "content/";
+  private static final String LOCAL_DIRECTORY_QUALIFIER = "content/";
 
   /**
    * Уточняющий элемент для формирования
    * URL файла и последующего доступа к нему
    * как к статическому ресурсу на сервере.
    */
-  private final String urlQualifier = "uploads/" + localDirectoryQualifier;
+  private static final String URL_QUALIFIER = "uploads/" + LOCAL_DIRECTORY_QUALIFIER;
 
   /**
    * Получение списка всего контента.
@@ -74,7 +74,7 @@ public class ContentsServiceImpl implements ContentsService {
       try (OutputStream stream = new FileOutputStream(file)) {
         stream.write(multipartFile.getBytes());
       }
-      return createContent.execute(authorId, fileName, file, urlQualifier + composedUrl, taskId)
+      return createContent.execute(authorId, fileName, file, URL_QUALIFIER + composedUrl, taskId)
               .thenApply(either -> {
                 if (either.isLeft()) {
                   throw ExceptionDtoResolver.resolve(either.getLeft());
@@ -101,7 +101,7 @@ public class ContentsServiceImpl implements ContentsService {
   @Override
   public Either<Failure, Void> saveContent(MultipartFile file, String composedUrl) {
     try {
-      return saveFile.execute(file.getBytes(), localDirectoryQualifier, composedUrl);
+      return saveFile.execute(file.getBytes(), LOCAL_DIRECTORY_QUALIFIER, composedUrl);
     } catch (IOException e) {
       throw new InternalServerErrorResponse();
     }

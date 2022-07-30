@@ -30,14 +30,14 @@ public class FilesServiceImpl implements FilesService {
   SaveFile saveFile;
   DeleteFile deleteFile;
 
-  private final String localDirectoryQualifier = "files/";
+  private static final String LOCAL_DIRECTORY_QUALIFIER = "files/";
 
   /**
    * Уточняющий элемент для формирования
    * URL файла и последующего доступа к нему
    * как к статическому ресурсу на сервере.
    */
-  private final String urlQualifier = "uploads/" + localDirectoryQualifier;
+  private static final String URL_QUALIFIER = "uploads/" + LOCAL_DIRECTORY_QUALIFIER;
 
   /**
    * Загрузка файла в базу данных.
@@ -55,7 +55,7 @@ public class FilesServiceImpl implements FilesService {
       try (OutputStream stream = new FileOutputStream(file)) {
         stream.write(multipartFile.getBytes());
       }
-      return uploadFile.execute(fileName, urlQualifier + composedUrl, LocalDate.now(), taskId, file)
+      return uploadFile.execute(fileName, URL_QUALIFIER + composedUrl, LocalDate.now(), taskId, file)
               .thenApply(either -> {
                 if (either.isLeft()) {
                   throw ExceptionDtoResolver.resolve(either.getLeft());
@@ -82,7 +82,7 @@ public class FilesServiceImpl implements FilesService {
   @Override
   public Either<Failure, Void> saveFile(MultipartFile file, String composedUrl) {
     try {
-      return saveFile.execute(file.getBytes(), localDirectoryQualifier, composedUrl);
+      return saveFile.execute(file.getBytes(), LOCAL_DIRECTORY_QUALIFIER, composedUrl);
     } catch (IOException e) {
       throw new InternalServerErrorResponse();
     }

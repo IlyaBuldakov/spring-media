@@ -33,7 +33,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 public class TaskMapper implements Task {
 
   /**
-   * Конструктор.
+   * Конструктор для обновления.
    *
    * @param id          Идентификатор задачи.
    * @param name        Имя задачи.
@@ -51,7 +51,6 @@ public class TaskMapper implements Task {
     this.description = description;
     this.authorId = author;
     this.executorId = executor;
-    this.dateCreated = LocalDate.now();
     this.dateExpired = dateExpired;
     this.status = TaskStatus.IN_WORK;
   }

@@ -18,7 +18,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class SaveFile {
 
-  private final String directoryQualifier = "src/main/webapp/uploads/";
+  /**
+   * Уточняющий элемент пути.
+   */
+  private static final String DIRECTORY_QUALIFIER = "src/main/webapp/uploads/";
 
   /**
    * Метод сценария.
@@ -33,8 +36,8 @@ public class SaveFile {
       return Either.left(InvalidValue.EMPTY_FILE);
     }
     try {
-      String fullPath = directoryQualifier + localDirectoryQualifier + composedUrl;
-      Files.createDirectories(Paths.get(directoryQualifier + localDirectoryQualifier));
+      String fullPath = DIRECTORY_QUALIFIER + localDirectoryQualifier + composedUrl;
+      Files.createDirectories(Paths.get(DIRECTORY_QUALIFIER + localDirectoryQualifier));
       new File(fullPath);
       BufferedOutputStream stream =
               new BufferedOutputStream(new FileOutputStream(fullPath));
