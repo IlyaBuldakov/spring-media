@@ -5,7 +5,6 @@ import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.user.User;
-
 import java.time.LocalDate;
 import java.util.List;
 

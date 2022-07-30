@@ -3,6 +3,8 @@ package com.htc.application.controllers;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.application.services.UsersService;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,9 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Контроллер для пользователей.
@@ -31,6 +30,11 @@ public class UsersController {
 
   UsersService usersService;
 
+  /**
+   * Получение всех пользователей.
+   *
+   * @return Список пользователей.
+   */
   @GetMapping
   @Async
   public CompletableFuture<List<UserResponse>> getAllUsers() {
@@ -38,6 +42,12 @@ public class UsersController {
     return usersService.getAll(securityContext.getAuthentication().getAuthorities());
   }
 
+  /**
+   * Получить пользователя по идентификатору.
+   *
+   * @param id Идентификатор пользователя.
+   * @return Представление пользователя.
+   */
   @GetMapping("/{id}")
   @Async
   public CompletableFuture<UserResponse> getUserById(@PathVariable("id") String id) {
@@ -47,6 +57,12 @@ public class UsersController {
             id);
   }
 
+  /**
+   * Создание пользователя.
+   *
+   * @param user Представление пользователя (запрос)
+   * @return void.
+   */
   @PostMapping
   @Async
   public CompletableFuture<Void> createUser(@RequestBody UserRequest user) {
@@ -56,6 +72,13 @@ public class UsersController {
             user);
   }
 
+  /**
+   * Обновление пользователя по идентификатору.
+   *
+   * @param user Представление пользователя (запрос).
+   * @param id   Идентификатор пользователя.
+   * @return void.
+   */
   @PutMapping("/{id}")
   @Async
   public CompletableFuture<Void> updateUser(@RequestBody UserRequest user,
@@ -67,6 +90,12 @@ public class UsersController {
             id);
   }
 
+  /**
+   * Удаление пользователя по идентификатору.
+   *
+   * @param id Идентификатор пользователя.
+   * @return void.
+   */
   @DeleteMapping("/{id}")
   @Async
   public CompletableFuture<Void> deleteUser(@PathVariable("id") String id) {

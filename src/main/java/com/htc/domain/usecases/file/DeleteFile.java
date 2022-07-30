@@ -4,11 +4,10 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария удаления файла.
@@ -29,7 +28,8 @@ public class DeleteFile {
    * @param fileId             Идентификатор файла.
    * @return void
    */
-  public CompletableFuture<Either<Failure, Void>> execute(String directoryQualifier, String fileId) {
+  public CompletableFuture<Either<Failure, Void>> execute(String directoryQualifier,
+                                                          String fileId) {
     var expectedFailure = ValuesValidator.validateStringId(fileId);
     if (expectedFailure != null) {
       return CompletableFuture.completedFuture(Either.left(expectedFailure));

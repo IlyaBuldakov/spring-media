@@ -3,18 +3,17 @@ package com.htc.application.filters;
 import com.htc.application.dto.errors.UnauthorizedResponse;
 import com.htc.application.services.JwtService;
 import com.htc.domain.entities.failures.Unauthorized;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.GenericFilterBean;
-
+import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
 
 /**
  * Фильтр авторизации пользователей (прошедших аутентификацию).
@@ -36,7 +35,9 @@ public class AuthorizationFilter extends GenericFilterBean {
    * @param filterChain     Цепочка фильтров.
    */
   @Override
-  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+  public void doFilter(ServletRequest servletRequest,
+                       ServletResponse servletResponse,
+                       FilterChain filterChain) throws IOException, ServletException {
     var request = (HttpServletRequest) servletRequest;
     var authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 

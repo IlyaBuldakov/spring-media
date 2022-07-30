@@ -8,10 +8,9 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCaseHelper;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
-import org.springframework.stereotype.Component;
-
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария создания пользователя.
@@ -38,8 +37,9 @@ public class CreateUser {
    *
    * @return Пользователь.
    */
-  public CompletableFuture<Either<Failure, Void>> execute(Set<String> permissions, String name, String password,
-                                                          String email, String avatar, Role role) {
+  public CompletableFuture<Either<Failure, Void>> execute(Set<String> permissions, String name,
+                                                          String password, String email,
+                                                          String avatar, Role role) {
     var expectedFailure = ValuesValidator.checkUserFields(name, password, email, avatar);
     if (expectedFailure != null) {
       return CompletableFuture.completedFuture(Either.left(expectedFailure));

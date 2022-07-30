@@ -6,11 +6,10 @@ import com.htc.domain.repositories.TasksRepository;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария создания задачи.
@@ -44,8 +43,9 @@ public class CreateTask {
                                                           String description, String author,
                                                           String executor, LocalDate dateExpired) {
     var expectedFailure = ValuesValidator.checkTaskFields(name, description, author, executor);
-    return expectedFailure == null ?
-            tasksRepository.create(name, type, description, Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
+    return expectedFailure == null
+            ? tasksRepository.create(name, type, description,
+            Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
             : CompletableFuture.completedFuture(Either.left(expectedFailure));
   }
 }

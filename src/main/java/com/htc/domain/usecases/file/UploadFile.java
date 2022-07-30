@@ -1,16 +1,16 @@
 package com.htc.domain.usecases.file;
 
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.file.File.FileFormat;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.util.FileHelper;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария загрузки файла в базу данных.
@@ -32,15 +32,19 @@ public class UploadFile {
    * @param dateCreated Дата создания файла.
    * @param taskId      Идентификатор задачи.
    * @param file        Файл.
-   * @return void;
+   * @return void.
    */
-  public CompletableFuture<Either<Failure, Void>> execute(String fileName, String composedUrl, LocalDate dateCreated, String taskId, File file) {
+  public CompletableFuture<Either<Failure, Void>> execute(String fileName, String composedUrl,
+                                                          LocalDate dateCreated, String taskId,
+                                                          File file) {
     var expectedFailure = ValuesValidator.validateStringId(taskId);
     if (expectedFailure != null) {
       return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
     var format = FileHelper.getFileFormat(file, fileName);
-    return format.isLeft() ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
-            : filesRepository.uploadFile(fileName, dateCreated, (com.htc.domain.entities.file.File.FileFormat) format.get(), composedUrl, Integer.parseInt(taskId));
+    return format.isLeft()
+            ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
+            : filesRepository.uploadFile(fileName, dateCreated,
+            (FileFormat) format.get(), composedUrl, Integer.parseInt(taskId));
   }
 }

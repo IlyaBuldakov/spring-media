@@ -5,7 +5,6 @@ import lombok.Getter;
 
 /**
  * Представление ошибки невалидного поля.
- * <p>
  * Используется в качестве причины {@link BadRequestResponse}.
  */
 public class InvalidValueResponse {
@@ -21,7 +20,7 @@ public class InvalidValueResponse {
   private final @Getter String message;
 
   /**
-   * Конструктор из {@link InvalidValue соответствующей сущности}
+   * Конструктор из {@link InvalidValue соответствующей сущности}.
    *
    * @param invalidValue Сущность {@link InvalidValue ошибки} невалидного поля.
    */

@@ -4,17 +4,16 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.file.File;
 import com.htc.domain.repositories.FilesRepository;
-import com.htc.infrastructure.mappers.FileMapper;
 import com.htc.infrastructure.jpa.FilesJpaRepository;
+import com.htc.infrastructure.mappers.FileMapper;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация репозитория для работы с файлами.
@@ -38,7 +37,9 @@ public class FilesRepositoryImpl implements FilesRepository {
    * @param taskId      Идентификатор задачи.
    */
   @Override
-  public CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, File.FileFormat fileFormat, String url, int taskId) {
+  public CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated,
+                                                             File.FileFormat fileFormat,
+                                                             String url, int taskId) {
     filesJpaRepository.save(new FileMapper(name, dateCreated, fileFormat, url, taskId));
     return CompletableFuture.completedFuture(Either.right(null));
   }

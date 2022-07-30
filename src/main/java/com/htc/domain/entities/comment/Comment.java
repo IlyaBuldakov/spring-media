@@ -1,7 +1,6 @@
 package com.htc.domain.entities.comment;
 
 import com.htc.domain.entities.user.User;
-
 import java.time.LocalDate;
 
 /**

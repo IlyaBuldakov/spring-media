@@ -3,7 +3,6 @@ package com.htc.domain.repositories;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.file.File.FileFormat;
 import io.vavr.control.Either;
-
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -22,7 +21,9 @@ public interface FilesRepository {
    * @param url         URL файла.
    * @param taskId      Идентификатор задачи.
    */
-  CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated, FileFormat fileFormat, String url, int taskId);
+  CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated,
+                                                      FileFormat fileFormat, String url,
+                                                      int taskId);
 
   /**
    * Удаление файла из базы данных и файловой системы
@@ -43,7 +44,7 @@ public interface FilesRepository {
 
   /**
    * Получение множества URL файлов по идентификатору
-   * задачи, которые относятся к этой задаче
+   * задачи, которые относятся к этой задаче.
    *
    * @param taskId Идентификатор задачи.
    * @return Множество URL файлов.

@@ -1,9 +1,8 @@
 package com.htc.application.dto.task;
 
 import com.htc.domain.entities.content.ContentType;
-import lombok.Getter;
-
 import java.time.LocalDate;
+import lombok.Getter;
 
 /**
  * Представление задачи (запрос).

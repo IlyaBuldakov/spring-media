@@ -2,10 +2,9 @@ package com.htc.util;
 
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.failures.InvalidValuesContainer;
+import java.util.Locale;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.IntegerValidator;
-
-import java.util.Locale;
 
 /**
  * Класс для валидации различных данных.
@@ -16,7 +15,8 @@ public class ValuesValidator {
    * Регулярное выражение для проверки аватара
    * на соответствие Base64.
    */
-  private static final String BASE64_REGEX = "^([A-Za-z\\d+/]{4})*([A-Za-z\\d+/]{4}|[A-Za-z\\d+/]{3}=|[A-Za-z\\d+/]{2}==)?$";
+  private static final String BASE64_REGEX
+          = "^([A-Za-z\\d+/]{4})*([A-Za-z\\d+/]{4}|[A-Za-z\\d+/]{3}=|[A-Za-z\\d+/]{2}==)?$";
 
   /**
    * Метод валидации идентификатора типа String.
@@ -125,7 +125,8 @@ public class ValuesValidator {
    * @param executorId  Идентификатор исполнителя задачи.
    * @return Контейнер ошибок или null;
    */
-  public static InvalidValuesContainer checkTaskFields(String name, String description, String authorId, String executorId) {
+  public static InvalidValuesContainer checkTaskFields(String name, String description,
+                                                       String authorId, String executorId) {
     InvalidValuesContainer invalidValues = new InvalidValuesContainer();
     var validateAuthor = validateStringId(authorId);
     var validateExecutor = validateStringId(executorId);
@@ -144,6 +145,12 @@ public class ValuesValidator {
     return invalidValues.getInvalidValues().size() == 0 ? null : invalidValues;
   }
 
+  /**
+   * Валидация электронной почты.
+   *
+   * @param email Электронная почта.
+   * @return Контейнер InvalidValues.
+   */
   public static InvalidValuesContainer validateEmail(String email) {
     InvalidValuesContainer invalidValues = new InvalidValuesContainer();
     if (!EmailValidator.getInstance().isValid(email)) {

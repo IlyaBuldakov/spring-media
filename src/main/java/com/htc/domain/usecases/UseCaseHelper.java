@@ -1,9 +1,11 @@
 package com.htc.domain.usecases;
 
 import com.htc.domain.entities.user.Role;
-
 import java.util.Set;
 
+/**
+ * Вспомогательный класс для UseCase'ов.
+ */
 public class UseCaseHelper {
 
   /**

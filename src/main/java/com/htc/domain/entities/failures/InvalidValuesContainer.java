@@ -1,8 +1,7 @@
 package com.htc.domain.entities.failures;
 
-import lombok.Getter;
-
 import java.util.LinkedList;
+import lombok.Getter;
 
 /**
  * Класс, содержащий связку InvalidValue.

@@ -5,12 +5,12 @@ import com.htc.application.dto.errors.BadRequestResponse;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.dto.errors.NotFoundResponse;
 import com.htc.application.dto.errors.UnauthorizedResponse;
+import com.htc.domain.entities.failures.AlreadyExists;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.failures.InvalidValuesContainer;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.failures.Unauthorized;
-import com.htc.domain.entities.failures.AlreadyExists;
 
 /**
  * Класс, объединяющий в себе логику преобразования
@@ -27,11 +27,16 @@ public class ExceptionDtoResolver {
   public static RuntimeException resolve(Failure failure) {
     RuntimeException exception;
     switch (failure) {
-      case InvalidValuesContainer invalidValues -> exception = new BadRequestResponse(invalidValues);
-      case Unauthorized unauthorized -> exception = new UnauthorizedResponse(unauthorized.getMessage());
-      case InvalidValue invalidValue -> exception = new BadRequestResponse(invalidValue);
-      case NotFound notFound -> exception = new NotFoundResponse(notFound);
-      case AlreadyExists alreadyExists -> exception = new AlreadyExistsResponse(alreadyExists);
+      case InvalidValuesContainer invalidValues ->
+              exception = new BadRequestResponse(invalidValues);
+      case Unauthorized unauthorized ->
+              exception = new UnauthorizedResponse(unauthorized.getMessage());
+      case InvalidValue invalidValue ->
+              exception = new BadRequestResponse(invalidValue);
+      case NotFound notFound ->
+              exception = new NotFoundResponse(notFound);
+      case AlreadyExists alreadyExists ->
+              exception = new AlreadyExistsResponse(alreadyExists);
       default -> throw new InternalServerErrorResponse();
     }
     return exception;

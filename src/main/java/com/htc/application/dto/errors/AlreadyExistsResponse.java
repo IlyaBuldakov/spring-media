@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 /**
- *
+ * Представление ошибки "Уже существует".
  */
 public class AlreadyExistsResponse extends AbstractDtoError {
 
@@ -20,7 +20,7 @@ public class AlreadyExistsResponse extends AbstractDtoError {
   private final @Getter int statusCode = httpStatus.value();
 
   /**
-   * Конструктор из {@link AlreadyExists соответствующей сущности}
+   * Конструктор из {@link AlreadyExists соответствующей сущности}.
    *
    * @param alreadyExists Сущность ошибки "Уже существует".
    */

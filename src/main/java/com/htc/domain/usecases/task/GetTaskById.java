@@ -5,10 +5,9 @@ import com.htc.domain.entities.task.Task;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Реализация сценария получения задачи по идентификатору.

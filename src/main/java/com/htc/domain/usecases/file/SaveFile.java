@@ -3,19 +3,17 @@ package com.htc.domain.usecases.file;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
 import io.vavr.control.Either;
-import org.springframework.stereotype.Component;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.concurrent.CompletableFuture;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария сохранения файла
- * в файловой системе (директории статических ресурсов)
+ * в файловой системе (директории статических ресурсов).
  */
 @Component
 public class SaveFile {
@@ -28,7 +26,9 @@ public class SaveFile {
    * @param fileBinary  Файл.
    * @param composedUrl Составной url.
    */
-  public Either<Failure, Void> execute(byte[] fileBinary, String localDirectoryQualifier, String composedUrl) {
+  public Either<Failure, Void> execute(byte[] fileBinary,
+                                       String localDirectoryQualifier,
+                                       String composedUrl) {
     if (fileBinary.length == 0) {
       return Either.left(InvalidValue.EMPTY_FILE);
     }

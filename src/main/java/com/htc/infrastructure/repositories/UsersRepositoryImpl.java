@@ -5,17 +5,16 @@ import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
-import com.htc.infrastructure.mappers.UserMapper;
 import com.htc.infrastructure.jpa.UsersJpaRepository;
+import com.htc.infrastructure.mappers.UserMapper;
 import io.vavr.control.Either;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Реализация репозитория пользователей.
@@ -42,8 +41,9 @@ public class UsersRepositoryImpl implements UsersRepository {
                                                          String email,
                                                          String avatar,
                                                          Role role) {
-    BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
-    usersJpaRepository.save(new UserMapper(name, bCryptEncoder.encode(password), email, avatar, role));
+    BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
+    usersJpaRepository.save(
+            new UserMapper(name, bcryptEncoder.encode(password), email, avatar, role));
     return CompletableFuture.completedFuture(Either.right(null));
   }
 

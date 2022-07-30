@@ -18,6 +18,13 @@ public enum Role {
     this.name = name;
   }
 
+  /**
+   * Метод преобразования строки в роль
+   * без выбрасывания исключения.
+   *
+   * @param roleName Имя роли.
+   * @return Роль.
+   */
   public static Role lookup(String roleName) {
     try {
       return Role.valueOf(roleName.toUpperCase());

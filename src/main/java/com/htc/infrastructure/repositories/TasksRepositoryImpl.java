@@ -5,17 +5,16 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.repositories.TasksRepository;
-import com.htc.infrastructure.mappers.TaskMapper;
 import com.htc.infrastructure.jpa.TasksJpaRepository;
+import com.htc.infrastructure.mappers.TaskMapper;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация репозитория для работы с задачами.
@@ -41,7 +40,9 @@ public class TasksRepositoryImpl implements TasksRepository {
    * @return void.
    */
   @Override
-  public CompletableFuture<Either<Failure, Void>> create(String name, ContentType type, String description, int author, int executor, LocalDate dateExpired) {
+  public CompletableFuture<Either<Failure, Void>> create(String name, ContentType type,
+                                                         String description, int author,
+                                                         int executor, LocalDate dateExpired) {
     tasksJpaRepository.save(new TaskMapper(name, type, description, author, executor, dateExpired));
     return CompletableFuture.completedFuture(Either.right(null));
   }
@@ -86,8 +87,12 @@ public class TasksRepositoryImpl implements TasksRepository {
    * @return void.
    */
   @Override
-  public CompletableFuture<Either<Failure, Void>> update(int id, String name, ContentType type, String description, int author, int executor, LocalDate dateExpired) {
-    tasksJpaRepository.save(new TaskMapper(id, name, type, description, author, executor, dateExpired));
+  public CompletableFuture<Either<Failure, Void>> update(int id, String name, ContentType type,
+                                                         String description, int author,
+                                                         int executor, LocalDate dateExpired) {
+    tasksJpaRepository.save(new TaskMapper(
+            id, name, type, description,
+            author, executor, dateExpired));
     return CompletableFuture.completedFuture(Either.right(null));
   }
 

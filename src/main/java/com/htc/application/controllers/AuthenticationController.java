@@ -4,6 +4,7 @@ import com.htc.application.dto.login.AccessTokenRequest;
 import com.htc.application.dto.login.LoginRequest;
 import com.htc.application.dto.login.LoginResponse;
 import com.htc.application.services.AuthenticationService;
+import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.CompletableFuture;
-
+/**
+ * Контроллер аутентификации.
+ */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/auth")
@@ -28,7 +30,8 @@ public class AuthenticationController {
 
   @PostMapping("/access-token")
   @Async
-  public CompletableFuture<LoginResponse> getNewAccessToken(@RequestBody AccessTokenRequest accessTokenRequest) {
+  public CompletableFuture<LoginResponse> getNewAccessToken(
+          @RequestBody AccessTokenRequest accessTokenRequest) {
     return authenticationService.getNewAccessToken(accessTokenRequest.getRefreshToken());
   }
 }

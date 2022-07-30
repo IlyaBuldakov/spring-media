@@ -8,12 +8,11 @@ import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCaseHelper;
 import com.htc.infrastructure.repositories.UsersRepositoryImpl;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария получения всех пользователей.

@@ -5,16 +5,15 @@ import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.ContentsRepository;
-import com.htc.infrastructure.mappers.ContentMapper;
 import com.htc.infrastructure.jpa.ContentsJpaRepository;
+import com.htc.infrastructure.mappers.ContentMapper;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация репозитория для работы с контентом.
@@ -50,8 +49,10 @@ public class ContentsRepositoryImpl implements ContentsRepository {
    * @return void.
    */
   @Override
-  public CompletableFuture<Either<Failure, Void>> create(int authorId, String name, ContentType type,
-                                                         Content.ContentFormat contentFormat, String url, int taskId) {
+  public CompletableFuture<Either<Failure, Void>> create(int authorId, String name,
+                                                         ContentType type,
+                                                         Content.ContentFormat contentFormat,
+                                                         String url, int taskId) {
     contentsJpaRepository.save(new ContentMapper(name, type, authorId, contentFormat, url, taskId));
     return CompletableFuture.completedFuture(Either.right(null));
   }

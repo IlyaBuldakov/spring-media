@@ -11,13 +11,12 @@ import com.htc.domain.usecases.user.GetAllUsers;
 import com.htc.domain.usecases.user.GetUserByEmail;
 import com.htc.domain.usecases.user.GetUserById;
 import com.htc.domain.usecases.user.UpdateUser;
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Service;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
 
 /**
  * Реализация {@link UsersService}.
@@ -39,7 +38,8 @@ public class UsersServiceImpl implements UsersService {
    * @return Список {@link UserResponse}.
    */
   @Override
-  public CompletableFuture<List<UserResponse>> getAll(Collection<? extends GrantedAuthority> authorities) {
+  public CompletableFuture<List<UserResponse>> getAll(
+          Collection<? extends GrantedAuthority> authorities) {
     var permissions = ServiceHelper.getPermissions(authorities);
     return getAllUsers.execute(permissions)
             .thenApply(either -> either
@@ -55,7 +55,8 @@ public class UsersServiceImpl implements UsersService {
    * @return Представление пользователя {@link UserResponse}.
    */
   @Override
-  public CompletableFuture<UserResponse> getById(Collection<? extends GrantedAuthority> authorities, String id) {
+  public CompletableFuture<UserResponse> getById(
+          Collection<? extends GrantedAuthority> authorities, String id) {
     var permissions = ServiceHelper.getPermissions(authorities);
     return getUserById.execute(permissions, id)
             .thenApply(either ->
@@ -78,7 +79,8 @@ public class UsersServiceImpl implements UsersService {
    * @return Представление созданного пользователя {@link UserResponse}.
    */
   @Override
-  public CompletableFuture<Void> create(Collection<? extends GrantedAuthority> authorities, UserRequest userRequest) {
+  public CompletableFuture<Void> create(Collection<? extends GrantedAuthority> authorities,
+                                        UserRequest userRequest) {
     var permissions = ServiceHelper.getPermissions(authorities);
     return createUser.execute(
                     permissions, userRequest.getName(), userRequest.getPassword(),
@@ -100,7 +102,8 @@ public class UsersServiceImpl implements UsersService {
    * @return Представление обновлённого пользователя {@link UserResponse}.
    */
   @Override
-  public CompletableFuture<Void> update(Collection<? extends GrantedAuthority> authorities, UserRequest userRequest, String id) {
+  public CompletableFuture<Void> update(Collection<? extends GrantedAuthority> authorities,
+                                        UserRequest userRequest, String id) {
     var permissions = ServiceHelper.getPermissions(authorities);
     return updateUser.execute(
                     permissions, id, userRequest.getName(), userRequest.getPassword(),
@@ -121,7 +124,8 @@ public class UsersServiceImpl implements UsersService {
    * @return Представление удалённого пользователя {@link UserResponse}.
    */
   @Override
-  public CompletableFuture<Void> delete(Collection<? extends GrantedAuthority> authorities, String id) {
+  public CompletableFuture<Void> delete(
+          Collection<? extends GrantedAuthority> authorities, String id) {
     var permissions = ServiceHelper.getPermissions(authorities);
     return deleteUserById.execute(permissions, id)
             .thenApply(either -> {

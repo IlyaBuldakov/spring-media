@@ -1,11 +1,13 @@
 package com.htc.application.services;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * Вспомогательный класс для сервисов.
+ */
 public class ServiceHelper {
 
   /**

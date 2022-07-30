@@ -11,9 +11,9 @@ Spring
 
 Тестирование
 
- - **org.junit.jupiter:junit-jupiter** - модульные тесты.
- - **org.mockito:mockito-junit-jupiter** - объекты-заглушки с поддержкой JUnit.
- - **org.assertj:assertj-core** - человекочитаемые проверки.
+- **org.junit.jupiter:junit-jupiter** - модульные тесты.
+- **org.mockito:mockito-junit-jupiter** - объекты-заглушки с поддержкой JUnit.
+- **org.assertj:assertj-core** - человекочитаемые проверки.
 
 Валидаторы
 

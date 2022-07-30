@@ -20,7 +20,6 @@ public class UserRequest {
 
   /**
    * Пароль пользователя.
-   * <p>
    * {@link User#getPassword() Требования к паролю}.
    */
   private @Getter String password;

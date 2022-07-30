@@ -2,16 +2,14 @@ package com.htc.application.security;
 
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.domain.usecases.user.GetUserByEmail;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Реализация вспомогательного интерфейса Spring Security.

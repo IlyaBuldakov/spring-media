@@ -21,7 +21,7 @@ public class InternalServerErrorResponse extends AbstractDtoError {
   /**
    * Стандартное сообщение ошибки.
    */
-  private final static String DEFAULT_MESSAGE = "Внутренняя ошибка сервера";
+  private static final String DEFAULT_MESSAGE = "Внутренняя ошибка сервера";
 
   public InternalServerErrorResponse() {
     super(DEFAULT_MESSAGE);

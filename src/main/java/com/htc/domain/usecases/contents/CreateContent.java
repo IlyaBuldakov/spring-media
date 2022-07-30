@@ -7,11 +7,10 @@ import com.htc.domain.repositories.ContentsRepository;
 import com.htc.util.FileHelper;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария создания контента.
@@ -32,13 +31,15 @@ public class CreateContent {
    * @param taskId   Идентификатор задачи.
    * @return void.
    */
-  public CompletableFuture<Either<Failure, Void>> execute(int authorId, String fileName, File file, String url, String taskId) {
+  public CompletableFuture<Either<Failure, Void>> execute(int authorId, String fileName,
+                                                          File file, String url, String taskId) {
     var expectedFailure = ValuesValidator.validateStringId(taskId);
     if (expectedFailure != null) {
       return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
     var format = FileHelper.getContentFormat(file, fileName);
     return format.isLeft() ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
-            : contentsRepository.create(authorId, fileName, ContentType.PHOTO, (Content.ContentFormat) format.get(), url, Integer.parseInt(taskId));
+            : contentsRepository.create(authorId, fileName, ContentType.PHOTO,
+            (Content.ContentFormat) format.get(), url, Integer.parseInt(taskId));
   }
 }

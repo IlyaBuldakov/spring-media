@@ -2,10 +2,7 @@ package com.htc.infrastructure.mappers;
 
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.ContentType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,15 +13,31 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+/**
+ * Представление сущности контента для БД.
+ */
 @Entity
 @Table(name = "contents")
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContentMapper implements Content {
 
-  public ContentMapper(String name, ContentType type, int authorId, ContentFormat format, String url, int taskId) {
+  /**
+   * Конструктор без идентификатора.
+   *
+   * @param name     Название контента.
+   * @param type     Тип контента.
+   * @param authorId Идентификатор автора.
+   * @param format   Формат контента.
+   * @param url      URL контента в директории статических ресурсов.
+   * @param taskId   Идентификатор задачи.
+   */
+  public ContentMapper(String name, ContentType type, int authorId,
+                       ContentFormat format, String url, int taskId) {
     this.type = type;
     this.name = name;
     this.dateCreated = LocalDate.now();
@@ -36,7 +49,7 @@ public class ContentMapper implements Content {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
+  @Column(name = "id", unique = true)
   public @Getter Integer id;
 
   @Enumerated(EnumType.STRING)

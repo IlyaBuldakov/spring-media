@@ -4,11 +4,10 @@ import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.content.Content;
 import com.htc.domain.entities.content.Content.ContentFormat;
 import com.htc.domain.entities.content.ContentType;
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Представление контента (ответ).

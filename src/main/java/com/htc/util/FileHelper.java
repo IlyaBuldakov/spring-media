@@ -1,21 +1,20 @@
 package com.htc.util;
 
 import com.htc.domain.entities.AbstractApplicationFormat;
+import com.htc.domain.entities.content.Content.ContentFormat;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.file.File.FileFormat;
-import com.htc.domain.entities.content.Content.ContentFormat;
 import io.vavr.control.Either;
-import org.apache.tika.detect.DefaultDetector;
-import org.apache.tika.io.TikaInputStream;
-import org.apache.tika.metadata.Metadata;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import org.apache.tika.detect.DefaultDetector;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
 
 /**
  * Вспомогательный утилитный класс для работы с файлами.
@@ -56,17 +55,16 @@ public class FileHelper {
    * @param fileName Имя файла.
    * @return Формат файла.
    */
-  private static Either<Failure, AbstractApplicationFormat> getFormat(File file,
-                                                                      String fileName,
-                                                                      Consumer<String> formatType,
-                                                                      Function<String, AbstractApplicationFormat> switchHandler) {
+  private static Either<Failure, AbstractApplicationFormat> getFormat(
+          File file, String fileName, Consumer<String> formatType,
+          Function<String, AbstractApplicationFormat> switchHandler) {
     var expectedFailure = checkFileExtension(fileName, formatType);
     if (expectedFailure != null) {
       return Either.left(InvalidValue.INCORRECT_FORMAT);
     }
     try {
-      var type
-              = new DefaultDetector().detect(TikaInputStream.get(Path.of(file.getPath())), new Metadata()).toString();
+      var type = new DefaultDetector()
+              .detect(TikaInputStream.get(Path.of(file.getPath())), new Metadata()).toString();
       AbstractApplicationFormat format = switchHandler.apply(type);
       return format == null ? Either.left(InvalidValue.INCORRECT_FORMAT)
               : Either.right(format);
@@ -75,20 +73,41 @@ public class FileHelper {
     }
   }
 
-  public static Either<Failure, AbstractApplicationFormat> getFileFormat(File file, String fileName) {
+  /**
+   * Получение формата файла.
+   *
+   * @param file     Файл.
+   * @param fileName Имя файла.
+   * @return Формат файла или Failure.
+   */
+  public static Either<Failure, AbstractApplicationFormat> getFileFormat(File file,
+                                                                         String fileName) {
     return getFormat(file, fileName,
             FileFormat::valueOf,
             type -> switch (type) {
-              case "application/x-tika-msoffice", "application/msword" -> FileFormat.DOC;
-              case "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> FileFormat.DOCX;
-              case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" -> FileFormat.XLSX;
-              case "application/vnd.ms-excel" -> FileFormat.XLS;
-              case "application/pdf" -> FileFormat.PDF;
+              case "application/x-tika-msoffice", "application/msword" ->
+                      FileFormat.DOC;
+              case "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ->
+                      FileFormat.DOCX;
+              case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ->
+                      FileFormat.XLSX;
+              case "application/vnd.ms-excel" ->
+                      FileFormat.XLS;
+              case "application/pdf" ->
+                      FileFormat.PDF;
               default -> null;
             });
   }
 
-  public static Either<Failure, AbstractApplicationFormat> getContentFormat(File file, String fileName) {
+  /**
+   * Получение формата файла контента.
+   *
+   * @param file     Файл.
+   * @param fileName Имя файла.
+   * @return Формат файла контента или Failure.
+   */
+  public static Either<Failure, AbstractApplicationFormat> getContentFormat(File file,
+                                                                            String fileName) {
     return getFormat(file, fileName,
             ContentFormat::valueOf,
             type -> switch (type) {
@@ -130,10 +149,10 @@ public class FileHelper {
    * @return Составной URL.
    */
   public static String composeUrl(String fileName, String taskId) {
-    return getRandomString() +
-            "-uploaded_task-" +
-            taskId +
-            "_" +
-            fileName;
+    return getRandomString()
+            + "-uploaded_task-"
+            + taskId
+            + "_"
+            + fileName;
   }
 }

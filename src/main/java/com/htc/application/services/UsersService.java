@@ -2,11 +2,10 @@ package com.htc.application.services;
 
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Интерфейс, описывающий базовые операции для взаимодействия с пользователем.

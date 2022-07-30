@@ -7,10 +7,9 @@ import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.task.TaskStatus;
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Представление задачи (ответ).

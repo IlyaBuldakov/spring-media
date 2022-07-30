@@ -1,7 +1,6 @@
 package com.htc.domain.entities.file;
 
 import com.htc.domain.entities.AbstractApplicationFormat;
-
 import java.time.LocalDate;
 
 /**

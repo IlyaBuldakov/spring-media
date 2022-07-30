@@ -2,10 +2,6 @@ package com.htc.infrastructure.mappers;
 
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,9 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.checkerframework.common.aliasing.qual.Unique;
 
 /**
- * Представление пользователя для БД.
+ * Представление сущности пользователя для БД.
  */
 @Entity
 @Table(name = "users")
@@ -24,6 +24,15 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class UserMapper implements User {
 
+  /**
+   * Конструктор без идентификатора.
+   *
+   * @param name     Имя пользователя.
+   * @param password Пароль пользователя.
+   * @param email    Электронна почта пользователя.
+   * @param avatar   Аватар пользователя.
+   * @param role     Роль пользователя.
+   */
   public UserMapper(String name, String password, String email, String avatar, Role role) {
     this.name = name;
     this.password = password;
@@ -32,6 +41,16 @@ public class UserMapper implements User {
     this.role = role;
   }
 
+  /**
+   * Конструктор для обновления.
+   *
+   * @param id       Идентификатор пользователя.
+   * @param name     Имя пользователя.
+   * @param password Пароль пользователя.
+   * @param email    Электронная почта пользователя.
+   * @param avatar   Аватар пользователя.
+   * @param role     Роль пользователя.
+   */
   public UserMapper(int id, String name, String password, String email, String avatar, Role role) {
     this.id = id;
     this.name = name;
@@ -43,19 +62,17 @@ public class UserMapper implements User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
+  @Column(name = "id", unique = true)
+  @Unique
   public @Getter Integer id;
 
-  @Column(name = "name")
   public @Getter String name;
 
-  @Column(name = "password")
   public @Getter String password;
 
-  @Column(name = "email")
+  @Column(unique = true)
   public @Getter String email;
 
-  @Column(name = "avatar")
   public @Getter String avatar;
 
   @Enumerated(EnumType.STRING)

@@ -9,11 +9,10 @@ import com.htc.domain.usecases.task.DeleteTask;
 import com.htc.domain.usecases.task.GetAllTasks;
 import com.htc.domain.usecases.task.GetTaskById;
 import com.htc.domain.usecases.task.UpdateTask;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /**
  * Реализация {@link TasksService}.

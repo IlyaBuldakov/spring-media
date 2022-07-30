@@ -3,10 +3,9 @@ package com.htc.application.dto.errors;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.htc.domain.entities.failures.InvalidValue;
 import com.htc.domain.entities.failures.InvalidValuesContainer;
+import java.util.List;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-
-import java.util.List;
 
 /**
  * Представление ошибки невалидного запроса.
@@ -32,7 +31,7 @@ public class BadRequestResponse extends AbstractDtoError {
   /**
    * Стандартное сообщение ошибки.
    */
-  private final static String DEFAULT_MESSAGE = "Невалидный запрос";
+  private static final String DEFAULT_MESSAGE = "Невалидный запрос";
 
   /**
    * Конструктор из контейнера ошибок InvalidValue (невалидных полей).

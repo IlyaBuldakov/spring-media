@@ -1,5 +1,6 @@
 package com.htc;
 
+import javax.servlet.MultipartConfigElement;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -8,8 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.util.unit.DataSize;
 
-import javax.servlet.MultipartConfigElement;
-
+/**
+ * Основной класс приложения.
+ */
 @SpringBootApplication
 @EnableAsync
 @EnableJpaRepositories
@@ -18,6 +20,9 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
+  /**
+   * Настройка ограничения на размер входящих файлов.
+   */
   @Bean
   public MultipartConfigElement multipartConfigElement() {
     MultipartConfigFactory factory = new MultipartConfigFactory();

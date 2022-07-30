@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   /**
-   * Фильтр, обрабатывающий Authentication Header запроса
+   * Фильтр, обрабатывающий Authentication Header запроса.
    */
   private final AuthorizationFilter authorizationFilter;
 
@@ -35,10 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * Массив путей, не подлежащих авторизации.
    */
-  private final String[] permittedPaths = {
-          "/api/auth/login",
-          "/api/auth/access-token"
-  };
+  private final String[] permittedPaths = {"/api/auth/login", "/api/auth/access-token"};
 
   /**
    * Конфигурация HttpSecurity.
@@ -62,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   /**
    * Создание бина Authentication Manager
-   * с конфигурацией по умолчанию
+   * с конфигурацией по умолчанию.
    *
    * @return Authentication Manager.
    * @throws Exception Исключение.

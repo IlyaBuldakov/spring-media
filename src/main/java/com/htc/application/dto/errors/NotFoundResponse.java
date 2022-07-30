@@ -20,7 +20,7 @@ public class NotFoundResponse extends AbstractDtoError {
   private final @Getter int statusCode = httpStatus.value();
 
   /**
-   * Конструктор из {@link NotFound соответствующей сущности}
+   * Конструктор из {@link NotFound соответствующей сущности}.
    *
    * @param notFound Сущность ошибки поиска "не найдено".
    */

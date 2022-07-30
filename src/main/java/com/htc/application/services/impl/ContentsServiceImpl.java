@@ -11,16 +11,15 @@ import com.htc.domain.usecases.contents.GetAllContent;
 import com.htc.domain.usecases.file.SaveFile;
 import com.htc.util.FileHelper;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Реализация {@link ContentsService}.
@@ -66,7 +65,8 @@ public class ContentsServiceImpl implements ContentsService {
    * @return void.
    */
   @Override
-  public CompletableFuture<Void> uploadContent(int authorId, MultipartFile multipartFile, String taskId) {
+  public CompletableFuture<Void> uploadContent(int authorId, MultipartFile multipartFile,
+                                               String taskId) {
     String fileName = multipartFile.getOriginalFilename();
     String composedUrl = FileHelper.composeUrl(fileName, taskId);
     try {

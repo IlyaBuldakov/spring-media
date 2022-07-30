@@ -5,7 +5,6 @@ import com.htc.domain.entities.content.Content.ContentFormat;
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -30,7 +29,10 @@ public interface ContentsRepository {
    * @param taskId        Идентификатор задачи.
    * @return void.
    */
-  CompletableFuture<Either<Failure, Void>> create(int id, String name, ContentType type, ContentFormat contentFormat, String url, int taskId);
+  CompletableFuture<Either<Failure, Void>> create(int id, String name,
+                                                  ContentType type,
+                                                  ContentFormat contentFormat,
+                                                  String url, int taskId);
 
   /**
    * Удаление контента по идентификатору.

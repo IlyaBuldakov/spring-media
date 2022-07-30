@@ -2,7 +2,6 @@ package com.htc.domain.entities.content;
 
 import com.htc.domain.entities.AbstractApplicationFormat;
 import com.htc.domain.entities.user.User;
-
 import java.time.LocalDate;
 
 /**

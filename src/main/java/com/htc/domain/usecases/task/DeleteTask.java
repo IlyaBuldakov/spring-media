@@ -5,11 +5,10 @@ import com.htc.domain.repositories.FilesRepository;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария удаления задачи по идентификатору.

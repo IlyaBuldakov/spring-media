@@ -3,12 +3,8 @@ package com.htc.infrastructure.mappers;
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.task.TaskStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
+import java.time.LocalDate;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,15 +17,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
+/**
+ * Представление сущности задачи для БД.
+ */
 @Entity
 @Table(name = "tasks")
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskMapper implements Task {
 
+  /**
+   * Конструктор.
+   *
+   * @param id          Идентификатор задачи.
+   * @param name        Имя задачи.
+   * @param type        Тип задачи.
+   * @param description Описание задачи.
+   * @param author      Автор задачи.
+   * @param executor    Исполнитель задачи.
+   * @param dateExpired Дата исполнения.
+   */
   public TaskMapper(int id, String name, ContentType type, String description,
                     int author, int executor, LocalDate dateExpired) {
     this.id = id;
@@ -43,6 +56,16 @@ public class TaskMapper implements Task {
     this.status = TaskStatus.IN_WORK;
   }
 
+  /**
+   * Конструктор без идентификатора.
+   *
+   * @param name        Имя задачи.
+   * @param type        Тип задачи.
+   * @param description Описание задачи.
+   * @param author      Автор задачи.
+   * @param executor    Исполнитель задачи.
+   * @param dateExpired Дата исполнения.
+   */
   public TaskMapper(String name, ContentType type, String description,
                     int author, int executor, LocalDate dateExpired) {
     this.name = name;
@@ -57,17 +80,15 @@ public class TaskMapper implements Task {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
+  @Column(name = "id", unique = true)
   public @Getter Integer id;
 
-  @Column(name = "name")
   private @Getter String name;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "type")
+
   private @Getter ContentType type;
 
-  @Column(name = "description")
   private @Getter String description;
 
   @OneToMany(cascade = CascadeType.ALL)

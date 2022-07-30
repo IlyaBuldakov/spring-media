@@ -1,9 +1,8 @@
 package com.htc.infrastructure.jpa;
 
 import com.htc.infrastructure.mappers.UserMapper;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * JPA-репозиторий для работы с пользователями.

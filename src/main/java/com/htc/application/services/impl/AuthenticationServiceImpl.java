@@ -9,6 +9,8 @@ import com.htc.application.services.AuthenticationService;
 import com.htc.application.services.JwtService;
 import com.htc.application.services.UsersService;
 import com.htc.domain.entities.failures.Unauthorized;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,9 +18,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Реализация сервиса, проводящего аутентификацию.
@@ -33,10 +32,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
   /**
    * Основной метод проведения аутентификации в приложении.
-   * <p>
    * Используется AuthenticationManager по умолчанию, делегирующий работу получения пользователя
-   * {@link DaoAuthenticationProvider провайдеру}, который в свою очередь использует {@link UserDetailsServiceImpl реализацию}
-   * {@link UserDetailsService} для того, чтобы Spring Security смог получить пользователя из базы данных и сверить его данные со входящими.
+   * {@link DaoAuthenticationProvider провайдеру}, который в свою очередь
+   * использует {@link UserDetailsServiceImpl реализацию}
+   * {@link UserDetailsService} для того, чтобы Spring Security смог получить пользователя
+   * из базы данных и сверить его данные со входящими.
    *
    * @param loginRequest E-mail, пароль.
    * @return Access-токен, refresh-токен.

@@ -4,11 +4,10 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.repositories.TasksRepository;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария получения всех задач.

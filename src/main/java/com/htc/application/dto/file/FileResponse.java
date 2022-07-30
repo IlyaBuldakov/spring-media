@@ -2,11 +2,10 @@ package com.htc.application.dto.file;
 
 import com.htc.domain.entities.file.File;
 import com.htc.domain.entities.file.File.FileFormat;
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Представление файла (ответ).

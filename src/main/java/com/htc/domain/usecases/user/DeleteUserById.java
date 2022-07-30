@@ -8,11 +8,10 @@ import com.htc.domain.usecases.UseCaseHelper;
 import com.htc.infrastructure.repositories.UsersRepositoryImpl;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Реализация сценария удаления пользователя по идентификатору.

@@ -2,12 +2,11 @@ package com.htc.application.dto.comment;
 
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.comment.Comment;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * Представление комментария (ответ).

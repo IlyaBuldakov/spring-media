@@ -1,9 +1,7 @@
 package com.htc.infrastructure.mappers;
 
 import com.htc.domain.entities.file.File;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,13 +10,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+/**
+ * Представление сущности файла для БД.
+ */
 @Entity
 @Table(name = "files")
 @NoArgsConstructor
 public class FileMapper implements File {
 
+  /**
+   * Конструктор без идентификатора.
+   *
+   * @param name        Имя файла.
+   * @param dateCreated Дата создания файла.
+   * @param format      Формат файла.
+   * @param url         URL файла.
+   * @param taskId      Идентификатор задачи.
+   */
   public FileMapper(String name, LocalDate dateCreated, FileFormat format, String url, int taskId) {
     this.name = name;
     this.dateCreated = dateCreated;
@@ -29,7 +40,7 @@ public class FileMapper implements File {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
+  @Column(name = "id", unique = true)
   public @Getter Integer id;
 
   private @Getter String name;

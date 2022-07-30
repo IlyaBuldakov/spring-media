@@ -4,7 +4,6 @@ import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.entities.task.Task;
 import io.vavr.control.Either;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
