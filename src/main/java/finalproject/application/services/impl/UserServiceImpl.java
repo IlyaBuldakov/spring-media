@@ -3,8 +3,10 @@ package finalproject.application.services.impl;
 import finalproject.application.services.AuthService;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.failures.*;
+import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
+import finalproject.infrastructure.repositories.TaskRepository;
 import finalproject.infrastructure.repositories.UserRepository;
 import io.vavr.control.Either;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
-  private final AuthService authService;
+  private final TaskRepository taskRepository;
 
 
   @Async
@@ -66,17 +68,27 @@ public class UserServiceImpl implements UserService {
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteUserById(int id) {
     List<String> problems = new ArrayList<>();
-    if (userRepository.existsById(id)) {
-      userRepository.deleteById(id);
-      return CompletableFuture.completedFuture(Either.right(null));
-    }
-    if (id <= 1) {
+    if (id < 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(
               new BadRequest(Messages.INVALID_VALUES, problems)));
     }
-    return CompletableFuture.completedFuture(Either.left(
-            new NotFound(Messages.USER_NOT_FOUND)));
+    if (!userRepository.existsById(id)) {
+      return CompletableFuture.completedFuture(Either.left(
+              new NotFound(Messages.USER_NOT_FOUND)));
+    }
+    User user = userRepository.findById(id).get();
+    for (Task task : user.getTasksAsAuthor()) {
+      task.setAuthor(null);
+      taskRepository.save(task);
+    }
+
+    for (Task task : user.getTasksAsContentMaker()) {
+      task.setContentMaker(null);
+      taskRepository.save(task);
+    }
+    userRepository.deleteById(id);
+    return CompletableFuture.completedFuture(Either.right(null));
   }
 
   @Async

@@ -68,7 +68,7 @@ public class Task implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
   @JoinColumn(name = "authorId")
   private User author;
 
@@ -79,7 +79,7 @@ public class Task implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+  @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
   @JoinColumn(name = "contentMakerId")
   private User contentMaker;
 

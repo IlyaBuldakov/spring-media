@@ -87,14 +87,14 @@ public class User implements Serializable {
   @Getter
   @Setter
   @LazyCollection(LazyCollectionOption.FALSE)
-  @OneToMany(mappedBy = "author")
+  @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
   private List<Task> tasksAsAuthor;
 
   @JsonIgnore
   @Getter
   @Setter
   @LazyCollection(LazyCollectionOption.FALSE)
-  @OneToMany(mappedBy = "contentMaker")
+  @OneToMany(mappedBy = "contentMaker", cascade = CascadeType.ALL)
   private List<Task> tasksAsContentMaker;
 
   public Integer getId(){return id;}
