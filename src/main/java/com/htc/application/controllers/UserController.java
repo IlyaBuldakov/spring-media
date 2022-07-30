@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,7 +51,8 @@ public class UserController {
    */
   @Operation(summary = "Добавить нового пользователя.")
   @PostMapping
-  public void add(@RequestBody UserRequest userRequest) {
+  public void add(@AuthenticationPrincipal Id subjectId,
+                  @RequestBody UserRequest userRequest) {
     ControllerHelper.customRequest(
             addUser,
             new AddUser.Params(
@@ -72,7 +74,8 @@ public class UserController {
    */
   @Operation(summary = "Получить пользователя по идентификатору.")
   @GetMapping(path = "/{id}")
-  public CompletableFuture<UserResponse> get(@PathVariable Long id) {
+  public CompletableFuture<UserResponse> get(@AuthenticationPrincipal Id subjectId,
+                                             @PathVariable Long id) {
     return ControllerHelper.customRequest(
             getUserById,
             new GetUserById.Params(Id.create(id).get()),
@@ -87,7 +90,7 @@ public class UserController {
    */
   @Operation(summary = "Получить список всех пользователей.")
   @GetMapping
-  public CompletableFuture<List<UserResponse>> getAll() {
+  public CompletableFuture<List<UserResponse>> getAll(@AuthenticationPrincipal Id subjectId) {
     return ControllerHelper.customRequest(
       getAllUsers,
       null,
@@ -104,7 +107,8 @@ public class UserController {
    */
   @Operation(summary = "Обновить пользователя по идентификатору.")
   @PutMapping(path = "/{id}")
-  public void update(@PathVariable Long id, @RequestBody UserRequest userRequest) {
+  public void update(@AuthenticationPrincipal Id subjectId,
+                     @PathVariable Long id, @RequestBody UserRequest userRequest) {
     ControllerHelper.customRequest(
             updateUserById,
             new UpdateUserById.Params(
@@ -126,7 +130,8 @@ public class UserController {
    */
   @Operation(summary = "Удалить пользователя по идентификатору.")
   @DeleteMapping(path = "/{id}")
-  public CompletableFuture<Void> delete(@PathVariable Long id) {
+  public CompletableFuture<Void> delete(@AuthenticationPrincipal Id subjectId,
+                                        @PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteUserById,
             new DeleteUserById.Params(Id.create(id).get()),
