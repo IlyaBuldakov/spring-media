@@ -4,7 +4,12 @@ package finalproject.application.services.impl;
 
 import finalproject.application.services.TaskService;
 import finalproject.domain.entities.content.Content;
-import finalproject.domain.entities.failures.*;
+import finalproject.domain.entities.failures.BadRequest;
+import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.InternalServerError;
+import finalproject.domain.entities.failures.Messages;
+import finalproject.domain.entities.failures.NotAuthorized;
+import finalproject.domain.entities.failures.NotFound;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.task.TaskStatus;
 import finalproject.domain.entities.user.Role;
@@ -63,14 +68,14 @@ public class TaskServiceImpl implements TaskService {
     User authorizedUser = userRepository.findById(auth).get();
     if (authorizedUser.getRole() != Role.ADMIN
             && (task.getTaskStatus() != oldTask.getTaskStatus()
-              || !task.getAuthor().equals(authorizedUser)))
-    {
+              || !task.getAuthor().equals(authorizedUser))) {
       return CompletableFuture.completedFuture(
               Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
     }
     task.setDateCreated(oldTask.getDateCreated());
     task.setId(oldTask.getId());
-    if (task.getTaskStatus() == TaskStatus.APPROVED && oldTask.getTaskStatus() != TaskStatus.APPROVED) {
+    if (task.getTaskStatus() == TaskStatus.APPROVED
+            && oldTask.getTaskStatus() != TaskStatus.APPROVED) {
       for (Content content : contentRepository.findByTaskId(task.getId())) {
         content.setIsPublished(true);
         contentRepository.save(content);
@@ -95,12 +100,12 @@ public class TaskServiceImpl implements TaskService {
               new NotFound(Messages.USER_NOT_FOUND)));
     }
     User authorizedUser = userRepository.findById(auth).get();
-    if (authorizedUser.getRole() == Role.ADMIN || authorizedUser.equals(task.getAuthor()))
-    {
-    taskRepository.deleteById(id);
-    return CompletableFuture.completedFuture(Either.right(null));}
+    if (authorizedUser.getRole() == Role.ADMIN || authorizedUser.equals(task.getAuthor())) {
+      taskRepository.deleteById(id);
+      return CompletableFuture.completedFuture(Either.right(null));
+    }
     return CompletableFuture.completedFuture(
-            Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
+              Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
 
   }
 
@@ -127,15 +132,15 @@ public class TaskServiceImpl implements TaskService {
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, List<Task>>> getAllTasks(int auth) {
+  public CompletableFuture<List<Task>> getAllTasks(int auth) {
     User authorizedUser = userRepository.findById(auth).get();
-    return switch(authorizedUser.getRole()) {
+    return switch (authorizedUser.getRole()) {
       case ADMIN -> CompletableFuture.completedFuture(
-              Either.right(taskRepository.findAll()));
+             taskRepository.findAll());
       case MANAGER -> CompletableFuture.completedFuture(
-              Either.right(taskRepository.findByAuthor(authorizedUser)));
+             taskRepository.findByAuthor(authorizedUser));
       case CONTENT_MAKER -> CompletableFuture.completedFuture(
-              Either.right(taskRepository.findByContentMaker(authorizedUser)));
+              taskRepository.findByContentMaker(authorizedUser));
     };
 
   }

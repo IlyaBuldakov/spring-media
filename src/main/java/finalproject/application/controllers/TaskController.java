@@ -4,6 +4,7 @@ import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.dto.failures.InternalServerErrorDto;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.task.TaskDto;
+import finalproject.application.dto.task.TaskListDto;
 import finalproject.application.dto.task.TaskRequestDto;
 import finalproject.application.services.AuthService;
 import finalproject.application.services.TaskService;
@@ -17,6 +18,7 @@ import finalproject.domain.entities.user.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import io.vavr.control.Either;
@@ -95,7 +97,7 @@ public class TaskController {
 
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @GetMapping("/{id}")
-  public CompletableFuture<Task> getTaskById(@PathVariable int id) {
+  public CompletableFuture<TaskDto> getTaskById(@PathVariable int id) {
     return taskService.getTaskById(id).thenApply(either -> either.getOrElseThrow(failure -> {
       if (failure instanceof BadRequest) {
         return new BadRequestDto(failure);
@@ -104,8 +106,15 @@ public class TaskController {
         return new NotFoundDto(failure);
       }
       return new InternalServerErrorDto(failure);
-            }));
+            })).thenApply(TaskDto::new);
+  }
 
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
+  @GetMapping
+  public CompletableFuture<TaskListDto[]> getTasks() {
+    int autorizedUserId = authService.getId();
+    return taskService.getAllTasks(autorizedUserId)
+            .thenApply(list -> list.stream().map(TaskListDto::new).toList().toArray(new TaskListDto[0]));
   }
 
 

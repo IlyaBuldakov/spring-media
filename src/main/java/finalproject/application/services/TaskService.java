@@ -19,7 +19,7 @@ public interface TaskService {
 
   CompletableFuture<Either<Failure, Task>> getTaskById(int id);
 
-  CompletableFuture<Either<Failure, List<Task>>> getAllTasks(int authorizedUserId);
+  CompletableFuture<List<Task>> getAllTasks(int authorizedUserId);
 
 
 
