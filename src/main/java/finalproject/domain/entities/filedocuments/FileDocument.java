@@ -3,6 +3,7 @@ package finalproject.domain.entities.filedocuments;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalproject.domain.entities.task.Task;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,12 +13,11 @@ import lombok.Setter;
 /**
  * Класс сущности Файл.
  */
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Getter
 @Setter
-public class FileDocuments {
+public class FileDocument {
 
   /**
    * Идентификатор сущности. Обычно генерируется репозиторием.
@@ -64,7 +64,15 @@ public class FileDocuments {
    *
    * @return возвращает task идентификатор задачи.
    */
+  @JsonIgnore
   @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "taskId")
   private Task task;
+
+  public FileDocument(String name, Format format, String url, Task task) {
+    this.name = name;
+    this.format = format;
+    this.url = url;
+    this.task = task;
+  }
 }

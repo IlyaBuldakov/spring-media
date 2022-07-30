@@ -7,6 +7,7 @@ import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.BadRequest;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.failures.Messages;
+import finalproject.domain.entities.filedocuments.FileDocument;
 import finalproject.domain.entities.user.User;
 import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
@@ -85,10 +86,15 @@ public class Task implements Serializable {
 
   @JsonIgnore
   @Getter
-  @Setter
   @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
   private List<Content> allTaskContent;
+
+  @JsonIgnore
+  @Getter
+  @LazyCollection(LazyCollectionOption.FALSE)
+  @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+  private List<FileDocument> allTaskFiles;
 
 
   /**Дата создания задачи.
