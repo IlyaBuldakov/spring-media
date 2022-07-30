@@ -7,7 +7,6 @@ Spring
 - **org.springframework.boot:spring-boot-starter-web** - стартер для создания веб-приложения.
 - **org.springframework.boot:spring-boot-starter-data-jpa** - стартер для Spring Data JPA.
 - **org.springframework.boot:spring-boot-starter-security** - стартер для безопасности в проекте.
-- ****
 
 Тестирование
 
