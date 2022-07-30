@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentMapper implements Comment {
 
+  /**
+   * Конструктор без идентификатора.
+   *
+   * @param taskId      Идентификатор задачи.
+   * @param dateCreated Дата создания комментария.
+   * @param authorId    Идентификатор автора.
+   * @param message     Сообщение комментария.
+   */
+  public CommentMapper(int taskId, LocalDate dateCreated, int authorId, String message) {
+    this.taskId = taskId;
+    this.dateCreated = dateCreated;
+    this.authorId = authorId;
+    this.message = message;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", unique = true)
@@ -31,7 +47,14 @@ public class CommentMapper implements Comment {
   private @Getter LocalDate dateCreated;
 
   @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "author_id", insertable = false, updatable = false)
   private @Getter UserMapper author;
 
+  @Column(name = "author_id")
+  private @Getter int authorId;
+
   private @Getter String message;
+
+  @Column(name = "task_id")
+  private @Getter int taskId;
 }
