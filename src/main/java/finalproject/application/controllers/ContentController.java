@@ -64,7 +64,6 @@ public class ContentController {
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @DeleteMapping("/api/contents/{id}")
   public CompletableFuture<Void> deleteContent(@PathVariable int id) {
-    int autorizedUserId = authService.getId();
     return contentService.deleteContentById(id).thenApply(either -> either.getOrElseThrow(failure -> {
       if (failure.getProblems() != null) {
         return new BadRequestDto(failure);

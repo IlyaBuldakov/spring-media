@@ -101,17 +101,19 @@ public class ContentServiceImpl implements ContentService {
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteContentById(int id) {
     List<String> problems = new ArrayList<>();
-    if (taskRepository.existsById(id)) {
-      taskRepository.deleteById(id);
-      return CompletableFuture.completedFuture(Either.right(null));
-    }
-    if (id <= 1) {
+    if (id < 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(
-              new BadRequest(Messages.INVALID_VALUES, problems)));
+              new BadRequest(Messages.INVALID_VALUES, problems)));}
+    if (!contentRepository.existsById(id)) {
+      return CompletableFuture.completedFuture(Either.left(
+              new NotFound(Messages.CONTENT_NOT_FOUND)));
     }
-    return CompletableFuture.completedFuture(Either.left(
-            new NotFound(Messages.CONTENT_NOT_FOUND)));
+
+    taskRepository.deleteById(id);
+    return CompletableFuture.completedFuture(Either.right(null));
+
+
   }
 
   @Override
