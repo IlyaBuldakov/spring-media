@@ -1,5 +1,7 @@
 package com.htc.domain.entities.file;
 
+import com.htc.domain.entities.AbstractApplicationFormat;
+
 import java.time.LocalDate;
 
 /**
@@ -10,7 +12,7 @@ public interface File {
     /**
      * Формат файла.
      */
-    enum Format {
+    enum FileFormat implements AbstractApplicationFormat {
 
         DOC,
 
@@ -49,7 +51,7 @@ public interface File {
      *
      * @return Формат файла.
      */
-    Format getFormat();
+    FileFormat getFormat();
 
     /**
      * URL файла.

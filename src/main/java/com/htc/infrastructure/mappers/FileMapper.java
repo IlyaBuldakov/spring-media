@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class FileMapper implements File {
 
-    public FileMapper(String name, LocalDate dateCreated, Format format, String url, int taskId) {
+    public FileMapper(String name, LocalDate dateCreated, FileFormat format, String url, int taskId) {
         this.name = name;
         this.dateCreated = dateCreated;
         this.format = format;
@@ -37,7 +37,7 @@ public class FileMapper implements File {
     private @Getter LocalDate dateCreated;
 
     @Enumerated(EnumType.STRING)
-    private @Getter Format format;
+    private @Getter FileFormat format;
 
     private @Getter String url;
 

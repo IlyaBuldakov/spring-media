@@ -24,7 +24,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ContentMapper implements Content {
 
-    public ContentMapper(String name, ContentType type, Format format, int taskId ) {
+    public ContentMapper(String name, ContentType type, ContentFormat format, int taskId ) {
         this.type = type;
         this.name = name;
         this.dateCreated = LocalDate.now();
@@ -49,7 +49,7 @@ public class ContentMapper implements Content {
     private @Getter UserMapper author;
 
     @Enumerated(EnumType.STRING)
-    private @Getter Format format;
+    private @Getter ContentFormat format;
 
     private @Getter String url;
 

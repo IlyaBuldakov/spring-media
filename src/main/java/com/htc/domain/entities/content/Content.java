@@ -1,5 +1,6 @@
 package com.htc.domain.entities.content;
 
+import com.htc.domain.entities.AbstractApplicationFormat;
 import com.htc.domain.entities.user.User;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public interface Content {
     /**
      * Перечисление форматов контента.
      */
-    enum Format {
+    enum ContentFormat implements AbstractApplicationFormat {
         JPG,
 
         PNG,
@@ -65,11 +66,11 @@ public interface Content {
     User getAuthor();
 
     /**
-     * Формат контента {@link Format}.
+     * Формат контента {@link ContentFormat}.
      *
      * @return Формат контента.
      */
-    Format getFormat();
+    ContentFormat getFormat();
 
     /**
      * Путь к файлу.
