@@ -3,6 +3,8 @@ package com.htc.application.services.impl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.dto.login.LoginResponse;
 import com.htc.application.security.UserAuthentication;
 import com.htc.application.services.JwtService;
@@ -42,12 +44,12 @@ public class JwtServiceImpl implements JwtService {
     /**
      * Время жизни Access-токена (10 минут).
      */
-    private final int ACCESS_TOKEN_LIFETIME_SECONDS = 10 * 60;
+    private final static int ACCESS_TOKEN_LIFETIME_SECONDS = 10 * 60;
 
     /**
      * Время жизни Refresh-токена (30 дней).
      */
-    private final int REFRESH_TOKEN_LIFETIME_SECONDS = 30 * 24 * 60 * 60;
+    private final static int REFRESH_TOKEN_LIFETIME_SECONDS = 30 * 24 * 60 * 60;
 
     @Override
     public String createJwtToken(int id, Role role, String email, int lifeTime) {
@@ -88,11 +90,11 @@ public class JwtServiceImpl implements JwtService {
         return true;
     }
 
-    public String getEmailFromToken(String token) {
+    private String getEmailFromToken(String token) {
         return JWT.decode(token).getSubject();
     }
 
-    public int getIdFromToken(String token) {
+    private int getIdFromToken(String token) {
         return JWT.decode(token).getClaim("id").asInt();
     }
 
@@ -102,5 +104,21 @@ public class JwtServiceImpl implements JwtService {
         var id = getIdFromToken(token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         return new UserAuthentication(id, userDetails, "", userDetails.getAuthorities());
+    }
+
+    @Override
+    public LoginResponse getNewAccessToken(String refreshToken) {
+        DecodedJWT decodedJWT = JWT.decode(refreshToken);
+        int id = decodedJWT.getClaim("id").asInt();
+        Role role = Role.lookup(decodedJWT.getClaim("role").asString());
+        String email = decodedJWT.getSubject();
+        if (isTokenValid(refreshToken)) {
+            if (role != null) {
+                return new LoginResponse(
+                        createJwtToken(id, role, email, ACCESS_TOKEN_LIFETIME_SECONDS),
+                        refreshToken);
+            }
+        }
+        throw new InternalServerErrorResponse();
     }
 }

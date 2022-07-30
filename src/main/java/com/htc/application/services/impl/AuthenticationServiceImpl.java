@@ -1,5 +1,6 @@
 package com.htc.application.services.impl;
 
+import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.dto.errors.UnauthorizedResponse;
 import com.htc.application.dto.login.LoginRequest;
 import com.htc.application.dto.login.LoginResponse;
@@ -56,7 +57,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         } catch (AuthenticationException exception) {
             throw new UnauthorizedResponse(Unauthorized.BAD_CREDENTIALS.getMessage());
         } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new InternalServerErrorResponse();
         }
+    }
+
+    @Override
+    public CompletableFuture<LoginResponse> getNewAccessToken(String refreshToken) {
+        return CompletableFuture.completedFuture(jwtService.getNewAccessToken(refreshToken));
     }
 }

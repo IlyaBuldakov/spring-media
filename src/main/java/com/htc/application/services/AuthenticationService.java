@@ -8,4 +8,6 @@ import java.util.concurrent.CompletableFuture;
 public interface AuthenticationService {
 
     CompletableFuture<LoginResponse> login(LoginRequest loginRequest);
+
+    CompletableFuture<LoginResponse> getNewAccessToken(String refreshToken);
 }

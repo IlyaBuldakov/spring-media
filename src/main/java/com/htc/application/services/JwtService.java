@@ -50,4 +50,12 @@ public interface JwtService {
      * @return Authentication.
      */
     Authentication getAuthentication(String token);
+
+    /**
+     * Получение новго access-токена по refresh-токену.
+     *
+     * @param refreshToken Refresh-токен.
+     * @return LoginResponse.
+     */
+    LoginResponse getNewAccessToken(String refreshToken);
 }
