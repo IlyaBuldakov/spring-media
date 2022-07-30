@@ -1,7 +1,7 @@
 package com.htc.application.dto.file;
 
 import com.htc.domain.entities.file.File;
-import com.htc.domain.entities.file.File.Format;
+import com.htc.domain.entities.file.File.FileFormat;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public class FileResponse {
         this.id = file.getId();
         this.name = file.getName();
         this.dateCreated = file.getDateCreated();
-        this.format = file.getFormat();
+        this.fileFormat = file.getFormat();
         this.url = file.getUrl();
     }
 
@@ -59,7 +59,7 @@ public class FileResponse {
     /**
      * Формат файла.
      */
-    private final @Getter Format format;
+    private final @Getter FileFormat fileFormat;
 
     /**
      * URL файла на сервере.

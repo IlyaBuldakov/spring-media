@@ -2,7 +2,7 @@ package com.htc.application.dto.content;
 
 import com.htc.application.dto.user.UserShortResponse;
 import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.content.Content.Format;
+import com.htc.domain.entities.content.Content.ContentFormat;
 import com.htc.domain.entities.content.ContentType;
 import lombok.Getter;
 
@@ -25,7 +25,7 @@ public class ContentResponse {
         this.type = content.getType();
         this.dateCreated = content.getDateCreated();
         this.author = new UserShortResponse(content.getAuthor());
-        this.format = content.getFormat();
+        this.contentFormat = content.getFormat();
         this.url = content.getUrl();
         this.preview = content.getPreview();
     }
@@ -68,7 +68,7 @@ public class ContentResponse {
     /**
      * Формат контента.
      */
-    private final @Getter Format format;
+    private final @Getter ContentFormat contentFormat;
 
     /**
      * URL контента на сервере.
