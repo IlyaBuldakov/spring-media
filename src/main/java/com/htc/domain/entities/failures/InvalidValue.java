@@ -26,7 +26,9 @@ public enum InvalidValue implements Failure {
     INCORRECT_TASK_DESCRIPTION("description", "Некорректное описание задачи"),
 
     // Файлы
-    INCORRECT_FORMAT("file", "Некорректный формат файла");
+    INCORRECT_FORMAT("file", "Некорректный формат или файл повреждён"),
+
+    EMPTY_FILE("file", "Пустой файл.");
 
     InvalidValue(String field, String message) {
         this.field = field;
