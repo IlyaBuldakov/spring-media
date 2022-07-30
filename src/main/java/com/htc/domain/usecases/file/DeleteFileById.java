@@ -1,10 +1,14 @@
 package com.htc.domain.usecases.file;
 
 import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.FilesRepository;
+import com.htc.domain.usecases.UseCaseHelper;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.io.File;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,6 +23,13 @@ public class DeleteFileById {
   FilesRepository filesRepository;
 
   /**
+   * Роли, которым разрешено данное действие.
+   */
+  private final Role[] permittedRoles = new Role[] {
+          Role.ADMIN
+  };
+
+  /**
    * Уточняющий элемент пути.
    */
   private static final String DIRECTORY_QUALIFIER = "src/main/webapp/";
@@ -29,15 +40,19 @@ public class DeleteFileById {
    * @param fileId Идентификатор файла.
    * @return void
    */
-  public CompletableFuture<Either<Failure, Void>> execute(String fileId) {
+  public CompletableFuture<Either<Failure, Void>> execute(Set<String> permissions,
+                                                          String fileId) {
     var expectedFailure = ValuesValidator.validateStringId(fileId);
     if (expectedFailure != null) {
       return CompletableFuture.completedFuture(Either.left(expectedFailure));
     }
     var removeFile = removeFile(fileId);
-    return (removeFile != null && removeFile.isLeft())
-            ? CompletableFuture.completedFuture(Either.left(removeFile.getLeft()))
-            : filesRepository.deleteFile(Integer.parseInt(fileId));
+    if (removeFile != null && removeFile.isLeft()) {
+      CompletableFuture.completedFuture(Either.left(removeFile.getLeft()));
+    }
+    return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
+            ? filesRepository.deleteFile(Integer.parseInt(fileId))
+            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
   }
 
   /**

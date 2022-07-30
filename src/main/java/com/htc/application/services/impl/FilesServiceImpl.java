@@ -3,6 +3,7 @@ package com.htc.application.services.impl;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.services.ExceptionDtoResolver;
 import com.htc.application.services.FilesService;
+import com.htc.application.services.ServiceHelper;
 import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.usecases.file.DeleteFileById;
 import com.htc.domain.usecases.file.SaveFile;
@@ -14,8 +15,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,16 +53,20 @@ public class FilesServiceImpl implements FilesService {
    * @return void.
    */
   @Override
-  public CompletableFuture<Void> uploadFile(MultipartFile multipartFile, String taskId) {
+  public CompletableFuture<Void> uploadFile(
+          Collection<? extends GrantedAuthority> authorities,
+          MultipartFile multipartFile, String taskId) {
     String fileName = multipartFile.getOriginalFilename();
     String composedUrl = FileHelper.composeUrl(fileName, taskId);
+    var permissions = ServiceHelper.getPermissions(authorities);
     try {
       File file = new File("src/main/resources/formatFile.tmp");
       try (OutputStream stream = new FileOutputStream(file)) {
         stream.write(multipartFile.getBytes());
       }
       return uploadFile.execute(
-              fileName, URL_QUALIFIER + composedUrl, LocalDate.now(), taskId, file)
+                      permissions, fileName, URL_QUALIFIER + composedUrl,
+                      LocalDate.now(), taskId, file)
               .thenApply(either -> {
                 if (either.isLeft()) {
                   throw ExceptionDtoResolver.resolve(either.getLeft());
@@ -100,8 +107,11 @@ public class FilesServiceImpl implements FilesService {
    * @return void.
    */
   @Override
-  public CompletableFuture<Void> deleteFile(String fileId) {
-    return deleteFileById.execute(fileId)
+  public CompletableFuture<Void> deleteFile(
+          Collection<? extends GrantedAuthority> authorities,
+          String fileId) {
+    var permissions = ServiceHelper.getPermissions(authorities);
+    return deleteFileById.execute(permissions, fileId)
             .thenApply(either -> {
               if (either.isLeft()) {
                 throw ExceptionDtoResolver.resolve(either.getLeft());

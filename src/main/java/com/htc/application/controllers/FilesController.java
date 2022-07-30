@@ -4,6 +4,8 @@ import com.htc.application.services.FilesService;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +28,18 @@ public class FilesController {
   @Async
   public CompletableFuture<Void> uploadFile(@RequestParam("file") MultipartFile file,
                                             @RequestParam("task") String taskId) {
-    return filesService.uploadFile(file, taskId);
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return filesService.uploadFile(
+            securityContext.getAuthentication().getAuthorities(),
+            file, taskId);
   }
 
   @DeleteMapping("/{id}")
   @Async
   public CompletableFuture<Void> deleteFile(@PathVariable("id") String fileId) {
-    return filesService.deleteFile(fileId);
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return filesService.deleteFile(
+            securityContext.getAuthentication().getAuthorities(),
+            fileId);
   }
 }

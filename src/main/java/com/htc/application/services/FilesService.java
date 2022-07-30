@@ -2,7 +2,9 @@ package com.htc.application.services;
 
 import com.htc.domain.entities.failure.Failure;
 import io.vavr.control.Either;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -17,14 +19,16 @@ public interface FilesService {
    * @param file   Файл.
    * @param taskId Идентификатор задачи, к которой загружается файл.
    */
-  CompletableFuture<Void> uploadFile(MultipartFile file, String taskId);
+  CompletableFuture<Void> uploadFile(Collection<? extends GrantedAuthority> authorities,
+                                     MultipartFile file, String taskId);
 
   /**
    * Удаление файла по идентификатору.
    *
    * @param fileId Идентификатор файла.
    */
-  CompletableFuture<Void> deleteFile(String fileId);
+  CompletableFuture<Void> deleteFile(Collection<? extends GrantedAuthority> authorities,
+                                     String fileId);
 
   /**
    * Сохранение файла в файловой системе.
