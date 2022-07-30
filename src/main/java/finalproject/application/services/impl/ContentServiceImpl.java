@@ -89,7 +89,7 @@ public class ContentServiceImpl implements ContentService {
     String fileUrl = returnRelativePath + taskId + "/" + fileData.getFilename();
     String previewUrl = getPreviewUrl(fileData.getFilename(), path, fileData.getType());
     Content content = new Content(fileData.getType(), fileData.getFilename(), fileData.getFormat(),
-            previewUrl, task, fileUrl, true);
+            previewUrl, task, fileUrl, false);
     content.setDateCreated(LocalDateTime.now());
     contentRepository.save(content);
     task.setTaskStatus(TaskStatus.FEEDBACK);
