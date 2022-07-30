@@ -5,6 +5,7 @@ import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.file.File;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.infrastructure.jpa.FilesJpaRepository;
+import com.htc.infrastructure.jpa.TasksJpaRepository;
 import com.htc.infrastructure.mappers.FileMapper;
 import io.vavr.control.Either;
 import java.time.LocalDate;
@@ -27,6 +28,8 @@ public class FilesRepositoryImpl implements FilesRepository {
    */
   FilesJpaRepository filesJpaRepository;
 
+  TasksJpaRepository tasksJpaRepository;
+
   /**
    * Загрузка файла в базу данных.
    *
@@ -37,11 +40,15 @@ public class FilesRepositoryImpl implements FilesRepository {
    * @param taskId      Идентификатор задачи.
    */
   @Override
+
   public CompletableFuture<Either<Failure, Void>> uploadFile(String name, LocalDate dateCreated,
                                                              File.FileFormat fileFormat,
                                                              String url, int taskId) {
-    filesJpaRepository.save(new FileMapper(name, dateCreated, fileFormat, url, taskId));
-    return CompletableFuture.completedFuture(Either.right(null));
+    if (tasksJpaRepository.existsById(taskId)) {
+      filesJpaRepository.save(new FileMapper(name, dateCreated, fileFormat, url, taskId));
+      return CompletableFuture.completedFuture(Either.right(null));
+    }
+    return CompletableFuture.completedFuture(Either.left(NotFound.TASK));
   }
 
   /**
