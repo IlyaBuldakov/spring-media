@@ -1,6 +1,7 @@
 package finalproject.application.controllers;
 
 import finalproject.application.dto.failures.BadRequestDto;
+import finalproject.application.dto.failures.FailureConverter;
 import finalproject.application.dto.failures.InternalServerErrorDto;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.user.UserDto;
@@ -86,16 +87,9 @@ public class UserController {
             .getOrElseThrow(failure -> new BadRequestDto(failure));
     updatedUser.setId(id);
     return userService.editUser(updatedUser, id)
-            .thenApply(
-                    either -> either.getOrElseThrow(failure -> {
-                      if (failure instanceof BadRequest) {
-                        return new BadRequestDto(failure);
-                      }
-                      if (failure instanceof NotFound) {
-                        return new NotFoundDto(failure);
-                      }
-                      return new InternalServerErrorDto(failure);
-                    })).thenApply(UserDto::new);
+            .thenApply(either -> either.getOrElseThrow(
+                    failure -> FailureConverter.convert(failure)))
+            .thenApply(UserDto::new);
   }
 
   /**Получение пользователя.
@@ -110,15 +104,7 @@ public class UserController {
     int autorizedUserId = authService.getId();
     return userService.getUserById(id)
       .thenApply(
-              either -> either.getOrElseThrow(failure -> {
-                if (failure instanceof BadRequest) {
-                  return new BadRequestDto(failure);
-                }
-                if (failure instanceof NotFound) {
-                  return new NotFoundDto(failure);
-                }
-                return new InternalServerErrorDto(failure);
-              }))
+              either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)))
       .thenApply(UserDto::new);
   }
 
@@ -131,15 +117,7 @@ public class UserController {
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteUser(@PathVariable int id) {
     return userService.deleteUserById(id).thenApply(
-            either -> either.getOrElseThrow(failure -> {
-              if (failure instanceof BadRequest) {
-                return new BadRequestDto(failure);
-              }
-              if (failure instanceof NotFound) {
-                return new NotFoundDto(failure);
-              }
-              return new InternalServerErrorDto(failure);
-            }));
+            either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)));
 
   }
 

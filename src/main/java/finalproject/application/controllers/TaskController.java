@@ -1,9 +1,6 @@
 package finalproject.application.controllers;
 
-import finalproject.application.dto.failures.BadRequestDto;
-import finalproject.application.dto.failures.InternalServerErrorDto;
-import finalproject.application.dto.failures.NotAuthorizedDto;
-import finalproject.application.dto.failures.NotFoundDto;
+import finalproject.application.dto.failures.*;
 import finalproject.application.dto.task.TaskDto;
 import finalproject.application.dto.task.TaskListDto;
 import finalproject.application.dto.task.TaskRequestDto;
@@ -12,6 +9,7 @@ import finalproject.application.services.TaskService;
 import finalproject.application.services.UserService;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.BadRequest;
+import finalproject.domain.entities.failures.NotAuthorized;
 import finalproject.domain.entities.failures.NotFound;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.task.TaskStatus;
@@ -83,31 +81,17 @@ public class TaskController {
                                   taskdto.getDateExpired())
                             .getOrElseThrow(BadRequestDto::new);
     updatedTask.setTaskStatus(TaskStatus.getTaskStatusByName(taskdto.getTaskStatus()));
-    return taskService.editTask(updatedTask, id, autorizedUserId).thenApply(
-            either -> either.getOrElseThrow(failure -> {
-              if (failure instanceof BadRequest) {
-                return new BadRequestDto(failure);
-              }
-              if (failure instanceof NotFound) {
-                return new NotFoundDto(failure);
-              }
-              return new InternalServerErrorDto(failure);
-            }));
+    return taskService.editTask(updatedTask, id, autorizedUserId)
+            .thenApply(either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)));
 
   }
 
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @GetMapping("/{id}")
   public CompletableFuture<TaskDto> getTaskById(@PathVariable int id) {
-    return taskService.getTaskById(id).thenApply(either -> either.getOrElseThrow(failure -> {
-      if (failure instanceof BadRequest) {
-        return new BadRequestDto(failure);
-      }
-      if (failure instanceof NotFound) {
-        return new NotFoundDto(failure);
-      }
-      return new InternalServerErrorDto(failure);
-            })).thenApply(TaskDto::new);
+    return taskService.getTaskById(id)
+            .thenApply(either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)))
+            .thenApply(TaskDto::new);
   }
 
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
@@ -124,15 +108,7 @@ public class TaskController {
   public CompletableFuture<Void> deleteTaskById(@PathVariable int id) {
     int autorizedUserId = authService.getId();
     return taskService.deleteTask(id, autorizedUserId)
-            .thenApply(either -> either.getOrElseThrow(failure -> {
-              if (failure instanceof BadRequest) {
-                return new BadRequestDto(failure);
-              }
-              if (failure instanceof NotFound) {
-                return new NotFoundDto(failure);
-              }
-              return new InternalServerErrorDto(failure);
-            }));
+            .thenApply(either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)));
   }
 
 

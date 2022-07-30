@@ -4,11 +4,11 @@ package finalproject.application.controllers;
 import finalproject.application.dto.content.ContentDto;
 import finalproject.application.dto.content.ContentsResponseDto;
 import finalproject.application.dto.failures.BadRequestDto;
+import finalproject.application.dto.failures.FailureConverter;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.services.AuthService;
 import finalproject.application.services.ContentService;
 import finalproject.application.services.FileStorageService;
-import finalproject.application.services.TaskService;
 import finalproject.domain.entities.content.Content;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -25,10 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @AllArgsConstructor
 @RestController
+@RequestMapping("api/content")
 public class ContentController {
 
   FileStorageService fileStorageService;
-  TaskService taskService;
   AuthService authService;
   ContentService contentService;
 
@@ -44,36 +44,28 @@ public class ContentController {
    */
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @PreAuthorize("hasAnyAuthority('ADMIN', 'CONTENT_MAKER')")
-  @PostMapping(value = "/api/contents", consumes = {"multipart/form-data"})
+  @PostMapping(consumes = {"multipart/form-data"})
   public CompletableFuture<Content> uploadContent(@RequestPart("file") MultipartFile file,
                                                   @RequestParam("task") int taskId,
                                                   HttpServletRequest request)
           throws IOException {
     int autorizedUserId = authService.getId();
-    return contentService.attachFileToTask(file, taskId, autorizedUserId)
-            .thenApply(either -> either.getOrElseThrow(failure -> {
-              if (failure.getProblems() != null) {
-                return new BadRequestDto(failure);
-              }
-              return new NotFoundDto(failure);
-            }));
+    return contentService.uploadContentToTask(file, taskId, autorizedUserId)
+            .thenApply(either -> either.getOrElseThrow(
+                    failure -> FailureConverter.convert(failure)));
 
   }
 
   @PreAuthorize("hasAuthority('ADMIN')")
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
-  @DeleteMapping("/api/contents/{id}")
+  @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteContent(@PathVariable int id) {
-    return contentService.deleteContentById(id).thenApply(either -> either.getOrElseThrow(failure -> {
-      if (failure.getProblems() != null) {
-        return new BadRequestDto(failure);
-      }
-      return new NotFoundDto(failure);
-    }));
+    return contentService.deleteContentById(id)
+            .thenApply(either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)));
   }
 
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
-  @GetMapping("/api/contents")
+  @GetMapping
   public CompletableFuture<ContentsResponseDto> getPublishedContent() {
 
     return contentService.getAllContent()
