@@ -41,16 +41,18 @@ public class TaskMapper implements Task {
    * @param description Описание задачи.
    * @param author      Автор задачи.
    * @param executor    Исполнитель задачи.
+   * @param dateCreated Дата создания.
    * @param dateExpired Дата исполнения.
    */
   public TaskMapper(int id, String name, ContentType type, String description,
-                    int author, int executor, LocalDate dateExpired) {
+                    int author, int executor, LocalDate dateCreated, LocalDate dateExpired) {
     this.id = id;
     this.name = name;
     this.type = type;
     this.description = description;
     this.authorId = author;
     this.executorId = executor;
+    this.dateCreated = dateCreated;
     this.dateExpired = dateExpired;
     this.status = TaskStatus.IN_WORK;
   }

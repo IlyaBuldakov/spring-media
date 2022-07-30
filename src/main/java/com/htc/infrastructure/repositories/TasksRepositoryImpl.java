@@ -11,6 +11,7 @@ import io.vavr.control.Either;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -90,10 +91,46 @@ public class TasksRepositoryImpl implements TasksRepository {
   public CompletableFuture<Either<Failure, Void>> update(int id, String name, ContentType type,
                                                          String description, int author,
                                                          int executor, LocalDate dateExpired) {
+    var task = getOptionalById(id);
+    if (task.isPresent()) {
+      updateTask(id, name, type, description, author, executor,
+              task.get().getDateCreated(), dateExpired);
+    } else {
+      updateTask(id, name, type, description, author,
+              executor, LocalDate.now(), dateExpired);
+    }
+    return CompletableFuture.completedFuture(Either.right(null));
+  }
+
+  /**
+   * Вспомогательный метод для упрощения кода.
+   * (при обновлении dateCreated отличается).
+   *
+   * @param id          Идентификатор задачи.
+   * @param name        Имя задачи.
+   * @param type        Тип задачи.
+   * @param description Описание задачи.
+   * @param author      Автор задачи.
+   * @param executor    Исполнитель задачи.
+   * @param dateCreated Дата создания задачи.
+   * @param dateExpired Дата исполнения.
+   */
+  private void updateTask(int id, String name, ContentType type, String description,
+                          int author, int executor, LocalDate dateCreated, LocalDate dateExpired) {
     tasksJpaRepository.save(new TaskMapper(
             id, name, type, description,
-            author, executor, dateExpired));
-    return CompletableFuture.completedFuture(Either.right(null));
+            author, executor, dateCreated, dateExpired));
+  }
+
+  /**
+   * Вспомогательный метод получения задачи в {@link Optional}
+   * без асинхронного выполнения ({@link CompletableFuture}).
+   *
+   * @param id Идентификатор задачи.
+   * @return Задача в {@link Optional}.
+   */
+  private Optional<TaskMapper> getOptionalById(int id) {
+    return tasksJpaRepository.findById(id);
   }
 
   /**
