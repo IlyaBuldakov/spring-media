@@ -2,6 +2,7 @@ package finalproject.application.controllers;
 
 import finalproject.application.dto.failures.BadRequestDto;
 import finalproject.application.dto.failures.InternalServerErrorDto;
+import finalproject.application.dto.failures.NotAuthorizedDto;
 import finalproject.application.dto.failures.NotFoundDto;
 import finalproject.application.dto.task.TaskDto;
 import finalproject.application.dto.task.TaskListDto;
@@ -115,6 +116,23 @@ public class TaskController {
     int autorizedUserId = authService.getId();
     return taskService.getAllTasks(autorizedUserId)
             .thenApply(list -> list.stream().map(TaskListDto::new).toList().toArray(new TaskListDto[0]));
+  }
+
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+  @DeleteMapping("/{id}")
+  public CompletableFuture<Void> deleteTaskById(@PathVariable int id) {
+    int autorizedUserId = authService.getId();
+    return taskService.deleteTask(id, autorizedUserId)
+            .thenApply(either -> either.getOrElseThrow(failure -> {
+              if (failure instanceof BadRequest) {
+                return new BadRequestDto(failure);
+              }
+              if (failure instanceof NotFound) {
+                return new NotFoundDto(failure);
+              }
+              return new InternalServerErrorDto(failure);
+            }));
   }
 
 

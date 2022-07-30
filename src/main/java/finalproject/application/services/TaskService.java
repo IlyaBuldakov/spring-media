@@ -15,7 +15,7 @@ public interface TaskService {
 
   CompletableFuture<Either<Failure, Task>> editTask(Task task, int id, int authorizedUserId);
 
-  CompletableFuture<Either<Failure, Void>> deleteTask(Task task, int id, int authorizedUserId);
+  CompletableFuture<Either<Failure, Void>> deleteTask(int id, int authorizedUserId);
 
   CompletableFuture<Either<Failure, Task>> getTaskById(int id);
 

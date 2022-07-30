@@ -41,7 +41,7 @@ public class Content implements Serializable {
   private String preview;
 
   @JsonIgnore
-  @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY)
+  @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   @JoinColumn(name = "taskId")
   private @Getter Task task;
 

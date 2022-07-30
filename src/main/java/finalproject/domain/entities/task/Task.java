@@ -87,7 +87,7 @@ public class Task implements Serializable {
   @Getter
   @Setter
   @LazyCollection(LazyCollectionOption.FALSE)
-  @OneToMany(mappedBy = "task")
+  @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
   private List<Content> allTaskContent;
 
 

@@ -88,19 +88,24 @@ public class TaskServiceImpl implements TaskService {
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, Void>> deleteTask(Task task, int id, int auth) {
+  public CompletableFuture<Either<Failure, Void>> deleteTask(int id, int auth) {
     List<String> problems = new ArrayList<>();
-    if (id <= 1) {
+    if (id < 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(
               new BadRequest(Messages.INVALID_VALUES, problems)));
     }
     if (!taskRepository.existsById(id)) {
       return CompletableFuture.completedFuture(Either.left(
-              new NotFound(Messages.USER_NOT_FOUND)));
+              new NotFound(Messages.TASK_NOT_FOUND)));
     }
+    Task task = taskRepository.findById(id).get();
     User authorizedUser = userRepository.findById(auth).get();
     if (authorizedUser.getRole() == Role.ADMIN || authorizedUser.equals(task.getAuthor())) {
+      for (Content content : contentRepository.findByTaskId(task.getId())) {
+        content.setTask(null);
+        contentRepository.save(content);
+      }
       taskRepository.deleteById(id);
       return CompletableFuture.completedFuture(Either.right(null));
     }
