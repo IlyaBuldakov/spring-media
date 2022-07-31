@@ -10,11 +10,14 @@ import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.*;
 import finalproject.domain.entities.filedocuments.FileDocument;
+import finalproject.domain.entities.notifications.Notification;
+import finalproject.domain.entities.notifications.NotificationType;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.task.TaskStatus;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import finalproject.infrastructure.repositories.ContentRepository;
+import finalproject.infrastructure.repositories.NotificationsRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
 import finalproject.infrastructure.repositories.UserRepository;
 import finalproject.utils.validators.ValidateContent;
@@ -53,6 +56,8 @@ public class ContentServiceImpl implements ContentService {
 
   FileStorageService fileStorageService;
   TaskRepository taskRepository;
+
+  NotificationsRepository notificationsRepository;
 
   UserRepository userRepository;
   ContentRepository contentRepository;
@@ -94,6 +99,11 @@ public class ContentServiceImpl implements ContentService {
       Content content = contentRepository.findOneByUrl(fileUrl).get();
       content.setDateCreated(LocalDateTime.now());
       content.setPreview(previewUrl);
+      contentRepository.save(content);
+      NotificationType noteType = NotificationType.valueOf(content.getType().toString());
+      Notification notification = new Notification(noteType, content.getDateCreated(),
+              authorizedUser, task, Notification.Note.ADD);
+      notificationsRepository.save(notification);
       return CompletableFuture.completedFuture(Either.right(content));
     }
     else {
@@ -103,15 +113,21 @@ public class ContentServiceImpl implements ContentService {
       contentRepository.save(content);
       task.setTaskStatus(TaskStatus.FEEDBACK);
       taskRepository.save(task);
+      NotificationType noteType = NotificationType.valueOf(content.getType().toString());
+      Notification notification = new Notification(noteType, content.getDateCreated(),
+              authorizedUser, task, Notification.Note.ADD);
+      notificationsRepository.save(notification);
       return CompletableFuture.completedFuture(Either.right(content));
     }
 
 
   }
 
+  @Async
   @Override
-  public CompletableFuture<Either<Failure, Void>> deleteContentById(int id) {
+  public CompletableFuture<Either<Failure, Void>> deleteContentById(int id, int auth) {
     List<String> problems = new ArrayList<>();
+    User authorizedUser = userRepository.findById(auth).get();
     if (id < 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(
@@ -120,18 +136,22 @@ public class ContentServiceImpl implements ContentService {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.CONTENT_NOT_FOUND)));
     }
-    if(contentRepository.findById(id).isPresent()) {
       Content content = contentRepository.findById(id).get();
       if (content.getTask() != null) {
         content.getTask().getAllTaskContent().remove(content);
       }
-    }
-    contentRepository.deleteById(id);
+    NotificationType noteType = NotificationType.valueOf(content.getType().toString());
+    Notification notification = new Notification(noteType, LocalDateTime.now(),
+            authorizedUser, content.getTask(), Notification.Note.DELETE);
+    notificationsRepository.save(notification);
+    if (contentRepository.findById(id).isPresent()) {
+    contentRepository.deleteById(id);}
     return CompletableFuture.completedFuture(Either.right(null));
 
 
   }
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, List<Content>>> getAllContent() {
     return CompletableFuture.completedFuture(Either.right(contentRepository.findByIsPublished(true)));

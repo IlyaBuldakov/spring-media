@@ -7,6 +7,8 @@ import finalproject.application.services.FileService;
 import finalproject.application.services.FileStorageService;
 import finalproject.domain.entities.failures.*;
 import finalproject.domain.entities.filedocuments.FileDocument;
+import finalproject.domain.entities.notifications.Notification;
+import finalproject.domain.entities.notifications.NotificationType;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
@@ -94,7 +96,8 @@ public class FileServiceImpl implements FileService {
               Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
     }
     task.getAllTaskFiles().remove(fileDocumentRepository.findById(id).get());
-    fileDocumentRepository.deleteById(id);
+    if (fileDocumentRepository.findById(id).isPresent()) {
+    fileDocumentRepository.deleteById(id);}
     return CompletableFuture.completedFuture(Either.right(null));
   }
 }

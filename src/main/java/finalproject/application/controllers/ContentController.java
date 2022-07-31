@@ -60,7 +60,8 @@ public class ContentController {
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteContent(@PathVariable int id) {
-    return contentService.deleteContentById(id)
+    int autorizedUserId = authService.getId();
+    return contentService.deleteContentById(id, autorizedUserId)
             .thenApply(either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)));
   }
 
