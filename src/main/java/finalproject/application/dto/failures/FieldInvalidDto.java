@@ -27,6 +27,8 @@ public class FieldInvalidDto {
       case "password" -> "Неправильный пароль";
       case "name" -> "Имя не введено";
       case "id" -> "Некорректный id";
+      case "taskId" -> "Некорректный id задачи";
+      case "userId" -> "Некорректный id пользователя";
       case "role" -> "Переданная роль не существует";
       default -> "Некорректное значение поля";
     };
