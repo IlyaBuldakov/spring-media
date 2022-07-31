@@ -16,10 +16,8 @@ public class UseCaseHelper {
    * @return boolean.
    */
   public static boolean hasRolePermissions(Set<String> permissions, Role... roles) {
-    int localRoleCounter = 0;
-    for (String permission : permissions) {
-      Role expectedRole = Role.lookup(permission);
-      if (expectedRole == roles[localRoleCounter++]) {
+    for (Role role : roles) {
+      if (permissions.contains(role.name())) {
         return true;
       }
     }
