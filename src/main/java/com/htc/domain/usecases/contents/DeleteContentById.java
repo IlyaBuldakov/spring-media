@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.contents;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.ContentsRepository;
 import com.htc.domain.usecases.UseCaseHelper;
@@ -43,6 +43,6 @@ public class DeleteContentById {
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? contentsRepository.deleteById(Integer.parseInt(id))
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 }

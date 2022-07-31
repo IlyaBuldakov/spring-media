@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
@@ -41,6 +41,6 @@ public class GetUserById {
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
             ? usersRepository.getById(Integer.parseInt(param))
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 }

@@ -2,6 +2,7 @@ package com.htc.application.services;
 
 import com.htc.application.dto.errors.AlreadyExistsResponse;
 import com.htc.application.dto.errors.BadRequestResponse;
+import com.htc.application.dto.errors.ForbiddenResponse;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.application.dto.errors.NotFoundResponse;
 import com.htc.application.dto.errors.UnauthorizedResponse;
@@ -11,6 +12,7 @@ import com.htc.domain.entities.failure.InvalidValue;
 import com.htc.domain.entities.failure.InvalidValuesContainer;
 import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 
 /**
  * Класс, объединяющий в себе логику преобразования
@@ -31,6 +33,8 @@ public class ExceptionDtoResolver {
               exception = new BadRequestResponse(invalidValues);
       case Unauthorized unauthorized ->
               exception = new UnauthorizedResponse(unauthorized.getMessage());
+      case Forbidden forbidden ->
+              exception = new ForbiddenResponse();
       case InvalidValue invalidValue ->
               exception = new BadRequestResponse(invalidValue);
       case NotFound notFound ->

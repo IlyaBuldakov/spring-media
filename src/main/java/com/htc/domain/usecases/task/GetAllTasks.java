@@ -1,11 +1,12 @@
 package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.domain.usecases.UseCaseHelper;
+import com.htc.util.Results;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +26,7 @@ public class GetAllTasks {
   /**
    * Роли, которым разрешено данное действие.
    */
-  private final Role[] permittedRoles = new Role[] {
+  private final Role[] permittedRoles = new Role[]{
           Role.ADMIN,
           Role.MANAGER,
           Role.CONTENT_MAKER
@@ -39,6 +40,6 @@ public class GetAllTasks {
   public CompletableFuture<Either<Failure, List<Task>>> execute(Set<String> permissions) {
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? tasksRepository.getAll()
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            : Results.fail(new Forbidden());
   }
 }

@@ -1,9 +1,8 @@
 package com.htc.domain.usecases.contents;
 
 import com.htc.domain.entities.content.Content;
-import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.ContentsRepository;
 import com.htc.domain.usecases.UseCaseHelper;
@@ -56,6 +55,6 @@ public class UploadContent {
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? contentsRepository.create(authorId, fileName, type,
             format, url, Integer.parseInt(taskId))
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 }

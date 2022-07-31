@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.file;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.domain.usecases.UseCaseHelper;
@@ -26,7 +26,7 @@ public class DeleteFileById {
   /**
    * Роли, которым разрешено данное действие.
    */
-  private final Role[] permittedRoles = new Role[] {
+  private final Role[] permittedRoles = new Role[]{
           Role.ADMIN
   };
 
@@ -53,7 +53,7 @@ public class DeleteFileById {
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? filesRepository.deleteFile(Integer.parseInt(fileId))
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 
   /**

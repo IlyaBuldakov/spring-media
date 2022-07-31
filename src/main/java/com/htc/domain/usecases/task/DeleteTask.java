@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.ContentsRepository;
 import com.htc.domain.repositories.FilesRepository;
@@ -53,7 +53,7 @@ public class DeleteTask {
       clearRelevantStaticResources(Integer.parseInt(id));
       return tasksRepository.deleteById(Integer.parseInt(id));
     }
-    return Results.fail(Unauthorized.FORBIDDEN);
+    return Results.fail(new Forbidden());
   }
 
   /**

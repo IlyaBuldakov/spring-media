@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.TasksRepository;
@@ -46,6 +46,6 @@ public class GetTaskById {
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? tasksRepository.getById(Integer.parseInt(id))
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 }

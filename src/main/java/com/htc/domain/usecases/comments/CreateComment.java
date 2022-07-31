@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.comments;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.CommentsRepository;
 import com.htc.domain.usecases.UseCaseHelper;
@@ -25,7 +25,7 @@ public class CreateComment {
   /**
    * Роли, которым разрешено данное действие.
    */
-  private final Role[] permittedRoles = new Role[] {
+  private final Role[] permittedRoles = new Role[]{
           Role.ADMIN,
           Role.MANAGER,
           Role.CONTENT_MAKER
@@ -49,6 +49,6 @@ public class CreateComment {
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? commentsRepository.createComment(Integer.parseInt(taskId), authorId, message)
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 }

@@ -2,7 +2,7 @@ package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.domain.usecases.UseCaseHelper;
@@ -27,7 +27,7 @@ public class UpdateTask {
   /**
    * Роли, которым разрешено данное действие.
    */
-  private final Role[] permittedRoles = new Role[] {
+  private final Role[] permittedRoles = new Role[]{
           Role.ADMIN,
           Role.MANAGER
   };
@@ -56,7 +56,7 @@ public class UpdateTask {
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? tasksRepository.update(Integer.parseInt(id), name, type, description,
-                    Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
-            : Results.fail(Unauthorized.FORBIDDEN);
+            Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
+            : Results.fail(new Forbidden());
   }
 }

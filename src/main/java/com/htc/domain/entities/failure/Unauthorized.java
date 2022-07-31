@@ -9,9 +9,7 @@ public enum Unauthorized implements Failure {
 
   DEFAULT_MESSAGE("Вы не авторизованы"),
 
-  BAD_CREDENTIALS("Неверный e-mail ли пароль"),
-
-  FORBIDDEN("У вас нет доступа");
+  BAD_CREDENTIALS("Неверный e-mail ли пароль");
 
   Unauthorized(String message) {
     this.message = message;

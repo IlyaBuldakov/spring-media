@@ -2,7 +2,7 @@ package com.htc.domain.usecases.task;
 
 import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.domain.repositories.UsersRepository;
@@ -58,6 +58,6 @@ public class CreateTask {
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? tasksRepository.create(name, type, description,
             Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 }

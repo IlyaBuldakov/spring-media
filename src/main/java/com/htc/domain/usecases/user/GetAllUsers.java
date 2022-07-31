@@ -1,11 +1,12 @@
 package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCaseHelper;
+import com.htc.util.Results;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,6 @@ public class GetAllUsers {
   public CompletableFuture<Either<Failure, List<User>>> execute(Set<String> permissions) {
     return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
             ? usersRepository.getAll()
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            : Results.fail(new Forbidden());
   }
 }

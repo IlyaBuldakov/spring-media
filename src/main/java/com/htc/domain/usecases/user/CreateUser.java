@@ -2,7 +2,7 @@ package com.htc.domain.usecases.user;
 
 import com.htc.domain.entities.failure.AlreadyExists;
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCaseHelper;
@@ -47,6 +47,6 @@ public class CreateUser {
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
             ? usersRepository.create(name, password, email, avatar, role)
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 }

@@ -1,7 +1,7 @@
 package com.htc.domain.usecases.file;
 
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.file.File.FileFormat;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.FilesRepository;
@@ -29,7 +29,7 @@ public class UploadFile {
   /**
    * Роли, которым разрешено данное действие.
    */
-  private final Role[] permittedRoles = new Role[] {
+  private final Role[] permittedRoles = new Role[]{
           Role.ADMIN,
           Role.MANAGER
   };
@@ -59,6 +59,6 @@ public class UploadFile {
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? filesRepository.uploadFile(fileName, dateCreated,
             format, composedUrl, Integer.parseInt(taskId))
-            : Results.fail(Unauthorized.FORBIDDEN);
+            : Results.fail(new Forbidden());
   }
 }
