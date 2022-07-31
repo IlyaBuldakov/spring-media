@@ -155,4 +155,23 @@ public class FileHelper {
             + "_"
             + fileName;
   }
+
+  public static ContentType getContentType(File file) {
+    try {
+      var type = new DefaultDetector()
+              .detect(TikaInputStream.get(Path.of(file.getPath())), new Metadata()).toString();
+      if (type.contains("audio")) {
+        return ContentType.AUDIO;
+      }
+      if (type.contains("image")) {
+        return ContentType.PHOTO;
+      }
+      if (type.contains(("video"))) {
+        return ContentType.VIDEO;
+      }
+    } catch (IOException e) {
+      throw new InternalServerErrorResponse();
+    }
+    return ContentType.VIDEO;
+  }
 }

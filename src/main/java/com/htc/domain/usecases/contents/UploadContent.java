@@ -52,8 +52,9 @@ public class CreateContent {
       return Results.fail(expectedFormat.getLeft());
     }
     var format = (Content.ContentFormat) expectedFormat.get();
+    var type = FileHelper.getContentType(file);
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
-            ? contentsRepository.create(authorId, fileName, ContentType.PHOTO,
+            ? contentsRepository.create(authorId, fileName, type,
             format, url, Integer.parseInt(taskId))
             : Results.fail(Unauthorized.FORBIDDEN);
   }
