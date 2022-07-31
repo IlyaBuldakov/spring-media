@@ -109,6 +109,16 @@ public class Validators {
     }
   }
 
+  public boolean validateId(int id, String field) {
+    try {
+      Validate.isTrue(id > 0);
+      return true;
+    } catch (Exception e) {
+      problems.add(field);
+      return false;
+    }
+  }
+
   /**
    * Проверка на то, является ли передаваемое значение строкой Base64.
    *
