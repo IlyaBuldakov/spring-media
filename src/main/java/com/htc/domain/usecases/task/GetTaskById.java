@@ -6,6 +6,7 @@ import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.domain.usecases.UseCaseHelper;
+import com.htc.util.Results;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.util.Set;
@@ -41,10 +42,10 @@ public class GetTaskById {
                                                           String id) {
     var expectedFailure = ValuesValidator.validateStringId(id);
     if (expectedFailure != null) {
-      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+      return Results.fail(expectedFailure);
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? tasksRepository.getById(Integer.parseInt(id))
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            : Results.fail(Unauthorized.FORBIDDEN);
   }
 }

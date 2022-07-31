@@ -7,6 +7,7 @@ import com.htc.domain.repositories.FilesRepository;
 import com.htc.infrastructure.jpa.FilesJpaRepository;
 import com.htc.infrastructure.jpa.TasksJpaRepository;
 import com.htc.infrastructure.mappers.FileMapper;
+import com.htc.util.Results;
 import io.vavr.control.Either;
 import java.time.LocalDate;
 import java.util.Set;
@@ -46,9 +47,9 @@ public class FilesRepositoryImpl implements FilesRepository {
                                                              String url, int taskId) {
     if (tasksJpaRepository.existsById(taskId)) {
       filesJpaRepository.save(new FileMapper(name, dateCreated, fileFormat, url, taskId));
-      return CompletableFuture.completedFuture(Either.right(null));
+      return Results.nullValue();
     }
-    return CompletableFuture.completedFuture(Either.left(NotFound.TASK));
+    return Results.fail(NotFound.TASK);
   }
 
   /**
@@ -62,9 +63,9 @@ public class FilesRepositoryImpl implements FilesRepository {
     try {
       filesJpaRepository.deleteById(fileId);
     } catch (EmptyResultDataAccessException exception) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.FILE));
+      return Results.fail(NotFound.FILE);
     }
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 
   @Override

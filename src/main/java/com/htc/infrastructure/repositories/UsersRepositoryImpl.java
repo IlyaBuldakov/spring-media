@@ -7,6 +7,7 @@ import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.infrastructure.jpa.UsersJpaRepository;
 import com.htc.infrastructure.mappers.UserMapper;
+import com.htc.util.Results;
 import io.vavr.control.Either;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
     usersJpaRepository.save(
             new UserMapper(name, bcryptEncoder.encode(password), email, avatar, role));
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 
   /**
@@ -57,9 +58,9 @@ public class UsersRepositoryImpl implements UsersRepository {
   public CompletableFuture<Either<Failure, User>> getById(int id) {
     var user = usersJpaRepository.findById(id);
     if (user.isPresent()) {
-      return CompletableFuture.completedFuture(Either.right(user.get()));
+      return Results.success(user.get());
     }
-    return CompletableFuture.completedFuture(Either.left(NotFound.USER));
+    return Results.fail(NotFound.USER);
   }
 
   /**
@@ -72,9 +73,9 @@ public class UsersRepositoryImpl implements UsersRepository {
   public CompletableFuture<Either<Failure, User>> getByEmail(String email) {
     var user = usersJpaRepository.findUserMapperByEmail(email);
     if (user.isPresent()) {
-      return CompletableFuture.completedFuture(Either.right(user.get()));
+      return Results.success(user.get());
     }
-    return CompletableFuture.completedFuture(Either.left(NotFound.USER));
+    return Results.fail(NotFound.USER);
   }
 
   /**
@@ -84,8 +85,7 @@ public class UsersRepositoryImpl implements UsersRepository {
    */
   @Override
   public CompletableFuture<Either<Failure, List<User>>> getAll() {
-    return CompletableFuture.completedFuture(Either.right(
-            new ArrayList<>(usersJpaRepository.findAll())));
+    return Results.success(new ArrayList<>(usersJpaRepository.findAll()));
   }
 
   /**
@@ -118,7 +118,7 @@ public class UsersRepositoryImpl implements UsersRepository {
                                                          String avatar,
                                                          Role role) {
     usersJpaRepository.save(new UserMapper(id, name, password, email, avatar, role));
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 
   /**
@@ -132,8 +132,8 @@ public class UsersRepositoryImpl implements UsersRepository {
     try {
       usersJpaRepository.deleteById(id);
     } catch (EmptyResultDataAccessException exception) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.USER));
+      return Results.fail(NotFound.USER);
     }
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 }

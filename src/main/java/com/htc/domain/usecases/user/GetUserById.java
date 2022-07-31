@@ -6,6 +6,7 @@ import com.htc.domain.entities.user.Role;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCaseHelper;
+import com.htc.util.Results;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.util.Set;
@@ -36,10 +37,10 @@ public class GetUserById {
   public CompletableFuture<Either<Failure, User>> execute(Set<String> permissions, String param) {
     var expectedFailure = ValuesValidator.validateStringId(param);
     if (expectedFailure != null) {
-      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+      return Results.fail(expectedFailure);
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
             ? usersRepository.getById(Integer.parseInt(param))
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            : Results.fail(Unauthorized.FORBIDDEN);
   }
 }

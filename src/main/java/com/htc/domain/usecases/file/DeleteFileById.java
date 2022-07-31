@@ -5,6 +5,7 @@ import com.htc.domain.entities.failure.Unauthorized;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.domain.usecases.UseCaseHelper;
+import com.htc.util.Results;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.io.File;
@@ -44,15 +45,15 @@ public class DeleteFileById {
                                                           String fileId) {
     var expectedFailure = ValuesValidator.validateStringId(fileId);
     if (expectedFailure != null) {
-      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+      return Results.fail(expectedFailure);
     }
     var removeFile = removeFile(fileId);
     if (removeFile != null && removeFile.isLeft()) {
-      CompletableFuture.completedFuture(Either.left(removeFile.getLeft()));
+      Results.fail(removeFile.getLeft());
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? filesRepository.deleteFile(Integer.parseInt(fileId))
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            : Results.fail(Unauthorized.FORBIDDEN);
   }
 
   /**

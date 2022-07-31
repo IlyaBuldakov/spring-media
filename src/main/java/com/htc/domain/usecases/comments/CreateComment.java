@@ -5,6 +5,7 @@ import com.htc.domain.entities.failure.Unauthorized;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.CommentsRepository;
 import com.htc.domain.usecases.UseCaseHelper;
+import com.htc.util.Results;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.util.Set;
@@ -44,10 +45,10 @@ public class CreateComment {
                                                           String message) {
     var expectedFailure = ValuesValidator.validateStringId(taskId);
     if (expectedFailure != null) {
-      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+      return Results.fail(expectedFailure);
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? commentsRepository.createComment(Integer.parseInt(taskId), authorId, message)
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            : Results.fail(Unauthorized.FORBIDDEN);
   }
 }

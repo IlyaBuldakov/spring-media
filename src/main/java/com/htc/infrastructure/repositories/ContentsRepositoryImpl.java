@@ -7,6 +7,7 @@ import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.repositories.ContentsRepository;
 import com.htc.infrastructure.jpa.ContentsJpaRepository;
 import com.htc.infrastructure.mappers.ContentMapper;
+import com.htc.util.Results;
 import io.vavr.control.Either;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +37,7 @@ public class ContentsRepositoryImpl implements ContentsRepository {
    */
   @Override
   public CompletableFuture<Either<Failure, List<Content>>> getAll() {
-    return CompletableFuture.completedFuture(Either.right(
-            new ArrayList<>(contentsJpaRepository.findAll())
-    ));
+    return Results.success(new ArrayList<>(contentsJpaRepository.findAll()));
   }
 
   /**
@@ -56,7 +55,7 @@ public class ContentsRepositoryImpl implements ContentsRepository {
                                                          Content.ContentFormat contentFormat,
                                                          String url, int taskId) {
     contentsJpaRepository.save(new ContentMapper(name, type, authorId, contentFormat, url, taskId));
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 
   /**
@@ -70,9 +69,9 @@ public class ContentsRepositoryImpl implements ContentsRepository {
     try {
       contentsJpaRepository.deleteById(id);
     } catch (EmptyResultDataAccessException exception) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.CONTENT));
+      return Results.fail(NotFound.CONTENT);
     }
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 
   /**

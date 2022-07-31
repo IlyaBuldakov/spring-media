@@ -4,6 +4,7 @@ import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.repositories.CommentsRepository;
 import com.htc.infrastructure.jpa.CommentsJpaRepository;
 import com.htc.infrastructure.mappers.CommentMapper;
+import com.htc.util.Results;
 import io.vavr.control.Either;
 import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
@@ -32,6 +33,6 @@ public class CommentsRepositoryImpl implements CommentsRepository {
                                                                 int authorId,
                                                                 String message) {
     commentsJpaRepository.save(new CommentMapper(taskId, LocalDate.now(), authorId, message));
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 }

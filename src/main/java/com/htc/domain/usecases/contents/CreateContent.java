@@ -8,6 +8,7 @@ import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.ContentsRepository;
 import com.htc.domain.usecases.UseCaseHelper;
 import com.htc.util.FileHelper;
+import com.htc.util.Results;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.io.File;
@@ -44,15 +45,16 @@ public class CreateContent {
                                                           File file, String url, String taskId) {
     var expectedFailure = ValuesValidator.validateStringId(taskId);
     if (expectedFailure != null) {
-      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+      return Results.fail(expectedFailure);
     }
-    var format = FileHelper.getContentFormat(file, fileName);
-    if (format.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(format.getLeft()));
+    var expectedFormat = FileHelper.getContentFormat(file, fileName);
+    if (expectedFormat.isLeft()) {
+      return Results.fail(expectedFormat.getLeft());
     }
+    var format = (Content.ContentFormat) expectedFormat.get();
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? contentsRepository.create(authorId, fileName, ContentType.PHOTO,
-            (Content.ContentFormat) format.get(), url, Integer.parseInt(taskId))
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            format, url, Integer.parseInt(taskId))
+            : Results.fail(Unauthorized.FORBIDDEN);
   }
 }

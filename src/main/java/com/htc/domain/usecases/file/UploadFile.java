@@ -1,11 +1,13 @@
 package com.htc.domain.usecases.file;
 
 import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.Unauthorized;
 import com.htc.domain.entities.file.File.FileFormat;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.FilesRepository;
 import com.htc.domain.usecases.UseCaseHelper;
 import com.htc.util.FileHelper;
+import com.htc.util.Results;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.io.File;
@@ -47,15 +49,16 @@ public class UploadFile {
                                                           String taskId, File file) {
     var expectedFailure = ValuesValidator.validateStringId(taskId);
     if (expectedFailure != null) {
-      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+      return Results.fail(expectedFailure);
     }
-    var format = FileHelper.getFileFormat(file, fileName);
-    if (format.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(format.getLeft()));
+    var expectedFormat = FileHelper.getFileFormat(file, fileName);
+    if (expectedFormat.isLeft()) {
+      return Results.fail(expectedFormat.getLeft());
     }
+    var format = (FileFormat) expectedFormat.get();
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
-            ? CompletableFuture.completedFuture(Either.left(format.getLeft()))
-            : filesRepository.uploadFile(fileName, dateCreated,
-            (FileFormat) format.get(), composedUrl, Integer.parseInt(taskId));
+            ? filesRepository.uploadFile(fileName, dateCreated,
+            format, composedUrl, Integer.parseInt(taskId))
+            : Results.fail(Unauthorized.FORBIDDEN);
   }
 }

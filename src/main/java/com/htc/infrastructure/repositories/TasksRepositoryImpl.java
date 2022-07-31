@@ -7,6 +7,7 @@ import com.htc.domain.entities.task.Task;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.infrastructure.jpa.TasksJpaRepository;
 import com.htc.infrastructure.mappers.TaskMapper;
+import com.htc.util.Results;
 import io.vavr.control.Either;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class TasksRepositoryImpl implements TasksRepository {
                                                          String description, int author,
                                                          int executor, LocalDate dateExpired) {
     tasksJpaRepository.save(new TaskMapper(name, type, description, author, executor, dateExpired));
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 
   /**
@@ -58,9 +59,9 @@ public class TasksRepositoryImpl implements TasksRepository {
   public CompletableFuture<Either<Failure, Task>> getById(int id) {
     var task = tasksJpaRepository.findById(id);
     if (task.isPresent()) {
-      return CompletableFuture.completedFuture(Either.right(task.get()));
+      return Results.success(task.get());
     }
-    return CompletableFuture.completedFuture(Either.left(NotFound.TASK));
+    return Results.fail(NotFound.TASK);
   }
 
   /**
@@ -70,9 +71,7 @@ public class TasksRepositoryImpl implements TasksRepository {
    */
   @Override
   public CompletableFuture<Either<Failure, List<Task>>> getAll() {
-    return CompletableFuture.completedFuture(Either.right(
-            new ArrayList<>(tasksJpaRepository.findAll())
-    ));
+    return Results.success(new ArrayList<>(tasksJpaRepository.findAll()));
   }
 
   /**
@@ -99,7 +98,7 @@ public class TasksRepositoryImpl implements TasksRepository {
       updateTask(id, name, type, description, author,
               executor, LocalDate.now(), dateExpired);
     }
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 
   /**
@@ -144,8 +143,8 @@ public class TasksRepositoryImpl implements TasksRepository {
     try {
       tasksJpaRepository.deleteById(id);
     } catch (EmptyResultDataAccessException exception) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.TASK));
+      return Results.fail(NotFound.TASK);
     }
-    return CompletableFuture.completedFuture(Either.right(null));
+    return Results.nullValue();
   }
 }

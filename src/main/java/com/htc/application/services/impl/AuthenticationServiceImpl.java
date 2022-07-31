@@ -9,6 +9,7 @@ import com.htc.application.services.AuthenticationService;
 import com.htc.application.services.JwtService;
 import com.htc.application.services.UsersService;
 import com.htc.domain.entities.failure.Unauthorized;
+import com.htc.util.Results;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
@@ -50,7 +51,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                       loginRequest.getPassword()
               ));
       var user = usersService.getByEmail(loginRequest.getEmail()).get();
-      return CompletableFuture.completedFuture(
+      return Results.single(
               jwtService.createPairOfTokens(user.getId(), user.getRole().getRole(), user.getEmail())
       );
 
@@ -63,6 +64,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
   @Override
   public CompletableFuture<LoginResponse> getNewAccessToken(String refreshToken) {
-    return CompletableFuture.completedFuture(jwtService.getNewAccessToken(refreshToken));
+    return Results.single(jwtService.getNewAccessToken(refreshToken));
   }
 }

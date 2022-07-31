@@ -7,6 +7,7 @@ import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCaseHelper;
+import com.htc.util.Results;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.time.LocalDate;
@@ -52,11 +53,11 @@ public class CreateTask {
     var expectedFailure
             = ValuesValidator.checkTaskFields(name, description, author, executor);
     if (expectedFailure != null) {
-      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+      return Results.fail(expectedFailure);
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRoles)
             ? tasksRepository.create(name, type, description,
             Integer.parseInt(author), Integer.parseInt(executor), dateExpired)
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            : Results.fail(Unauthorized.FORBIDDEN);
   }
 }

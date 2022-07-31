@@ -6,6 +6,7 @@ import com.htc.domain.entities.failure.Unauthorized;
 import com.htc.domain.entities.user.Role;
 import com.htc.domain.repositories.UsersRepository;
 import com.htc.domain.usecases.UseCaseHelper;
+import com.htc.util.Results;
 import com.htc.util.ValuesValidator;
 import io.vavr.control.Either;
 import java.util.Set;
@@ -39,13 +40,13 @@ public class CreateUser {
                                                           String avatar, Role role) {
     var expectedFailure = ValuesValidator.checkUserFields(name, password, email, avatar);
     if (expectedFailure != null) {
-      return CompletableFuture.completedFuture(Either.left(expectedFailure));
+      return Results.fail(expectedFailure);
     }
     if (usersRepository.userExistsByEmail(email)) {
-      return CompletableFuture.completedFuture(Either.left(AlreadyExists.USER));
+      return Results.fail(AlreadyExists.USER);
     }
     return UseCaseHelper.hasRolePermissions(permissions, permittedRole)
             ? usersRepository.create(name, password, email, avatar, role)
-            : CompletableFuture.completedFuture(Either.left(Unauthorized.FORBIDDEN));
+            : Results.fail(Unauthorized.FORBIDDEN);
   }
 }
