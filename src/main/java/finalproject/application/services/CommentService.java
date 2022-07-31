@@ -21,7 +21,8 @@ public interface CommentService {
    *
    * @return id комментария.
    */
-  CompletableFuture<Either<Failure, Comment>> postCommentToTask(int userId, int taskId, String comment);
+  CompletableFuture<Either<Failure, Comment>> postCommentToTask(
+          int userId, int taskId, String comment);
 
 
   CompletableFuture<Either<Failure, Void>> deleteCommentById(int taskId, int authorizedUser);

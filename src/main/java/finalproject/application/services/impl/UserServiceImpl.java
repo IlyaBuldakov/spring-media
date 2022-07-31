@@ -1,8 +1,11 @@
 package finalproject.application.services.impl;
 
-import finalproject.application.services.AuthService;
+
 import finalproject.application.services.UserService;
-import finalproject.domain.entities.failures.*;
+import finalproject.domain.entities.failures.BadRequest;
+import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.Messages;
+import finalproject.domain.entities.failures.NotFound;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
@@ -116,13 +119,18 @@ public class UserServiceImpl implements UserService {
   public CompletableFuture<Either<Failure, List<User>>> getAllUsers(int authorizedUserId) {
     User authorizedUser = userRepository.findById(authorizedUserId).get();
     if (authorizedUser.getRole() == Role.ADMIN) {
-    return CompletableFuture.completedFuture(Either.right(userRepository.findAll()));}
-    else return CompletableFuture.completedFuture(Either.right(userRepository
-            .findAll()
-            .stream()
-            .filter(user -> user.getRole() == Role.CONTENT_MAKER)
-            .toList()
-    ));}
+      return CompletableFuture.completedFuture(Either.right(userRepository.findAll()));
+    } else {
+      return CompletableFuture.completedFuture(Either.right(userRepository
+              .findAll()
+              .stream()
+              .filter(user -> user.getRole() == Role.CONTENT_MAKER)
+              .toList()
+      ));
+    }
+
+
+  }
 
 
 

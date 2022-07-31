@@ -66,6 +66,11 @@ public class ContentDto {
    */
   private @Getter String preview;
 
+  /**
+   * Конструктор dto контента.
+   *
+   * @param content сущность контента
+   */
   public ContentDto(Content content) {
     this.id = content.getId();
     this.type = new ContentTypeDto(content.getType().getId(), content.getType().getName());

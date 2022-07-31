@@ -1,9 +1,6 @@
 package finalproject.application.dto.comment;
 
 import finalproject.application.dto.user.UserBasicDto;
-import java.time.LocalDateTime;
-
-import finalproject.application.dto.user.UserDto;
 import finalproject.domain.entities.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +32,11 @@ public class CommentDto {
    */
   private @Getter String message;
 
+  /**
+   * Конструктор Dto комментария.
+   *
+   * @param comment комментарий
+   */
   public CommentDto(Comment comment) {
     this.id = comment.getId();
     this.date = comment.getDate().toString();

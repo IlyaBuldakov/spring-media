@@ -17,7 +17,14 @@ import java.util.concurrent.CompletableFuture;
 import javax.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -56,15 +63,27 @@ public class ContentController {
 
   }
 
+  /**
+   * Удаление контента.
+   *
+   * @param id id контента
+   * @return ничего
+   */
   @PreAuthorize("hasAuthority('ADMIN')")
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @DeleteMapping("/{id}")
   public CompletableFuture<Void> deleteContent(@PathVariable int id) {
     int autorizedUserId = authService.getId();
     return contentService.deleteContentById(id, autorizedUserId)
-            .thenApply(either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)));
+            .thenApply(either -> either.getOrElseThrow(failure ->
+                    FailureConverter.convert(failure)));
   }
 
+  /**
+   * Получение контента.
+   *
+   * @return весь опубликованный контент
+   */
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @GetMapping
   public CompletableFuture<ContentsResponseDto> getPublishedContent() {
@@ -73,7 +92,7 @@ public class ContentController {
             .thenApply(either -> either.get().stream().map(ContentDto::new)
                     .toList()
                     .toArray(new ContentDto[0]))
-            .thenApply( list -> new ContentsResponseDto(list, list.length));
+            .thenApply(list -> new ContentsResponseDto(list, list.length));
 
   }
 

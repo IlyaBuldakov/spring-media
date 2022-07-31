@@ -1,7 +1,7 @@
 package finalproject.domain.entities.task;
 
-import lombok.Getter;
 import java.util.HashMap;
+import lombok.Getter;
 
 /**
  * Статусы задач.

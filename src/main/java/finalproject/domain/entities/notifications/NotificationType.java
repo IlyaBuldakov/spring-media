@@ -2,6 +2,9 @@ package finalproject.domain.entities.notifications;
 
 import lombok.Getter;
 
+/**
+ * Перечисление типа уведомлений.
+ */
 public enum NotificationType {
   VIDEO("видео"),
   AUDIO("аудио"),
@@ -12,7 +15,7 @@ public enum NotificationType {
   @Getter
   public String toMessage;
 
-   NotificationType(String toMessage) {
+  NotificationType(String toMessage) {
     this.toMessage = toMessage;
 
   }

@@ -1,6 +1,8 @@
 package finalproject.domain.entities.failures;
 
-
+/**
+ * Все сообщения об ошибках.
+ */
 public enum Messages {
   INVALID_VALUES("Введенные данные некорректны"),
   INTERNAL_SERVER_ERROR("Ошибка сервера"),

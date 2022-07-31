@@ -8,8 +8,12 @@ import finalproject.application.services.ContentService;
 import finalproject.application.services.FileStorageService;
 import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
-import finalproject.domain.entities.failures.*;
-import finalproject.domain.entities.filedocuments.FileDocument;
+import finalproject.domain.entities.failures.BadRequest;
+import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.InternalServerError;
+import finalproject.domain.entities.failures.Messages;
+import finalproject.domain.entities.failures.NotAuthorized;
+import finalproject.domain.entities.failures.NotFound;
 import finalproject.domain.entities.notifications.Notification;
 import finalproject.domain.entities.notifications.NotificationType;
 import finalproject.domain.entities.task.Task;
@@ -67,7 +71,8 @@ public class ContentServiceImpl implements ContentService {
   @Async
   @Override
   public CompletableFuture<Either<Failure, Content>> uploadContentToTask(MultipartFile file,
-                                                                         int taskId, int auth) throws IOException {
+                                                                         int taskId, int auth)
+          throws IOException {
     User authorizedUser = userRepository.findById(auth).get();
     if (!taskRepository.existsById(taskId)) {
       return CompletableFuture.completedFuture(
@@ -80,7 +85,8 @@ public class ContentServiceImpl implements ContentService {
               Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
     }
     ValidateContent validateContent = new ValidateContent(new Validators());
-    InnerContentTransferObject fileData = validateContent.validateContent(file).getOrElseThrow(BadRequestDto::new);
+    InnerContentTransferObject fileData = validateContent.validateContent(file)
+            .getOrElseThrow(BadRequestDto::new);
     if (!task.getType().equals(fileData.getType())) {
       problems.add("file");
       return CompletableFuture.completedFuture(
@@ -105,9 +111,9 @@ public class ContentServiceImpl implements ContentService {
               authorizedUser, task, Notification.Note.ADD);
       notificationsRepository.save(notification);
       return CompletableFuture.completedFuture(Either.right(content));
-    }
-    else {
-      Content content = new Content(fileData.getType(), fileData.getFilename(), fileData.getFormat(),
+    } else {
+      Content content = new Content(fileData.getType(),
+              fileData.getFilename(), fileData.getFormat(),
               previewUrl, task, fileUrl, false);
       content.setDateCreated(LocalDateTime.now());
       contentRepository.save(content);
@@ -127,25 +133,28 @@ public class ContentServiceImpl implements ContentService {
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteContentById(int id, int auth) {
     List<String> problems = new ArrayList<>();
-    User authorizedUser = userRepository.findById(auth).get();
     if (id < 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(
-              new BadRequest(Messages.INVALID_VALUES, problems)));}
+              new BadRequest(Messages.INVALID_VALUES, problems)));
+    }
     if (!contentRepository.existsById(id)) {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.CONTENT_NOT_FOUND)));
     }
-      Content content = contentRepository.findById(id).get();
-      if (content.getTask() != null) {
-        content.getTask().getAllTaskContent().remove(content);
-      }
+
+    User authorizedUser = userRepository.findById(auth).get();
+    Content content = contentRepository.findById(id).get();
+    if (content.getTask() != null) {
+      content.getTask().getAllTaskContent().remove(content);
+    }
     NotificationType noteType = NotificationType.valueOf(content.getType().toString());
     Notification notification = new Notification(noteType, LocalDateTime.now(),
             authorizedUser, content.getTask(), Notification.Note.DELETE);
     notificationsRepository.save(notification);
     if (contentRepository.findById(id).isPresent()) {
-    contentRepository.deleteById(id);}
+      contentRepository.deleteById(id);
+    }
     return CompletableFuture.completedFuture(Either.right(null));
 
 
@@ -154,7 +163,8 @@ public class ContentServiceImpl implements ContentService {
   @Async
   @Override
   public CompletableFuture<Either<Failure, List<Content>>> getAllContent() {
-    return CompletableFuture.completedFuture(Either.right(contentRepository.findByIsPublished(true)));
+    return CompletableFuture.completedFuture(Either.right(contentRepository
+            .findByIsPublished(true)));
   }
 
   /**
@@ -174,11 +184,12 @@ public class ContentServiceImpl implements ContentService {
       preview = ImageIO.read(toConvert);
     } else
       if (type == ContentType.VIDEO) {
-        try(FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(toConvert)) {
-        grabber.start();
-        Frame frame = grabber.grabImage();
-        Java2DFrameConverter converter = new Java2DFrameConverter();
-        preview = converter.convert(frame);}
+        try (FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(toConvert)) {
+          grabber.start();
+          Frame frame = grabber.grabImage();
+          Java2DFrameConverter converter = new Java2DFrameConverter();
+          preview = converter.convert(frame);
+        }
       } else {
         return  "/" + defaultPath.toUri().relativize(Paths.get(staticPath, "defaultmusicicon.png")
               .toUri());

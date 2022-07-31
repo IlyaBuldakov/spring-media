@@ -10,19 +10,20 @@ import finalproject.domain.entities.failures.InternalServerError;
 import finalproject.domain.entities.failures.Messages;
 import finalproject.domain.entities.failures.NotAuthorized;
 import finalproject.domain.entities.failures.NotFound;
-import finalproject.domain.entities.filedocuments.FileDocument;
 import finalproject.domain.entities.notifications.Notification;
 import finalproject.domain.entities.notifications.NotificationType;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
-import finalproject.infrastructure.repositories.*;
+import finalproject.infrastructure.repositories.CommentRepository;
+import finalproject.infrastructure.repositories.ContentRepository;
+import finalproject.infrastructure.repositories.NotificationsRepository;
+import finalproject.infrastructure.repositories.TaskRepository;
+import finalproject.infrastructure.repositories.UserRepository;
 import io.vavr.control.Either;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -120,8 +121,10 @@ public class TaskServiceImpl implements TaskService {
         contentRepository.save(content);
       }
       task.getComments().clear();
-      commentRepository.findByTaskId(id).stream().forEach(comment -> {comment.setTask(null);
-        commentRepository.save(comment);});
+      commentRepository.findByTaskId(id).stream().forEach(comment -> {
+        comment.setTask(null);
+        commentRepository.save(comment);
+      });
       task.setAuthor(null);
       task.setContentMaker(null);
       taskRepository.save(task);

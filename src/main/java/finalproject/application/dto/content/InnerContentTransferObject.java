@@ -5,6 +5,9 @@ import finalproject.domain.entities.content.ContentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Для удобства передаётся из валидатора.
+ */
 @Getter
 @AllArgsConstructor
 public class InnerContentTransferObject {

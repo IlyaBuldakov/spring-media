@@ -1,8 +1,7 @@
 package finalproject.application.dto.file;
 
-import java.time.LocalDateTime;
-
 import finalproject.domain.entities.filedocuments.FileDocument;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -49,7 +48,12 @@ public class FileDto {
    */
   private @Getter String url;
 
-  public FileDto (FileDocument document) {
+  /**
+   * Конструктор dto файла задачи.
+   *
+   * @param document файл
+   */
+  public FileDto(FileDocument document) {
     this.id = document.getId();
     this.name = document.getName();
     this.dateCreated = document.getDateCreated();

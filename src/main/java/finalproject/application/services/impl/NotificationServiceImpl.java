@@ -7,13 +7,15 @@ import finalproject.domain.entities.user.User;
 import finalproject.infrastructure.repositories.NotificationsRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
 import finalproject.infrastructure.repositories.UserRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
+/**
+ * имплементация сервиса уведомлений.
+ */
 @Service
 @AllArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
@@ -31,7 +33,7 @@ public class NotificationServiceImpl implements NotificationService {
       return notifications;
     }
 
-   Set<Integer> relatedTasks = authorizedUser.getTasksAsAuthor()
+    Set<Integer> relatedTasks = authorizedUser.getTasksAsAuthor()
            .stream().map(task -> task.getId()).collect(Collectors.toSet());
     Set<Integer> relatedTasks2 = authorizedUser.getTasksAsContentMaker()
             .stream().map(task -> task.getId()).collect(Collectors.toSet());
@@ -39,8 +41,9 @@ public class NotificationServiceImpl implements NotificationService {
     var notes = notifications.stream()
             .filter(note -> {
               for (Integer i : relatedTasks) {
-                if (note.getTaskId() == (int) i)
-                {return true;}
+                if (note.getTaskId() == (int) i) {
+                  return true;
+                }
               }
               return false;
             }).collect(Collectors.toList());

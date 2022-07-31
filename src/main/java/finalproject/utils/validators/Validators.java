@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
@@ -54,7 +53,7 @@ public class Validators {
   }
 
 
-@Getter
+  @Getter
   private List<String> problems = new ArrayList<>();
 
   /**
@@ -109,6 +108,13 @@ public class Validators {
     }
   }
 
+  /**
+   * Проверка id.
+   *
+   * @param id id
+   * @param field поле
+   * @return true если все в порядке
+   */
   public boolean validateId(int id, String field) {
     try {
       Validate.isTrue(id > 0);

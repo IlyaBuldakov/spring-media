@@ -1,11 +1,10 @@
 package finalproject;
 
-import finalproject.application.services.UserService;
+
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
-import java.util.concurrent.ExecutionException;
-
 import finalproject.infrastructure.repositories.UserRepository;
+import java.util.concurrent.ExecutionException;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;

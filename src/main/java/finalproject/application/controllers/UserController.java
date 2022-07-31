@@ -39,7 +39,11 @@ public class UserController {
   AuthService authService;
 
 
-
+  /**
+   * Получение всех пользователей.
+   *
+   * @return возвращает список пользователей
+   */
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
   @Secured("hasAnyAuthority('ADMIN', 'MANAGER')")
   @GetMapping

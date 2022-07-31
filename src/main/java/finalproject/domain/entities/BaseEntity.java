@@ -2,6 +2,9 @@ package finalproject.domain.entities;
 
 import finalproject.domain.entities.user.User;
 
+/**
+ * Базовая сущность.
+ */
 public class BaseEntity {
   private int id;
 

@@ -2,7 +2,10 @@ package finalproject.domain.entities.failures;
 
 import java.util.List;
 
-public class BadRequest extends Failure{
+/**
+ * Ошибка запроса.
+ */
+public class BadRequest extends Failure {
   public BadRequest(Messages message) {
     super(message);
   }

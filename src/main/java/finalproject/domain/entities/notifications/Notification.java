@@ -3,14 +3,19 @@ package finalproject.domain.entities.notifications;
 import finalproject.domain.entities.BaseEntity;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.User;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-
-
+/**
+ * Сущность - уведомление.
+ */
 @Entity
 @Getter
 @Setter
@@ -45,6 +50,9 @@ public class Notification extends BaseEntity {
   @Column
   private Note note;
 
+  /**
+   * Перечисление типов изменений в задачах.
+   */
   public enum Note {
     ADD("добавление"),
     DELETE("удаление"),
@@ -52,20 +60,36 @@ public class Notification extends BaseEntity {
 
     @Getter
     public final String modification;
-     Note(String modification) {
+
+    Note(String modification) {
       this.modification = modification;
 
     }
 
   }
 
+  /**
+   * Генерация сообщения.
+   *
+   * @return сообщение
+   */
   public String createMessage() {
-    return "В задаче " + this.taskName +
-            " пользователь " + this.modifierName + " произвел "
+    return "В задаче " + this.taskName
+            + " пользователь " + this.modifierName + " произвел "
             + this.note.getModification() + " " + this.type.getToMessage();
   }
 
-  public Notification(NotificationType type, LocalDateTime date, User modifyer, Task task, Note note) {
+  /**
+   * Конструктор уведомления.
+   *
+   * @param type тип уведомления
+   * @param date дата
+   * @param modifyer пользователь, осуществивший изменения
+   * @param task задача
+   * @param note тип изменения
+   */
+  public Notification(NotificationType type, LocalDateTime date,
+                      User modifyer, Task task, Note note) {
     this.type = type;
     this.date = date;
     this.userId = modifyer.getId();

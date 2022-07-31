@@ -40,7 +40,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(
                     auth -> {
                       auth
-                                .antMatchers("/api/auth/login", "/api/auth/refresh-token", "/swagger-ui/**",
+                                .antMatchers("/api/auth/login", "/api/auth/refresh-token",
+                                        "/swagger-ui/**",
                                         "/v2/api-docs", "/swagger-resources/**")
                                   .permitAll()
                                 .antMatchers("/content/*", "/files/*")

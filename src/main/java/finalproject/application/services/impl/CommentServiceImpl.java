@@ -2,10 +2,13 @@ package finalproject.application.services.impl;
 
 import finalproject.application.services.CommentService;
 import finalproject.domain.entities.Comment;
-import finalproject.domain.entities.failures.*;
+import finalproject.domain.entities.failures.BadRequest;
+import finalproject.domain.entities.failures.Failure;
+import finalproject.domain.entities.failures.Messages;
+import finalproject.domain.entities.failures.NotAuthorized;
+import finalproject.domain.entities.failures.NotFound;
 import finalproject.domain.entities.notifications.Notification;
 import finalproject.domain.entities.notifications.NotificationType;
-import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import finalproject.infrastructure.repositories.CommentRepository;
@@ -14,15 +17,17 @@ import finalproject.infrastructure.repositories.TaskRepository;
 import finalproject.infrastructure.repositories.UserRepository;
 import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
-import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
+/**
+ * Имплементация сервиса комментариев.
+ */
 @AllArgsConstructor
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -35,14 +40,16 @@ public class CommentServiceImpl implements CommentService {
 
   @Async
   @Override
-  public CompletableFuture<Either<Failure, Comment>> postCommentToTask(int userId, int taskId, String commentString) {
+  public CompletableFuture<Either<Failure, Comment>> postCommentToTask(
+          int userId, int taskId, String commentString) {
     Validators validators = new Validators();
     validators.validateId(userId, "userId");
     validators.validateId(userId, "taskId");
     validators.validateNonNullString(commentString, "comment");
-    if (validators.getProblems().size() > 0)
+    if (validators.getProblems().size() > 0) {
       return CompletableFuture.completedFuture(Either.left(
               new BadRequest(Messages.INVALID_VALUES, validators.getProblems())));
+    }
     if (!taskRepository.existsById(taskId)) {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.TASK_NOT_FOUND)));
@@ -59,14 +66,15 @@ public class CommentServiceImpl implements CommentService {
            );
     NotificationType noteType = NotificationType.COMMENT;
     Notification notification = new Notification(noteType, LocalDateTime.now(),
-            userRepository.findById(userId).get(), taskRepository.findById(taskId).get(), Notification.Note.ADD);
+            userRepository.findById(userId).get(),
+            taskRepository.findById(taskId).get(), Notification.Note.ADD);
     notificationsRepository.save(notification);
 
     return CompletableFuture.completedFuture(Either.right(commentRepository.save(comment)));
   }
 
 
-@Async
+  @Async
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteCommentById(int id, int auth) {
 
@@ -75,7 +83,8 @@ public class CommentServiceImpl implements CommentService {
     if (id < 1) {
       problems.add("id");
       return CompletableFuture.completedFuture(Either.left(
-              new BadRequest(Messages.INVALID_VALUES, problems)));}
+              new BadRequest(Messages.INVALID_VALUES, problems)));
+    }
     if (!commentRepository.existsById(id)) {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.COMMENT_NOT_FOUND)));

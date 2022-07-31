@@ -10,9 +10,10 @@ import finalproject.domain.entities.failures.InternalServerError;
 import finalproject.domain.entities.failures.Messages;
 import finalproject.domain.entities.filedocuments.Format;
 import io.vavr.control.Either;
+import java.io.IOException;
+import java.io.InputStream;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.detect.Detector;
 import org.apache.tika.io.TikaInputStream;
@@ -21,13 +22,19 @@ import org.apache.tika.mime.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
-
+/**
+ * Вспомогательный класс для валидации файлов, прикладываемых к задаче.
+ */
 @AllArgsConstructor
 public class ValidateFile {
   private final Validators validators;
 
+  /**
+   * Метод валидации.
+   *
+   * @param file файл
+   * @return объект успешной валидации
+   */
   public Either<Failure, InnerFileTransferObject> validateFile(MultipartFile file) {
     if (!validators.validateNotNull(file.getOriginalFilename(), "file")) {
       return Either.left(new BadRequest(Messages.UNACCEPTABLE_FILE, validators.getProblems()));
@@ -39,8 +46,9 @@ public class ValidateFile {
       return Either.left(new BadRequest(Messages.UNACCEPTABLE_FILE, validators.getProblems()));
     }
 
-    if(!validators.validateNotNull(Format.valueOf(extension.toUpperCase()), "file")) {
-      return Either.left(new BadRequest(Messages.UNACCEPTABLE_FILE_EXTENSION, validators.getProblems()));
+    if (!validators.validateNotNull(Format.valueOf(extension.toUpperCase()), "file")) {
+      return Either.left(new BadRequest(
+              Messages.UNACCEPTABLE_FILE_EXTENSION, validators.getProblems()));
     }
     Format fileFormat = Format.valueOf(extension.toUpperCase());
     try (InputStream is = file.getInputStream()) {
@@ -58,6 +66,14 @@ public class ValidateFile {
 
   }
 
+  /**
+   * Получение реального типа контента файла.
+   *
+   * @param is inputstream
+   * @param filename имя файла
+   * @return строку myme
+   * @throws IOException ошибка ввода вывода
+   */
   public String getContentType(InputStream is, String filename) throws IOException {
     TikaConfig config = TikaConfig.getDefaultConfig();
     Detector detector = config.getDetector();
