@@ -6,6 +6,7 @@ import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.entities.task.Task;
 import com.htc.domain.repositories.TasksRepository;
 import com.htc.infrastructure.jpa.TasksJpaRepository;
+import com.htc.infrastructure.jpa.UsersJpaRepository;
 import com.htc.infrastructure.mappers.TaskMapper;
 import com.htc.util.Results;
 import io.vavr.control.Either;
@@ -25,10 +26,9 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class TasksRepositoryImpl implements TasksRepository {
 
-  /**
-   * JPA-репозиторий.
-   */
   TasksJpaRepository tasksJpaRepository;
+
+  UsersJpaRepository usersJpaRepository;
 
   /**
    * Создание задачи.
@@ -45,8 +45,11 @@ public class TasksRepositoryImpl implements TasksRepository {
   public CompletableFuture<Either<Failure, Void>> create(String name, ContentType type,
                                                          String description, int author,
                                                          int executor, LocalDate dateExpired) {
-    tasksJpaRepository.save(new TaskMapper(name, type, description, author, executor, dateExpired));
-    return Results.nullValue();
+    if (usersJpaRepository.existsById(author) && usersJpaRepository.existsById(executor)) {
+      tasksJpaRepository.save(new TaskMapper(name, type, description, author, executor, dateExpired));
+      return Results.nullValue();
+    }
+    return Results.fail(NotFound.USER);
   }
 
   /**
@@ -90,20 +93,22 @@ public class TasksRepositoryImpl implements TasksRepository {
   public CompletableFuture<Either<Failure, Void>> update(int id, String name, ContentType type,
                                                          String description, int author,
                                                          int executor, LocalDate dateExpired) {
-    var task = getOptionalById(id);
-    if (task.isPresent()) {
-      updateTask(id, name, type, description, author, executor,
-              task.get().getDateCreated(), dateExpired);
-    } else {
-      updateTask(id, name, type, description, author,
-              executor, LocalDate.now(), dateExpired);
+    if (usersJpaRepository.existsById(author) && usersJpaRepository.existsById(executor)) {
+      var task = getOptionalById(id);
+      if (task.isPresent()) {
+        updateTask(id, name, type, description, author, executor,
+                task.get().getDateCreated(), dateExpired);
+      } else {
+        updateTask(id, name, type, description, author,
+                executor, LocalDate.now(), dateExpired);
+      }
+      return Results.nullValue();
     }
-    return Results.nullValue();
+    return Results.fail(NotFound.USER);
   }
 
   /**
    * Вспомогательный метод для упрощения кода.
-   * (при обновлении dateCreated отличается).
    *
    * @param id          Идентификатор задачи.
    * @param name        Имя задачи.

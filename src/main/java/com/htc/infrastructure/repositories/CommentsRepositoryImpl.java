@@ -1,8 +1,10 @@
 package com.htc.infrastructure.repositories;
 
 import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.repositories.CommentsRepository;
 import com.htc.infrastructure.jpa.CommentsJpaRepository;
+import com.htc.infrastructure.jpa.TasksJpaRepository;
 import com.htc.infrastructure.mappers.CommentMapper;
 import com.htc.util.Results;
 import io.vavr.control.Either;
@@ -20,6 +22,8 @@ public class CommentsRepositoryImpl implements CommentsRepository {
 
   CommentsJpaRepository commentsJpaRepository;
 
+  TasksJpaRepository tasksJpaRepository;
+
   /**
    * Создание комментария.
    *
@@ -32,7 +36,10 @@ public class CommentsRepositoryImpl implements CommentsRepository {
   public CompletableFuture<Either<Failure, Void>> createComment(int taskId,
                                                                 int authorId,
                                                                 String message) {
-    commentsJpaRepository.save(new CommentMapper(taskId, LocalDate.now(), authorId, message));
-    return Results.nullValue();
+    if (tasksJpaRepository.existsById(taskId)) {
+      commentsJpaRepository.save(new CommentMapper(taskId, LocalDate.now(), authorId, message));
+      return Results.nullValue();
+    }
+    return Results.fail(NotFound.TASK);
   }
 }

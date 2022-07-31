@@ -6,6 +6,7 @@ import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.repositories.ContentsRepository;
 import com.htc.infrastructure.jpa.ContentsJpaRepository;
+import com.htc.infrastructure.jpa.TasksJpaRepository;
 import com.htc.infrastructure.mappers.ContentMapper;
 import com.htc.util.Results;
 import io.vavr.control.Either;
@@ -25,10 +26,9 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class ContentsRepositoryImpl implements ContentsRepository {
 
-  /**
-   * JPA-репозиторий.
-   */
   ContentsJpaRepository contentsJpaRepository;
+
+  TasksJpaRepository tasksJpaRepository;
 
   /**
    * Получение списка контента.
@@ -54,8 +54,11 @@ public class ContentsRepositoryImpl implements ContentsRepository {
                                                          ContentType type,
                                                          Content.ContentFormat contentFormat,
                                                          String url, int taskId) {
-    contentsJpaRepository.save(new ContentMapper(name, type, authorId, contentFormat, url, taskId));
-    return Results.nullValue();
+    if (tasksJpaRepository.existsById(taskId)) {
+      contentsJpaRepository.save(new ContentMapper(name, type, authorId, contentFormat, url, taskId));
+      return Results.nullValue();
+    }
+    return Results.fail(NotFound.TASK);
   }
 
   /**
