@@ -34,11 +34,18 @@ Swagger
 
 ## Настройка проекта
 - В [application.yml](\src\main\resources\application.yml) установить:
-  - 'spring.datasource.url' - ссылка на СУБД.
-  - 'spring.datasource.username' - имя пользователя СУБД.
-  - 'spring.datasource.password' - пароль пользователя СУБД.
-
-## Установка проекта
-- выполнить команду mvn clean install в корневой папке проекта с содержанием pom.xml файла
+  - `spring.datasource.url` - ссылка на СУБД.
+  - `spring.datasource.username` - имя пользователя СУБД.
+  - `spring.datasource.password` - пароль пользователя СУБД.
+  - `authentication.secret` - кодовая фраза.
 
 ## Запуск проекта
+- Запуск проекта производится с помощью IntelliJ IDEA.
+
+## Нереализованные функции
+- Не до конца реализован возврат ошибок.
+- Наборы сущностей в составе других сущностей.
+- Применение докера.
+- Сохранение файла в файловую систему.
+- Работа с Refresh-токеном.
+
