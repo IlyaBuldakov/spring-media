@@ -3,7 +3,7 @@ package com.htc.application.controllers;
 import com.htc.application.dto.errors.BadRequest;
 import com.htc.application.dto.errors.HttpError;
 import com.htc.application.dto.file.FileRequestDto;
-import com.htc.domain.entities.Id;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.service.FileService;
 import com.htc.domain.service.TaskService;
 import com.htc.domain.usecases.BaseUseCase;
@@ -36,22 +36,17 @@ public class FileController {
 
   private final FileService fileService;
 
-  private TaskService taskService;
+  private final TaskService taskService;
 
   @PostMapping
   @Operation(summary = "Загрузить новый файл в задачу")
   public void upload(
       @AuthenticationPrincipal Id subjectId,
       @RequestBody FileRequestDto fileRequestDto) {
-
-
-    final var taskId = Id.create(fileRequestDto.taskId()).get();
-    final var task = taskService.get(subjectId, taskId).get();
-
     fileService.create(
         subjectId,
         fileRequestDto.file(),
-        task
+        fileRequestDto.taskId()
     );
   }
 

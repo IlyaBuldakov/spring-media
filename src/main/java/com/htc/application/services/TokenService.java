@@ -6,7 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.htc.application.dto.authentication.LoginResponse;
 import com.htc.domain.entities.User;
-import com.htc.domain.entities.Id;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
 import java.time.ZonedDateTime;

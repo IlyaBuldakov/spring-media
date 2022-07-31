@@ -226,4 +226,10 @@ public final class TaskUseCase {
             LocalDateTime dateExpired ) {
     }
   }
+
+  /**
+   * Запрошенная задача не найдена.
+   */
+  public record NotFound() implements Failure {
+  }
 }

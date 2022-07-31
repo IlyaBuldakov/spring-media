@@ -5,7 +5,7 @@ import com.htc.application.dto.errors.HttpError;
 import com.htc.application.dto.user.UserRequest;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.entities.User;
-import com.htc.domain.entities.Id;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.service.UserService;
 import com.htc.domain.usecases.BaseUseCase;
 import com.htc.domain.usecases.UserUseCase;

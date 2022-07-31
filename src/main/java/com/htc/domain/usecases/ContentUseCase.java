@@ -40,23 +40,17 @@ public class  ContentUseCase {
 
     @Override
     public Either<Failure, Content> execute(Params params) {
-      InvalidValues invalidValues = new InvalidValues();
-
-      var type = fileMetadata.getContentType(params.file);
-      if (type.isEmpty()) {
-        invalidValues.addInvalidValue(InvalidValue.INVALID_CONTENT_TYPE);
-      }
 
       var name = Content.Name.create(params.file.getName());
-
 
       LocalDateTime dateCreated = LocalDateTime.now();
       User author = null; //current authenticated user?
 
       var format = fileMetadata.getContentFormat(params.file);
       if (format.isEmpty()) {
-        invalidValues.addInvalidValue(InvalidValue.INVALID_FORMAT);
+        return Either.left(new NotSupported());
       }
+      var type = fileMetadata.getContentType(params.file);
 
       var url = Content.Url.create("url");
 
@@ -67,7 +61,7 @@ public class  ContentUseCase {
 
       var previewUrl = Content.Url.create("preview");
 
-      if (invalidValues.getInvalidValues().isEmpty()) {
+
         fileUploadService.uploadFile(params.file);
         fileUploadService.uploadFile(params.file);
         return Either.right(
@@ -79,9 +73,6 @@ public class  ContentUseCase {
                         format.get(),
                         url.get(),
                         previewUrl.get()));
-      }
-
-      return Either.left(invalidValues);
     }
 
     /**
@@ -107,14 +98,15 @@ public class  ContentUseCase {
     }
 
     /**
-     * Парамерты выполения сценария.
+     * Параметры выполнения сценария.
      *
      * @param file Файл.
-     * @param taskId Индентификатор задачи.
+     * @param taskId Идентификатор задачи.
      */
     public record Params(
             MultipartFile file,
-            Id taskId) {
+            Id taskId,
+            Id userId) {
     }
   }
 
@@ -192,5 +184,16 @@ public class  ContentUseCase {
             LocalDate date,
             Integer typeId) {
     }
+  }
+  /**
+   * Запрошенный медиакотент не найден.
+   */
+  public record NotFound() implements Failure {
+  }
+
+  /**
+   * Формат файла медиаконтента не поддерживается.
+   */
+  public record NotSupported() implements Failure {
   }
 }

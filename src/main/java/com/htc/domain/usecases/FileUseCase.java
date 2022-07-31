@@ -1,5 +1,6 @@
 package com.htc.domain.usecases;
 
+import com.htc.domain.entities.Content;
 import com.htc.domain.entities.File;
 import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
@@ -7,12 +8,15 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.FileRepository;
 import com.htc.domain.repositories.UserRepository;
+import com.htc.domain.util.FileMetadata;
+import com.htc.domain.util.FileUploadService;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Set;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Сценарии использования файлов.
@@ -26,6 +30,8 @@ public class FileUseCase {
   public static final class Create extends BaseUseCase<Create.Params, File> {
 
     private final FileRepository repository;
+    private final FileMetadata fileMetadata;
+    private final FileUploadService fileUploadService;
 
     @Override
     protected Set<User.Role> getPermittedRoles() {
@@ -35,36 +41,48 @@ public class FileUseCase {
     @Override
     public Either<Failure, File> execute(Params params) {
 
+      var name = File.Name.create(params.file.getName());
+
+      LocalDateTime dateCreated = LocalDateTime.now();
+
+      var format = fileMetadata.getFileFormat(params.file);
+      if (format.isEmpty()) {
+        return Either.left(new FileUseCase.NotSupported());
+      }
+      var type = fileMetadata.getContentType(params.file);
+
+      var url = File.Url.create("url");
+
+      Task task = null;
+      fileUploadService.uploadFile(params.file);
       return Either.right(
               repository.create(
-                      params.name,
+                      name.get(),
                       LocalDateTime.now(),
-                      params.format,
-                      params.url,
-                      params.task));
+                      format.get(),
+                      url.get(),
+                      task));
     }
 
     public Create(@NonNull FileRepository repository,
-                  @NonNull UserRepository userRepository) {
+                  @NonNull UserRepository userRepository,
+                  @NonNull FileMetadata fileMetadata,
+                  @NonNull FileUploadService fileUploadService) {
       super(userRepository);
       this.repository = repository;
+      this.fileMetadata = fileMetadata;
+      this.fileUploadService = fileUploadService;
     }
 
     /**
-     * Параметры выполнеия сценария.
+     * Параметры выполнения сценария.
      *
-     * @param name Имя файла.
-     * @param dateCreated Дата создания файла.
-     * @param format Формат файла.
-     * @param url Адрес файла.
-     * @param task Индентификатор родительской задачи.
+     * @param file файл.
+     * @param taskId Идентификатор задачи.
      */
     public record Params(
-            File.Name name,
-            LocalDateTime dateCreated,
-            File.Format format,
-            File.Url url,
-            Task task) {
+        MultipartFile file,
+        Id taskId) {
     }
   }
 
@@ -122,5 +140,17 @@ public class FileUseCase {
       super(userRepository);
       this.repository = repository;
     }
+  }
+
+  /**
+   * Запрошенный файл не найден.
+   */
+  public record NotFound() implements Failure {
+  }
+
+  /**
+   * Формат файла не поддерживается.
+   */
+  public record NotSupported() implements Failure {
   }
 }

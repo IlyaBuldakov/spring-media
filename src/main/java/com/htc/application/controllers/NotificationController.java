@@ -3,7 +3,7 @@ package com.htc.application.controllers;
 import com.htc.application.dto.errors.BadRequest;
 import com.htc.application.dto.errors.HttpError;
 import com.htc.application.dto.notification.NotificationDto;
-import com.htc.domain.entities.Id;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.service.NotificationService;
 import com.htc.domain.usecases.BaseUseCase;
 import io.swagger.v3.oas.annotations.Operation;

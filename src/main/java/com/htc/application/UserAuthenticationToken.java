@@ -1,6 +1,6 @@
 package com.htc.application;
 
-import com.htc.domain.entities.Id;
+import com.htc.domain.entities.attributes.Id;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

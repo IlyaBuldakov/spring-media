@@ -2,7 +2,7 @@ package com.htc.application.filters;
 
 import com.htc.application.UserAuthenticationToken;
 import com.htc.application.services.TokenService;
-import com.htc.domain.entities.Id;
+import com.htc.domain.entities.attributes.Id;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

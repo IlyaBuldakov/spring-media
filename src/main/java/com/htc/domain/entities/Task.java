@@ -1,5 +1,6 @@
 package com.htc.domain.entities;
 
+import com.htc.domain.entities.attributes.BaseAttribute;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;
@@ -102,13 +103,13 @@ public record Task(
      * @param value Входные данные.
      * @return Название задачи или ошибка.
      */
-    public static Either<Collection<Failure>, Task.Name> create(String value) {
-      final var name = new Task.Name();
-      name.setValue(value);
+    public static Either<Collection<Failure>, Task.Description> create(String value) {
+      final var description = new Task.Description();
+      description.setValue(value);
 
-      final var failures = name.validate();
+      final var failures = description.validate();
       return failures.isEmpty()
-              ? Either.right(name)
+              ? Either.right(description)
               : Either.left(failures);
     }
 

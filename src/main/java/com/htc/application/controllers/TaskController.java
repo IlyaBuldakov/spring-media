@@ -6,7 +6,7 @@ import com.htc.application.dto.task.TaskRequestDto;
 import com.htc.application.dto.task.TaskResponse;
 import com.htc.application.dto.user.UserResponse;
 import com.htc.domain.entities.Task;
-import com.htc.domain.entities.Id;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.service.TaskService;
 import com.htc.domain.service.UserService;
 import com.htc.domain.usecases.BaseUseCase;

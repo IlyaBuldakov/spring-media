@@ -1,5 +1,6 @@
 package com.htc.domain.entities;
 
+import com.htc.domain.entities.attributes.BaseAttribute;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import io.vavr.control.Either;

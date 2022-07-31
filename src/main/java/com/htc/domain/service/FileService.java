@@ -7,6 +7,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.usecases.FileUseCase;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
+import org.springframework.web.multipart.MultipartFile;
 
 public class FileService {
   private FileUseCase.Create create;
@@ -16,24 +17,18 @@ public class FileService {
    * Создаёт пользователя.
    *
    * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
-   * @param name Имя файла.
-   * @param dateCreated Дата создания файла.
-   * @param format Формат файла.
-   * @param url Адрес файла.
-   * @param task Индентификатор родительской задачи.
+   * @param file Файл.
+   * @param taskId Идентификатор родительской задачи.
    * @return Ошибка или пользователь.
    */
   public Either<Failure, File> create(
-          Id subjectId,
-          File.Name name,
-          LocalDateTime dateCreated,
-          File.Format format,
-          File.Url url,
-          Task task
+      Id subjectId,
+      MultipartFile file,
+      Id taskId
   ) {
     return this.create.execute(
             subjectId,
-            new FileUseCase.Create.Params(name, dateCreated, format, url, task)
+            new FileUseCase.Create.Params(file, taskId)
     );
   }
 

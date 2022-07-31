@@ -1,4 +1,4 @@
-package com.htc.domain.entities;
+package com.htc.domain.entities.attributes;
 
 import com.htc.domain.entities.attributes.Attribute;
 import com.htc.domain.entities.failures.Failure;
@@ -38,7 +38,7 @@ public abstract class BaseAttribute<ValueT> implements Attribute<ValueT> {
    */
   protected abstract Collection<Failure> validate();
 
-  protected final class ValidationResultBuilder {
+  public final class ValidationResultBuilder {
     private final Collection<Failure> failures = new ArrayList<>();
 
     public ValidationResultBuilder addIf(

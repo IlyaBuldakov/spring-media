@@ -8,6 +8,7 @@ import com.htc.domain.usecases.ContentUseCase;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,8 +32,7 @@ public class ContentService {
   ) {
     return this.create.execute(
             subjectId,
-            new ContentUseCase.Create.Params(file, taskId)
-    );
+            new ContentUseCase.Create.Params(file, taskId, subjectId));
   }
 
   /**
@@ -57,8 +57,10 @@ public class ContentService {
           Integer page,
           Integer count,
           String author,
-          LocalDate date,
+          String dateCreated,
           Integer typeId) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    LocalDate date = LocalDate.parse(dateCreated, formatter);
     return this.getFeed.execute(
             subjectId,
             new ContentUseCase.GetFeed.Params(page, count, author, date, typeId));
