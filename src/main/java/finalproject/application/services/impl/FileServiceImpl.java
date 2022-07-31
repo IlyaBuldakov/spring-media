@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -69,6 +71,17 @@ public class FileServiceImpl implements FileService {
 
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteFileById(int id) {
-    return null;
+
+    List<String> problems = new ArrayList<>();
+    if (id < 1) {
+      problems.add("id");
+      return CompletableFuture.completedFuture(Either.left(
+              new BadRequest(Messages.INVALID_VALUES, problems)));}
+    if (!fileDocumentRepository.existsById(id)) {
+      return CompletableFuture.completedFuture(Either.left(
+              new NotFound(Messages.FILE_NOT_FOUND)));
+    }
+    fileDocumentRepository.deleteById(id);
+    return CompletableFuture.completedFuture(Either.right(null));
   }
 }
