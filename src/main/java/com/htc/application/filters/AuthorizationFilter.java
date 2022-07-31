@@ -6,21 +6,21 @@ import com.htc.domain.entities.failure.Unauthorized;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * Фильтр авторизации пользователей (прошедших аутентификацию).
  */
 @Component
 @AllArgsConstructor
-public class AuthorizationFilter extends GenericFilterBean {
+public class AuthorizationFilter extends OncePerRequestFilter {
 
   /**
    * Сервис для работы с JWT токеном.
@@ -35,11 +35,11 @@ public class AuthorizationFilter extends GenericFilterBean {
    * @param filterChain     Цепочка фильтров.
    */
   @Override
-  public void doFilter(ServletRequest servletRequest,
-                       ServletResponse servletResponse,
-                       FilterChain filterChain) throws IOException, ServletException {
-    var request = (HttpServletRequest) servletRequest;
-    var authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+  public void doFilterInternal(
+          @NonNull HttpServletRequest servletRequest,
+          @NonNull HttpServletResponse servletResponse,
+          @NonNull FilterChain filterChain) throws IOException, ServletException {
+    var authHeader = servletRequest.getHeader(HttpHeaders.AUTHORIZATION);
 
     if (authHeader != null) {
       String token = jwtService.getTokenFromHeader(authHeader);
