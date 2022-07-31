@@ -1,24 +1,24 @@
 package com.htc.infrastructure.models;
 
-import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.Entity;
 import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.infrastructure.exception.InvalidDataException;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Модель пользователя для СУБД.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "Users")
 @AllArgsConstructor
-public class UserModel implements User {
+public class UserModel implements Entity.Model<User> {
   /**
    * Идентификатор пользователя.
    */
@@ -49,64 +49,51 @@ public class UserModel implements User {
   /**
    * Изображение пользователя.
    */
+  @NotNull
   private String image;
 
   /**
-   * Роль пользователя, см. {@link Role}.
+   * Роль пользователя, см. {@link User.Role}.
    */
   @NotNull
   @Enumerated(EnumType.STRING)
-  private @Getter Role role;
+  private User.Role role;
+
 
   @Override
-  public Id getId() {
-    return Id.create(this.userId).get();
-  }
+  public User toEntity(){
+    final var id = Id
+        .create(this.userId)
+        .getOrElseThrow(InvalidDataException::new);
 
-  @Override
-  public Name getName() {
-    return Name.create(this.name).get();
-  }
+    final var name = User.Name
+        .create(this.name)
+        .getOrElseThrow(InvalidDataException::new);
 
-  @Override
-  public Email getEmail() {
-    return Email.create(this.email).get();
-  }
+    final var email = User.Email
+        .create(this.email)
+        .getOrElseThrow(InvalidDataException::new);
 
-  @Override
-  public Password getPassword() {
-    return Password.create(this.password).get();
-  }
+    final var password = User.Password
+        .create(this.password)
+        .getOrElseThrow(InvalidDataException::new);
 
-  @Override
-  public Image getImage() {
-    return Image.create(this.image).get();
+    final var image = User.Image
+        .create(this.image)
+        .getOrElseThrow(InvalidDataException::new);
+
+    return new User(id, name, email, password, image, this.role);
   }
 
   protected UserModel() {
   }
 
   public UserModel(
-          Id id,
-          Name name,
-          Email email,
-          Password password,
-          Image image,
-          Role role) {
-    this.userId = id.getValue();
-    this.name = name.getValue();
-    this.email = email.getValue();
-    this.password = password.getValue();
-    this.image = image.getValue();
-    this.role = role;
-  }
-
-  public UserModel(
-          Name name,
-          Email email,
-          Password password,
-          Image image,
-          Role role) {
-    this(Id.create(0).get(), name, email, password, image, role);
+      String name,
+      String email,
+      String password,
+      String image,
+      User.Role role) {
+    this(0, name, email, password, image, role);
   }
 }

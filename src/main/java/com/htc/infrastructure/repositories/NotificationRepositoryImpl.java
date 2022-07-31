@@ -1,17 +1,14 @@
 package com.htc.infrastructure.repositories;
 
-import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.Notification;
+import com.htc.domain.entities.Task;
+import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.repositories.NotificationRepository;
 import com.htc.infrastructure.models.NotificationModel;
-import com.htc.infrastructure.models.TaskModel;
-import com.htc.infrastructure.models.UserModel;
-import io.vavr.control.Either;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -30,50 +27,43 @@ public class NotificationRepositoryImpl implements NotificationRepository {
   TaskRepositoryImpl taskRepository;
 
   @Override
-  public CompletableFuture<Either<Failure, Notification>> create(
-          Notification.Type type,
-          LocalDateTime date,
-          Notification.Message message,
-          Id userId,
-          Id taskId) {
-    var user = userRepository.get(userId).join();
-    var task = taskRepository.get(taskId).join();
-    if (user.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
-    }
-    if (task.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
-    }
+  public Notification create(
+      Notification.Type type,
+      LocalDateTime date,
+      Notification.Message message,
+      User user,
+      Task task) {
+    var userModel = userRepository.users.findById(user.id().getValue());
+    var taskModel = taskRepository.tasks.findById(task.id().getValue());
 
     var notification = new NotificationModel(
-            Id.create(0).get(),
-            type,
-            date,
-            message,
-            (UserModel) user.get(),
-            (TaskModel) task.get());
-    return CompletableFuture.completedFuture(Either.right(notifications.save(notification)));
+        type,
+        date,
+        message.getValue(),
+        userModel.get(),
+        taskModel.get());
+    notification = notifications.save(notification);
+    return notification.toEntity();
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Notification>> update(Notification notification) {
+  public Optional<Notification> get(Id id) {
     return null;
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Notification>> get(Id id) {
+  public Collection<Notification> getAll() {
     return null;
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Collection<Notification>>> getAllByUser() {
-    return null;
-  }
-
-  @Override
-  public CompletableFuture<Either<Failure, Void>> delete(Id id) {
+  public void delete(Id id) {
     notifications.deleteById(id.getValue());
-    return CompletableFuture.completedFuture(Either.right(null));
+  }
+
+  @Override
+  public boolean exists(Id id) {
+    return notifications.existsById(id.getValue());
   }
 
   /**

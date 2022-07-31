@@ -1,6 +1,7 @@
 package com.htc.domain.usecases;
 
 import com.htc.domain.entities.Notification;
+import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
@@ -63,7 +64,7 @@ public class NotificationUseCase {
             LocalDateTime date,
             Notification.Message message,
             User user,
-            User task) {
+            Task task) {
     }
   }
 

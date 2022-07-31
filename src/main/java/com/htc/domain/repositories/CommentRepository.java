@@ -4,6 +4,7 @@ import com.htc.domain.entities.Comment;
 import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -19,7 +20,7 @@ public interface CommentRepository {
    * @param message Собщение комментария.
    * @return Ошибка или комментарий.
    */
-  Comment create(User user, Task task, Comment.Message message);
+  Comment create(User user, Task task, LocalDateTime dateCreated, Comment.Message message);
 
   /**
    * Удаляет комментарий.

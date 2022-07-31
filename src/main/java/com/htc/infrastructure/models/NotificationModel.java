@@ -1,12 +1,11 @@
 package com.htc.infrastructure.models;
 
-import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.Entity;
 import com.htc.domain.entities.Notification;
-import com.htc.domain.entities.Task;
-import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.infrastructure.exception.InvalidDataException;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -14,15 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Модель уведомлений для СУБД.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "Notifications")
 @AllArgsConstructor
-public class NotificationModel implements Notification {
+public class NotificationModel implements Entity.Model<Notification> {
 
   /**
    * Идентификатор уведомления.
@@ -37,13 +35,13 @@ public class NotificationModel implements Notification {
    */
   @NotNull
   @Enumerated(EnumType.STRING)
-  private @Getter Type type;
+  private Notification.Type type;
 
   /**
    * Дат создания уведомления.
    */
   @NotNull
-  private @Getter LocalDateTime date;
+  private LocalDateTime date;
 
   /**
    * Сообщение уведомления.
@@ -65,46 +63,31 @@ public class NotificationModel implements Notification {
   @ManyToOne
   private TaskModel parentTask;
 
-  @Override
-  public Id getId() {
-    return Id.create(this.notificationId).get();
-  }
-
-  @Override
-  public Message getMessage() {
-    return Notification.Message.create(this.message).get();
-  }
-
-  @Override
-  public User getUser() {
-    return parentUser;
-  }
-
-  @Override
-  public Task getTask() {
-    return parentTask;
-  }
-
   protected NotificationModel() {
   }
 
-  /**
-   * Создает модель цведомления.
-   *
-   * @param id Индентификатор уведомления.
-   * @param type Тип уведомления.
-   * @param date Дата создания уведомления.
-   * @param message Тескт уведомления.
-   * @param user Пользователь связанный с уведомлением.
-   * @param task Задача связанный с уведомлением.
-   */
-  public NotificationModel(Id id, Notification.Type type, LocalDateTime date, Message message,
-                           UserModel user, TaskModel task) {
-    this.notificationId = id.getValue();
-    this.type = type;
-    this.date = date;
-    this.message = message.getValue();
-    this.parentUser = user;
-    this.parentTask = task;
+  @Override
+  public Notification toEntity() throws InvalidDataException {
+    final var id = Id
+        .create(this.notificationId)
+        .getOrElseThrow(InvalidDataException::new);
+
+    final var message = Notification.Message
+        .create(this.message)
+        .getOrElseThrow(InvalidDataException::new);
+
+    final var parentUser = this.parentUser.toEntity();
+    final var parentTask = this.parentTask.toEntity();
+
+    return new Notification(id, type, date, message, parentUser, parentTask);
+  }
+
+  public NotificationModel(
+      Notification.Type type,
+      LocalDateTime date,
+      String message,
+      UserModel parentUser,
+      TaskModel parentTask) {
+    this(0, type, date, message, parentUser, parentTask);
   }
 }

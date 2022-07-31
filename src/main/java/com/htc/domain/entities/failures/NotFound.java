@@ -15,7 +15,6 @@ public enum NotFound implements Failure {
 
   private final String message;
 
-  @Override
   public String getMessage() {
     return message;
   }

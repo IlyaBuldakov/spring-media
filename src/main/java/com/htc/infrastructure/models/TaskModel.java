@@ -1,11 +1,12 @@
 package com.htc.infrastructure.models;
 
-import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.Content;
+import com.htc.domain.entities.Entity;
 import com.htc.domain.entities.Task;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.infrastructure.exception.InvalidDataException;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -18,10 +19,10 @@ import lombok.Getter;
 /**
  * Модель задач для СУБД.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "Tasks")
 @AllArgsConstructor
-public class TaskModel implements Task {
+public class TaskModel implements Entity.Model<Task> {
   /**
    * Индентификатор задачи.
    */
@@ -80,59 +81,42 @@ public class TaskModel implements Task {
    */
   @NotNull
   @Enumerated(EnumType.STRING)
-  private @Getter Status status;
+  private Task.Status status;
 
   @Override
-  public Id getId() {
-    return Id.create(this.taskId).get();
-  }
+  public Task toEntity() throws InvalidDataException {
+    final var id = Id
+        .create(this.taskId)
+        .getOrElseThrow(InvalidDataException::new);
 
-  @Override
-  public Name getName() {
-    return Task.Name.create(this.name).get();
-  }
+    final var name = Task.Name
+        .create(this.name)
+        .getOrElseThrow(InvalidDataException::new);
 
-  @Override
-  public Description getDescription() {
-    return Task.Description.create(this.description).get();
+    final var description = Task.Description
+        .create(this.description)
+        .getOrElseThrow(InvalidDataException::new);
+
+    final var author = this.author.toEntity();
+    final var executor = this.executor.toEntity();
+
+    return new Task(id, name, contentType, description, author, executor, dateCreated,
+        dateExpired, status);
   }
 
   protected TaskModel() {
   }
 
-  /**
-   * Создает модель задачи.
-   *
-   * @param id Индентификатор задачи.
-   * @param name Название задачи.
-   * @param contentType Тип контента.
-   * @param description Описание задачи.
-   * @param author Пользователь - автор задачи.
-   * @param executor Пользователь - исполнитель задачи.
-   * @param dateCreated Дата создания задачи.
-   * @param dateExpired Дата окончания срока выполнеия задачи.
-   * @param status Статус задачи.
-   */
-  public TaskModel(Id id, Name name, Content.Type contentType, Description description,
-                   UserModel author, UserModel executor,
-                   LocalDateTime dateCreated, LocalDateTime dateExpired,
-                   Status status) {
-    this.taskId = id.getValue();
-    this.name = name.getValue();
-    this.contentType = contentType;
-    this.description = description.getValue();
-    this.author = author;
-    this.executor = executor;
-    this.dateCreated = dateCreated;
-    this.dateExpired = dateExpired;
-    this.status = status;
-  }
-
-  public TaskModel(Name name, Content.Type contentType, Description description,
-                   UserModel author, UserModel executor,
-                   LocalDateTime dateCreated, LocalDateTime dateExpired,
-                   Status status) {
-    this(Id.create(0).get(), name, contentType, description, author, executor, dateCreated,
-            dateExpired, status);
+  public TaskModel(
+      String name,
+      Content.Type contentType,
+      String description,
+      UserModel author,
+      UserModel executor,
+      LocalDateTime dateCreated,
+      LocalDateTime dateExpired,
+      Task.Status status) {
+    this(0, name, contentType, description, author, executor, dateCreated,
+        dateExpired, status);
   }
 }

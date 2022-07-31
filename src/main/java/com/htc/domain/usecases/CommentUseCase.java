@@ -8,6 +8,7 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.domain.repositories.UserRepository;
 import io.vavr.control.Either;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
@@ -31,10 +32,11 @@ public class CommentUseCase {
 
     @Override
     public Either<Failure, Comment> execute(Params params) {
-
+      var dateCreated = LocalDateTime.now();
       return Either.right(repository.create(
               params.user,
               params.task,
+              dateCreated,
               params.message));
     }
 

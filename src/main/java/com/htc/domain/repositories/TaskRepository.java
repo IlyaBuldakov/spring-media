@@ -27,14 +27,14 @@ public interface TaskRepository {
    * @return Созданая задача
    */
   Task create(
-          Task.Name name,
-          Content.Type contentType,
-          Task.Description description,
-          User author,
-          User executor,
-          LocalDateTime dateCreated,
-          LocalDateTime dateExpired,
-          Task.Status status);
+      Task.Name name,
+      Content.Type contentType,
+      Task.Description description,
+      User author,
+      User executor,
+      LocalDateTime dateCreated,
+      LocalDateTime dateExpired,
+      Task.Status status);
 
   /**
    * Обновляет данные задачи.
@@ -49,13 +49,13 @@ public interface TaskRepository {
    * @return Обновленная задача
    */
   Task update(
-          Id id,
-          Task.Name name,
-          Content.Type contentType,
-          Task.Description description,
-          User author,
-          User executor,
-          LocalDateTime dateExpired);
+      Id id,
+      Task.Name name,
+      Content.Type contentType,
+      Task.Description description,
+      User author,
+      User executor,
+      LocalDateTime dateExpired);
 
   /**
    * Удаляет задачу.

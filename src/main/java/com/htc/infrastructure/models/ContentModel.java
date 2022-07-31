@@ -1,24 +1,24 @@
 package com.htc.infrastructure.models;
 
-import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.Content;
+import com.htc.domain.entities.Entity;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.infrastructure.exception.InvalidDataException;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Модель медиаконтента для СУБД.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "Contents")
 @AllArgsConstructor
-public class ContentModel implements Content {
+public class ContentModel implements Entity.Model<Content> {
 
   /**
    * Идентификатор медиаконтента.
@@ -33,13 +33,13 @@ public class ContentModel implements Content {
    */
   @ManyToOne
   @NotNull
-  private @Getter TaskModel parentTask;
+  private TaskModel parentTask;
 
   /**
    * Тип медиаконтента.
    */
   @NotNull
-  private @Getter Type type;
+  private Content.Type type;
 
   /**
    * Название медиаконтента.
@@ -51,20 +51,20 @@ public class ContentModel implements Content {
    * Дата согдания медиаконтента.
    */
   @NotNull
-  private @Getter LocalDateTime dateCreated;
+  private LocalDateTime dateCreated;
 
   /**
    * Автор медиаконтента.
    */
   @NotNull
   @ManyToOne
-  private @Getter UserModel author;
+  private UserModel author;
 
   /**
    * Формат медиаконтента.
    */
   @NotNull
-  private @Getter Format format;
+  private Content.Format format;
 
   /**
    * Адрес медиаконтента.
@@ -79,51 +79,30 @@ public class ContentModel implements Content {
   @NotNull
   private String preview;
 
-  @Override
-  public Id getId() {
-    return Id.create(contentId).get();
-  }
-
-  public Content.Name getName() {
-    return Content.Name.create(this.name).get();
-  }
-
-  @Override
-  public Url getUrl() {
-    return Content.Url.create(this.url).get();
-  }
-
-  @Override
-  public Url getPreview() {
-    return Content.Url.create(this.preview).get();
-  }
-
   protected ContentModel() {
   }
 
-  /**
-   * Создает модель медиаконтента.
-   *
-   * @param id Индентификатор медиаконтента.
-   * @param parentTask Задача к которой относится данный медиаконтент.
-   * @param type Тип медиаконтента.
-   * @param name Наименование медиаконтента.
-   * @param dateCreated Дата загрузки.
-   * @param author Пользователь - автор медиаконтента.
-   * @param format Формат медиаконтента.
-   * @param url Адрес медиаконтента.
-   * @param preview Адрес превью.
-   */
-  public ContentModel(Id id, TaskModel parentTask, Type type, Name name, LocalDateTime dateCreated, UserModel author,
-                      Format format, Url url, Url preview) {
-    this.contentId = id.getValue();
-    this.parentTask = parentTask;
-    this.type = type;
-    this.name = name.getValue();
-    this.dateCreated = dateCreated;
-    this.author = author;
-    this.format = format;
-    this.url = url.getValue();
-    this.preview = preview.getValue();
+  @Override
+  public Content toEntity() {
+    final var id = Id
+        .create(this.contentId)
+        .getOrElseThrow(InvalidDataException::new);
+
+    final var name = Content.Name
+        .create(this.name)
+        .getOrElseThrow(InvalidDataException::new);
+
+    final var author = this.author.toEntity();
+    final var parentTask = this.parentTask.toEntity();
+
+    final var url = Content.Url
+        .create(this.url)
+        .getOrElseThrow(InvalidDataException::new);
+
+    final var preview = Content.Url
+        .create(this.preview)
+        .getOrElseThrow(InvalidDataException::new);
+
+    return new Content(id, type, name, dateCreated, author, format, url, preview);
   }
 }

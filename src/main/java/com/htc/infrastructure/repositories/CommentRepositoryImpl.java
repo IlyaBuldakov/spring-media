@@ -1,17 +1,17 @@
 package com.htc.infrastructure.repositories;
 
-import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.Comment;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.Task;
+import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.infrastructure.models.CommentModel;
+import com.htc.infrastructure.models.FileModel;
 import com.htc.infrastructure.models.TaskModel;
-import com.htc.infrastructure.models.UserModel;
-import io.vavr.control.Either;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -24,42 +24,47 @@ import org.springframework.stereotype.Repository;
 public class CommentRepositoryImpl implements CommentRepository {
 
   Comments comments;
-
   TaskRepositoryImpl taskRepository;
-
   UserRepositoryImpl userRepository;
 
   @Override
-  public CompletableFuture<Either<Failure, Comment>> create(
-          Id userId,
-          Id taskId,
-          Comment.Message message) {
-    var user = userRepository.get(userId).join();
-    var task = taskRepository.get(taskId).join();
-    if (user.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
-    }
-    if (task.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
-    }
+  public Comment create(
+      User user,
+      Task task,
+      LocalDateTime dateCreated,
+      Comment.Message message) {
+    var userModel = userRepository.users.findById(user.id().getValue());
+    var taskModel = taskRepository.tasks.findById(task.id().getValue());
 
-    var comment = new CommentModel((UserModel) user.get(), (TaskModel) task.get(), message);
-    return CompletableFuture.completedFuture(Either.right(comments.save(comment)));
+    var comment = new CommentModel(
+        dateCreated,
+        userModel.get(),
+        taskModel.get(),
+        message.getValue());
+
+    comment = comments.save(comment);
+    return comment.toEntity();
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Comment>> update(Comment comment) {
-    return null;
+  public Collection<Comment> getAllByTask(Task task) {
+    var taskModel = taskRepository.tasks.findById(task.id().getValue()).get();
+
+    return comments
+        .findAllByTask(taskModel)
+        .stream()
+        .map(CommentModel::toEntity)
+        .collect(Collectors.toList());
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Void>> delete(Id id) {
-    return null;
+  public void delete(Id id) {
+    comments.deleteById(id.getValue());
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Collection<Comment>>> getAllByTask(Task task) {
-    return null;
+  public boolean exists(Id id) {
+    return comments.existsById(id.getValue());
   }
 
   /**
@@ -67,5 +72,6 @@ public class CommentRepositoryImpl implements CommentRepository {
    */
   public interface Comments extends JpaRepository<CommentModel, Integer> {
 
+    List<CommentModel> findAllByTask(TaskModel taskModel);
   }
 }

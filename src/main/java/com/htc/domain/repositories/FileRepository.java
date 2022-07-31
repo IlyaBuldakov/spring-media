@@ -49,7 +49,7 @@ public interface FileRepository {
    *
    * @return Список файлов.
    */
-  Collection<File> getAllByTask();
+  Collection<File> getAllByTask(Task task);
 
   /**
    * Проверяет, существует ли файл с указанным идентификатором.

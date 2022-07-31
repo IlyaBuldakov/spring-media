@@ -17,7 +17,6 @@ public class InvalidValues implements Failure {
    */
   private final ArrayList<InvalidValue> invalidValues;
 
-  @Override
   public String getMessage() {
     return DEFAULT_MESSAGE;
   }

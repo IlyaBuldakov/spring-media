@@ -1,18 +1,19 @@
 package com.htc.infrastructure.repositories;
 
-import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.Content;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.entities.Task;
+import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.domain.entities.failures.NotFound;
 import com.htc.domain.repositories.TaskRepository;
 import com.htc.infrastructure.models.TaskModel;
 import com.htc.infrastructure.models.UserModel;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -29,87 +30,90 @@ public class TaskRepositoryImpl implements TaskRepository {
   UserRepositoryImpl userRepository;
 
   @Override
-  public CompletableFuture<Either<Failure, Task>> create(
-          Task.Name name,
-          Content.Type contentType,
-          Task.Description description,
-          Id authorId,
-          Id executorId,
-          LocalDateTime dateExpired) {
+  public Task create(
+      Task.Name name,
+      Content.Type contentType,
+      Task.Description description,
+      User author,
+      User executor,
+      LocalDateTime dateCreated,
+      LocalDateTime dateExpired,
+      Task.Status status
+  ) {
 
-    var author = userRepository.get(authorId).join();
-    var executor = userRepository.get(executorId).join();
-    if (author.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
-    }
-    if (executor.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
-    }
+    var authorModel = userRepository.users.findById(author.id().getValue());
+    var executorModel = userRepository.users.findById(executor.id().getValue());
     var task = new TaskModel(
-            name,
-            contentType,
-            description,
-            (UserModel) author.get(),
-            (UserModel) executor.get(),
-            LocalDateTime.now(),
-            dateExpired,
-            Task.Status.IN_WORK);
-    return CompletableFuture.completedFuture(Either.right(tasks.save(task)));
+        name.getValue(),
+        contentType,
+        description.getValue(),
+        authorModel.get(),
+        executorModel.get(),
+        LocalDateTime.now(),
+        dateExpired,
+        Task.Status.IN_WORK);
+    tasks.save(task);
+    return task.toEntity();
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Task>> update(
-          Id id,
-          Task.Name name,
-          Content.Type contentType,
-          Task.Description description,
-          Id authorId,
-          Id executorId,
-          LocalDateTime dateExpired) {
-    var author = userRepository.get(authorId).join();
-    var executor = userRepository.get(executorId).join();
-    if (author.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
-    }
-    if (executor.isLeft()) {
-      return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
-    }
+  public Task update(
+      Id id,
+      Task.Name name,
+      Content.Type contentType,
+      Task.Description description,
+      User author,
+      User executor,
+      LocalDateTime dateExpired
+  ) {
 
+    var taskModel = this.get(id).get();
+    var authorModel = userRepository.users.findById(author.id().getValue());
+    var executorModel = userRepository.users.findById(executor.id().getValue());
     var task = new TaskModel(
-            id,
-            name,
-            contentType,
-            description,
-            (UserModel) author.get(),
-            (UserModel) executor.get(),
-            LocalDateTime.now(),
-            dateExpired,
-            Task.Status.IN_WORK);
-    return CompletableFuture.completedFuture(Either.right(tasks.save(task)));
+        id.getValue(),
+        name.getValue(),
+        contentType,
+        description.getValue(),
+        authorModel.get(),
+        executorModel.get(),
+        taskModel.dateCreated(),
+        dateExpired,
+        taskModel.status());
+    task = tasks.save(task);
+    return task.toEntity();
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Void>> delete(Id id) {
+  public void delete(Id id) {
     tasks.deleteById(id.getValue());
-    return CompletableFuture.completedFuture(Either.right(null));
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Task>> get(Id id) {
+  public Optional<Task> get(Id id) {
     var task = tasks.findById(id.getValue());
-    return task.isPresent()
-            ? CompletableFuture.completedFuture(Either.right(task.get()))
-            : CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+    return tasks
+        .findById(id.getValue())
+        .map(TaskModel::toEntity);
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Collection<Task>>> getAll() {
-    return CompletableFuture.completedFuture(Either.right(new ArrayList<>(tasks.findAll())));
+  public Collection<Task> getAll() {
+    return tasks
+        .findAll()
+        .stream()
+        .map(TaskModel::toEntity)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public boolean exists(Id id) {
+    return tasks.existsById(id.getValue());
   }
 
   /**
    * ORM для доступа к данным пользователей в СУБД.
    */
-  public interface Tasks extends JpaRepository<TaskModel, Integer> {
+  interface Tasks extends JpaRepository<TaskModel, Integer> {
   }
 }

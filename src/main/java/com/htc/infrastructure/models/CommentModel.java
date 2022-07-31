@@ -1,25 +1,25 @@
 package com.htc.infrastructure.models;
 
-import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.Comment;
+import com.htc.domain.entities.Entity;
+import com.htc.domain.entities.attributes.Id;
+import com.htc.infrastructure.exception.InvalidDataException;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 
 /**
  * Модель комментариев для СУБД.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "Comments")
 @AllArgsConstructor
-public class CommentModel implements Comment {
+public class CommentModel implements Entity.Model<Comment> {
 
   /**
    * Идентификатор комментария.
@@ -33,43 +33,40 @@ public class CommentModel implements Comment {
    * Дата создания комментария.
    */
   @NotNull
-  private @Getter LocalDateTime date;
+  private LocalDateTime date;
 
   @ManyToOne
   @NotNull
-  private @Getter UserModel user;
+  private UserModel user;
 
   @ManyToOne
   @NotNull
-  private @Getter TaskModel task;
+  private TaskModel task;
 
   @NotNull
   private String message;
 
-  @Override
-  public Id getId() {
-    return Id.create(commentId).get();
-  }
-
-  @Override
-  public Message getMessage() {
-    return Comment.Message.create(this.message).get();
-  }
 
   protected CommentModel() {
   }
 
-  /**
-   * Создает модель комментария.
-   *
-   * @param user Модель пользователя.
-   * @param task Модель задачи.
-   * @param message Текст коментария.
-   */
-  public CommentModel(UserModel user, TaskModel task, Message message) {
-    this.date = LocalDateTime.now();
-    this.user = user;
-    this.task = task;
-    this.message = message.getValue();
+  @Override
+  public Comment toEntity() {
+    final var id = Id
+        .create(this.commentId)
+        .getOrElseThrow(InvalidDataException::new);
+
+    final var message = Comment.Message
+        .create(this.message)
+        .getOrElseThrow(InvalidDataException::new);
+
+    final var user = this.user.toEntity();
+    final var task = this.task.toEntity();
+
+    return new Comment(id, date, user, task, message);
+  }
+
+  public CommentModel(LocalDateTime date, UserModel user, TaskModel task, String message) {
+    this(0, date, user, task, message);
   }
 }

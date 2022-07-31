@@ -1,14 +1,12 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.Content;
+import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
-import com.htc.domain.entities.failures.Failure;
-import io.vavr.control.Either;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Репозиторий медиаконтента.
@@ -28,13 +26,13 @@ public interface ContentRepository {
    */
 
   Content create(
-          Content.Type type,
-          Content.Name name,
-          LocalDateTime dateCreated,
-          User author,
-          Content.Format format,
-          Content.Url url,
-          Content.Url preview);
+      Content.Type type,
+      Content.Name name,
+      LocalDateTime dateCreated,
+      User author,
+      Content.Format format,
+      Content.Url url,
+      Content.Url preview);
 
   /**
    * Удаляет медиаконтент.
@@ -55,19 +53,20 @@ public interface ContentRepository {
    */
 
   Collection<Content> getFeedByQuery(
-          Integer page,
-          Integer count,
-          String author,
-          LocalDate date,
-          Integer typeId);
+      Integer page,
+      Integer count,
+      String author,
+      LocalDate date,
+      Integer typeId);
 
   /**
    * Получает список медиакнтета относящегося к одной задаче.
    *
-   * @param taskId Идентификатор задачи.
+   * @param task Задача задачи.
    * @return Список контента или ошибку.
    */
-  Collection<Content> findByTask(Id taskId);
+  Collection<Content> findByTask(Task task);
+
 
   /**
    * Проверяет, существует ли контент с указанным идентификатором.

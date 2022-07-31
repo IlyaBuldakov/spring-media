@@ -1,20 +1,20 @@
 package com.htc.infrastructure.repositories;
 
-import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.Content;
-import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.NotFound;
+import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
+import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.repositories.ContentRepository;
+import com.htc.infrastructure.models.CommentModel;
 import com.htc.infrastructure.models.ContentModel;
-import io.vavr.control.Either;
+import com.htc.infrastructure.models.FileModel;
+import com.htc.infrastructure.models.TaskModel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -28,52 +28,60 @@ public class ContentRepositoryImpl implements ContentRepository {
 
   Contents contents;
 
+  TaskRepositoryImpl taskRepository;
+
   @Override
-  public CompletableFuture<Either<Failure, Content>> create(
-          Content.Type type,
-          Content.Name name,
-          LocalDateTime dateCreated,
-          User author,
-          Content.Format format,
-          Content.Url url,
-          Content.Url preview) {
+  public Content create(
+      Content.Type type,
+      Content.Name name,
+      LocalDateTime dateCreated,
+      User author,
+      Content.Format format,
+      Content.Url url,
+      Content.Url preview) {
     return null;
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Void>> delete(Id id) {
-    return null;
+  public void delete(Id id) {
+    contents.deleteById(id.getValue());
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Collection<Content>>> findByQuery(
-          Integer page,
-          Integer count,
-          String author,
-          LocalDate date,
-          Integer typeId) {
+  public Collection<Content> getFeedByQuery(
+      Integer page,
+      Integer count,
+      String author,
+      LocalDate date,
+      Integer typeId) {
     Content.Type type = Content.Type.values()[typeId];
-    var contentList = contents.findAllByAuthorNameAndDateCreatedAndType(
-            author, date, type);
+    var contentFeed =
+        contents
+            .findAllByAuthorNameAndDateCreatedAndType(author, date, type)
+            .stream()
+            .map(ContentModel::toEntity)
+            .collect(Collectors.toCollection(ArrayList::new));
+    int firstIndex = page * count;
+    int lastIndex = firstIndex + count;
+    return contentFeed.subList(firstIndex, lastIndex);
 
-    if (contentList.isPresent()) {
-      return CompletableFuture.completedFuture(
-              Either.right(
-                      new ArrayList<>(
-                              contentList.get())));
-    }
+  }
 
-    return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+
+  @Override
+  public Collection<Content> findByTask(Task task) {
+    var taskModel = taskRepository.tasks.findById(task.id().getValue()).get();
+
+    return contents
+        .findAllByTask(taskModel)
+        .stream()
+        .map(ContentModel::toEntity)
+        .collect(Collectors.toList());
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Collection<Content>>> findByTask(Id taskId) {
-
-    var contentList = contents.findAllByParentTask(taskId);
-    if (contentList.isPresent()) {
-      return CompletableFuture.completedFuture(Either.right(new ArrayList<>(contentList.get())));
-    }
-    return CompletableFuture.completedFuture(Either.left(NotFound.DEFAULT_MESSAGE));
+  public boolean exists(Id id) {
+    return contents.existsById(id.getValue());
   }
 
 
@@ -81,12 +89,12 @@ public class ContentRepositoryImpl implements ContentRepository {
    * ORM для доступа к данным медиаконтента в СУБД.
    */
   public interface Contents extends JpaRepository<ContentModel, Integer> {
-    Optional<List<Content>> findAllByParentTask(Id taskId);
+    List<ContentModel> findAllByTask(TaskModel taskModel);
 
-    //TODO: Запрос дожен сдержать строку - часть имени автора, а не его индентификатор.
-    Optional<List<Content>> findAllByAuthorNameAndDateCreatedAndType(String author,
-                                                                     LocalDate date,
-                                                                     Content.Type type);
+    //TODO: Запрос должен сдержать строку - часть имени автора, а не его идентификатор.
+    List<ContentModel> findAllByAuthorNameAndDateCreatedAndType(String author,
+                                                                LocalDate date,
+                                                                Content.Type type);
 
   }
 }

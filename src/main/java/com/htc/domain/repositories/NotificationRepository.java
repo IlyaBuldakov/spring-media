@@ -1,6 +1,7 @@
 package com.htc.domain.repositories;
 
 import com.htc.domain.entities.Notification;
+import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public interface NotificationRepository {
           LocalDateTime date,
           Notification.Message message,
           User user,
-          User task);
+          Task task);
 
   /**
    * Удаляет уведомление.
