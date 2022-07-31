@@ -5,12 +5,15 @@ import finalproject.application.dto.user.UserBasicDto;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 
 /**
  * Уведомления.
  */
 @AllArgsConstructor
+@Getter
+@Setter
 public class NotificationDto {
 
   /**
@@ -40,32 +43,32 @@ public class NotificationDto {
   }
 
   /**
-   * Возращает @return id идентификатор уведомления.
+   * @return id идентификатор уведомления.
    */
   private @Getter int id;
 
   /**
-   * Возращает @return {@link Type} type тип уведомления.
+   * @return {@link Type} type тип уведомления.
    */
   private @Getter Type type;
 
   /**
-   * Возращает @return LocalDateTime дату уведомления.
+   * @return LocalDateTime дату уведомления.
    */
-  private @Getter LocalDateTime date;
+  private @Getter String date;
 
   /**
-   * Возращает @return String message текст уведомления.
+   * @return String message текст уведомления.
    */
   private @Getter String message;
 
   /**
-   * Возращает @return UserBasicDto user базового пользователя.
+   * @return UserBasicDto user базового пользователя.
    */
   private @Getter UserBasicDto user;
 
   /**
-   * Возращает @return TaskBasicDto task базовую задачу.
+   * @return TaskBasicDto task базовую задачу.
    */
   private @Getter TaskBasicDto task;
 
