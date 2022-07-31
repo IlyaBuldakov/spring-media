@@ -6,7 +6,7 @@ import com.htc.application.services.ContentsService;
 import com.htc.application.services.ExceptionDtoResolver;
 import com.htc.application.services.ServiceHelper;
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.usecases.contents.CreateContent;
+import com.htc.domain.usecases.contents.UploadContent;
 import com.htc.domain.usecases.contents.DeleteContentById;
 import com.htc.domain.usecases.contents.GetAllContent;
 import com.htc.domain.usecases.file.SaveFile;
@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ContentsServiceImpl implements ContentsService {
 
   GetAllContent getAllContent;
-  CreateContent createContent;
+  UploadContent uploadContent;
   DeleteContentById deleteContentById;
 
   SaveFile saveFile;
@@ -83,7 +83,8 @@ public class ContentsServiceImpl implements ContentsService {
       try (OutputStream stream = new FileOutputStream(file)) {
         stream.write(multipartFile.getBytes());
       }
-      return createContent.execute(authorId, permissions, fileName, file, URL_QUALIFIER + composedUrl, taskId)
+      return uploadContent.execute(authorId, permissions, fileName, file,
+                      URL_QUALIFIER + composedUrl, taskId)
               .thenApply(either -> {
                 if (either.isLeft()) {
                   throw ExceptionDtoResolver.resolve(either.getLeft());

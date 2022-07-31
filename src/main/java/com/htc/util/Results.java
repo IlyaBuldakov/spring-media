@@ -13,10 +13,9 @@ public class Results {
   /**
    * Обертка в случае успеха.
    *
-   * @param result Результат.
-   *
-   * @return Обертка {@link CompletableFuture} + {@link Either}.
+   * @param result    Результат.
    * @param <ResultT> Тип результата.
+   * @return Обертка {@link CompletableFuture} + {@link Either}.
    */
   public static <ResultT>
   CompletableFuture<Either<Failure, ResultT>> success(
@@ -28,11 +27,10 @@ public class Results {
   /**
    * Обертка в случае возникновения ошибки.
    *
-   * @param failure Ошибка.
-   *
-   * @return Обертка {@link CompletableFuture} + {@link Either}.
+   * @param failure    Ошибка.
    * @param <FailureT> Тип ошибки (лево).
-   * @param <ResultT> Тип результата (право).
+   * @param <ResultT>  Тип результата (право).
+   * @return Обертка {@link CompletableFuture} + {@link Either}.
    */
   public static <FailureT, ResultT>
   CompletableFuture<Either<FailureT, ResultT>> fail(
@@ -45,10 +43,9 @@ public class Results {
    * Обертка единственного результата.
    * (без {@link Either}).
    *
-   * @param result Результат.
-   *
-   * @return Обертка {@link CompletableFuture}.
+   * @param result    Результат.
    * @param <ResultT> Тип результата.
+   * @return Обертка {@link CompletableFuture}.
    */
   public static <ResultT> CompletableFuture<ResultT> single(
           ResultT result
@@ -58,9 +55,11 @@ public class Results {
 
   /**
    * Обертка null значения.
+   * Используется в методах, имеющих Void
+   * в возвращаемом значении.
    *
-   * @return Обертка {@link CompletableFuture}.
    * @param <ResultT> Тип результата.
+   * @return Обертка {@link CompletableFuture}.
    */
   public static <ResultT> CompletableFuture<Either<Failure, ResultT>> nullValue() {
     return CompletableFuture.completedFuture(Either.right(null));

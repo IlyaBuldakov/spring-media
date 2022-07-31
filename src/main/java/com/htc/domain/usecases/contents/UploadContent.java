@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public class CreateContent {
+public class UploadContent {
 
   ContentsRepository contentsRepository;
 

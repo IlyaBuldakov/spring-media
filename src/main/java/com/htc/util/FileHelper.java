@@ -1,7 +1,9 @@
 package com.htc.util;
 
+import com.htc.application.dto.errors.InternalServerErrorResponse;
 import com.htc.domain.entities.AbstractApplicationFormat;
 import com.htc.domain.entities.content.Content.ContentFormat;
+import com.htc.domain.entities.content.ContentType;
 import com.htc.domain.entities.failure.Failure;
 import com.htc.domain.entities.failure.InvalidValue;
 import com.htc.domain.entities.file.File.FileFormat;
