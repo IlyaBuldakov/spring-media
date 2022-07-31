@@ -2,6 +2,10 @@ package com.htc.application.controllers;
 
 import com.htc.application.dtos.file.FileRequest;
 import com.htc.application.dtos.file.FileResponse;
+import com.htc.domain.entities.utility.parameters.Id;
+import com.htc.domain.entities.utility.parameters.file.FileBody;
+import com.htc.domain.entities.utility.parameters.file.FileName;
+import com.htc.domain.entities.utility.parameters.file.FileUrlPath;
 import com.htc.domain.usecases.file.DeleteFileById;
 import com.htc.domain.usecases.file.GetFileById;
 import com.htc.domain.usecases.file.UploadFile;
@@ -42,10 +46,10 @@ public class FileController {
     ControllerHelper.customRequest(
             uploadFile,
             new UploadFile.Params(
-                    fileRequest.getName(), "name",
-                    fileRequest.getFormat(), "format",
-                    fileRequest.getFileUrlPath(), "fileUrlPath",
-                    fileRequest.getFile(), "fileBody"
+                    FileName.create(fileRequest.getName()).get(),
+                    fileRequest.getFormat(),
+                    FileUrlPath.create(fileRequest.getFileUrlPath()).get(),
+                    FileBody.create(fileRequest.getFile()).get()
             ),
             null
     );
@@ -62,7 +66,7 @@ public class FileController {
   public CompletableFuture<FileResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getFileById,
-            new GetFileById.Params(id, "id"),
+            new GetFileById.Params(Id.create(id).get()),
             FileResponse::new
     );
   }
@@ -77,7 +81,7 @@ public class FileController {
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteFileById,
-            new DeleteFileById.Params(id, "id"),
+            new DeleteFileById.Params(Id.create(id).get()),
             null
     );
   }

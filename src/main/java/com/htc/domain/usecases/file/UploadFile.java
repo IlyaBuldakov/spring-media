@@ -17,48 +17,35 @@ import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 
 /**
- * Сценарий добавления нового файла в задачу.
+ * Сценарий добавления файла.
  */
 @AllArgsConstructor
 public final class UploadFile implements UseCase<UploadFile.Params, File> {
   /**
    * Параметры сценария добавления файла.
+   *
+   * @param name наименование
+   * @param format формат
+   * @param fileUrlPath путь до файла
+   * @param file содержимое файла
    */
-  public record Params(String name, String nameKey,
-                       Format format, String formatKey,
-                       String fileUrlPath, String fileUrlPathKey,
-                       String file, String fileKey) {}
+  public record Params(FileName name,
+                       Format format,
+                       FileUrlPath fileUrlPath,
+                       FileBody file) {}
 
   private final FileRepository repository;
 
   @Override
   public CompletableFuture<Either<Failure, File>> execute(Params params) {
     var failure = new InvalidValues();
-    var name = FileName.create(params.name());
-    if (name.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
-    }
     var dateCreated = DateCreated.create();
     if (dateCreated.isLeft()) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date created");
     }
-    var fileUrlPath = FileUrlPath.create(params.fileUrlPath());
-    if (fileUrlPath.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_FILE_URL_PATH, params.fileUrlPathKey);
-    }
-    var file = FileBody.create(params.file());
-    if (file.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_FILE_BODY, params.fileKey);
-    }
-
     return failure.getValues().size() == 0
-            ? repository.upload(
-                    name.get(),
-                    dateCreated.get(),
-                    params.format(),
-                    fileUrlPath.get(),
-                    file.get()
-              )
+            ? repository.upload(params.name(), dateCreated.get(), params.format(),
+            params.fileUrlPath(), params.file())
             : EitherHelper.badLeft(failure);
   }
 }
