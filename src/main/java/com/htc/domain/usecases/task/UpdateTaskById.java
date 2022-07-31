@@ -32,19 +32,23 @@ import lombok.AllArgsConstructor;
 public final class UpdateTaskById implements UseCase<UpdateTaskById.Params, Task> {
   /**
    * Параметры сценария обновления задачи по идентификатору.
+   *
+   * @param id идентификатор задачи
+   * @param name наименование
+   * @param type тип
+   * @param description описание
+   * @param fileId идентификатор файла
+   * @param authorId идентификатор автора
+   * @param executorId идентификатор исполнителя
+   * @param dateCreated дата создания
+   * @param dateExpired дата выполнения
+   * @param contentId идентификатор контента
+   * @param commentId идентификатор комментария
+   * @param status статус
    */
-  public record Params(Long id, String idKey,
-                       String name, String nameKey,
-                       Type type, String typeKey,
-                       String description, String descriptionKey,
-                       Long fileId, String fileKey,
-                       Long authorId, String authorKey,
-                       Long executorId, String executorKey,
-                       String dateCreated, String dateCreatedKey,
-                       String dateExpired, String dateExpiredKey,
-                       Long contentId, String contentKey,
-                       Long commentId, String commentKey,
-                       Status status, String statusKey) {}
+  public record Params(Id id, EntityName name, Type type, String description, Id fileId,
+                       Id authorId, Id executorId, DateCreated dateCreated, DateCreated dateExpired,
+                       Id contentId, Id commentId, Status status) {}
 
   private final TaskRepository repository;
   private final UserRepository userRepository;
@@ -55,57 +59,41 @@ public final class UpdateTaskById implements UseCase<UpdateTaskById.Params, Task
   @Override
   public CompletableFuture<Either<Failure, Task>> execute(Params params) {
     var failure = new InvalidValues();
-    var id = Id.create(params.id());
-    if (id.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.idKey);
-    }
-    var name = EntityName.create(params.name());
-    if (name.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
-    }
     File file = null;
     try {
-      file = fileRepository.get(Id.create(params.fileId()).get()).get().get();
+      file = fileRepository.get(params.fileId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "file not found");
     }
     User author = null;
     try {
-      author = userRepository.get(Id.create(params.authorId()).get()).get().get();
+      author = userRepository.get(params.authorId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "user not found (author)");
     }
     User executor = null;
     try {
-      executor = userRepository.get(Id.create(params.executorId()).get()).get().get();
+      executor = userRepository.get(params.executorId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "user not found (executor)");
     }
-    var dateCreated = DateCreated.create(params.dateCreated());
-    if (dateCreated.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date created");
-    }
-    var dateExpired = DateCreated.create(params.dateExpired());
-    if (dateExpired.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date expired");
-    }
     Content content = null;
     try {
-      content = contentRepository.get(Id.create(params.contentId()).get()).get().get();
+      content = contentRepository.get(params.contentId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "content not found");
     }
     Comment comment = null;
     try {
-      comment = commentRepository.get(Id.create(params.commentId()).get()).get().get();
+      comment = commentRepository.get(params.commentId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "comment not found");
     }
     //TODO description - тип данных / проверка на null и empty
     return failure.getValues().size() == 0
-            ? repository.update(id.get(), name.get(), params.type(),
-            params.description(), file, author, executor, dateCreated.get(),
-            dateExpired.get(), content, comment, params.status())
+            ? repository.update(params.id(), params.name(), params.type(),
+            params.description(), file, author, executor, params.dateCreated(),
+            params.dateExpired(), content, comment, params.status())
             : EitherHelper.badLeft(failure);
   }
 }

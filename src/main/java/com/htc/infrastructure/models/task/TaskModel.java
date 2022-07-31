@@ -43,7 +43,7 @@ public class TaskModel implements Task {
   String description;
 
   @ManyToOne
-  @JoinColumn(nullable = false)
+  @JoinColumn
   FileModel file;
 
   @ManyToOne
@@ -61,11 +61,11 @@ public class TaskModel implements Task {
   String dateExpired;
 
   @ManyToOne
-  @JoinColumn(name = "contentId", nullable = false)
+  @JoinColumn(name = "contentId")
   ContentModel content;
 
   @ManyToOne
-  @JoinColumn(name = "commentId", nullable = false)
+  @JoinColumn(name = "commentId")
   CommentModel comment;
 
   @Column(nullable = false)

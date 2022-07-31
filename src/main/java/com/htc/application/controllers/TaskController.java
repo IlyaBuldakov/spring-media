@@ -3,6 +3,9 @@ package com.htc.application.controllers;
 import com.htc.application.dtos.task.TaskRequest;
 import com.htc.application.dtos.task.TaskResponse;
 import com.htc.application.dtos.task.TaskUpdateRequest;
+import com.htc.domain.entities.utility.parameters.DateCreated;
+import com.htc.domain.entities.utility.parameters.EntityName;
+import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.usecases.task.AddTask;
 import com.htc.domain.usecases.task.DeleteTaskById;
 import com.htc.domain.usecases.task.GetAllTasks;
@@ -43,6 +46,8 @@ public class TaskController {
 
   /**
    * Добавление задачи.
+   *
+   * @param taskRequest запрос задачи
    */
   @Operation(summary = "Добавить новую задачу.")
   @PostMapping
@@ -50,12 +55,12 @@ public class TaskController {
     ControllerHelper.customRequest(
             addTask,
             new AddTask.Params(
-                    taskRequest.getName(), "name",
-                    taskRequest.getType(), "type",
-                    taskRequest.getDescription(), "description",
-                    taskRequest.getAuthorId(), "author",
-                    taskRequest.getExecutorId(), "executor",
-                    taskRequest.getDateExpired(), "dateExpired"
+                    EntityName.create(taskRequest.getName()).get(),
+                    taskRequest.getType(),
+                    taskRequest.getDescription(),
+                    Id.create(taskRequest.getAuthorId()).get(),
+                    Id.create(taskRequest.getExecutorId()).get(),
+                    DateCreated.create(taskRequest.getDateExpired()).get()
             ),
             null
     );
@@ -72,7 +77,7 @@ public class TaskController {
   public CompletableFuture<TaskResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getTaskById,
-            new GetTaskById.Params(id, "id"),
+            new GetTaskById.Params(Id.create(id).get()),
             TaskResponse::new
     );
   }
@@ -105,18 +110,18 @@ public class TaskController {
     ControllerHelper.customRequest(
             updateTaskById,
             new UpdateTaskById.Params(
-                    id, "id",
-                    taskUpdateRequest.getName(), "name",
-                    taskUpdateRequest.getType(), "type",
-                    taskUpdateRequest.getDescription(), "description",
-                    taskUpdateRequest.getFileId(), "file",
-                    taskUpdateRequest.getAuthorId(), "author",
-                    taskUpdateRequest.getExecutorId(), "executor",
-                    taskUpdateRequest.getDateCreated(), "dateCreated",
-                    taskUpdateRequest.getDateExpired(), "dateExpired",
-                    taskUpdateRequest.getContentId(), "content",
-                    taskUpdateRequest.getCommentId(), "comment",
-                    taskUpdateRequest.getStatus(), "status"
+                    Id.create(id).get(),
+                    EntityName.create(taskUpdateRequest.getName()).get(),
+                    taskUpdateRequest.getType(),
+                    taskUpdateRequest.getDescription(),
+                    Id.create(taskUpdateRequest.getFileId()).get(),
+                    Id.create(taskUpdateRequest.getAuthorId()).get(),
+                    Id.create(taskUpdateRequest.getExecutorId()).get(),
+                    DateCreated.create(taskUpdateRequest.getDateCreated()).get(),
+                    DateCreated.create(taskUpdateRequest.getDateExpired()).get(),
+                    Id.create(taskUpdateRequest.getContentId()).get(),
+                    Id.create(taskUpdateRequest.getCommentId()).get(),
+                    taskUpdateRequest.getStatus()
             ),
             TaskResponse::new
     );
@@ -132,7 +137,7 @@ public class TaskController {
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteTaskById,
-            new DeleteTaskById.Params(id, "id"),
+            new DeleteTaskById.Params(Id.create(id).get()),
             null
     );
   }

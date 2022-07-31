@@ -50,7 +50,7 @@ public class TaskRepositoryImplementation implements TaskRepository {
             dateExpired.getValue(),
             null,
             null,
-            null);
+            Status.IN_WORK.getName());
     return EitherHelper.goodRight(tasks.save(taskModel));
   }
 

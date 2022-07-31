@@ -25,13 +25,16 @@ import lombok.AllArgsConstructor;
 public final class AddTask implements UseCase<AddTask.Params, Task> {
   /**
    * Параметры сценария добавления задачи.
+   *
+   * @param name наименование
+   * @param type тип
+   * @param description описание
+   * @param authorId идентификатор автора
+   * @param executorId идентификатор исполнителя
+   * @param dateExpired дата выполнения
    */
-  public record Params(String name, String nameKey,
-                       Type type, String typeKey,
-                       String description, String descriptionKey,
-                       Long authorId, String authorKey,
-                       Long executorId, String executorKey,
-                       String dateExpired, String dateExpiredKey) {}
+  public record Params(EntityName name, Type type, String description,
+                       Id authorId, Id executorId, DateCreated dateExpired) {}
 
   private final TaskRepository repository;
   private final UserRepository userRepository;
@@ -39,34 +42,23 @@ public final class AddTask implements UseCase<AddTask.Params, Task> {
   @Override
   public CompletableFuture<Either<Failure, Task>> execute(Params params) {
     var failure = new InvalidValues();
-    var name = EntityName.create(params.name());
-    if (name.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_NAME, params.nameKey);
-    }
+    var dateCreated = DateCreated.create();
     User author = null;
     try {
-      author = userRepository.get(Id.create(params.authorId()).get()).get().get();
+      author = userRepository.get(params.authorId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "user not found (executor)");
     }
     User executor = null;
     try {
-      executor = userRepository.get(Id.create(params.authorId()).get()).get().get();
+      executor = userRepository.get(params.executorId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "user not found (executor)");
-    }
-    var dateCreated = DateCreated.create();
-    if (dateCreated.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date created");
-    }
-    var dateExpired = DateCreated.create(params.dateExpired());
-    if (dateExpired.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_DATE_CREATED, "Date expired");
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "executor not found (executor)");
     }
     //TODO description - тип данных / проверка на null и empty
     return failure.getValues().size() == 0
-            ? repository.add(name.get(), params.type(), params.description(), author, executor,
-                          dateCreated.get(), dateExpired.get())
+            ? repository.add(params.name(), params.type(), params.description(), author, executor,
+                          dateCreated.get(), params.dateExpired())
             : EitherHelper.badLeft(failure);
   }
 }
