@@ -1,6 +1,7 @@
 package com.htc.application.controllers;
 
 import com.htc.application.dtos.notification.NotificationResponse;
+import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.usecases.notification.DeleteNotificationById;
 import com.htc.domain.usecases.notification.GetAllNotifications;
 import com.htc.utility.ControllerHelper;
@@ -57,7 +58,7 @@ public class NotificationController {
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteNotificationById,
-            new DeleteNotificationById.Params(id, "id"),
+            new DeleteNotificationById.Params(Id.create(id).get()),
             null
     );
   }

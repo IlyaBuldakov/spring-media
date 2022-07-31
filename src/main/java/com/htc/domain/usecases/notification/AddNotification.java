@@ -28,21 +28,16 @@ public final class AddNotification implements UseCase<AddNotification.Params, No
    * Параметры сценария добавления уведомления.
    *
    * @param type тип уведомления
-   * @param typeKey ключ типа уведомления
    * @param dateNotification дата уведомления
-   * @param dateNotificationKey ключ даты уведомления
    * @param message сообщение уведомления
-   * @param messageKey ключ сообщения уведомления
    * @param userId идентификатор пользователя
-   * @param userIdKey ключ идентификатора пользователя
    * @param taskId идентификатор задачи
-   * @param taskIdKey ключ идентификатора задачи
    */
-  public record Params(Type type, String typeKey,
-                       String dateNotification, String dateNotificationKey,
-                       String message, String messageKey,
-                       Long userId, String userIdKey,
-                       Long taskId, String taskIdKey) {}
+  public record Params(Type type,
+                       DateCreated dateNotification,
+                       String message,
+                       Id userId,
+                       Id taskId) {}
 
   private final NotificationRepository repository;
 
@@ -52,25 +47,20 @@ public final class AddNotification implements UseCase<AddNotification.Params, No
   @Override
   public CompletableFuture<Either<Failure, Notification>> execute(Params params) {
     var failure = new InvalidValues();
-    var dateNotification = DateCreated.create(params.dateNotification());
-    if (dateNotification.isLeft()) {
-      failure.getValues().put(
-              InvalidValueParam.INVALID_ENTITY_DATE_CREATED, params.dateNotificationKey);
-    }
     User user = null;
     try {
-      user = userRepository.get(Id.create(params.userId()).get()).get().get();
+      user = userRepository.get(params.userId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.userIdKey);
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "user not found");
     }
     Task task = null;
     try {
-      task = taskRepository.get(Id.create(params.taskId()).get()).get().get();
+      task = taskRepository.get(params.taskId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.taskIdKey);
+      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "task not found");
     }
     return failure.getValues().size() == 0
-            ? repository.add(params.type(), dateNotification.get(), params.message(), user, task)
+            ? repository.add(params.type(), params.dateNotification(), params.message(), user, task)
             : EitherHelper.badLeft(failure);
   }
 }
