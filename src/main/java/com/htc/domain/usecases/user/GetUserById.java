@@ -17,7 +17,7 @@ public final class GetUserById implements UseCase<GetUserById.Params, User> {
   /**
    * Параметры сценария получения пользователя по его идентификатору.
    *
-   * @param id Идентификатор пользователя.
+   * @param id идентификатор пользователя
    */
   public record Params(Id id) {}
 

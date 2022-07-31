@@ -17,7 +17,7 @@ public final class DeleteUserById implements UseCase<DeleteUserById.Params, Void
   /**
    * Параметры сценария удаления пользователя по его идентификатору.
    *
-   * @param id Идентификатор пользователя.
+   * @param id идентификатор пользователя
    */
   public record Params(Id id) {}
 

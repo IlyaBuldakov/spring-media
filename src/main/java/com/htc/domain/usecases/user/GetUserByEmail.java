@@ -17,7 +17,7 @@ public final class GetUserByEmail implements UseCase<GetUserByEmail.Params, User
   /**
    * Параметры сценария получения пользователя по его почте.
    *
-   * @param email       почта пользователя
+   * @param email почта пользователя
    */
   public record Params(UserEmail email) {
   }
