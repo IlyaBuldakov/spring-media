@@ -1,6 +1,7 @@
 package finalproject.domain.entities.content;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import finalproject.domain.entities.BaseEntity;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.User;
 
@@ -17,7 +18,7 @@ import lombok.*;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Content implements Serializable {
+public class Content extends BaseEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +42,10 @@ public class Content implements Serializable {
   private String preview;
 
   @JsonIgnore
-  @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+  @Getter
+  @ManyToOne(targetEntity = Task.class)
   @JoinColumn(name = "taskId")
-  private @Getter Task task;
+  private Task task;
 
   @Column
   private @Getter String url;
@@ -61,5 +63,6 @@ public class Content implements Serializable {
     this.url = url;
     this.isPublished = isPublished;
   }
+
 
 }

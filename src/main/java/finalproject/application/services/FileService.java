@@ -10,5 +10,5 @@ public interface FileService {
   CompletableFuture<Either<Failure, FileDocument>> uploadFileToTask(
           MultipartFile file, int taskId, int authorizedUserId);
 
-  CompletableFuture<Either<Failure, Void>> deleteFileById(int id);
+  CompletableFuture<Either<Failure, Void>> deleteFileById(int id, int authorizedUserId);
 }

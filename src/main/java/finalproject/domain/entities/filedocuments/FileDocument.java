@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import finalproject.domain.entities.BaseEntity;
 import finalproject.domain.entities.task.Task;
+import finalproject.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FileDocument implements Serializable {
+public class FileDocument extends BaseEntity implements Serializable {
 
   /**
    * Идентификатор сущности. Обычно генерируется репозиторием.
@@ -78,4 +80,5 @@ public class FileDocument implements Serializable {
     this.url = url;
     this.task = task;
   }
+
 }

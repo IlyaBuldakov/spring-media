@@ -63,15 +63,22 @@ public class FileServiceImpl implements FileService {
               new InternalServerError(Messages.INTERNAL_SERVER_ERROR)));
     }
     String fileUrl = returnRelativePath + taskId + "/" + fileData.getFilename();
+   if (fileDocumentRepository.findOneByUrl(fileUrl).isPresent()) {
+     FileDocument document = fileDocumentRepository.findOneByUrl(fileUrl).get();
+     document.setDateCreated(LocalDateTime.now());
+     return CompletableFuture.completedFuture(Either.right(document));
+   }
+   else {
     FileDocument document = new FileDocument(fileData.getFilename(), fileData.getFormat(), fileUrl, task);
     document.setDateCreated(LocalDateTime.now());
     fileDocumentRepository.save(document);
     return CompletableFuture.completedFuture(Either.right(document));
+   }
   }
 
   @Override
-  public CompletableFuture<Either<Failure, Void>> deleteFileById(int id) {
-
+  public CompletableFuture<Either<Failure, Void>> deleteFileById(int id, int authorizedUserId) {
+    User authorizedUser = userRepository.findById(authorizedUserId).get();
     List<String> problems = new ArrayList<>();
     if (id < 1) {
       problems.add("id");
@@ -81,6 +88,12 @@ public class FileServiceImpl implements FileService {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.FILE_NOT_FOUND)));
     }
+    Task task = fileDocumentRepository.findById(id).get().getTask();
+    if (authorizedUser.getRole() != Role.ADMIN && !task.getAuthor().equals(authorizedUser)) {
+      return CompletableFuture.completedFuture(
+              Either.left(new NotAuthorized(Messages.NOT_ENOUGH_AUTHORITY)));
+    }
+    task.getAllTaskFiles().remove(fileDocumentRepository.findById(id).get());
     fileDocumentRepository.deleteById(id);
     return CompletableFuture.completedFuture(Either.right(null));
   }

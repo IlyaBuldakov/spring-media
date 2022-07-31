@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Репозиторий для файлов.
@@ -12,4 +13,5 @@ import java.util.List;
 @Repository
 public interface FileDocumentRepository extends JpaRepository<FileDocument, Integer> {
   List<FileDocument> findByTaskId(int id);
+  Optional<FileDocument> findOneByUrl(String url);
 }

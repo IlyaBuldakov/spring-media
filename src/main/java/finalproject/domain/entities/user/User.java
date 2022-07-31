@@ -4,6 +4,7 @@ package finalproject.domain.entities.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import finalproject.domain.entities.BaseEntity;
 import finalproject.domain.entities.failures.BadRequest;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.failures.Messages;
@@ -12,6 +13,7 @@ import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -26,7 +28,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User extends BaseEntity implements Serializable  {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,14 +90,14 @@ public class User implements Serializable {
   @Setter
   @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-  private List<Task> tasksAsAuthor;
+  private Set<Task> tasksAsAuthor;
 
   @JsonIgnore
   @Getter
   @Setter
   @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "contentMaker", cascade = CascadeType.ALL)
-  private List<Task> tasksAsContentMaker;
+  private Set<Task> tasksAsContentMaker;
 
   public Integer getId(){return id;}
   public void setId(Integer id){this.id = id;}
@@ -130,25 +132,7 @@ public class User implements Serializable {
     }
     return Either.left(new BadRequest(Messages.INVALID_VALUES, validators.getProblems()));
   }
-  @Override
-  public boolean equals(Object ob) {
-    if (ob == null) {
-      return false;
-    }
-    if (this == ob) {
-      return true;
-    }
-    if (ob instanceof User other) {
-      return this.id == other.getId();
-    }
-    return false;
-  }
 
-
-  @Override
-  public int hashCode() {
-    return id;
-  }
 
 
 }

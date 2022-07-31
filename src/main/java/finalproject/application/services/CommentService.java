@@ -20,7 +20,9 @@ public interface CommentService {
    *
    * @return id комментария.
    */
-  Future<Either<Failure, Integer>> postCommentToTask(Comment comment);
+  Future<Either<Failure, Integer>> postCommentToTask(Comment comment, int authorizedUser);
 
   Future<Either<Failure, List<Comment>>> getAllCommentsRelatedToTask(int taskId);
+
+  Future<Either<Failure, List<Comment>>> deleteCommentById(int taskId, int authorizedUser);
 }

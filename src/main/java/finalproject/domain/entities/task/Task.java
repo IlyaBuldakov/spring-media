@@ -2,6 +2,7 @@ package finalproject.domain.entities.task;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import finalproject.domain.entities.BaseEntity;
 import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.BadRequest;
@@ -14,6 +15,7 @@ import io.vavr.control.Either;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -26,7 +28,7 @@ import org.hibernate.annotations.LazyCollectionOption;
  */
 @Entity
 @Table(name = "tasks")
-public class Task implements Serializable {
+public class Task extends BaseEntity implements Serializable {
 
 
   @Id
@@ -87,16 +89,14 @@ public class Task implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @LazyCollection(LazyCollectionOption.FALSE)
-  @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
-  private List<Content> allTaskContent;
+  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<Content> allTaskContent;
 
   @JsonIgnore
   @Getter
   @Setter
-  @LazyCollection(LazyCollectionOption.FALSE)
-  @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
-  private List<FileDocument> allTaskFiles;
+  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<FileDocument> allTaskFiles;
 
 
   /**Дата создания задачи.
@@ -127,6 +127,7 @@ public class Task implements Serializable {
   @Getter
   @Setter
   private TaskStatus taskStatus;
+
 
 
 

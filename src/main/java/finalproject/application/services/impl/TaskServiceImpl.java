@@ -21,6 +21,7 @@ import finalproject.infrastructure.repositories.UserRepository;
 import io.vavr.control.Either;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -111,9 +112,19 @@ public class TaskServiceImpl implements TaskService {
         content.setTask(null);
         contentRepository.save(content);
       }
-      for (FileDocument document : fileDocumentRepository.findByTaskId(task.getId())) {
-       fileDocumentRepository.deleteById(document.getId());
-      }
+//     if (task.getContentMaker() != null) {
+//       User contentMaker = task.getContentMaker();
+//       contentMaker.getTasksAsContentMaker().remove(task);
+//       userRepository.save(contentMaker);
+//     }
+//      if (task.getAuthor() != null) {
+//        User author = task.getAuthor();
+//        author.getTasksAsAuthor().remove(task);
+//        userRepository.save(author);
+//      }
+      task.setAuthor(null);
+      task.setContentMaker(null);
+      taskRepository.save(task);
       taskRepository.deleteById(id);
       return CompletableFuture.completedFuture(Either.right(null));
     }

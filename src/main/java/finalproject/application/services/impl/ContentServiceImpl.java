@@ -9,6 +9,7 @@ import finalproject.application.services.FileStorageService;
 import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.*;
+import finalproject.domain.entities.filedocuments.FileDocument;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.task.TaskStatus;
 import finalproject.domain.entities.user.Role;
@@ -86,15 +87,25 @@ public class ContentServiceImpl implements ContentService {
       return CompletableFuture.completedFuture(Either.left(
               new InternalServerError(Messages.INTERNAL_SERVER_ERROR)));
     }
-    String fileUrl = returnRelativePath + taskId + "/" + fileData.getFilename();
+
     String previewUrl = getPreviewUrl(fileData.getFilename(), path, fileData.getType());
-    Content content = new Content(fileData.getType(), fileData.getFilename(), fileData.getFormat(),
-            previewUrl, task, fileUrl, false);
-    content.setDateCreated(LocalDateTime.now());
-    contentRepository.save(content);
-    task.setTaskStatus(TaskStatus.FEEDBACK);
-    taskRepository.save(task);
-    return CompletableFuture.completedFuture(Either.right(content));
+    String fileUrl = returnRelativePath + taskId + "/" + fileData.getFilename();
+    if (contentRepository.findOneByUrl(fileUrl).isPresent()) {
+      Content content = contentRepository.findOneByUrl(fileUrl).get();
+      content.setDateCreated(LocalDateTime.now());
+      content.setPreview(previewUrl);
+      return CompletableFuture.completedFuture(Either.right(content));
+    }
+    else {
+      Content content = new Content(fileData.getType(), fileData.getFilename(), fileData.getFormat(),
+              previewUrl, task, fileUrl, false);
+      content.setDateCreated(LocalDateTime.now());
+      contentRepository.save(content);
+      task.setTaskStatus(TaskStatus.FEEDBACK);
+      taskRepository.save(task);
+      return CompletableFuture.completedFuture(Either.right(content));
+    }
+
 
   }
 

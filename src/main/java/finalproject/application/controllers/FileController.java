@@ -38,4 +38,13 @@ public class FileController {
 
 
   }
+
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+  @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
+  @DeleteMapping("/{id}")
+  public CompletableFuture<Void> deleteFile(@PathVariable int id) {
+    int autorizedUserId = authService.getId();
+    return fileService.deleteFileById(id, autorizedUserId)
+            .thenApply(either -> either.getOrElseThrow(failure -> FailureConverter.convert(failure)));
+  }
 }
