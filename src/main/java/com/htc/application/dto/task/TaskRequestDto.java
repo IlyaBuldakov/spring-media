@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
  * Представление запроса задачи.
  *
  * @param name Заголовок задачи.
- * @param contentType Требуемный тип контента.
+ * @param contentType Требуемый тип контента.
  * @param description Описание задачи.
- * @param author Индентификатор автора задачи.
- * @param executor Индентификатор исполнителя задачи.
+ * @param author Идентификатор автора задачи.
+ * @param executor Идентификатор исполнителя задачи.
  * @param dateExpired Срок выполнения задачи.
  */
 public record TaskRequestDto(

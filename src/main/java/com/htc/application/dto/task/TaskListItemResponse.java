@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 /**
  * Представление списка задач.
  *
- * @param id Индентификатор задачи.
+ * @param id Идентификатор задачи.
  * @param name Заголовок задачи.
- * @param contentType Требуемный тип контента.
+ * @param contentType Требуемый тип контента.
  * @param executor Исполнитель задачи.
  * @param dateExpired Срок выполнения задачи.
  * @param status Статус задачи.

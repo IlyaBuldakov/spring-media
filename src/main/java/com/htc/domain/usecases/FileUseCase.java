@@ -1,6 +1,5 @@
 package com.htc.domain.usecases;
 
-import com.htc.domain.entities.Content;
 import com.htc.domain.entities.File;
 import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;

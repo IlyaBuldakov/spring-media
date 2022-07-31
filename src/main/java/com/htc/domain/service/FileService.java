@@ -1,12 +1,10 @@
 package com.htc.domain.service;
 
 import com.htc.domain.entities.File;
-import com.htc.domain.entities.Task;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.usecases.FileUseCase;
 import io.vavr.control.Either;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 

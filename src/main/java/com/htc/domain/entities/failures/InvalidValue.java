@@ -24,7 +24,7 @@ public enum InvalidValue {
   INVALID_USER_IMAGE("Некорректное изображения пользователя.", "image"),
 
   //Сообщения для задач.
-  INVALID_TASK_NAME("Некорректное назване задачи", "name"),
+  INVALID_TASK_NAME("Некорректное название задачи", "name"),
   INVALID_TASK_DESCRIPTION("Некорректное описание задачи", "description"),
 
   //Сообщения для контента.

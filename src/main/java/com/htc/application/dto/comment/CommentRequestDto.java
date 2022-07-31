@@ -4,7 +4,7 @@ import com.htc.domain.entities.Comment;
 import com.htc.domain.entities.Entity;
 
 /**
- * Представление запрса комментария.
+ * Представление запроса комментария.
  *
  * @param user Идентификатор пользователя.
  * @param task Идентификатор задачи.
@@ -23,7 +23,7 @@ public record CommentRequestDto(
   /**
    * Создаёт экземпляр класса {@link CommentRequestDto}.
    *
-   * @param comment Коментарий.
+   * @param comment Комментарий.
    */
   public CommentRequestDto(Comment comment) {
     this(comment.author().id().getValue(),

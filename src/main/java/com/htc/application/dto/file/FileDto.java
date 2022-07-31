@@ -10,9 +10,9 @@ import lombok.Getter;
 public class FileDto {
 
   /**
-   * Индентификатор файла.
+   * Идентификатор файла.
    *
-   * @return Индентификатор файла.
+   * @return Идентификатор файла.
    */
   @SuppressWarnings("JavadocDeclaration")
   private final @Getter int id;

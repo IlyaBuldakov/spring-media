@@ -1,9 +1,7 @@
 package com.htc.infrastructure.models;
 
-import com.htc.domain.entities.Content;
 import com.htc.domain.entities.Entity;
 import com.htc.domain.entities.File;
-import com.htc.domain.entities.Notification;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.infrastructure.exception.InvalidDataException;
 import java.time.LocalDateTime;
@@ -13,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * Модель файлов для СУБД.

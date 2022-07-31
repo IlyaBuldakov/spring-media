@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Реализация сервиса для зашрузки файлов.
+ * Реализация сервиса для загрузки файлов.
  */
 @Service
 public class FileUploadServiceImpl implements FileUploadService {

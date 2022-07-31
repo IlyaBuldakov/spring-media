@@ -11,12 +11,12 @@ import lombok.NonNull;
 /**
  * Файл. Используется как приложение к задаче.
  *
- * @param id Индентификатор файла.
+ * @param id Идентификатор файла.
  * @param name Имя файла.
  * @param dateCreated Дата загрузки файла.
  * @param format Формат файла.
  * @param url Адрес файла.
- * @param task Задача связаная с файлом.
+ * @param task Задача связанная с файлом.
  */
 public record File(
         Id id,
@@ -93,14 +93,14 @@ public record File(
   }
 
   /**
-   * Адресс файла.
+   * Адрес файла.
    */
   public static final class Url extends BaseAttribute<String> {
     /**
-     * Создаёт адресс файла.
+     * Создаёт адрес файла.
      *
      * @param value Входные данные.
-     * @return Адресс файла или ошибка.
+     * @return Адрес файла или ошибка.
      */
     public static Either<Collection<Failure>, Url> create(@NonNull String value) {
       final var url = new Url();

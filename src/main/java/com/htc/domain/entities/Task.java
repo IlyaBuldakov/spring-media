@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 /**
  * Задача.
  *
- * @param id Индентификатор задачи
+ * @param id Идентификатор задачи
  * @param name Название задачи.
  * @param contentType Тип контента.
  * @param description Описание задачи.
- * @param author Позьзователь - автор задачи.
- * @param executor Позьзователь - исполнитель задачи.
+ * @param author Пользователь - автор задачи.
+ * @param executor Пользователь - исполнитель задачи.
  * @param dateCreated Дата создания задачи.
  * @param dateExpired Дата окончания срока выполнения задачи.
  * @param status Статус задачи.

@@ -6,8 +6,6 @@ import com.htc.domain.service.FileService;
 import com.htc.domain.usecases.FileUseCase;
 import com.htc.domain.util.FileMetadata;
 import com.htc.domain.util.FileUploadService;
-import com.htc.domain.util.impl.FileMetadataImpl;
-import com.htc.domain.util.impl.FileUploadServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

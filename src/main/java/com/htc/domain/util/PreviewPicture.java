@@ -5,7 +5,7 @@ import java.io.File;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Интефейс для создания миниатюры медиаконтента.
+ * Интерфейс для создания миниатюры медиаконтента.
  */
 public interface PreviewPicture {
 

@@ -19,7 +19,7 @@ public interface NotificationRepository {
    * @param type Тип уведомления.
    * @param date Дата создания уведомления.
    * @param message Сообщение уведомления
-   * @param user Пользователь связаный с уведомлением.
+   * @param user Пользователь связанный с уведомлением.
    * @param task Задача связанная с уведомлением
    * @return Уведомление или ошибку.
    */

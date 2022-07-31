@@ -5,8 +5,6 @@ import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
-import com.htc.domain.entities.failures.InvalidValue;
-import com.htc.domain.entities.failures.InvalidValues;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.util.FileMetadata;
@@ -80,10 +78,10 @@ public class  ContentUseCase {
     /**
      * Создает сценарий создания медиаконтента.
      *
-     * @param userRepository Рерозиторий пользователя.
+     * @param userRepository Репозиторий пользователя.
      * @param repository Репозиторий медиаконтента.
      * @param fileMetadata Сервис для определения типа и формата файла.
-     * @param fileUploadService СЕрвис для загрузки файлов на сервер.
+     * @param fileUploadService Сервис для загрузки файлов на сервер.
      * @param previewPicture Сервис для создания миниатюры.
      */
     public Create(
@@ -142,7 +140,7 @@ public class  ContentUseCase {
   }
 
   /**
-   * Сценарий получения медиакотента по запросу.
+   * Сценарий получения медиаконтента по запросу.
    */
   public static final class GetFeed
           extends BaseUseCase<GetFeed.Params, Collection<Content>> {
@@ -173,11 +171,11 @@ public class  ContentUseCase {
     /**
      * Параметры для выполнения сценария.
      *
-     * @param page Номер страницы летны медиакотента.
-     * @param count Число элементов на станице летны медиакотента.
-     * @param author Автор медиакотента.
-     * @param date Дата публикации медиакотента.
-     * @param typeId Тип медиакотента.
+     * @param page Номер страницы летны медиаконтента.
+     * @param count Число элементов на станице летны медиаконтента.
+     * @param author Автор медиаконтента.
+     * @param date Дата публикации медиаконтента.
+     * @param typeId Тип медиаконтента.
      */
     public record Params(
             Integer page,
@@ -188,7 +186,7 @@ public class  ContentUseCase {
     }
   }
   /**
-   * Запрошенный медиакотент не найден.
+   * Запрошенный медиаконтент не найден.
    */
   public record NotFound() implements Failure {
   }

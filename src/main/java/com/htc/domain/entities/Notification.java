@@ -11,12 +11,12 @@ import lombok.NonNull;
 /**
  * Уведомление.
  *
- * @param id Индентификатор уведомления.
+ * @param id Идентификатор уведомления.
  * @param type Тип уведомления.
  * @param dateCreated Дата получения уведомления.
  * @param message Сообщение уведомления.
  * @param user Пользователь - получатель уведомления.
- * @param task Задача связанная с уведомлнием
+ * @param task Задача связанная с уведомлением
  */
 public record Notification(
         Id id,

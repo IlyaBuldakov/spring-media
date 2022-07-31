@@ -13,11 +13,11 @@ import java.util.Collection;
 public interface CommentRepository {
 
   /**
-   * Созает комментарий.
+   * Создает комментарий.
    *
    * @param user Пользователь - автор комментария.
-   * @param task Задача связаня с комментарием.
-   * @param message Собщение комментария.
+   * @param task Задача связанная с комментарием.
+   * @param message Сообщение комментария.
    * @return Ошибка или комментарий.
    */
   Comment create(User user, Task task, LocalDateTime dateCreated, Comment.Message message);
@@ -32,7 +32,7 @@ public interface CommentRepository {
   /**
    * Получает список всего комментариев в задаче.
    *
-   * @return Список комментарев в задаче.
+   * @return Список комментариев в задаче.
    */
   Collection<Comment> getAllByTask(Task task);
 

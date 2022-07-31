@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Контроллер для работы с медиаконтеном.
+ * Контроллер для работы с медиаконтентом.
  */
 @RestController
 @RequestMapping(path = "api/contents")
@@ -64,7 +64,7 @@ public class ContentController {
    * @param author Имя автора контента (запрос).
    * @param date Дата публикации контента (запрос).
    * @param typeId Идентификатор типа контента (запрос).
-   * @return Список медиа контента, удовлетварющий запрсам.
+   * @return Список медиа контента, удовлетворяющий запросу.
    */
   @GetMapping
   @Operation(summary = "Получить содержимое ленты контента")

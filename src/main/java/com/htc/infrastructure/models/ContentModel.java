@@ -48,7 +48,7 @@ public class ContentModel implements Entity.Model<Content> {
   private String name;
 
   /**
-   * Дата согдания медиаконтента.
+   * Дата создания медиаконтента.
    */
   @NotNull
   private LocalDateTime dateCreated;

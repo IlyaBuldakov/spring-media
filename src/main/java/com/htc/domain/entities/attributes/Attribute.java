@@ -1,7 +1,5 @@
 package com.htc.domain.entities.attributes;
 
-import java.util.Objects;
-
 /**
  * Базовая реализация параметра сущности.
  *

@@ -14,17 +14,17 @@ import java.util.Optional;
 public interface TaskRepository {
 
   /**
-   * Созает задачу.
+   * Создает задачу.
    *
    * @param name Название задачи.
-   * @param contentType Тип медиаконтекта.
+   * @param contentType Тип медиаконтента.
    * @param description Описание задачи.
    * @param author Автор задачи.
    * @param executor Исполнитель задачи.
-   * @param dateCreated Дата создания здачи задачи.
+   * @param dateCreated Дата создания задачи.
    * @param dateExpired Срок задачи.
    * @param status Статус задачи.
-   * @return Созданая задача
+   * @return Созданная задача
    */
   Task create(
       Task.Name name,
@@ -41,7 +41,7 @@ public interface TaskRepository {
    *
    * @param id Идентификатор задачи.
    * @param name Название задачи.
-   * @param contentType Тип медиаконтекта.
+   * @param contentType Тип медиаконтента.
    * @param description Описание задачи
    * @param author Автор задачи.
    * @param executor Исполнитель задачи.

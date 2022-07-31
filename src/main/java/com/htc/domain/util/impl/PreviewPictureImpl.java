@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Реализация интефейса для создания миниатюры медиаконтента.
+ * Реализация интерфейса для создания миниатюры медиаконтента.
  */
 @Service
 public class PreviewPictureImpl implements PreviewPicture {

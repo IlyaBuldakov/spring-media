@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 /**
  * Представление сущности медиаконтента.
  *
- * @param id Индентификатор медиаконтента.
+ * @param id Идентификатор медиаконтента.
  * @param type Тип медиаконтента.
  * @param name Наименование медиаконтента.
  * @param dateCreated Дата загрузки контента.
  * @param author Пользователь - автор контента.
  * @param format Формат контента.
- * @param url Адресс контента.
+ * @param url Адрес контента.
  * @param preview Превью контента.
  */
 public record ContentDto(int id,

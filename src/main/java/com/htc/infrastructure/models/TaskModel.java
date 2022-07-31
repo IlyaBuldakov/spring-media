@@ -24,7 +24,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class TaskModel implements Entity.Model<Task> {
   /**
-   * Индентификатор задачи.
+   * Идентификатор задачи.
    */
   @javax.persistence.Id
   @GeneratedValue

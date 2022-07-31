@@ -1,11 +1,9 @@
 package com.htc.domain.service;
 
 import com.htc.domain.entities.Content;
-import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.usecases.ContentUseCase;
-import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +22,7 @@ public class ContentService {
    *
    * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
    * @param file Файл.
-   * @param taskId Индентификатор задачи.
+   * @param taskId Идентификатор задачи.
    * @return Ошибка или контент.
    */
   public Either<Failure, Content> create(

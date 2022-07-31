@@ -13,16 +13,16 @@ import java.util.Collection;
  */
 public interface ContentRepository {
   /**
-   * Созает медиаконтент.
+   * Создает медиаконтент.
    *
    * @param type Тип медиаконтента.
-   * @param name Наимнование медиаконтента.
+   * @param name Наименование медиаконтента.
    * @param dateCreated Дата публикации
-   * @param author Пльзователь - автор медиаконтента.
+   * @param author Пользователь - автор медиаконтента.
    * @param format Формат медиаконтента.
    * @param url Адрес медиаконтента.
    * @param preview Адрес миниатюры медиаконтента.
-   * @return Созданый медиаконтент.
+   * @return Созданный медиаконтент.
    */
 
   Content create(
@@ -61,7 +61,7 @@ public interface ContentRepository {
       Integer typeId);
 
   /**
-   * Получает список медиакнтета относящегося к одной задаче.
+   * Получает список медиаконтента относящегося к одной задаче.
    *
    * @param task Задача задачи.
    * @return Список контента или ошибку.

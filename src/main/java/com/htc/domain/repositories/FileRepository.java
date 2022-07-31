@@ -19,7 +19,7 @@ public interface FileRepository {
    * @param dateCreated Дата создания файла.
    * @param format Формат файла.
    * @param url Адрес файла.
-   * @param task Индентификатор родительской задачи.
+   * @param task Идентификатор родительской задачи.
    * @return Созданный файл
    */
   File create(

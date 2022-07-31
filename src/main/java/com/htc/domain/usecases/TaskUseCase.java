@@ -58,10 +58,10 @@ public final class TaskUseCase {
     }
 
     /**
-     * Параеметры выполнения сценария создания задачи.
+     * Параметры выполнения сценария создания задачи.
      *
      * @param name Название задачи.
-     * @param contentType Тип медиаконтекта.
+     * @param contentType Тип медиаконтента.
      * @param description Описание задачи.
      * @param author Автор задачи.
      * @param executor Исполнитель задачи.
@@ -210,7 +210,7 @@ public final class TaskUseCase {
      *
      * @param id Идентификатор задачи.
      * @param name Название задачи.
-     * @param contentType Тип медиаконтекта.
+     * @param contentType Тип медиаконтента.
      * @param description Описание задачи.
      * @param author Автор задачи.
      * @param executor Исполнитель задачи.

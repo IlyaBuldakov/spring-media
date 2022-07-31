@@ -27,7 +27,7 @@ public record CommentDto(
   /**
    * Создаёт экземпляр класса {@link CommentDto}.
    *
-   * @param comment Коментарий.
+   * @param comment Комментарий.
    */
   public CommentDto(Comment comment) {
     this(comment.id().getValue(),

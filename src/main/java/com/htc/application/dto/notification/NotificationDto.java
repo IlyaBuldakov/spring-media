@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 /**
  * Представление сущности уведомления.
  *
- * @param id Индентификатор уведомления.
+ * @param id Идентификатор уведомления.
  * @param type Тип уведомления.
  * @param date Дата получения уведомления.
  * @param message Сообщение уведомления.
  * @param user Получатель уведомления.
- * @param task Задача. Задача связанная с уведомлнием.
+ * @param task Задача. Задача связанная с уведомлением.
  */
 public record NotificationDto(
     int id,

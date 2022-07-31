@@ -6,7 +6,6 @@ import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.infrastructure.models.CommentModel;
-import com.htc.infrastructure.models.FileModel;
 import com.htc.infrastructure.models.TaskModel;
 import java.time.LocalDateTime;
 import java.util.Collection;

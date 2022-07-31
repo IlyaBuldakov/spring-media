@@ -2,7 +2,7 @@
 
 Spring:
 1. `org.springframework.boot:spring-boot-starter-parent` - базовый POM для проектов на Spring.
-2. `org.springframework.boot:spring-boot-starter-web` - стартер для созадния RESTful API.
+2. `org.springframework.boot:spring-boot-starter-web` - стартер для создания RESTful API.
 3. `org.springframework.boot:spring-boot-starter-data-jpa` - стартер для работы со Spring Data.
 4. `org.springdoc:springdoc-openapi-ui` - автоматическая генерация Swagger UI.
 

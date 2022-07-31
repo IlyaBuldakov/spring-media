@@ -28,7 +28,7 @@ public class TaskService {
    *
    * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
    * @param name Название задачи.
-   * @param contentType Тип медиаконтекта.
+   * @param contentType Тип медиаконтента.
    * @param description Описание задачи.
    * @param author Автор задачи.
    * @param executor Исполнитель задачи.
@@ -91,7 +91,7 @@ public class TaskService {
    * @param subjectId Идентификатор пользователя, выполняющего данную операцию.
    * @param id Идентификатор задачи.
    * @param name Название задачи.
-   * @param contentType Тип медиаконтекта.
+   * @param contentType Тип медиаконтента.
    * @param description Описание задачи.
    * @param author Автор задачи.
    * @param executor Исполнитель задачи.
