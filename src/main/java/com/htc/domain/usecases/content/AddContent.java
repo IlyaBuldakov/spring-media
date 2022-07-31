@@ -27,12 +27,9 @@ public final class AddContent implements UseCase<AddContent.Params, Content> {
    * Параметры сценария добавления контента.
    *
    * @param taskId идентификатор задачи, относящийся к контенту
-   * @param taskKey ключ идентификатора задачи, относящейся к контенту
    * @param fileId идентификатор файла, относящийся к контенту
-   * @param fileKey ключ идентификатора файла, относящийся к контенту
    */
-  public record Params(Long taskId, String taskKey,
-                       Long fileId, String fileKey) {}
+  public record Params(Id taskId, Id fileId) {}
 
   private final ContentRepository repository;
   private final FileRepository fileRepository;
@@ -43,13 +40,13 @@ public final class AddContent implements UseCase<AddContent.Params, Content> {
     var failure = new InvalidValues();
     Task task = null;
     try {
-      task = taskRepository.get(Id.create(params.taskId()).get()).get().get();
+      task = taskRepository.get(params.taskId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "task not found");
     }
     File file = null;
     try {
-      file = fileRepository.get(Id.create(params.fileId()).get()).get().get();
+      file = fileRepository.get(params.fileId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "file not found");
     }

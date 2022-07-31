@@ -2,6 +2,7 @@ package com.htc.application.controllers;
 
 import com.htc.application.dtos.content.ContentRequest;
 import com.htc.application.dtos.content.ContentResponse;
+import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.usecases.content.AddContent;
 import com.htc.domain.usecases.content.ChangeContentById;
 import com.htc.domain.usecases.content.DeleteContentById;
@@ -50,8 +51,8 @@ public class ContentController {
     ControllerHelper.customRequest(
             addContent,
             new AddContent.Params(
-                    contentRequest.getTaskId(), "taskId",
-                    contentRequest.getFileId(), "fileId"
+                    Id.create(contentRequest.getTaskId()).get(),
+                    Id.create(contentRequest.getFileId()).get()
             ),
             null
     );
@@ -68,7 +69,7 @@ public class ContentController {
   public CompletableFuture<ContentResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getContentById,
-            new GetContentById.Params(id, "id"),
+            new GetContentById.Params(Id.create(id).get()),
             ContentResponse::new
     );
   }
@@ -101,9 +102,9 @@ public class ContentController {
     ControllerHelper.customRequest(
             changeContentById,
             new ChangeContentById.Params(
-                    id, "id",
-                    contentRequest.getTaskId(), "taskId",
-                    contentRequest.getFileId(), "fileId"
+                    Id.create(id).get(),
+                    Id.create(contentRequest.getTaskId()).get(),
+                    Id.create(contentRequest.getFileId()).get()
             ),
             ContentResponse::new
     );
@@ -119,7 +120,7 @@ public class ContentController {
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteContentById,
-            new DeleteContentById.Params(id, "id"),
+            new DeleteContentById.Params(Id.create(id).get()),
             null
     );
   }

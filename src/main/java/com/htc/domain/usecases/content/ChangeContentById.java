@@ -27,15 +27,10 @@ public final class ChangeContentById implements UseCase<ChangeContentById.Params
    * Параметры сценария изменения контента.
    *
    * @param id идентификатор контента
-   * @param idKey ключ идентификатора контента
    * @param taskId идентификатор задачи, относящийся к контенту
-   * @param taskKey ключ идентификатора задачи, относящейся к контенту
    * @param fileId идентификатор файла, относящийся к контенту
-   * @param fileKey ключ идентификатора файла, относящийся к контенту
    */
-  public record Params(Long id, String idKey,
-                       Long taskId, String taskKey,
-                       Long fileId, String fileKey) {}
+  public record Params(Id id, Id taskId, Id fileId) {}
 
   private final ContentRepository repository;
   private final FileRepository fileRepository;
@@ -44,19 +39,15 @@ public final class ChangeContentById implements UseCase<ChangeContentById.Params
   @Override
   public CompletableFuture<Either<Failure, Content>> execute(Params params) {
     var failure = new InvalidValues();
-    var id = Id.create(params.id());
-    if (id.isLeft()) {
-      failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, params.idKey);
-    }
     Task task = null;
     try {
-      task = taskRepository.get(Id.create(params.taskId()).get()).get().get();
+      task = taskRepository.get(params.taskId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "task not found");
     }
     File file = null;
     try {
-      file = fileRepository.get(Id.create(params.fileId()).get()).get().get();
+      file = fileRepository.get(params.fileId()).get().get();
     } catch (InterruptedException | ExecutionException e) {
       failure.getValues().put(InvalidValueParam.INVALID_ENTITY_ID, "file not found");
     }
@@ -67,7 +58,7 @@ public final class ChangeContentById implements UseCase<ChangeContentById.Params
     }
     //TODO реализовать проверку на null в getName и getFormat
     return failure.getValues().size() == 0
-            ? repository.change(id.get(), task.getName(), task.getType(), dateCreated.get(),
+            ? repository.change(params.id(), task.getName(), task.getType(), dateCreated.get(),
             task.getAuthor(), file.getFormat(), file.getFileUrlPath(), file, task)
             : EitherHelper.badLeft(failure);
   }
