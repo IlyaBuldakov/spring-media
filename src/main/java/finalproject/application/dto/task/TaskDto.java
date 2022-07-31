@@ -23,7 +23,7 @@ public class TaskDto extends TaskListDto {
   /**
    * Возвращает @return FileDto[] файлы задачи.
    */
-  private @Getter FileDto[] files;
+  private final @Getter FileDto[] files;
 
   /**
    * Возвращает @return UserDto автора задачи.

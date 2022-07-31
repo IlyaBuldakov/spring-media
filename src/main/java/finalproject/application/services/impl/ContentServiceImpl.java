@@ -110,7 +110,7 @@ public class ContentServiceImpl implements ContentService {
               new NotFound(Messages.CONTENT_NOT_FOUND)));
     }
 
-    taskRepository.deleteById(id);
+    contentRepository.deleteById(id);
     return CompletableFuture.completedFuture(Either.right(null));
 
 
