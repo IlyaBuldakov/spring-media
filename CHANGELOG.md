@@ -4,6 +4,18 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 и этот проект соблюдает [семантическое версионирование](https://semver.org/lang/ru/).
 
+## [v0.15.0] - 2022-07-31
+### Добавлено
+- Фасады для работы со сценариями.
+- Аутентификация.
+- Конфигурации бинов из доменного слоя.
+### Изменено
+- Компоненты доменного слоя избавлены от зависимости от фреймворка.
+### Удалено
+- Пакеты группировавшие конкретные сущности.
+### Исправлено
+- Исправлены замечания Code Inspection
+
 ## [v0.14.0] - 2022-07-24
 ### Добавлено
 - Аннотации контроллеров для спецификации.
@@ -182,3 +194,4 @@
 [v0.12.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.11.0...aleksandr.aziatcev-v0.12.0
 [v0.13.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.12.0...aleksandr.aziatcev-v0.13.0
 [v0.14.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.13.0...aleksandr.aziatcev-v0.14.0
+[v0.15.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/aleksandr.aziatcev-v0.14.0...aleksandr.aziatcev-v0.15.0
