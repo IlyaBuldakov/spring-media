@@ -17,6 +17,7 @@ import io.swagger.annotations.Authorization;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public class UserController {
 
 
   @ApiOperation(value = "", authorizations = { @Authorization(value = "Bearer") })
-  @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+  @Secured("hasAnyAuthority('ADMIN', 'MANAGER')")
   @GetMapping
   public CompletableFuture<List<UserDto>> getUsers() {
     int autorizedUserId = authService.getId();

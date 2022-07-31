@@ -58,6 +58,7 @@ public class TaskDto extends TaskListDto {
     this.dateCreated = task.getDateCreated().toString();
     this.contents = task.getAllTaskContent().stream().map(ContentDto::new).toList().toArray(new ContentDto[0]);
     this.files = task.getAllTaskFiles().stream().map(FileDto::new).toList().toArray(new FileDto[0]);
+    this.comments = task.getComments().stream().map(CommentDto::new).toList().toArray(new CommentDto[0]);
 
 
   }

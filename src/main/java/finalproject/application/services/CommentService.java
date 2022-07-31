@@ -6,6 +6,7 @@ import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.user.User;
 import io.vavr.control.Either;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -20,9 +21,8 @@ public interface CommentService {
    *
    * @return id комментария.
    */
-  Future<Either<Failure, Integer>> postCommentToTask(Comment comment, int authorizedUser);
+  CompletableFuture<Either<Failure, Comment>> postCommentToTask(int userId, int taskId, String comment);
 
-  Future<Either<Failure, List<Comment>>> getAllCommentsRelatedToTask(int taskId);
 
-  Future<Either<Failure, List<Comment>>> deleteCommentById(int taskId, int authorizedUser);
+  CompletableFuture<Either<Failure, Void>> deleteCommentById(int taskId, int authorizedUser);
 }

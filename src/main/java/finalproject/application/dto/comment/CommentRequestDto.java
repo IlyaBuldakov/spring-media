@@ -14,7 +14,7 @@ public class CommentRequestDto {
   /**
    * Возвращает @return UserBasicDto author автора коммментария.
    */
-  private @Getter UserBasicDto author;
+  private @Getter int author;
 
   /**
    * Возвращает @return id комментируемой задачи.

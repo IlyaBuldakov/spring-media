@@ -120,7 +120,12 @@ public class ContentServiceImpl implements ContentService {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.CONTENT_NOT_FOUND)));
     }
-
+    if(contentRepository.findById(id).isPresent()) {
+      Content content = contentRepository.findById(id).get();
+      if (content.getTask() != null) {
+        content.getTask().getAllTaskContent().remove(content);
+      }
+    }
     contentRepository.deleteById(id);
     return CompletableFuture.completedFuture(Either.right(null));
 

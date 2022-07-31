@@ -3,6 +3,7 @@ package finalproject.domain.entities.task;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalproject.domain.entities.BaseEntity;
+import finalproject.domain.entities.Comment;
 import finalproject.domain.entities.content.Content;
 import finalproject.domain.entities.content.ContentType;
 import finalproject.domain.entities.failures.BadRequest;
@@ -117,6 +118,11 @@ public class Task extends BaseEntity implements Serializable {
   @Setter
   private LocalDateTime dateExpired;
 
+  @JsonIgnore
+  @Getter
+  @Setter
+  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<Comment> comments;
 
 
   /**Статус задачи.

@@ -1,21 +1,50 @@
 package finalproject.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.User;
 import java.time.LocalDateTime;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 /**
  * Сущность - комментарий.
  */
-public class Comment {
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+public class Comment extends BaseEntity {
 
-  private @Getter int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-  private @Getter int task;
+  @JsonIgnore
+  @Getter
+  @ManyToOne(targetEntity = Task.class)
+  @JoinColumn(name = "taskId")
+  private Task task;
 
-  private @Getter LocalDateTime date;
+  @Column
+  private LocalDateTime date;
 
-  private @Getter User user;
+  @JsonIgnore
+  @Getter
+  @ManyToOne(targetEntity = User.class)
+  @JoinColumn(name = "userId")
+  private User user;
 
-  private @Getter String message;
+  @Column
+  private String message;
+
+  public Comment(Task task,  User user, String message, LocalDateTime date) {
+    this.task = task;
+    this.date = date;
+    this.user = user;
+    this.message = message;
+  }
 }

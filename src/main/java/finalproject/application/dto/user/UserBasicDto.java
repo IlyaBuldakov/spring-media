@@ -1,5 +1,6 @@
 package finalproject.application.dto.user;
 
+import finalproject.domain.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,9 @@ public class UserBasicDto {
    */
   private @Getter String name;
 
+  public UserBasicDto(User user) {
+    this.id = user.getId();
+    this.name = user.getName();
+  }
 
 }

@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("api/content")
 public class ContentController {
 
-  FileStorageService fileStorageService;
+
   AuthService authService;
   ContentService contentService;
 

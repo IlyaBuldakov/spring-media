@@ -5,6 +5,7 @@ package finalproject.domain.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import finalproject.domain.entities.BaseEntity;
+import finalproject.domain.entities.Comment;
 import finalproject.domain.entities.failures.BadRequest;
 import finalproject.domain.entities.failures.Failure;
 import finalproject.domain.entities.failures.Messages;
@@ -98,6 +99,13 @@ public class User extends BaseEntity implements Serializable  {
   @LazyCollection(LazyCollectionOption.FALSE)
   @OneToMany(mappedBy = "contentMaker", cascade = CascadeType.ALL)
   private Set<Task> tasksAsContentMaker;
+
+  @JsonIgnore
+  @Getter
+  @Setter
+  @LazyCollection(LazyCollectionOption.FALSE)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private Set<Comment> comments;
 
   public Integer getId(){return id;}
   public void setId(Integer id){this.id = id;}
