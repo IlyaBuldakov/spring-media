@@ -10,8 +10,10 @@ import io.vavr.control.Either;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+@AllArgsConstructor
 public class ContentService {
   private ContentUseCase.Create create;
   private ContentUseCase.DeleteById deleteById;

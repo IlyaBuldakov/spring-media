@@ -7,7 +7,9 @@ import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.usecases.CommentUseCase;
 import io.vavr.control.Either;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class CommentService {
   private CommentUseCase.Create create;
 

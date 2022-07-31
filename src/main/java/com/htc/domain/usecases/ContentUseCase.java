@@ -1,6 +1,7 @@
 package com.htc.domain.usecases;
 
 import com.htc.domain.entities.Content;
+import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.entities.failures.Failure;
@@ -61,11 +62,12 @@ public class  ContentUseCase {
 
       var previewUrl = Content.Url.create("preview");
 
-
+      Task task = null;
         fileUploadService.uploadFile(params.file);
         fileUploadService.uploadFile(params.file);
         return Either.right(
                 repository.create(
+                        task,
                         type.get(),
                         name.get(),
                         dateCreated,

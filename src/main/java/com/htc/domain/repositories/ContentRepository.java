@@ -26,6 +26,7 @@ public interface ContentRepository {
    */
 
   Content create(
+      Task task,
       Content.Type type,
       Content.Name name,
       LocalDateTime dateCreated,

@@ -7,11 +7,14 @@ import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.usecases.FileUseCase;
 import io.vavr.control.Either;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+@AllArgsConstructor
 public class FileService {
   private FileUseCase.Create create;
   private FileUseCase.DeleteById deleteById;
+  private FileUseCase.GetAllByTask getAllByTask;
 
   /**
    * Создаёт пользователя.

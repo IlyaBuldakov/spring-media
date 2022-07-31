@@ -7,7 +7,9 @@ import com.htc.domain.usecases.NotificationUseCase;
 import com.htc.domain.usecases.UseCase;
 import io.vavr.control.Either;
 import java.util.Collection;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class NotificationService {
 
   private NotificationUseCase.GetAll getAll;

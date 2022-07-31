@@ -117,7 +117,7 @@ public class FileUseCase {
   /**
    * Сценарий получения задачи по ее идентификатору.
    */
-  public static final class GetById extends BaseUseCase<Id, File> {
+  public static final class GetAllByTask extends BaseUseCase<Id, File> {
     private final FileRepository repository;
 
     @Override
@@ -135,12 +135,13 @@ public class FileUseCase {
       return Either.right(file.get());
     }
 
-    public GetById(@NonNull FileRepository repository,
+    public GetAllByTask(@NonNull FileRepository repository,
                    @NonNull UserRepository userRepository) {
       super(userRepository);
       this.repository = repository;
     }
   }
+
 
   /**
    * Запрошенный файл не найден.

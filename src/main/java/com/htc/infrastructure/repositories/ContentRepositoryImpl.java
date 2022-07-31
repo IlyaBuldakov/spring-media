@@ -5,9 +5,7 @@ import com.htc.domain.entities.Task;
 import com.htc.domain.entities.User;
 import com.htc.domain.entities.attributes.Id;
 import com.htc.domain.repositories.ContentRepository;
-import com.htc.infrastructure.models.CommentModel;
 import com.htc.infrastructure.models.ContentModel;
-import com.htc.infrastructure.models.FileModel;
 import com.htc.infrastructure.models.TaskModel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,6 +30,7 @@ public class ContentRepositoryImpl implements ContentRepository {
 
   @Override
   public Content create(
+      Task task,
       Content.Type type,
       Content.Name name,
       LocalDateTime dateCreated,
@@ -73,7 +72,7 @@ public class ContentRepositoryImpl implements ContentRepository {
     var taskModel = taskRepository.tasks.findById(task.id().getValue()).get();
 
     return contents
-        .findAllByTask(taskModel)
+        .findAllByParentTask(taskModel)
         .stream()
         .map(ContentModel::toEntity)
         .collect(Collectors.toList());
@@ -89,7 +88,7 @@ public class ContentRepositoryImpl implements ContentRepository {
    * ORM для доступа к данным медиаконтента в СУБД.
    */
   public interface Contents extends JpaRepository<ContentModel, Integer> {
-    List<ContentModel> findAllByTask(TaskModel taskModel);
+    List<ContentModel> findAllByParentTask(TaskModel taskModel);
 
     //TODO: Запрос должен сдержать строку - часть имени автора, а не его идентификатор.
     List<ContentModel> findAllByAuthorNameAndDateCreatedAndType(String author,
