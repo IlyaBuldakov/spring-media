@@ -5,7 +5,6 @@ import finalproject.application.dto.failures.FailureConverter;
 import finalproject.application.services.AuthService;
 import finalproject.application.services.CommentService;
 import finalproject.domain.entities.Comment;
-import finalproject.domain.entities.content.Content;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.AllArgsConstructor;

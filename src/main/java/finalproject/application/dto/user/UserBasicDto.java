@@ -27,4 +27,5 @@ public class UserBasicDto {
     this.name = user.getName();
   }
 
+
 }

@@ -11,14 +11,15 @@ import finalproject.domain.entities.failures.Messages;
 import finalproject.domain.entities.failures.NotAuthorized;
 import finalproject.domain.entities.failures.NotFound;
 import finalproject.domain.entities.filedocuments.FileDocument;
+import finalproject.domain.entities.notifications.Notification;
+import finalproject.domain.entities.notifications.NotificationType;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
-import finalproject.infrastructure.repositories.ContentRepository;
-import finalproject.infrastructure.repositories.FileDocumentRepository;
-import finalproject.infrastructure.repositories.TaskRepository;
-import finalproject.infrastructure.repositories.UserRepository;
+import finalproject.infrastructure.repositories.*;
 import io.vavr.control.Either;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,9 @@ public class TaskServiceImpl implements TaskService {
 
   private final UserRepository userRepository;
   private final ContentRepository contentRepository;
-  private final FileDocumentRepository fileDocumentRepository;
+  private final NotificationsRepository notificationsRepository;
+
+  private final CommentRepository commentRepository;
 
 
 
@@ -85,6 +88,10 @@ public class TaskServiceImpl implements TaskService {
       for (Content content : contentRepository.findByTaskId(task.getId())) {
         content.setIsPublished(true);
         contentRepository.save(content);
+        NotificationType noteType = NotificationType.valueOf(content.getType().toString());
+        Notification notification = new Notification(noteType, LocalDateTime.now(),
+                authorizedUser, content.getTask(), Notification.Note.APPROVED);
+        notificationsRepository.save(notification);
       }
 
     }
@@ -112,16 +119,9 @@ public class TaskServiceImpl implements TaskService {
         content.setTask(null);
         contentRepository.save(content);
       }
-//     if (task.getContentMaker() != null) {
-//       User contentMaker = task.getContentMaker();
-//       contentMaker.getTasksAsContentMaker().remove(task);
-//       userRepository.save(contentMaker);
-//     }
-//      if (task.getAuthor() != null) {
-//        User author = task.getAuthor();
-//        author.getTasksAsAuthor().remove(task);
-//        userRepository.save(author);
-//      }
+      task.getComments().clear();
+      commentRepository.findByTaskId(id).stream().forEach(comment -> {comment.setTask(null);
+        commentRepository.save(comment);});
       task.setAuthor(null);
       task.setContentMaker(null);
       taskRepository.save(task);

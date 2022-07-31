@@ -90,13 +90,13 @@ public class Task extends BaseEntity implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Set<Content> allTaskContent;
 
   @JsonIgnore
   @Getter
   @Setter
-  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Set<FileDocument> allTaskFiles;
 
 
@@ -121,7 +121,7 @@ public class Task extends BaseEntity implements Serializable {
   @JsonIgnore
   @Getter
   @Setter
-  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private Set<Comment> comments;
 
 
@@ -133,6 +133,8 @@ public class Task extends BaseEntity implements Serializable {
   @Getter
   @Setter
   private TaskStatus taskStatus;
+
+
 
 
 

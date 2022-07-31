@@ -2,6 +2,7 @@ package finalproject.application.dto.task;
 
 
 import finalproject.domain.entities.task.Task;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
@@ -9,7 +10,7 @@ import lombok.Getter;
  * Задача - базовый класс.
  */
 
-
+@AllArgsConstructor
 public class TaskBasicDto {
 
   /**

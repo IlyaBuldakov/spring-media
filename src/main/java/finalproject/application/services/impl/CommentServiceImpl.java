@@ -3,15 +3,19 @@ package finalproject.application.services.impl;
 import finalproject.application.services.CommentService;
 import finalproject.domain.entities.Comment;
 import finalproject.domain.entities.failures.*;
+import finalproject.domain.entities.notifications.Notification;
+import finalproject.domain.entities.notifications.NotificationType;
 import finalproject.domain.entities.task.Task;
 import finalproject.domain.entities.user.Role;
 import finalproject.domain.entities.user.User;
 import finalproject.infrastructure.repositories.CommentRepository;
+import finalproject.infrastructure.repositories.NotificationsRepository;
 import finalproject.infrastructure.repositories.TaskRepository;
 import finalproject.infrastructure.repositories.UserRepository;
 import finalproject.utils.validators.Validators;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,8 +30,10 @@ public class CommentServiceImpl implements CommentService {
   TaskRepository taskRepository;
   UserRepository userRepository;
 
+  NotificationsRepository notificationsRepository;
   CommentRepository commentRepository;
 
+  @Async
   @Override
   public CompletableFuture<Either<Failure, Comment>> postCommentToTask(int userId, int taskId, String commentString) {
     Validators validators = new Validators();
@@ -41,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.TASK_NOT_FOUND)));
     }
-    if (!userRepository.existsById(taskId)) {
+    if (!userRepository.existsById(userId)) {
       return CompletableFuture.completedFuture(Either.left(
               new NotFound(Messages.USER_NOT_FOUND)));
     }
@@ -51,12 +57,16 @@ public class CommentServiceImpl implements CommentService {
             commentString,
             LocalDateTime.now()
            );
+    NotificationType noteType = NotificationType.COMMENT;
+    Notification notification = new Notification(noteType, LocalDateTime.now(),
+            userRepository.findById(userId).get(), taskRepository.findById(taskId).get(), Notification.Note.ADD);
+    notificationsRepository.save(notification);
 
     return CompletableFuture.completedFuture(Either.right(commentRepository.save(comment)));
   }
 
 
-
+@Async
   @Override
   public CompletableFuture<Either<Failure, Void>> deleteCommentById(int id, int auth) {
 
