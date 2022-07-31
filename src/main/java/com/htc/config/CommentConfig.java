@@ -1,6 +1,7 @@
 package com.htc.config;
 
 import com.htc.domain.repositories.CommentRepository;
+import com.htc.domain.repositories.TaskRepository;
 import com.htc.domain.repositories.UserRepository;
 import com.htc.domain.usecases.comment.AddComment;
 import com.htc.domain.usecases.comment.DeleteCommentById;
@@ -14,8 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CommentConfig {
   @Bean
-  public AddComment addComment(CommentRepository repository, UserRepository userRepository) {
-    return new AddComment(repository, userRepository);
+  public AddComment addComment(CommentRepository repository,
+                               UserRepository userRepository,
+                               TaskRepository taskRepository) {
+    return new AddComment(repository, userRepository, taskRepository);
   }
 
   @Bean

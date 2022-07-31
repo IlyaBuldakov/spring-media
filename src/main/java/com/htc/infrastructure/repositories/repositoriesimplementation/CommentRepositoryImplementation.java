@@ -2,11 +2,13 @@ package com.htc.infrastructure.repositories.repositoriesimplementation;
 
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.repositories.CommentRepository;
 import com.htc.infrastructure.models.comment.CommentModel;
+import com.htc.infrastructure.models.task.TaskModel;
 import com.htc.infrastructure.models.user.UserModel;
 import com.htc.infrastructure.repositories.Comments;
 import com.htc.utility.EitherHelper;
@@ -28,14 +30,14 @@ public class CommentRepositoryImplementation implements CommentRepository {
   public CompletableFuture<Either<Failure, Comment>> add(DateCreated dateCreated,
                                                          User author,
                                                          String message,
-                                                         int[] content) {
+                                                         Task task) {
     var commentModel = new CommentModel(
             0L,
             dateCreated.getValue(),
             (UserModel) author,
-            message,
-            Arrays.toString(content)
-    );
+            (TaskModel) task,
+            message
+            );
     return EitherHelper.goodRight(comments.save(commentModel));
   }
 

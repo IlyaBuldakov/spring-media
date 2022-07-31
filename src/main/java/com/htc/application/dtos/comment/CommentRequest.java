@@ -30,13 +30,12 @@ public class CommentRequest {
   /**
    * Контент.
    *
-   * @see com.htc.domain.entities.content.Content
+   * @see com.htc.domain.entities.task.Task
    *
-   * @return content формат
+   * @return task задача
    */
-  //TODO реализовать список идентификаторов Content
   @SuppressWarnings("JavadocDeclaration")
-  private @Getter int[] content;
+  private @Getter Long taskId;
 
   private CommentRequest() {}
 }

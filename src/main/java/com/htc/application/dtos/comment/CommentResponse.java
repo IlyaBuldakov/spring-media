@@ -1,6 +1,7 @@
 package com.htc.application.dtos.comment;
 
-import com.htc.application.dtos.user.UserResponse;
+import com.htc.application.dtos.task.TaskResponse;
+import com.htc.application.dtos.user.UserShortResponse;
 import com.htc.domain.entities.comment.Comment;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class CommentResponse {
    * @return author автор
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter UserResponse author;
+  private final @Getter UserShortResponse author;
 
   /**
    * Текст.
@@ -48,7 +49,7 @@ public class CommentResponse {
    * @return content контент
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter int[] content;
+  private final @Getter TaskResponse task;
 
   /**
    * Создание основного представления комментария.
@@ -58,8 +59,8 @@ public class CommentResponse {
   public CommentResponse(Comment comment) {
     this.id = comment.getId().getValue();
     this.dateCreated = comment.getDateCreated().getValue();
-    this.author = new UserResponse(comment.getAuthor());
+    this.author = new UserShortResponse(comment.getAuthor());
     this.message = comment.getMessage();
-    this.content = comment.getContents();
+    this.task = new TaskResponse(comment.getTask());
   }
 }

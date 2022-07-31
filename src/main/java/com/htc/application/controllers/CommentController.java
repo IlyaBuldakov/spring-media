@@ -2,6 +2,7 @@ package com.htc.application.controllers;
 
 import com.htc.application.dtos.comment.CommentRequest;
 import com.htc.application.dtos.comment.CommentResponse;
+import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.usecases.comment.AddComment;
 import com.htc.domain.usecases.comment.DeleteCommentById;
 import com.htc.domain.usecases.comment.GetCommentById;
@@ -42,9 +43,9 @@ public class CommentController {
     ControllerHelper.customRequest(
             addComment,
             new AddComment.Params(
-                    commentRequest.getAuthorId(), "authorId",
-                    commentRequest.getMessage(), "message",
-                    commentRequest.getContent(), "content"
+                    Id.create(commentRequest.getAuthorId()).get(),
+                    commentRequest.getMessage(),
+                    Id.create(commentRequest.getTaskId()).get()
             ),
             null
     );
@@ -61,7 +62,7 @@ public class CommentController {
   public CompletableFuture<CommentResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getCommentById,
-            new GetCommentById.Params(id, "id"),
+            new GetCommentById.Params(Id.create(id).get()),
             CommentResponse::new
     );
   }
@@ -76,7 +77,7 @@ public class CommentController {
   public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteCommentById,
-            new DeleteCommentById.Params(id, "id"),
+            new DeleteCommentById.Params(Id.create(id).get()),
             null
     );
   }

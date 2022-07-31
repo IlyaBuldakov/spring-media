@@ -2,6 +2,7 @@ package com.htc.domain.repositories;
 
 import com.htc.domain.entities.comment.Comment;
 import com.htc.domain.entities.failures.Failure;
+import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
@@ -18,14 +19,13 @@ public interface CommentRepository {
    * @param dateCreated дата создания
    * @param author автор
    * @param message текст комментария
-   * @param content контент (набор)
+   * @param task задача
    * @return comment новый комментарий, подробнее {@link Comment}
    */
-  //TODO реализовать список Content
   CompletableFuture<Either<Failure, Comment>> add(DateCreated dateCreated,
                                                   User author,
                                                   String message,
-                                                  int[] content);
+                                                  Task task);
 
   /**
    * Получение комментария по идентификатору.

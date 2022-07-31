@@ -1,9 +1,11 @@
 package com.htc.infrastructure.models.comment;
 
 import com.htc.domain.entities.comment.Comment;
+import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
+import com.htc.infrastructure.models.task.TaskModel;
 import com.htc.infrastructure.models.user.UserModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,9 +34,10 @@ public class CommentModel implements Comment {
   @JoinColumn(name = "authorId", nullable = false)
   UserModel author;
 
+  @ManyToOne
+  @JoinColumn(name = "taskId", nullable = false)
+  TaskModel task;
   String message;
-
-  String contents;
 
   @Override
   public Id getId() {
@@ -57,8 +60,8 @@ public class CommentModel implements Comment {
   }
 
   @Override
-  public int[] getContents() {
-    return new int[0];
+  public Task getTask() {
+    return this.task;
   }
 
   protected CommentModel() {}

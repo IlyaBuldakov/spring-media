@@ -1,5 +1,6 @@
 package com.htc.domain.entities.comment;
 
+import com.htc.domain.entities.task.Task;
 import com.htc.domain.entities.user.User;
 import com.htc.domain.entities.utility.parameters.DateCreated;
 import com.htc.domain.entities.utility.parameters.Id;
@@ -41,10 +42,9 @@ public interface Comment {
   String getMessage();
 
   /**
-   * Получить {@link com.htc.domain.entities.content.Content контент}.
+   * Получить {@link Task задача}.
    *
-   * @return content контент (набор)
+   * @return task задача
    */
-  //TODO реализовать список контента
-  int[] getContents();
+  Task getTask();
 }
