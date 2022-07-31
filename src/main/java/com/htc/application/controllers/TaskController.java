@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,6 +52,7 @@ public class TaskController {
    */
   @Operation(summary = "Добавить новую задачу.")
   @PostMapping
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'CONTENT_MAKER')")
   public void add(@RequestBody TaskRequest taskRequest) {
     ControllerHelper.customRequest(
             addTask,
@@ -132,6 +134,7 @@ public class TaskController {
    *
    * @param id идентификатор
    */
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'CONTENT_MAKER')")
   @Operation(summary = "Удалить задачу по идентификатору.")
   @DeleteMapping(path = "/{id}")
   public CompletableFuture<Void> delete(@PathVariable Long id) {

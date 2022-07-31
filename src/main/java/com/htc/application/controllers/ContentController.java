@@ -47,7 +47,6 @@ public class ContentController {
   @Operation(summary = "Добавить новый контент.")
   @PostMapping
   public void add(@RequestBody ContentRequest contentRequest) {
-    //TODO Controllers проверить на назначение DTO согласно спецификации
     ControllerHelper.customRequest(
             addContent,
             new AddContent.Params(

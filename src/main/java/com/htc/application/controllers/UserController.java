@@ -2,6 +2,7 @@ package com.htc.application.controllers;
 
 import com.htc.application.dtos.user.UserRequest;
 import com.htc.application.dtos.user.UserResponse;
+import com.htc.application.services.TokenService;
 import com.htc.domain.entities.utility.parameters.EntityName;
 import com.htc.domain.entities.utility.parameters.Id;
 import com.htc.domain.entities.utility.parameters.user.UserEmail;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,13 +47,16 @@ public class UserController {
   private GetUserById getUserById;
   private GetAllUsers getAllUsers;
 
+  private TokenService tokenService;
+
   /**
    * Добавление пользователя.
    */
   @Operation(summary = "Добавить нового пользователя.")
   @PostMapping
-  public void add(@AuthenticationPrincipal Id subjectId,
-                  @RequestBody UserRequest userRequest) {
+  @PreAuthorize("hasAnyAuthority('ADMIN')")
+  public void add(@RequestBody UserRequest userRequest) {
+    var aa = tokenService.getAuthInfo().getDetails();
     ControllerHelper.customRequest(
             addUser,
             new AddUser.Params(
@@ -72,10 +76,10 @@ public class UserController {
    * @param id идентификатор
    * @return user пользователь
    */
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'CONTENT_MAKER')")
   @Operation(summary = "Получить пользователя по идентификатору.")
   @GetMapping(path = "/{id}")
-  public CompletableFuture<UserResponse> get(@AuthenticationPrincipal Id subjectId,
-                                             @PathVariable Long id) {
+  public CompletableFuture<UserResponse> get(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             getUserById,
             new GetUserById.Params(Id.create(id).get()),
@@ -90,7 +94,8 @@ public class UserController {
    */
   @Operation(summary = "Получить список всех пользователей.")
   @GetMapping
-  public CompletableFuture<List<UserResponse>> getAll(@AuthenticationPrincipal Id subjectId) {
+  @PreAuthorize("hasAnyAuthority('ADMIN', 'CONTENT_MAKER')")
+  public CompletableFuture<List<UserResponse>> getAll() {
     return ControllerHelper.customRequest(
       getAllUsers,
       null,
@@ -107,8 +112,8 @@ public class UserController {
    */
   @Operation(summary = "Обновить пользователя по идентификатору.")
   @PutMapping(path = "/{id}")
-  public void update(@AuthenticationPrincipal Id subjectId,
-                     @PathVariable Long id, @RequestBody UserRequest userRequest) {
+  @PreAuthorize("hasAnyAuthority('ADMIN')")
+  public void update(@PathVariable Long id, @RequestBody UserRequest userRequest) {
     ControllerHelper.customRequest(
             updateUserById,
             new UpdateUserById.Params(
@@ -128,10 +133,10 @@ public class UserController {
    *
    * @param id идентификатор
    */
+  @PreAuthorize("hasAnyAuthority('ADMIN')")
   @Operation(summary = "Удалить пользователя по идентификатору.")
   @DeleteMapping(path = "/{id}")
-  public CompletableFuture<Void> delete(@AuthenticationPrincipal Id subjectId,
-                                        @PathVariable Long id) {
+  public CompletableFuture<Void> delete(@PathVariable Long id) {
     return ControllerHelper.customRequest(
             deleteUserById,
             new DeleteUserById.Params(Id.create(id).get()),

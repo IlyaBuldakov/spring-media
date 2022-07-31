@@ -2,6 +2,7 @@ package com.htc.application.services;
 
 import com.htc.domain.entities.utility.parameters.Id;
 import java.util.Collection;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.Authentication;
@@ -12,13 +13,14 @@ import org.springframework.security.core.GrantedAuthority;
  */
 @AllArgsConstructor
 public class UserAuthenticationToken implements Authentication {
-  @Getter private final Id id;
+  private final @Getter Id id;
+  private final @Getter Set<AuthorizeRole> roles;
 
   private boolean authenticated = true;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    return getRoles();
   }
 
   @Override
