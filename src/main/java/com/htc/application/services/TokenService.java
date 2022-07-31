@@ -115,14 +115,4 @@ public class TokenService {
   public TokenService(@Value("${authentication.secret}") String secret) {
     this.algorithm = Algorithm.HMAC256(secret);
   }
-
-  /**
-   * Получение информации по аутентификации.
-   *
-   * @return info информация об аутентифицированном пользователе
-   */
-  // TODO: применить в контроллере
-  public UserAuthenticationToken getAuthInfo() {
-    return (UserAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-  }
 }

@@ -36,7 +36,6 @@ public class DateCreated extends EntityParameter<String> {
    *
    * @return result дата создания
    */
-  //TODO проверка на соответствие regex
   public static Either<Failure, DateCreated> create(String date) {
     return (!(date.length() > 0))
             ? Either.left(new InvalidValues(Map.of(

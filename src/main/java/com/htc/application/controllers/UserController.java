@@ -56,7 +56,6 @@ public class UserController {
   @PostMapping
   @PreAuthorize("hasAnyAuthority('ADMIN')")
   public void add(@RequestBody UserRequest userRequest) {
-    var aa = tokenService.getAuthInfo().getDetails();
     ControllerHelper.customRequest(
             addUser,
             new AddUser.Params(
