@@ -5,9 +5,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.htc.application.dto.errors.InternalServerErrorResponse;
+import com.htc.application.dto.errors.UnauthorizedResponse;
 import com.htc.application.dto.login.LoginResponse;
 import com.htc.application.security.UserAuthentication;
 import com.htc.application.services.JwtService;
+import com.htc.domain.entities.failure.Unauthorized;
 import com.htc.domain.entities.user.Role;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -99,9 +101,13 @@ public class JwtServiceImpl implements JwtService {
    */
   @Override
   public String getTokenFromHeader(String header) {
-    var matcher = tokenPattern.matcher(header);
-    matcher.find();
-    return matcher.group("token");
+    try {
+      var matcher = tokenPattern.matcher(header);
+      matcher.find();
+      return matcher.group("token");
+    } catch (IllegalStateException e) {
+      throw new UnauthorizedResponse(Unauthorized.DEFAULT_MESSAGE.getMessage());
+    }
   }
 
   /**
