@@ -12,7 +12,7 @@ public class ForbiddenResponse extends AbstractDtoError {
   /**
    * HTTP статус ошибки.
    */
-  private final @Getter HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+  private final @Getter HttpStatus httpStatus = HttpStatus.FORBIDDEN;
 
   /**
    * Код HTTP статуса для сериализации ошибки.
@@ -21,10 +21,5 @@ public class ForbiddenResponse extends AbstractDtoError {
 
   public ForbiddenResponse() {
     super(Forbidden.getMessage());
-  }
-
-  @Override
-  public HttpStatus getHttpStatus() {
-    return null;
   }
 }
