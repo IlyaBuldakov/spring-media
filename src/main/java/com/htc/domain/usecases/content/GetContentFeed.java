@@ -4,7 +4,6 @@ import com.htc.domain.entities.Content;
 import com.htc.domain.entities.failures.Failure;
 import com.htc.domain.repositories.ContentRepository;
 import com.htc.domain.usecases.UseCase;
-import com.htc.domain.usecases.comment.GetCommentsByTaskId;
 import io.vavr.control.Either;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
@@ -12,7 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
- * Сценарий получения списка всех пользователей.
+ * Сценарий получения ленты контента.
  */
 @Component
 @AllArgsConstructor
