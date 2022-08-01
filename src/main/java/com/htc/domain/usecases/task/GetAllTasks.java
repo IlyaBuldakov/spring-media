@@ -20,6 +20,6 @@ public class GetAllTasks implements UseCase<Void, Collection<Task>> {
 
   @Override
   public CompletableFuture<Either<Failure, Collection<Task>>> execute(Void param) {
-    return null;
+    return repository.getAll();
   }
 }

@@ -1,9 +1,9 @@
 package com.htc.application.controllers;
 
+import com.htc.application.utility.FileParsing;
 import com.htc.domain.usecases.file.DeleteFileById;
 import com.htc.domain.usecases.file.UploadFile;
 import com.htc.utility.Controllers;
-import com.htc.utility.FileParsing;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;

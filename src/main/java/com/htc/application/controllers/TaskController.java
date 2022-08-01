@@ -1,7 +1,7 @@
 package com.htc.application.controllers;
 
 import com.htc.application.dto.task.TaskRequest;
-import com.htc.domain.entities.Task;
+import com.htc.application.dto.task.TaskResponse;
 import com.htc.domain.usecases.task.CreateTask;
 import com.htc.domain.usecases.task.DeleteTaskById;
 import com.htc.domain.usecases.task.GetAllTasks;
@@ -11,8 +11,10 @@ import com.htc.utility.Controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,8 +64,22 @@ public class TaskController {
    * @param id Идентификатор задачи.
    */
   @PutMapping(path = "/{id}")
-  public void update(@PathVariable int id) {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Operation(summary = "Изменить задачу по идентификатору")
+  @Async
+  public void update(@PathVariable int id, @RequestBody TaskRequest taskRequest) {
+    Controllers.handleRequest(
+        updateTask,
+        new UpdateTaskById.Params(
+            id, "id",
+            taskRequest.name, "name",
+            taskRequest.type, "type",
+            taskRequest.description, "description",
+            taskRequest.authorId, "authorId",
+            taskRequest.executorId, "executorId",
+            taskRequest.dateExpired, "dateExpired",
+            taskRequest.status, "status"),
+        null
+    );
   }
 
   /**
@@ -72,32 +88,46 @@ public class TaskController {
    * @param id Идентификатор задачи.
    */
   @DeleteMapping(path = "/{id}")
+  @Operation(summary = "Удалить задачу по идентификатору")
+  @Async
   public void delete(@PathVariable int id) {
-    throw new UnsupportedOperationException("Метод не реализован");
+    Controllers.handleRequest(
+        deleteTaskById,
+        new DeleteTaskById.Params(id, "id"),
+        null
+    );
   }
 
   /**
-   * Возвращает задачу.
+   * Получает задачу по идентификатору.
    *
    * @param id Идентификатор задачи.
-   * @return Задача.
-   * @throws ExecutionException Ошибка выполения запроса.
-   * @throws InterruptedException Ошибка выполения запроса.
+   * @return Представление сущности задача.
    */
   @GetMapping(path = "/{id}")
-  public Task get(@PathVariable int id) throws ExecutionException, InterruptedException {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Operation(summary = "Получить задачу по идентификатору")
+  @Async
+  public CompletableFuture<TaskResponse> get(@PathVariable int id) {
+    return Controllers.handleRequest(
+        getTaskById,
+        new GetTaskById.Params(id, "id"),
+        TaskResponse::new);
   }
 
   /**
-   * Возвращает список всех задач.
+   * Получает список задач.
    *
-   * @return Список задач.
-   * @throws ExecutionException Ошибка выполения запроса.
-   * @throws InterruptedException Ошибка выполения запроса.
+   * @return Список представлений сущности задач.
    */
   @GetMapping
-  public Iterable<Task> getAll() throws ExecutionException, InterruptedException {
-    throw new UnsupportedOperationException("Метод не реализован");
+  @Operation(summary = "Получить список задач")
+  @Async
+  public CompletableFuture<Iterable<TaskResponse>> getAll() {
+    return Controllers.handleRequest(
+        getAllTasks,
+        null,
+        tasks -> tasks.stream()
+            .map(TaskResponse::new)
+            .collect(Collectors.toList()));
   }
 }

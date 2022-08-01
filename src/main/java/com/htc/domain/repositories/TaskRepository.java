@@ -42,25 +42,20 @@ public interface TaskRepository {
    * @param name Название задачи.
    * @param type Тип контента в задаче.
    * @param description Описание задачи.
-   * @param fileId Прикрепленные к задаче файлы.
    * @param authorId Идентификатор автора задачи.
    * @param executorId Идентификатор испольнителя задачи.
    * @param dateExpired Дата окончания задачи.
-   * @param contentsId Прикрепленный контент.
-   * @param commentsId Прикрепленные комментарии к задаче.
    * @param status Статус задачи.
    * @return Задача или ошибка.
    */
   CompletableFuture<Either<Failure, Task>> update(
+      Id id,
       String name,
       Content.Type type,
       String description,
-      int[] fileId,
       int authorId,
       int executorId,
       LocalDateTime dateExpired,
-      int[] contentsId,
-      int[] commentsId,
       Task.Status status
   );
 
