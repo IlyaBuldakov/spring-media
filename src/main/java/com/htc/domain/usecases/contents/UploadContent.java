@@ -29,8 +29,8 @@ public class UploadContent {
    * Роли, которым разрешено данное действие.
    */
   private final Role[] permittedRoles = new Role[]{
-          Role.ADMIN,
-          Role.CONTENT_MAKER
+      Role.ADMIN,
+      Role.CONTENT_MAKER
   };
 
   /**
@@ -40,8 +40,9 @@ public class UploadContent {
    * @param taskId   Идентификатор задачи.
    * @return void.
    */
-  public CompletableFuture<Either<Failure, Void>> execute(int authorId, Set<String> permissions, String fileName,
-                                                          File file, String url, String taskId) {
+  public CompletableFuture<Either<Failure, Void>> execute(int authorId, Set<String> permissions,
+                                                          String fileName, File file,
+                                                          String url, String taskId) {
     var expectedFailure = ValuesValidator.validateStringId(taskId);
     if (expectedFailure != null) {
       return Results.fail(expectedFailure);

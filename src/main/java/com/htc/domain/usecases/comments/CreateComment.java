@@ -26,9 +26,9 @@ public class CreateComment {
    * Роли, которым разрешено данное действие.
    */
   private final Role[] permittedRoles = new Role[]{
-          Role.ADMIN,
-          Role.MANAGER,
-          Role.CONTENT_MAKER
+      Role.ADMIN,
+      Role.MANAGER,
+      Role.CONTENT_MAKER
   };
 
   /**

@@ -158,6 +158,12 @@ public class FileHelper {
             + fileName;
   }
 
+  /**
+   * Получение типа контента.
+   *
+   * @param file Файл контента.
+   * @return Тип контента.
+   */
   public static ContentType getContentType(File file) {
     try {
       var type = new DefaultDetector()

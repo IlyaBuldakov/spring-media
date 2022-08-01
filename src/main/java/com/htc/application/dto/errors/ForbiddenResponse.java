@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 /**
  * Представление ошибки "Нет доступа".
  */
-public class ForbiddenResponse extends AbstractDtoError{
+public class ForbiddenResponse extends AbstractDtoError {
 
   /**
    * HTTP статус ошибки.

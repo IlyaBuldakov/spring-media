@@ -28,6 +28,12 @@ public class TasksController {
 
   TasksService tasksService;
 
+  /**
+   * Получение задачи по идентификатору.
+   *
+   * @param id Идентификатор задачи.
+   * @return Представление задачи (ответ).
+   */
   @GetMapping("/{id}")
   @Async
   public CompletableFuture<TaskResponse> getById(@PathVariable String id) {
@@ -36,6 +42,11 @@ public class TasksController {
             securityContext.getAuthentication().getAuthorities(), id);
   }
 
+  /**
+   * Получение списка всех задач.
+   *
+   * @return Список представления задач (ответ).
+   */
   @GetMapping
   @Async
   public CompletableFuture<List<TaskResponse>> getAll() {
@@ -44,6 +55,12 @@ public class TasksController {
             securityContext.getAuthentication().getAuthorities());
   }
 
+  /**
+   * Создание задачи.
+   *
+   * @param taskRequest Представление задачи (запрос).
+   * @return void.
+   */
   @PostMapping
   @Async
   public CompletableFuture<Void> create(@RequestBody TaskRequest taskRequest) {
@@ -52,6 +69,13 @@ public class TasksController {
             securityContext.getAuthentication().getAuthorities(), taskRequest);
   }
 
+  /**
+   * Обновление задачи.
+   *
+   * @param taskRequest Представление задачи (запрос).
+   * @param id          Идентификатор задачи.
+   * @return void.
+   */
   @PutMapping("/{id}")
   @Async
   public CompletableFuture<Void> update(@RequestBody TaskRequest taskRequest,
@@ -61,6 +85,12 @@ public class TasksController {
             securityContext.getAuthentication().getAuthorities(), taskRequest, id);
   }
 
+  /**
+   * Удаление задачи по идентификатору.
+   *
+   * @param id Идентификатор задачи.
+   * @return void.
+   */
   @DeleteMapping("/{id}")
   @Async
   public CompletableFuture<Void> delete(@PathVariable("id") String id) {

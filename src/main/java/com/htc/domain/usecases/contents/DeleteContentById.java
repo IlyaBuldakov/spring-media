@@ -26,7 +26,7 @@ public class DeleteContentById {
    * Роли, которым разрешено данное действие.
    */
   private final Role[] permittedRoles = new Role[]{
-          Role.ADMIN
+      Role.ADMIN
   };
 
   /**

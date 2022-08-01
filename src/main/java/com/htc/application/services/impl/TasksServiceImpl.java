@@ -36,7 +36,8 @@ public class TasksServiceImpl implements TasksService {
    * @return Список {@link TaskResponse представления} задач.
    */
   @Override
-  public CompletableFuture<List<TaskResponse>> getAll(Collection<? extends GrantedAuthority> authorities) {
+  public CompletableFuture<List<TaskResponse>> getAll(
+          Collection<? extends GrantedAuthority> authorities) {
     var permissions = ServiceHelper.getPermissions(authorities);
     return getAllTasks.execute(permissions)
             .thenApply(either ->

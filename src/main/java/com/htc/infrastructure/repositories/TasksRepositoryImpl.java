@@ -46,7 +46,8 @@ public class TasksRepositoryImpl implements TasksRepository {
                                                          String description, int author,
                                                          int executor, LocalDate dateExpired) {
     if (usersJpaRepository.existsById(author) && usersJpaRepository.existsById(executor)) {
-      tasksJpaRepository.save(new TaskMapper(name, type, description, author, executor, dateExpired));
+      tasksJpaRepository.save(
+              new TaskMapper(name, type, description, author, executor, dateExpired));
       return Results.nullValue();
     }
     return Results.fail(NotFound.USER);

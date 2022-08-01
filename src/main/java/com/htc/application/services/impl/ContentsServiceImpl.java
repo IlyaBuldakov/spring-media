@@ -6,9 +6,9 @@ import com.htc.application.services.ContentsService;
 import com.htc.application.services.ExceptionDtoResolver;
 import com.htc.application.services.ServiceHelper;
 import com.htc.domain.entities.failure.Failure;
-import com.htc.domain.usecases.contents.UploadContent;
 import com.htc.domain.usecases.contents.DeleteContentById;
 import com.htc.domain.usecases.contents.GetAllContent;
+import com.htc.domain.usecases.contents.UploadContent;
 import com.htc.domain.usecases.file.SaveFile;
 import com.htc.util.FileHelper;
 import io.vavr.control.Either;
@@ -54,7 +54,8 @@ public class ContentsServiceImpl implements ContentsService {
    *
    * @return Список контента.
    */
-  public CompletableFuture<List<ContentResponse>> getAll(Collection<? extends GrantedAuthority> authorities) {
+  public CompletableFuture<List<ContentResponse>> getAll(
+          Collection<? extends GrantedAuthority> authorities) {
     var permissions = ServiceHelper.getPermissions(authorities);
     return getAllContent.execute(permissions)
             .thenApply(either -> either.map(

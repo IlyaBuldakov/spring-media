@@ -24,6 +24,13 @@ public class FilesController {
 
   FilesService filesService;
 
+  /**
+   * Загрузка файла.
+   *
+   * @param file   Файл.
+   * @param taskId Идентификатор задачи.
+   * @return void.
+   */
   @PostMapping
   @Async
   public CompletableFuture<Void> uploadFile(@RequestParam("file") MultipartFile file,
@@ -34,6 +41,12 @@ public class FilesController {
             file, taskId);
   }
 
+  /**
+   * Удаление файла.
+   *
+   * @param fileId Идентификатор файла.
+   * @return void.
+   */
   @DeleteMapping("/{id}")
   @Async
   public CompletableFuture<Void> deleteFile(@PathVariable("id") String fileId) {

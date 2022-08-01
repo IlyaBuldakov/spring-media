@@ -24,9 +24,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class FilesRepositoryImpl implements FilesRepository {
 
-  /**
-   * JPA-репозиторий.
-   */
   FilesJpaRepository filesJpaRepository;
 
   TasksJpaRepository tasksJpaRepository;

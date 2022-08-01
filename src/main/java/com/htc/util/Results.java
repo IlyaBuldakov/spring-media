@@ -18,7 +18,7 @@ public class Results {
    * @return Обертка {@link CompletableFuture} + {@link Either}.
    */
   public static <ResultT>
-  CompletableFuture<Either<Failure, ResultT>> success(
+      CompletableFuture<Either<Failure, ResultT>> success(
           ResultT result
   ) {
     return CompletableFuture.completedFuture(Either.right(result));
@@ -33,7 +33,7 @@ public class Results {
    * @return Обертка {@link CompletableFuture} + {@link Either}.
    */
   public static <FailureT, ResultT>
-  CompletableFuture<Either<FailureT, ResultT>> fail(
+      CompletableFuture<Either<FailureT, ResultT>> fail(
           FailureT failure
   ) {
     return CompletableFuture.completedFuture(Either.left(failure));

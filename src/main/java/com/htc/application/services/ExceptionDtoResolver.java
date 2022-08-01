@@ -8,11 +8,11 @@ import com.htc.application.dto.errors.NotFoundResponse;
 import com.htc.application.dto.errors.UnauthorizedResponse;
 import com.htc.domain.entities.failure.AlreadyExists;
 import com.htc.domain.entities.failure.Failure;
+import com.htc.domain.entities.failure.Forbidden;
 import com.htc.domain.entities.failure.InvalidValue;
 import com.htc.domain.entities.failure.InvalidValuesContainer;
 import com.htc.domain.entities.failure.NotFound;
 import com.htc.domain.entities.failure.Unauthorized;
-import com.htc.domain.entities.failure.Forbidden;
 
 /**
  * Класс, объединяющий в себе логику преобразования

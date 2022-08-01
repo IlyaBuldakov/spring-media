@@ -55,7 +55,8 @@ public class ContentsRepositoryImpl implements ContentsRepository {
                                                          Content.ContentFormat contentFormat,
                                                          String url, int taskId) {
     if (tasksJpaRepository.existsById(taskId)) {
-      contentsJpaRepository.save(new ContentMapper(name, type, authorId, contentFormat, url, taskId));
+      contentsJpaRepository.save(
+              new ContentMapper(name, type, authorId, contentFormat, url, taskId));
       return Results.nullValue();
     }
     return Results.fail(NotFound.TASK);

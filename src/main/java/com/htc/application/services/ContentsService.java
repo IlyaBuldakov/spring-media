@@ -20,7 +20,8 @@ public interface ContentsService {
    *
    * @return Список контента.
    */
-  CompletableFuture<List<ContentResponse>> getAll(Collection<? extends GrantedAuthority> authorities);
+  CompletableFuture<List<ContentResponse>> getAll(
+          Collection<? extends GrantedAuthority> authorities);
 
   /**
    * Создание контента.
