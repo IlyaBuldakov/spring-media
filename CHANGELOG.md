@@ -4,6 +4,31 @@ ___
 
 Формат списка изменений - [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/). Проект следует [семантическому версионированию](https://semver.org/lang/ru/)
 
+## [v0.10.0] - 2022.08.01
+
+- 
+___
+### Добавлено
+
+- Класс для оборачивания результатов (`Results`)
+- Проработаны ошибочные ситуации для входящих данных в реализациях репозиториев
+- Метод определения типа контента
+- Ошибка Forbidden
+- Плагин с настройкой для создания executable jar
+
+### Исправлено
+
+- Алгоритм проверки роли пользователя при авторизации в UseCase'ах
+
+### Удалено
+
+- Тесты в проекте (удалены в связи с неработоспособностью)
+
+### Изменено
+
+- CascadeType в `TaskMapper` на REMOVE
+- Стилистические изменения, мелкие коррективы, в том числе Javadoc
+
 ## [v0.9.0] - 2022.07.30
 
 ___
@@ -211,4 +236,5 @@ ___
 [v0.6.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.5.0...ilya.buldakov-v0.6.0
 [v0.7.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.6.0...ilya.buldakov-v0.7.0
 [v0.8.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.7.0...ilya.buldakov-v0.8.0
-[v0.8.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.8.0...ilya.buldakov-v0.9.0
+[v0.9.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.8.0...ilya.buldakov-v0.9.0
+[v0.10.0]: https://gitlab.study.htc-cs.com/root/java/java-22-1/-/compare/ilya.buldakov-v0.9.0...ilya.buldakov-v0.10.0
