@@ -28,13 +28,10 @@ Spring
 - **com.auth0:java-jwt** - генерация и валидация JWT токенов.
 
 # Инструкции
-___
 ## Сборка проекта
-___
 Для сборки проекта необходимо выполнить команду `mvn package`.
 
 ## Настройка проекта
-___
 В [application.properties](src/main/resources/application.properties) установить следующие параметры:
 1. `spring.datasource.url` - ссылка базу данных в PostgreSQL.
 2. `spring.datasource.username` - имя пользователя PostgreSQL.
@@ -42,10 +39,8 @@ ___
 4. `authentication.key` - ключ шифрования JWT.
 
 ## Установка проекта
-___
 
 ## Запуск проекта
-___
 Для запуска проекта необходимо выполнить команду `mvn package` и запустить `media/media-{version}.jar`
 
 ## Не реализовано (что нужно доделать)
