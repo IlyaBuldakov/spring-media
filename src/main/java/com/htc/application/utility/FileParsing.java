@@ -1,4 +1,4 @@
-package com.htc.utility;
+package com.htc.application.utility;
 
 import static com.htc.domain.entities.File.Format.DOC;
 import static com.htc.domain.entities.File.Format.DOCX;

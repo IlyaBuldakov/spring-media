@@ -1,4 +1,4 @@
-package com.htc.utility;
+package com.htc.application.utility;
 
 import com.htc.domain.entities.Content;
 import com.htc.domain.entities.Content.Format;

@@ -1,10 +1,10 @@
 package com.htc.application.controllers;
 
 import com.htc.application.dto.content.ContentResponse;
+import com.htc.application.utility.ContentParsing;
 import com.htc.domain.usecases.content.DeleteContentById;
 import com.htc.domain.usecases.content.GetContentFeed;
 import com.htc.domain.usecases.content.UploadContent;
-import com.htc.utility.ContentParsing;
 import com.htc.utility.Controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
