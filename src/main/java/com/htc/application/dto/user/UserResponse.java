@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 public class UserResponse {
   /**
-   * Идентификатор пользователя.
+   * Получает идентификатор пользователя.
    *
    * @return id Идентификатор пользователя.
    */
@@ -45,7 +45,7 @@ public class UserResponse {
    * @return id Роль пользователя.
    */
   @SuppressWarnings("JavadocDeclaration")
-  private final @Getter User.Role role;
+  private final @Getter RoleResponse role;
 
   /**
    * Создаёт экземпляр класса {@link UserResponse}.
@@ -57,6 +57,6 @@ public class UserResponse {
     this.name = user.getName().getValue();
     this.email = user.getEmail().getValue();
     this.image = user.getImage().getValue();
-    this.role = user.getRole();
+    this.role = new RoleResponse(user.getRole());
   }
 }
