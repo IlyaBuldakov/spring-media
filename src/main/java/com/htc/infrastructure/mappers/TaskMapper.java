@@ -92,7 +92,7 @@ public class TaskMapper implements Task {
 
   private @Getter String description;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.REMOVE)
   @JoinColumn(name = "task_id")
   @LazyCollection(LazyCollectionOption.FALSE)
   private @Getter List<FileMapper> files;
@@ -117,12 +117,12 @@ public class TaskMapper implements Task {
   @Column(name = "date_expired")
   private @Getter LocalDate dateExpired;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.REMOVE)
   @JoinColumn(name = "task_id")
   @LazyCollection(LazyCollectionOption.FALSE)
   private @Getter List<ContentMapper> contents;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.REMOVE)
   @JoinColumn(name = "task_id")
   @LazyCollection(LazyCollectionOption.FALSE)
   private @Getter List<CommentMapper> comments;
