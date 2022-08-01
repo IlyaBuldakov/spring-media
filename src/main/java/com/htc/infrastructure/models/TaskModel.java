@@ -6,6 +6,8 @@ import com.htc.domain.entities.attributes.Id;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 
@@ -83,6 +85,7 @@ public class TaskModel implements Task {
   /**
    * Статус задачи.
    */
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private Status status;
 
